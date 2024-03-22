@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "clipId": "1710212322",
+  "format": "md",
+  "title": "使用表单劫持绕过 CSP| PortSwigger 研究 --- Using form hijacking to bypass CSP | PortSwigger Research",
+  "link": "https://portswigger.net/research/using-form-hijacking-to-bypass-csp",
+  "category": "default",
+  "tags": [
+    "portswigger.net"
+  ],
+  "created_at": "2024-03-12 10:58:42",
+  "mainPath": "使用表单劫持绕过 CSP-PortSwigger 研究-Using-form-hijacking-to-bypass-CSP-PortSwigger-Research.md",
+  "paths": [
+    "使用表单劫持绕过 CSP-PortSwigger 研究-Using-form-hijacking-to-bypass-CSP-PortSwigger-Research.index.json",
+    "assets/1710212322-1af6b7884b83ebf46d8fe48d3abcd548.png",
+    "assets/1710212322-1ac8d224de239b7732fe46035c89577d.png",
+    "使用表单劫持绕过 CSP-PortSwigger 研究-Using-form-hijacking-to-bypass-CSP-PortSwigger-Research.md"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": "2.0",
+  "clipId": "1710388281",
+  "format": "md",
+  "title": "挖洞经验 | 在账户注册和意见反馈处发现越权漏洞（IDOR) - FreeBuf 网络安全行业门户",
+  "link": "https://www.freebuf.com/vuls/223987.html",
+  "category": "default",
+  "tags": [
+    "www.freebuf.com"
+  ],
+  "created_at": "2024-03-14 11:51:21",
+  "mainPath": "挖洞经验 - 在账户注册和意见反馈处发现越权漏洞-IDOR-FreeBuf-网络安全行业门户.md",
+  "paths": [
+    "挖洞经验 - 在账户注册和意见反馈处发现越权漏洞-IDOR-FreeBuf-网络安全行业门户.index.json",
+    "assets/1710388281-10d1e0c67b850114b0fdad8222109d0b.png",
+    "挖洞经验 - 在账户注册和意见反馈处发现越权漏洞-IDOR-FreeBuf-网络安全行业门户.md"
+  ]
+}

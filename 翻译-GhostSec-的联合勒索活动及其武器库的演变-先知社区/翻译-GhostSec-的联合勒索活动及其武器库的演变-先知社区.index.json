@@ -1,0 +1,69 @@
+{
+  "version": "2.0",
+<<<<<<< HEAD
+  "clipId": "1710899798",
+=======
+  "clipId": "1710206201",
+>>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
+  "format": "md",
+  "title": "【翻译】GhostSec 的联合勒索活动及其武器库的演变 - 先知社区",
+  "link": "https://xz.aliyun.com/t/14067",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+<<<<<<< HEAD
+  "created_at": "2024-03-20 09:56:38",
+  "mainPath": "翻译-GhostSec-的联合勒索活动及其武器库的演变-先知社区.md",
+  "paths": [
+    "翻译-GhostSec-的联合勒索活动及其武器库的演变-先知社区.index.json",
+    "assets/1710899798-650b9db06317f8f7722c7fbba04c7040.png",
+    "assets/1710899798-39081b858d70c67972984258777f8991.png",
+    "assets/1710899798-6e5e51f4238445eb6c52745738bda475.png",
+    "assets/1710899798-fb60ac9864375c9384ad5b9670dcf9ba.png",
+    "assets/1710899798-c18fcc939a828b01fbe6181c25a5e37b.png",
+    "assets/1710899798-7f1de29139ebc4e9ba5414c69a7d905c.png",
+    "assets/1710899798-cc073b32fcbc08516e0628980a082c2b.png",
+    "assets/1710899798-e89139a54f20648da67aa62a9b0ebeac.png",
+    "assets/1710899798-2aa8b3041819331a2e7f7e187055c83b.png",
+    "assets/1710899798-29b6b4aef4385eba3d92ca538c4a4fe2.png",
+    "assets/1710899798-642a382eb5595dbe68abd62aef820f0c.png",
+    "assets/1710899798-65ea8524e013f8d64d42e9c88bb6f4ef.png",
+    "assets/1710899798-41b4489b528719e5b828aa863aff51ab.png",
+    "assets/1710899798-2f2f9e807717c923d6ee1e305da272fb.png",
+    "assets/1710899798-c64dd900f4a20277ce0fa35bc7508cfd.png",
+    "assets/1710899798-ac49272e4937380a2e4f589d51c29ea4.png",
+    "assets/1710899798-bea43e4f7d9d8131df827830bc980dcf.png",
+    "assets/1710899798-fcfc42c43ab7c05dce3d3ff5e6fa29b3.png",
+    "assets/1710899798-21c826b520e1fddf5d0b5a20c44142e6.png",
+    "assets/1710899798-4a1657de8ee2053f8b47ea58f28da0dd.png",
+    "翻译-GhostSec-的联合勒索活动及其武器库的演变-先知社区.md"
+=======
+  "created_at": "2024-03-12 09:16:41",
+  "mainPath": "翻译-GhostSec-的联合勒索活动及其武器库的演变 - 先知社区.md",
+  "paths": [
+    "翻译-GhostSec-的联合勒索活动及其武器库的演变 - 先知社区.index.json",
+    "assets/1710206201-650b9db06317f8f7722c7fbba04c7040.png",
+    "assets/1710206201-39081b858d70c67972984258777f8991.png",
+    "assets/1710206201-6e5e51f4238445eb6c52745738bda475.png",
+    "assets/1710206201-fb60ac9864375c9384ad5b9670dcf9ba.png",
+    "assets/1710206201-c18fcc939a828b01fbe6181c25a5e37b.png",
+    "assets/1710206201-7f1de29139ebc4e9ba5414c69a7d905c.png",
+    "assets/1710206201-cc073b32fcbc08516e0628980a082c2b.png",
+    "assets/1710206201-e89139a54f20648da67aa62a9b0ebeac.png",
+    "assets/1710206201-2aa8b3041819331a2e7f7e187055c83b.png",
+    "assets/1710206201-29b6b4aef4385eba3d92ca538c4a4fe2.png",
+    "assets/1710206201-642a382eb5595dbe68abd62aef820f0c.png",
+    "assets/1710206201-65ea8524e013f8d64d42e9c88bb6f4ef.png",
+    "assets/1710206201-41b4489b528719e5b828aa863aff51ab.png",
+    "assets/1710206201-2f2f9e807717c923d6ee1e305da272fb.png",
+    "assets/1710206201-c64dd900f4a20277ce0fa35bc7508cfd.png",
+    "assets/1710206201-ac49272e4937380a2e4f589d51c29ea4.png",
+    "assets/1710206201-bea43e4f7d9d8131df827830bc980dcf.png",
+    "assets/1710206201-fcfc42c43ab7c05dce3d3ff5e6fa29b3.png",
+    "assets/1710206201-21c826b520e1fddf5d0b5a20c44142e6.png",
+    "assets/1710206201-4a1657de8ee2053f8b47ea58f28da0dd.png",
+    "翻译-GhostSec-的联合勒索活动及其武器库的演变 - 先知社区.md"
+>>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
+  ]
+}

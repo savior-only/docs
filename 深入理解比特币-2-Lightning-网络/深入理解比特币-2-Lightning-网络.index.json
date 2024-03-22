@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1710207162",
+  "format": "md",
+  "title": "深入理解比特币：（2）Lightning 网络",
+  "link": "https://www.less-bug.com/posts/deep-understanding-of-bitcoin-2-lightning-network/",
+  "category": "default",
+  "tags": [
+    "www.less-bug.com"
+  ],
+  "created_at": "2024-03-12 09:32:42",
+  "mainPath": "深入理解比特币 -2-Lightning-网络.md",
+  "paths": [
+    "深入理解比特币 -2-Lightning-网络.index.json",
+    "深入理解比特币 -2-Lightning-网络.md"
+  ]
+}

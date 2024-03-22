@@ -1,0 +1,21 @@
+{
+  "version": "2.0",
+  "clipId": "1710309427",
+  "format": "md",
+  "title": "Bug Bounty Tips #8",
+  "link": "https://www.infosecmatter.com/bug-bounty-tips-8-oct-14/",
+  "category": "default",
+  "tags": [
+    "www.infosecmatter.com"
+  ],
+  "created_at": "2024-03-13 13:57:07",
+  "mainPath": "Bug-Bounty-Tips-8.md",
+  "paths": [
+    "Bug-Bounty-Tips-8.index.json",
+    "assets/1710309427-59e08a1e6b0deb70ea0986c655df2796.jpg",
+    "assets/1710309427-76d60eb08781880103b603aa96b8b4e4.jpg",
+    "assets/1710309427-351f874e3f342b5bf0b31fc26497132d.jpg",
+    "assets/1710309427-95598219bf6976564977b1955e998e5b.jpg",
+    "Bug-Bounty-Tips-8.md"
+  ]
+}

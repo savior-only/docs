@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1710388124",
+  "format": "md",
+  "title": "挖洞经验 | 如何发现更多的 IDOR 漏洞（越权漏洞） - FreeBuf 网络安全行业门户",
+  "link": "https://www.freebuf.com/vuls/223500.html",
+  "category": "default",
+  "tags": [
+    "www.freebuf.com"
+  ],
+  "created_at": "2024-03-14 11:48:44",
+  "mainPath": "挖洞经验 - 如何发现更多的-IDOR-漏洞 - 越权漏洞-FreeBuf-网络安全行业门户.md",
+  "paths": [
+    "挖洞经验 - 如何发现更多的-IDOR-漏洞 - 越权漏洞-FreeBuf-网络安全行业门户.index.json",
+    "挖洞经验 - 如何发现更多的-IDOR-漏洞 - 越权漏洞-FreeBuf-网络安全行业门户.md"
+  ]
+}

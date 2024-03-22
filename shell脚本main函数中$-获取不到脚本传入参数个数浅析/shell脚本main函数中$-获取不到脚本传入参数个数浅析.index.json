@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1710389216",
+  "format": "md",
+  "title": "shell 脚本 main 函数中$#获取不到脚本传入参数个数浅析",
+  "link": "https://mp.weixin.qq.com/s?__biz=Mzg2OTAwMTE3NQ==&mid=2247488822&idx=1&sn=12ad368fb755cca946d82642f7747d4f&chksm=cea2e78ef9d56e98adde3cbc2f846b1b966e4afc0e6e95afa44ff664dfc67f9c4336c73102fe&mpshare=1&scene=1&srcid=0314Zg7ZBZnBcmmqk3nBczaI&sharer_shareinfo=2619112c90c40597c961f76dcacd21fb&sharer_shareinfo_first=2619112c90c40597c961f76dcacd21fb#rd",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-14 12:06:56",
+  "mainPath": "shell 脚本 main 函数中$-获取不到脚本传入参数个数浅析.md",
+  "paths": [
+    "shell 脚本 main 函数中$-获取不到脚本传入参数个数浅析.index.json",
+    "shell 脚本 main 函数中$-获取不到脚本传入参数个数浅析.md"
+  ]
+}

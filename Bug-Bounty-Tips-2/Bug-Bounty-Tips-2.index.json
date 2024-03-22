@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "clipId": "1710309078",
+  "format": "md",
+  "title": "Bug Bounty Tips #2",
+  "link": "https://www.infosecmatter.com/bug-bounty-tips-2-jun-30/#2-access-hidden-sign-up-pages",
+  "category": "default",
+  "tags": [
+    "www.infosecmatter.com"
+  ],
+  "created_at": "2024-03-13 13:51:18",
+  "mainPath": "Bug-Bounty-Tips-2.md",
+  "paths": [
+    "Bug-Bounty-Tips-2.index.json",
+    "assets/1710309078-0c52a7a49054f109ce3263c7b67de004.jpg",
+    "assets/1710309078-94c0665b4745b0f2001c5ed6285850fd.jpg",
+    "assets/1710309078-ce9095d9d981be94c6ccb7a711ded1f2.jpg",
+    "Bug-Bounty-Tips-2.md"
+  ]
+}

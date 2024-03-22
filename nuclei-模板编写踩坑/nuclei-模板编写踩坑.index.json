@@ -1,0 +1,25 @@
+{
+  "version": "2.0",
+  "clipId": "1710211340",
+  "format": "md",
+  "title": "nuclei 模板编写踩坑",
+  "link": "https://r0fus0d.blog.ffffffff0x.com/post/nuclei/",
+  "category": "default",
+  "tags": [
+    "r0fus0d.blog.ffffffff0x.com"
+  ],
+  "created_at": "2024-03-12 10:42:20",
+  "mainPath": "nuclei-模板编写踩坑.md",
+  "paths": [
+    "nuclei-模板编写踩坑.index.json",
+    "assets/1710211340-2db67c1d6c9b92cabd06bea5f598d936.png",
+    "assets/1710211340-b3180f0b09ff369ca3a08207d92f02c5.png",
+    "assets/1710211340-24e22dc1fa188e1cf4c264752113328f.png",
+    "assets/1710211340-7a50af47e342af98c3060b1d629dc060.png",
+    "assets/1710211340-5cbc174ec9f041d77e4424096e26f914.png",
+    "assets/1710211340-8d45294777a744c9374a2456f45b85ac.png",
+    "assets/1710211340-1afa447635543fe6993b58edf0080d0d.png",
+    "assets/1710211340-136240b580d9e223b5258baedb9a52eb.png",
+    "nuclei-模板编写踩坑.md"
+  ]
+}

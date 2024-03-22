@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "clipId": "1710212462",
+  "format": "md",
+  "title": "ASP.NET 应用程序中的源代码泄露 - PT SWARM --- Source Code Disclosure in ASP.NET apps – PT SWARM",
+  "link": "https://swarm.ptsecurity.com/source-code-disclosure-in-asp-net-apps/",
+  "category": "default",
+  "tags": [
+    "swarm.ptsecurity.com"
+  ],
+  "created_at": "2024-03-12 11:01:02",
+  "mainPath": "ASP-NET 应用程序中的源代码泄露-PT-SWARM-Source-Code-Disclosure-in-ASP-NET-apps-–-PT-SWARM.md",
+  "paths": [
+    "ASP-NET 应用程序中的源代码泄露-PT-SWARM-Source-Code-Disclosure-in-ASP-NET-apps-–-PT-SWARM.index.json",
+    "assets/1710212462-138904e0b3e0dac5ffa2f5ae9253b23a.png",
+    "assets/1710212462-9f85862fd87c36e2f451c9170377a272.png",
+    "assets/1710212462-13e91b1aa42b89d05437d050ad51aa5e.png",
+    "assets/1710212462-fc5f0caf8c348c0a043d297bfcdcad5d.png",
+    "assets/1710212462-1c00e8d1e5e313f820ba1edcf2c8311e.png",
+    "assets/1710212462-0d2147200393c3a5ae6cb7dcb5fdd644.png",
+    "ASP-NET 应用程序中的源代码泄露-PT-SWARM-Source-Code-Disclosure-in-ASP-NET-apps-–-PT-SWARM.md"
+  ]
+}

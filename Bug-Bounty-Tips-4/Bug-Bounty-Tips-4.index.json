@@ -1,0 +1,22 @@
+{
+  "version": "2.0",
+  "clipId": "1710309261",
+  "format": "md",
+  "title": "Bug Bounty Tips #4",
+  "link": "https://www.infosecmatter.com/bug-bounty-tips-4-aug-03/",
+  "category": "default",
+  "tags": [
+    "www.infosecmatter.com"
+  ],
+  "created_at": "2024-03-13 13:54:21",
+  "mainPath": "Bug-Bounty-Tips-4.md",
+  "paths": [
+    "Bug-Bounty-Tips-4.index.json",
+    "assets/1710309261-c9fb7b609d0a6e62a4ec8a6b6b1e98d0.jpg",
+    "assets/1710309261-d44cb88324b861a59030eb492fbe145f.jpg",
+    "assets/1710309261-52650256b7abde72af082fdc81f46aa3.jpg",
+    "assets/1710309261-3302ea5aa9fa80d6065bcb681779c90f.jpg",
+    "assets/1710309261-a4c40414c09683e09af4d89261c28828.jpg",
+    "Bug-Bounty-Tips-4.md"
+  ]
+}

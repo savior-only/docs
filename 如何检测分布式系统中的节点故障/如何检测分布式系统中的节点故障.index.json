@@ -1,0 +1,18 @@
+{
+  "version": "2.0",
+  "clipId": "1710813869",
+  "format": "md",
+  "title": "如何检测分布式系统中的节点故障？",
+  "link": "https://mp.weixin.qq.com/s?__biz=MzkxMDE5NzE4Mg==&mid=2247484343&idx=1&sn=3bf20c9ea3d9cb1ef7b9d2ac7e6da8e9&chksm=c12e6b66f659e27062d6278f4bb7b61d5a26fcd826ca43f2506495d33430877f2ddfc0aa8fd3&mpshare=1&scene=1&srcid=03193EZ2PyaJD8SXoFXzCyJq&sharer_shareinfo=a456cd55e5a67ddb7049f41ed169f1d2&sharer_shareinfo_first=a456cd55e5a67ddb7049f41ed169f1d2#rd",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-19 10:04:29",
+  "mainPath": "如何检测分布式系统中的节点故障.md",
+  "paths": [
+    "如何检测分布式系统中的节点故障.index.json",
+    "assets/1710813869-93b62b9f1e8d833b3a77f2af203336d6.gif",
+    "如何检测分布式系统中的节点故障.md"
+  ]
+}

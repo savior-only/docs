@@ -1,0 +1,18 @@
+{
+	"version": "2.0",
+	"clipId": "1711093299",
+	"format": "md",
+	"title": "查看域控 DNS 服务器上面的 dns 解析日志",
+	"link": "https://r0fus0d.blog.ffffffff0x.com/post/winlog/",
+	"category": "default",
+	"tags": ["r0fus0d.blog.ffffffff0x.com"],
+	"created_at": "2024-03-22 15:41:39",
+	"mainPath": "查看域控-DNS-服务器上面的-dns-解析日志.md",
+	"paths": [
+		"查看域控-DNS-服务器上面的-dns-解析日志.index.json",
+		"assets/1711093299-ea963b58174d9ca785367f1c95b46a26.png",
+		"assets/1711093299-d5d0a238d0afab142f86c5413b05acef.png",
+		"assets/1711093299-0d7133b660a1574baa8f1b92e9b7a54d.png",
+		"查看域控-DNS-服务器上面的-dns-解析日志.md"
+	]
+}

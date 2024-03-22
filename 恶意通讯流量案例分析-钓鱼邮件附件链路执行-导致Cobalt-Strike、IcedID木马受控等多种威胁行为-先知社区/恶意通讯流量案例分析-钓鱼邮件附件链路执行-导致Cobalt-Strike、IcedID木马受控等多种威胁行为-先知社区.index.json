@@ -1,0 +1,43 @@
+{
+  "version": "2.0",
+  "clipId": "1710992957",
+  "format": "md",
+  "title": "恶意通讯流量案例分析，钓鱼邮件附件链路执行，导致Cobalt Strike、IcedID木马受控等多种威胁行为 - 先知社区",
+  "link": "https://xz.aliyun.com/t/14108?u_atoken=674559d961e16d2340ca7cff9ae10c10&u_asession=01QndfrGV1BInSefcsbuaS49rRxUJWpvdC0Ebbdr5PHUO-EIfBH310nHhhBALZpUvSdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=050M2ol6j0bVML8ROuLRoamX5rNvIftgKUw13ApLP7R2Cs7CyaA2aRCXy9F7WxOS_BzmrdEqf3e_C7xGfc8FqGLPc-XxFKeqyz2w1ZOXJ6BRX952Zn1kQNJYRVKPdIkQfl65HqcNGjhbpZfc4iRP3w635r5f5hDdyhbJg2V_uUdapg2QMxYs6lyXb1lFWKql56xd9Lqap7aJgKCMjaHMD6ZQ4Re7i-4TJvr8PVS_CjAY1j6BqQqvoxo6ucH4nOCuey3jThmp5QhCQXsV9sju92VgyCuEQIUWo6oFu2MP612VR6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=B0sJOnrneIgFFAPJKHczNnxYVC4%3D",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+  "created_at": "2024-03-21 11:49:17",
+  "mainPath": "恶意通讯流量案例分析-钓鱼邮件附件链路执行-导致Cobalt-Strike、IcedID木马受控等多种威胁行为-先知社区.md",
+  "paths": [
+    "恶意通讯流量案例分析-钓鱼邮件附件链路执行-导致Cobalt-Strike、IcedID木马受控等多种威胁行为-先知社区.index.json",
+    "assets/1710992957-c811fc3b387a51666a4c82e4a8960f44.png",
+    "assets/1710992957-191a85bb21474bfef0b7e0b70f3c337c.png",
+    "assets/1710992957-f0e348848280e41b63d94f1bacc2e632.png",
+    "assets/1710992957-079a5b5201b743735e1a65b9232245ed.png",
+    "assets/1710992957-429bc74b1979fc396ae42b80f2bd20bf.png",
+    "assets/1710992957-0c259f74b2d5016c04b76ae344c50963.png",
+    "assets/1710992957-4f4d241e2924dbbacd23b1a0e7ac92dd.png",
+    "assets/1710992957-3661a5584df638f792ca0665cce75139.png",
+    "assets/1710992957-e15f0f041be020dc22c380ee890bc63b.png",
+    "assets/1710992957-90babe521e351d1dfd2fbaf5864ed248.png",
+    "assets/1710992957-770ca910541958dc3777a748f5d7fb10.png",
+    "assets/1710992957-576f3a3da238ce8256cf247acdd6bbb2.png",
+    "assets/1710992957-9d2054e66027ca7cbeb2b1880a4685aa.png",
+    "assets/1710992957-b2e40c8fab4ca214bc414f945eb3686b.png",
+    "assets/1710992957-23cb370fc40be31eefe76aaf103302e3.png",
+    "assets/1710992957-b23a2f0642e92768e10be38eb809ef37.png",
+    "assets/1710992957-4dffa0e00111498e040f43b415591d31.png",
+    "assets/1710992957-17072fbce4d5c84edbee45023f766293.png",
+    "assets/1710992957-e86020108bbca9d56558566a5a353aab.png",
+    "assets/1710992957-9912f1daa4ccca7dd41b2f726592c8a0.png",
+    "assets/1710992957-130f8dcf8322797877ef8a8d3622edfc.png",
+    "assets/1710992957-a3d61bdd96ebfb1dc8dd4a31417e04ac.png",
+    "assets/1710992957-d3ccc5f7dacb6bba7ace9f27cf2a53e4.png",
+    "assets/1710992957-469cc50099f702c3ecf8f1a6aa5660a4.png",
+    "assets/1710992957-f3bea1644502d7ef3931d207b214997c.png",
+    "assets/1710992957-6a81d96049239465862c5fdb0375021b.png",
+    "恶意通讯流量案例分析-钓鱼邮件附件链路执行-导致Cobalt-Strike、IcedID木马受控等多种威胁行为-先知社区.md"
+  ]
+}
