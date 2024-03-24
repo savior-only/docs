@@ -1,5 +1,5 @@
 ---
-title: 安全路线：导航路由器陷阱|星星实验室 --- Route to Safety: Navigating Router Pitfalls | STAR Labs
+title: 安全路线：导航路由器陷阱 | 星星实验室 --- Route to Safety: Navigating Router Pitfalls | STAR Labs
 url: https://starlabs.sg/blog/2024/route-to-safety-navigating-router-pitfalls/
 clipped_at: 2024-03-19 09:50:48
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 安全路线：导航路由器陷阱|星星实验室 --- Route to Safety: Navigating Router Pitfalls | STAR Labs
+# 安全路线：导航路由器陷阱 | 星星实验室 --- Route to Safety: Navigating Router Pitfalls | STAR Labs
 
 ## Introduction 介绍
 
@@ -35,7 +35,7 @@ The admin panel of a network device hosts a large variety of configurations that
 网络设备的管理面板托管了设备所有者 / 管理员可以更改的各种配置。每个输入字段都是一个攻击面，因为它们由设备上运行的 Web 服务处理。例如，可以存在用于阻止去往 / 来自某个 IP 地址的业务的输入字段。Web 服务处理此请求的方式可能容易受到命令注入的攻击。简而言之，管理面板为攻击者提供了一个巨大的攻击面。
 
 One may argue that this is not a very concerning attack surface, because an attacker would need to authenticate into the admin panel first in order to access this attack surface. This is true, and therefore many CVEs start with the term “authenticated”, e.g. “authenticated command injection”, which states that authentication is needed to exploit the vulnerability. However, an attacker may find an authentication bypass or there may be some endpoints on the admin panel that do not verify if the user is authenticated. An authentication bypass can be chained with an “authenticated vulnerability”; vulnerabilities on endpoints that do not require authentication are categorized with the term “unauthenticated”, e.g. “unauthenticated buffer overflow”.  
-有人可能会说，这不是一个非常值得关注的攻击面，因为攻击者需要首先在管理面板中进行身份验证才能访问此攻击面。这是真的，因此许多 CVE 都以术语 “经过身份验证” 开头，例如 “经过身份验证的命令注入”，这表明需要进行身份验证才能利用漏洞。但是，攻击者可能会找到绕过身份验证的方法，或者管理面板上的某些端点无法验证用户是否经过身份验证。认证绕过可以与 “认证漏洞” 链接；端点上不需要认证的漏洞被归类为 “未经认证”，例如 “未经认证的缓冲区溢出”。
+有人可能会说，这不是一个非常值得关注的攻击面，因为攻击者需要首先在管理面板中进行身份验证才能访问此攻击面。这是真的，因此许多 CVE 都以术语“经过身份验证”开头，例如“经过身份验证的命令注入”，这表明需要进行身份验证才能利用漏洞。但是，攻击者可能会找到绕过身份验证的方法，或者管理面板上的某些端点无法验证用户是否经过身份验证。认证绕过可以与“认证漏洞”链接；端点上不需要认证的漏洞被归类为“未经认证”，例如“未经认证的缓冲区溢出”。
 
 ### Other Services 其他服务
 
@@ -213,7 +213,7 @@ In short, when considering the implementation of operations that require superus
 ### Summary 总结
 
 All of the misconfigurations above have straightforward solutions. However, the implementation of these solutions incur extra development and testing time. For the consumers, it is desirable that all router vendors consider these improvements as “must have” and not just “good to have”.  
-上面所有的错误配置都有简单的解决方案。但是，这些解决方案的实现会导致额外的开发和测试时间。对于消费者来说，希望所有路由器供应商都将这些改进视为 “必须拥有”，而不仅仅是 “好拥有”。
+上面所有的错误配置都有简单的解决方案。但是，这些解决方案的实现会导致额外的开发和测试时间。对于消费者来说，希望所有路由器供应商都将这些改进视为“必须拥有”，而不仅仅是“好拥有”。
 
 ## Vulnerability Classes 漏洞类别
 
@@ -326,7 +326,7 @@ In the web server binary, it is discovered that there is a code path that checks
 ```
 
 If the submitted `PrivateLogin` field contains “Username”, then the submitted `Username` value is used as the password (\[2\]) for generating the expected `LoginPassword` value (challenge response), instead of using the user’s actual password by calling `GetPassword` (\[1\]). To put it in simple terms, the client can control the password that is used to generate the expected challenge response, therefore bypassing authentication.  
-如果提交的 `PrivateLogin` 字段中包含 “”，则提交的 `Username` 值将用作生成预期 `LoginPassword` 值（质询响应）的密码（\[2\]），而不是通过调用 `GetPassword` （\[1\]）使用用户的实际密码。简而言之，客户端可以控制用于生成预期质询响应的密码，从而绕过身份验证。
+如果提交的 `PrivateLogin` 字段中包含“”，则提交的 `Username` 值将用作生成预期 `LoginPassword` 值（质询响应）的密码（\[2\]），而不是通过调用 `GetPassword` （\[1\]）使用用户的实际密码。简而言之，客户端可以控制用于生成预期质询响应的密码，从而绕过身份验证。
 
 It is unclear what the purpose of the `PrivateLogin` field is. As HNAP is an obsolete proprietary protocol with no documentation online, it is hard for us to determine the original purpose of this field.  
 目前还不清楚 `PrivateLogin` 字段的用途。由于 HNAP 是一个过时的专有协议，没有在线文档，我们很难确定这个领域的原始目的。
@@ -991,10 +991,10 @@ To summarize the suggestions above, we advise development and security teams to 
     避免硬编码分配和内存复制操作的大小。对于接受缓冲区指针并向其写入的函数，请确保缓冲区的分配大小也作为参数。这消除了调用方和被调用方关于大小的不确定性。
 
 The suggestions above all follow the same principles. We want to change the problem from “are we using this function correctly” to “are we implementing this function correctly”. There will be significantly less room for error, as the former requires reviewing every single function and trying to catch incorrect usages such as the off-by-one examples given; whereas the latter removes the possibility of such pitfalls, and only requires reviewing the custom implementations to ensure that they are implemented correctly.  
-上述建议都遵循相同的原则。我们想把问题从 “我们是否正确地使用了这个函数” 变成 “我们是否正确地实现了这个函数”。错误的空间将大大减少，因为前者需要审查每个函数并试图捕捉错误的用法，例如给出的 off-by-one 示例；而后者消除了此类陷阱的可能性，只需要审查自定义实现以确保它们正确实现。
+上述建议都遵循相同的原则。我们想把问题从“我们是否正确地使用了这个函数”变成“我们是否正确地实现了这个函数”。错误的空间将大大减少，因为前者需要审查每个函数并试图捕捉错误的用法，例如给出的 off-by-one 示例；而后者消除了此类陷阱的可能性，只需要审查自定义实现以确保它们正确实现。
 
 In other words, instead of worrying about “what are the possible pitfalls of using this function, is there some specific scenario that I have missed”, we can now call memory-writing functions with a piece of mind and just care about “is this function implemented correctly”.  
-换句话说，与其担心 “使用这个函数可能存在哪些陷阱，是否有一些我错过的特定场景”，我们现在可以轻松地调用内存写入函数，只关心 “这个函数是否正确实现”。
+换句话说，与其担心“使用这个函数可能存在哪些陷阱，是否有一些我错过的特定场景”，我们现在可以轻松地调用内存写入函数，只关心“这个函数是否正确实现”。
 
 In routers that are higher on the price range, we have observed a widespread application of the rules above in their codebase. As a result, it was more difficult to find bugs on these devices that are typically considered as low hanging fruits on cheaper routers.  
 在价格较高的路由器中，我们观察到上述规则在其代码库中的广泛应用。因此，在这些通常被认为是廉价路由器上的低挂水果的设备上找到 bug 更加困难。

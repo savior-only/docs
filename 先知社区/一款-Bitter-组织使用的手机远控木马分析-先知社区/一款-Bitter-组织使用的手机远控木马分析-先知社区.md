@@ -53,9 +53,9 @@ SHA1   ：B6353DAC1E425C3081F672ADF24D49B33E53A902
 
 CRC32  ：4D82C814
 
-package.name：google.comgooglesettings
+package.name: google.comgooglesettings
 
-cer.sha1：1173C15E0E3E69EE088CE0654CAB314F94DBD018
+cer.sha1:1173C15E0E3E69EE088CE0654CAB314F94DBD018
 ```
 
 ### 安装情况
@@ -70,25 +70,25 @@ cer.sha1：1173C15E0E3E69EE088CE0654CAB314F94DBD018
 
 ### 伪装行为
 
-样本将 POST 请求 `http://playstorenet.ddns.net/Youtube/index.php?` 地址，从接收数据中提取 “MSG”、“URL” 数据，最后以弹框方式显示 “MSG” 数据和浏览 “URL” 网页（网页已失效，因此不清楚具体的 “MSG” 和 “URL” 值），以达到伪装效果（因为获取的 “URL” 数据未在其他代码处有相关的访问行为，因此猜测此行为只是为了迷惑用户，将自身伪装成一个服务程序弹框报错）。
+样本将 POST 请求 `http://playstorenet.ddns.net/Youtube/index.php?` 地址，从接收数据中提取“MSG”、“URL”数据，最后以弹框方式显示“MSG”数据和浏览“URL”网页（网页已失效，因此不清楚具体的“MSG”和“URL”值），以达到伪装效果（因为获取的“URL”数据未在其他代码处有相关的访问行为，因此猜测此行为只是为了迷惑用户，将自身伪装成一个服务程序弹框报错）。
 
 POST 请求代码截图如下：
 
 [![](assets/1710901005-91c09463fe4973356bcdfd102b2d9b46.jpg)](https://xzfile.aliyuncs.com/media/upload/picture/20240301092240-32600a86-d76a-1.jpg)
 
-从接收数据中提取 “MSG”、“URL” 数据：
+从接收数据中提取“MSG”、“URL”数据：
 
 [![](assets/1710901005-95f118af1aceb5f86d9134f4cd9cff39.jpg)](https://xzfile.aliyuncs.com/media/upload/picture/20240301092254-3a5e0cd8-d76a-1.jpg)
 
 [![](assets/1710901005-a7d3003dc398f98bb34c7dc16cbf2faf.jpg)](https://xzfile.aliyuncs.com/media/upload/picture/20240301092305-4177bf82-d76a-1.jpg)
 
-弹框方式显示 “MSG” 数据和浏览 “URL” 网页：
+弹框方式显示“MSG”数据和浏览“URL”网页：
 
 [![](assets/1710901005-ee794ab30c7be48224e5dc482b28fb77.jpg)](https://xzfile.aliyuncs.com/media/upload/picture/20240301092317-483fdae8-d76a-1.jpg)
 
 ### 窃取数据
 
-样本将获取设备 GPS 信息、短信信息、联系人信息、通话记录信息、设备基本信息、已安装应用信息、设备账户信息、指定文件路径信息、基站信息等，并将获取的数据信息写入 “/storage/sdcard0/systemservice” 文件中，然后 POST 请求 `http://playstorenet.ddns.net/Youtube/home.php?IMEI=[DeviceId]&SIMNO=[SimSerialNumber]` 地址上传获取的窃密数据。
+样本将获取设备 GPS 信息、短信信息、联系人信息、通话记录信息、设备基本信息、已安装应用信息、设备账户信息、指定文件路径信息、基站信息等，并将获取的数据信息写入“/storage/sdcard0/systemservice”文件中，然后 POST 请求 `http://playstorenet.ddns.net/Youtube/home.php?IMEI=[DeviceId]&SIMNO=[SimSerialNumber]` 地址上传获取的窃密数据。
 
 相关代码截图如下：
 
@@ -178,7 +178,7 @@ POST 请求代码截图如下：
 
 ### 写入 systemservice 文件
 
-样本将把获取的数据写入 “/storage/sdcard0/systemservice” 文件中，以便后续上传行为；
+样本将把获取的数据写入“/storage/sdcard0/systemservice”文件中，以便后续上传行为；
 
 相关代码截图如下：
 
@@ -186,7 +186,7 @@ POST 请求代码截图如下：
 
 ### 上传数据
 
-样本将上传存放窃密数据的 “/storage/sdcard0/systemservice” 文件；
+样本将上传存放窃密数据的“/storage/sdcard0/systemservice”文件；
 
 上传地址为：
 

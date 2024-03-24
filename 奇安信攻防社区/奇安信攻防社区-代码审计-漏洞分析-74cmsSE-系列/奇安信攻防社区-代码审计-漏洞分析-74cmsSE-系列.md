@@ -1,5 +1,5 @@
 ---
-title: 奇安信攻防社区-代码审计&漏洞分析：74cmsSE 系列
+title: 奇安信攻防社区 - 代码审计&漏洞分析：74cmsSE 系列
 url: https://forum.butian.net/share/2800
 clipped_at: 2024-03-21 11:50:04
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 奇安信攻防社区-代码审计&漏洞分析：74cmsSE 系列
+# 奇安信攻防社区 - 代码审计&漏洞分析：74cmsSE 系列
 
 ## 一、前言
 
@@ -125,20 +125,20 @@ MATCH (col1,col2,...) AGAINST (expr [search_modifier])
 
 #### 深入思考
 
-这里有个疑问，使用了PDO还会有注入？  
+这里有个疑问，使用了 PDO 还会有注入？  
 跟进 SQL 执行的过程，发现 $sql 参数在预处理前已完成拼接，没有进行绑定的操作，后续直接 exec 了，估计是这个原因（如果不是的话，希望大佬点拨下）  
 ![pFseL5j.png](assets/1710993004-2059d973b1103c3aa188a7a5f8b3e59d.png)
 
 #### 后续的修复代码
 
-查看最新的源码（版本3.28.0），过滤使用了 addslashes 操作。  
+查看最新的源码（版本 3.28.0），过滤使用了 addslashes 操作。  
 ![pFseoKf.png](assets/1710993004-e522be2eb2e69a2fd2a59be59f5b1682.png)
 
 #### 深入思考\*2
 
-绕过 addslashes，一般配合代码中其他的操作，比如代码后还有urldecode、base64\_decode等。或者是在GBK编码下使用宽字节注入。
+绕过 addslashes，一般配合代码中其他的操作，比如代码后还有 urldecode、base64\_decode 等。或者是在 GBK 编码下使用宽字节注入。
 
-修改数据库编码后，跟进代码发现，在使用htmlspecialchars函数进行过滤操作时，我传入的值直接没了，挺神奇的，暂时找不到原因，不然在GBK环境下可以实现宽字节注入。
+修改数据库编码后，跟进代码发现，在使用 htmlspecialchars 函数进行过滤操作时，我传入的值直接没了，挺神奇的，暂时找不到原因，不然在 GBK 环境下可以实现宽字节注入。
 
 ```rb
 /index.php/v1_0/home/jobfairol/resumelist?jobfair_id=1&amp;keyword='%df'%2b(select/**/updatexml(0,concat(0xa,(select/**/concat(username,password)from/**/qs_admin)),0))))%23
@@ -174,7 +174,7 @@ $sort = input('get.sort/s', '', 'trim');
 
 ![pFseXPs.png](assets/1710993004-4c06ef9674b7fdd166ce050a9092d04d.png)
 
-这里先分析 $keyword 参数，传入值并跟踪，得到如下sql查询语句：
+这里先分析 $keyword 参数，传入值并跟踪，得到如下 sql 查询语句：
 
 ```sql
 SELECT a.id,company_id,refreshtime,stick,MATCH (`company_nature`) AGAINST ('sec' IN NATURAL LANGUAGE MODE) AS score1,MATCH (`jobname`) AGAINST ('sec' IN NATURAL LANGUAGE MODE) AS score2,MATCH (`companyname`) AGAINST ('sec' IN NATURAL LANGUAGE MODE) AS score3 FROM `qs_job_search_key` `a` WHERE  (  MATCH (`jobname`,`companyname`,`company_nature`) AGAINST ('sec' IN NATURAL LANGUAGE MODE) ) ORDER BY `score1` DESC,`score2` DESC,`score3` DESC,`refreshtime` DESC LIMIT 0,10
@@ -214,7 +214,7 @@ map() 函数中的注入漏洞也是一样，出现在 $keyword 中
 
 ### v3.5.1 SQL 注入｜Resume.php
 
-剩下几个漏洞触发点都是相同的 $keyword ，故不再做分析。  
+剩下几个漏洞触发点都是相同的 $keyword，故不再做分析。  
 ![pFsnR1I.png](assets/1710993004-83a395d98395e53fcaa383cfff4bf674.png)
 
 ### v3.12.0 越权漏洞
@@ -263,7 +263,7 @@ Payload：
 Vue.js 是一个客户端模板框架，会将用户的输入嵌入到这些模板中，通过构造恶意输入，可导致被 Vue.js 错误解析执行。  
 [参考](https://www.freebuf.com/articles/web/257944.html)
 
-后面几个XSS基本上都是通过 vue.js 模版注入触发 DOM XSS，只是注入点不同，不再展开分析了。
+后面几个 XSS 基本上都是通过 vue.js 模版注入触发 DOM XSS，只是注入点不同，不再展开分析了。
 
 ### v3.13.0 文件上传
 
@@ -272,4 +272,4 @@ Vue.js 是一个客户端模板框架，会将用户的输入嵌入到这些模�
 
 ## 五、总结
 
-通篇审下来，感觉最重要的就是代码逻辑和过滤操作，上述漏洞基本上都是错误逻辑和未健全的过滤机制导致的，例如：SQL查询使用了PDO但是没进行绑定而直接拼接了，文件操作类函数未对输入点验证 ../ 这种字符等等。因此，日后的审计无论从可控点或者高危函数出发，把握好每一条逻辑再结合绕过就对了。
+通篇审下来，感觉最重要的就是代码逻辑和过滤操作，上述漏洞基本上都是错误逻辑和未健全的过滤机制导致的，例如：SQL 查询使用了 PDO 但是没进行绑定而直接拼接了，文件操作类函数未对输入点验证 ../ 这种字符等等。因此，日后的审计无论从可控点或者高危函数出发，把握好每一条逻辑再结合绕过就对了。

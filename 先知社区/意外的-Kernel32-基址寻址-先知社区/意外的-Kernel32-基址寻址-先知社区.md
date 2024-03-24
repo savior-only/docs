@@ -20,7 +20,7 @@ tags:
 [![](assets/1710898636-e2ab36126b20055e9945672a9c0b25b3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315131108-6eeb8f9a-e28a-1.png)
 
 ```plain
-如果我们编写脚本时使用Windows库内自带的API，那么这些DLL文件以及包含在内的导出函数便会一览无余得暴露出来，所以我们需要将这些都隐藏掉实现导入表隐藏。如何实现最重要的一步就是通过PEB找到我们的Kernel32基址。
+如果我们编写脚本时使用 Windows 库内自带的 API，那么这些 DLL 文件以及包含在内的导出函数便会一览无余得暴露出来，所以我们需要将这些都隐藏掉实现导入表隐藏。如何实现最重要的一步就是通过 PEB 找到我们的 Kernel32 基址。
 ```
 
 ### Windbg 调试中遇到的问题与解决
@@ -40,22 +40,22 @@ Windbg 的使用及安装教程网上资料很多就不多说了，主要提一�
 第一条路线：这是最常见的一条即通过 InloadOrderMudleList:Flink 这条链一直往下跟就能找到 Kernel32 的 DllBase，汇编代码：
 
 ```plain
-mov eax, fs:[0x30]     //找PEB
-mov eax, [eax + 0x0c]  //获取Ldr
-mov eax, [eax + 0x0c]  //获取InloadOrderMudleList:Flink
-mov eax, [eax]         //获取InloadOrderLinks:Flink => xxx.exe
-mov eax, [eax]         //获取InloadOrderLinks:Flink => ntdll.dll
-mov eax, [eax + 0x18]  //获取kernel32 DLLBase也就是基地址
+mov eax, fs:[0x30]     //找 PEB
+mov eax, [eax + 0x0c]  //获取 Ldr
+mov eax, [eax + 0x0c]  //获取 InloadOrderMudleList:Flink
+mov eax, [eax]         //获取 InloadOrderLinks:Flink => xxx.exe
+mov eax, [eax]         //获取 InloadOrderLinks:Flink => ntdll.dll
+mov eax, [eax + 0x18]  //获取 kernel32 DLLBase 也就是基地址
 mov dwKernel32Addr, eax
 ```
 
 ```plain
-第二条路线：在最先开始研究的时候我以为这条路线就是第一条路线，但随着调试的过程中发现这地址不对啊！我还以为是操作系统造成的区别导致地址不一，但是我运行了这两段代码都成功指向同一个地址也就是我们的Kernel32的基址
+第二条路线：在最先开始研究的时候我以为这条路线就是第一条路线，但随着调试的过程中发现这地址不对啊！我还以为是操作系统造成的区别导致地址不一，但是我运行了这两段代码都成功指向同一个地址也就是我们的 Kernel32 的基址
 ```
 
 ```plain
-mov eax, fs: [0x30]      //找到PEB
-mov eax, [eax + 0x0c]    //找LDR
+mov eax, fs: [0x30]      //找到 PEB
+mov eax, [eax + 0x0c]    //找 LDR
 mov eax, [eax + 0x14]    //InMemoryOrderModuleList:Flink
 mov eax, [eax]           //InLoadOrderLinks:"shellcode.exe"
 mov eax, [eax]           //InLoadOrderLinks:"ntdll.dll"

@@ -97,9 +97,9 @@ RpcHelper.processJsonRequest 如下，获取 rpcdata 参数，用 json 存储，
 
 <<<<<<< HEAD
 ```plain
-rpcname为bsh.Interpreter
-method为eval
-params为ping o3n9.callback.red
+rpcname 为 bsh.Interpreter
+method 为 eval
+params 为 ping o3n9.callback.red
 =======
 ```bash
 rpcname 为 bsh.Interpreter
@@ -174,9 +174,9 @@ rpcname 直接设置为 ldap://xxx，method 和 params 随便设置即可，因�
 直接构造
 
 ```plain
-rpcname为nc.uap.portal.service.impl.PortalSpecServiceImpl
-method为createSkinFile
-params为String1、2、3等
+rpcname 为 nc.uap.portal.service.impl.PortalSpecServiceImpl
+method 为 createSkinFile
+params 为 String1、2、3 等
 =======
 [![](assets/1710206158-db0d3a6c108b5235b2b69b709ed38d2e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311105218-5fcdb69a-df52-1.png)
 
@@ -197,8 +197,8 @@ params 为 String1、2、3 等
 
 <<<<<<< HEAD
 ```plain
-找ServiceCache里有哪些类，然后找有可以执行命令或者写文件public方法的类。
-继续看下为什么PortalSpecServiceImpl调不了
+找 ServiceCache 里有哪些类，然后找有可以执行命令或者写文件 public 方法的类。
+继续看下为什么 PortalSpecServiceImpl 调不了
 =======
 ```bash
 找 ServiceCache 里有哪些类，然后找有可以执行命令或者写文件 public 方法的类。
@@ -227,9 +227,9 @@ doGetService
 大概有三种方式加载
 
 ```plain
-name以->开头通过findMeta()和findComponent()获取实例。
-name不以->开头，直接通过服务定位模式this.getServiceCache().get(name)在Cache中取，如果有的话直接返回实例
-name以java:comp/env/开头，进入jndiCtx.lookup。最后如果meta和retObject还是未获取到，则调用jndi(jndiName)
+name 以->开头通过 findMeta() 和 findComponent() 获取实例。
+name 不以->开头，直接通过服务定位模式 this.getServiceCache().get(name) 在 Cache 中取，如果有的话直接返回实例
+name 以 java:comp/env/开头，进入 jndiCtx.lookup。最后如果 meta 和 retObject 还是未获取到，则调用 jndi(jndiName)
 =======
 [![](assets/1710206158-89c800937fefbb1d89dd94ea2388b761.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311105320-8524904e-df52-1.png)
 
@@ -315,7 +315,7 @@ window 环境下可以直接..\\..\\ 即可。为了通用的话还是需要处�
 这里传递两层 url 编码即可
 
 ```plain
-当发送..%252f..%252f这个字符串后，服务器进行第一次解码，到fromJsObject处理时，此时的路径为..%2f..%2f，绕过/检测，接着经过JsURLDecoder.decode()，变成了../../，最后拼接到filePath。
+当发送..%252f..%252f 这个字符串后，服务器进行第一次解码，到 fromJsObject 处理时，此时的路径为..%2f..%2f，绕过/检测，接着经过 JsURLDecoder.decode()，变成了../../，最后拼接到 filePath。
 =======
 [![](assets/1710206158-c589f90ffcfb98bb93d3899739fa6336.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311105740-201d3f2e-df53-1.png)
 

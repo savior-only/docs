@@ -78,7 +78,7 @@ zig build-exe .\hello-zig.zig -O ReleaseFast --name hello-zig-Fast
 zig build-exe .\hello-zig.zig  -O ReleaseSmall --name hello-zig-Small
 ```
 
-这里可以看到， 在 Fast 和 Small 构建模式生成的 exe 最小
+这里可以看到，在 Fast 和 Small 构建模式生成的 exe 最小
 
 ```plain
 ls | findstr hello-zig-*.

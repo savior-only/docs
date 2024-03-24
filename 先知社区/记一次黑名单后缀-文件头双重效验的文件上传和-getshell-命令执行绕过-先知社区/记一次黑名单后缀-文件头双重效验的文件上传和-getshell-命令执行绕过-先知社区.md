@@ -71,7 +71,7 @@ copy small.jpg /b +phpinfo.php /a phpinfo.jpg
 
 先把常用的黑名单绕过方式拉出来：  
 1\. 大小写 ----->.Php 等，上传失败  
-2\. 前后加空格，后面加点 -----> 空格.php、.php 空格 、.php.，上传失败  
+2\. 前后加空格，后面加点 -----> 空格.php、.php 空格、.php.，上传失败  
 3\. 代替扩展名 -----> .php, .php2, .php3, .php4, .php5, .php6, .php7, .phps, .phps, .pht, .phtm, .phtml, .shtml, .htaccess, .phar。  
 测到 phps 的时候有变化，可以上传，但解析如下：
 
@@ -127,7 +127,7 @@ copy small.jpg /b +phpinfo.php /a phpinfo.jpg
 
 [![](assets/1710900604-69097ed9323460a6fe5a94c7597956d3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240302223804-7a9de2bc-d8a2-1.png)
 
-但是报了个错，505 system unable to fork ，大概意思是 system 函数没被拉起来。
+但是报了个错，505 system unable to fork，大概意思是 system 函数没被拉起来。
 
 4\. 更换系统命令执行函数  
 利用哥斯拉的 php 代码执行模块，把 php 常用的命令执行函数都试一遍

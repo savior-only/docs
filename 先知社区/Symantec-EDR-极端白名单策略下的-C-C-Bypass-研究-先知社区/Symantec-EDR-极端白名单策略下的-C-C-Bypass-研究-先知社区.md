@@ -30,7 +30,7 @@ Application Whitelisting（应用程序白名单）是一种安全策略，只�
 
 直接执行 exe 被拦截，提示桌面进程 explorer.exe 运行未获批准的 exe 文件：
 
-> 应用程序白名单系统已识别并暂停了 explorer.exe 运行 fesfse.exe 的尝试，因为该文件未获批准。选择 “允许” 以运行此文件，或选择 “阻止” 以在此时停止运行此文件：向下滚动查看诊断数据。
+> 应用程序白名单系统已识别并暂停了 explorer.exe 运行 fesfse.exe 的尝试，因为该文件未获批准。选择“允许”以运行此文件，或选择“阻止”以在此时停止运行此文件：向下滚动查看诊断数据。
 
 [![](assets/1710900063-fa8417715434376f3fe49b4e51593601.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301225836-2e60055e-d7dc-1.png)
 
@@ -66,7 +66,7 @@ c:\windows\system32\rundll32.exe c:\windows\system32\url.dll,FileProtocolHandler
 
 ### 0x05 使用白加黑调用 dll
 
-由于目录不可修改不可重命名，无权限替换或覆盖目标 dll ，UAC 机制拦截后要求输入密码：
+由于目录不可修改不可重命名，无权限替换或覆盖目标 dll，UAC 机制拦截后要求输入密码：
 
 [![](assets/1710900063-e9cb7da4c26d36c82c7bc4586e8693ba.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301230255-c8f65e88-d7dc-1.png)
 
@@ -374,7 +374,7 @@ WaitForSingleObjectRx(hThread, 0xFFFFFFFF);
 
 -   **利用合法的系统工具**：攻击者可能利用 Windows 中合法的系统工具执行恶意代码，例如 [LOLBAS](https://lolbas-project.github.io/)（Living Off The Land），这些工具通常不会被防病毒软件或 EDR 策略禁止，因为它们是操作系统的一部分；
 -   **白加黑攻击**：攻击者可能使用白文件加载恶意的 dll 来进行 C&C 攻击；又或者通过文件无害化技术（如利用宏、OLE 对象等）在文档文件中植入恶意代码。即便 `.exe`、`.com` 等直接可执行文件被禁止，通过诸如 Word 或 Excel 文档的宏脚本结合社工钓鱼攻击也能执行恶意代码；
--   **无文件攻击**：通过某些技术例如反射 DLL 注入、CobaltStrike 的 Execute-Assembly 、Beacon Object File (BOF) ，攻击者可以直接在内存中执行恶意代码，绕过硬盘上的可执行文件限制的同时可以不拉起任何进程并绕过 API Hooking，这些攻击更难检测。
+-   **无文件攻击**：通过某些技术例如反射 DLL 注入、CobaltStrike 的 Execute-Assembly、Beacon Object File (BOF) ，攻击者可以直接在内存中执行恶意代码，绕过硬盘上的可执行文件限制的同时可以不拉起任何进程并绕过 API Hooking，这些攻击更难检测。
 
 企业防御复杂网络威胁，特别是面对高级持续性威胁（APT）和命令与控制（C&C）攻击时，需要采取多层次、全面的安全策略，包括但不限于 EDR、防病毒软件、网络安全工具、安全意识培训、定期的安全审计和漏洞评估。通过这种综合性的安全策略，企业可以更有效地防御各种类型的威胁，包括复杂的 C&C 攻击。
 

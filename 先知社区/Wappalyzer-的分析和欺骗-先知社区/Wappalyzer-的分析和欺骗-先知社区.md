@@ -194,7 +194,7 @@ getTechnology: (name) =>
 #### analyze
 
 <<<<<<< HEAD
-`analyze` 函数 ，它是 Wappalyzer 的主要分析入口
+`analyze` 函数，它是 Wappalyzer 的主要分析入口
 
 [![](assets/1710898870-56cfd7e4e0c178116dfba6f185671bbc.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311221756-282ddd36-dfb2-1.png)
 
@@ -256,7 +256,7 @@ const relations = {
 /* globals chrome */
 
 <<<<<<< HEAD
-// 为Manifest v2版本的Chrome扩展提供兼容性处理
+// 为 Manifest v2 版本的 Chrome 扩展提供兼容性处理
 =======
 // 为 Manifest v2 版本的 Chrome 扩展提供兼容性处理
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -266,11 +266,11 @@ if (chrome.runtime.getManifest().manifest_version === 2) {
 
 const Utils = {
 <<<<<<< HEAD
-  // 根据运行时URL判断浏览器类型
+  // 根据运行时 URL 判断浏览器类型
   agent: '判断浏览器类型并返回',
 
-  // 将基于回调的API调用转换为基于Promise的调用，以简化异步操作
-  promisify: '将回调风格的异步操作转换为Promise风格',
+  // 将基于回调的 API 调用转换为基于 Promise 的调用，以简化异步操作
+  promisify: '将回调风格的异步操作转换为 Promise 风格',
 =======
   // 根据运行时 URL 判断浏览器类型
   agent: '判断浏览器类型并返回',
@@ -290,7 +290,7 @@ const Utils = {
 
   // 应用国际化，更新文档中的文本为当前语言的翻译
 <<<<<<< HEAD
-  i18n: '自动将带有data-i18n属性的元素内容替换为国际化的文本',
+  i18n: '自动将带有 data-i18n 属性的元素内容替换为国际化的文本',
 =======
   i18n: '自动将带有 data-i18n 属性的元素内容替换为国际化的文本',
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -299,8 +299,8 @@ const Utils = {
   sendMessage: '发送消息给扩展的其他部分，并等待响应',
 
 <<<<<<< HEAD
-  // 对glob模式的字符串进行转义
-  globEscape: '对字符串中的特殊字符进行转义，以在glob模式中使用',
+  // 对 glob 模式的字符串进行转义
+  globEscape: '对字符串中的特殊字符进行转义，以在 glob 模式中使用',
 =======
   // 对 glob 模式的字符串进行转义
   globEscape: '对字符串中的特殊字符进行转义，以在 glob 模式中使用',
@@ -642,14 +642,14 @@ function getJs(technologies) {
 <<<<<<< HEAD
 ```plain
 async function getDom(technologies) {
-  // 筛选出定义了dom属性的技术，并为每个技术保留其名称和dom对象
-  const _technologies = '筛选并映射技术列表，只包含定义了DOM属性的技术';
+  // 筛选出定义了 dom 属性的技术，并为每个技术保留其名称和 dom 对象
+  const _technologies = '筛选并映射技术列表，只包含定义了 DOM 属性的技术';
 
-  // 调用inject函数注入js/dom.js，并传递特定的技术列表到页面中
-  // 这个过程允许在页面上执行js/dom.js脚本，该脚本根据传入的技术分析DOM
+  // 调用 inject 函数注入 js/dom.js，并传递特定的技术列表到页面中
+  // 这个过程允许在页面上执行 js/dom.js 脚本，该脚本根据传入的技术分析 DOM
   return [
-    ...(await '调用inject函数，将js/dom.js注入到页面，并传递包含DOM属性的技术列表'),
-    ...'直接在当前页面上分析DOM元素，根据传入的技术规则收集信息',
+    ...(await '调用 inject 函数，将 js/dom.js 注入到页面，并传递包含 DOM 属性的技术列表'),
+    ...'直接在当前页面上分析 DOM 元素，根据传入的技术规则收集信息',
 =======
 ```bash
 async function getDom(technologies) {
@@ -1012,7 +1012,7 @@ getDom 的实现方法页到的应用会不太一样 实际中可能结合蜜罐
 <<<<<<< HEAD
 ```plain
 import os # 读文件
-import json # json操作
+import json # json 操作
 =======
 ```bash
 import os # 读文件

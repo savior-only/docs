@@ -21,7 +21,7 @@ TLS (线程局部存储) 的概念不再赘述。Shellcode 是一段精心构造
 
 # 编写代码，解除混淆
 
-先整理思路。上文提及我们混淆的方案是张冠李戴，故解混淆要做的就是 “李戴李冠、张戴张冠”。
+先整理思路。上文提及我们混淆的方案是张冠李戴，故解混淆要做的就是“李戴李冠、张戴张冠”。
 
 ```plain
 FARPROC newFunc = (FARPROC)fn_MessageBoxA;
@@ -46,14 +46,14 @@ void ModifyIAT(HMODULE module, const char* targetFuncName, FARPROC newFunc) {
     PIMAGE_IMPORT_DESCRIPTOR importDescriptor = (PIMAGE_IMPORT_DESCRIPTOR)((BYTE*)module + ntHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
     // 遍历所有导入的模块
     while (importDescriptor->Name) {
-        // 获取导入描述符的thunk数据
+        // 获取导入描述符的 thunk 数据
         PIMAGE_THUNK_DATA thunk = (PIMAGE_THUNK_DATA)((BYTE*)module + importDescriptor->OriginalFirstThunk);
         PIMAGE_THUNK_DATA thunkIAT = (PIMAGE_THUNK_DATA)((BYTE*)module + importDescriptor->FirstThunk);
         while (thunk->u1.AddressOfData) {
-            // 获取thunk的导入名称结构并检查函数名称是否与目标函数名称匹配
+            // 获取 thunk 的导入名称结构并检查函数名称是否与目标函数名称匹配
             PIMAGE_IMPORT_BY_NAME importByName = (PIMAGE_IMPORT_BY_NAME)((BYTE*)module + thunk->u1.AddressOfData);
             if (strcmp(importByName->Name, targetFuncName) == 0) {
-                // 临时修改其内存保护并修改IAT条目以指向新函数
+                // 临时修改其内存保护并修改 IAT 条目以指向新函数
                 DWORD oldProtect;
                 VirtualProtect(&thunkIAT->u1.Function, sizeof(FARPROC), PAGE_READWRITE, &oldProtect);
                 thunkIAT->u1.Function = (ULONG_PTR)newFunc;

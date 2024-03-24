@@ -133,11 +133,11 @@ b1 的最后两位 +b2 的后 6 位
 
 比如两个字节表示一个字符 o
 
-字符 o： 01101111
+字符 o：01101111
 
 根据上述规律可以得出 b1，b2
 
-b1： 110+3 位 + 01
+b1：110+3 位 + 01
 
 b2: 10101111 0xaf
 
@@ -197,11 +197,11 @@ b1 & 0x1F 后
 cbuf[cpos++] = (char) (((b1 & 0x0F) << 12) |((b2 & 0x3F) << 6) |((b3 & 0x3F) << 0));
 ```
 
-b1 & 0x0F ：去除 b1 前缀 1110
+b1 & 0x0F：去除 b1 前缀 1110
 
 b2 & 0x3F : 去除 b2 前缀 10
 
-b3 & 0x3F： 去除 b3 前缀 10
+b3 & 0x3F：去除 b3 前缀 10
 
 我们可以看到，
 
@@ -276,9 +276,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * 参考p神：https://mp.weixin.qq.com/s/fcuKNfLXiFxWrIYQPq7OCg
- * 参考1ue：https://t.zsxq.com/17LkqCzk8
- * 实现：参考 OObjectOutputStream# protected void writeClassDescriptor(ObjectStreamClass desc)方法
+ * 参考 p 神：https://mp.weixin.qq.com/s/fcuKNfLXiFxWrIYQPq7OCg
+ * 参考 1ue：https://t.zsxq.com/17LkqCzk8
+ * 实现：参考 OObjectOutputStream# protected void writeClassDescriptor(ObjectStreamClass desc) 方法
  */
 public class CustomObjectOutputStream extends ObjectOutputStream {
 
@@ -468,9 +468,9 @@ public class CustomObjectOutputStream extends ObjectOutputStream {
         System.out.println(name);
         //写入name（jdk原生写入方法）
 //        writeUTF(name);
-        //写入name(两个字节表示一个字符)
+        //写入 name(两个字节表示一个字符)
 //        charWritTwoBytes(name);
-        //写入name(三个字节表示一个字符)
+        //写入 name(三个字节表示一个字符)
         charWriteThreeBytes(name);
 
 
@@ -569,9 +569,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 参考p神：https://mp.weixin.qq.com/s/fcuKNfLXiFxWrIYQPq7OCg
- * 参考1ue：https://t.zsxq.com/17LkqCzk8
- * 实现：参考 ObjectInputStream#private long readUTFSpan(StringBuilder sbuf, long utflen)方法
+ * 参考 p 神：https://mp.weixin.qq.com/s/fcuKNfLXiFxWrIYQPq7OCg
+ * 参考 1ue：https://t.zsxq.com/17LkqCzk8
+ * 实现：参考 ObjectInputStream#private long readUTFSpan(StringBuilder sbuf, long utflen) 方法
  */
 public class OverlongEncodeTools {
     private static Map<Character, String[]> bytesMap = new HashMap<>();

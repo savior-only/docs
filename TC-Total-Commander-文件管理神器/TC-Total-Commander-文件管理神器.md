@@ -1,5 +1,5 @@
 ---
-title: TC(Total Commander)文件管理神器
+title: TC(Total Commander) 文件管理神器
 url: https://mp.weixin.qq.com/s/6-4OvH6pb_ULRyVgYgeMIQ
 clipped_at: 2024-03-24 08:43:40
 category: default
@@ -8,17 +8,17 @@ tags:
 ---
 
 
-# TC(Total Commander)文件管理神器
+# TC(Total Commander) 文件管理神器
 
-## Total Commander是一个会显著提高文件操作效率的工具，它实际上并不是“一个”软件，而是一个“资源管理工具集”，里面集成了大量你在管理资源时要用到的工具/功能，并且提供了快捷键操作，让你在处理资源时可以相当方便快捷。而且因为是图形界面的，所以比命令行要方便，更容易使用。  
+## Total Commander 是一个会显著提高文件操作效率的工具，它实际上并不是“一个”软件，而是一个“资源管理工具集”，里面集成了大量你在管理资源时要用到的工具/功能，并且提供了快捷键操作，让你在处理资源时可以相当方便快捷。而且因为是图形界面的，所以比命令行要方便，更容易使用。  
 
-Total Commander简称TC
+Total Commander 简称 TC
 
-### TC教程
+### TC 教程
 
 英文官网：https://www.ghisler.com/
 
-中文官网(版本更新不及时)：http://xbeta.info/tc/
+中文官网 (版本更新不及时)：http://xbeta.info/tc/
 
 善用佳中文教程：http://xbeta.info/studytc/index.htm
 
@@ -28,7 +28,7 @@ Total Commander简称TC
 
   
 
-相对于资源管理器而言，个人感觉 Total Commander （以下简称 TC） 的如下功能和特色具有很大优势：
+相对于资源管理器而言，个人感觉 Total Commander（以下简称 TC）的如下功能和特色具有很大优势：
 
   
 
@@ -36,7 +36,7 @@ Total Commander简称TC
 
   
 
-二、**双窗口和多标签设计。**这让用户在不同文件夹之间处理文件更加方便和高效。（另外一款软件Q-Dir也有此功能）
+二、**双窗口和多标签设计。**这让用户在不同文件夹之间处理文件更加方便和高效。（另外一款软件 Q-Dir 也有此功能）
 
   
 
@@ -58,7 +58,7 @@ Total Commander简称TC
 
   
 
-      虽说功能是第一位吧，我是真受不了TC那丑陋的界面，有些杂乱：  
+      虽说功能是第一位吧，我是真受不了 TC 那丑陋的界面，有些杂乱：  
 
   
 
@@ -86,38 +86,38 @@ Total Commander简称TC
 
 以下是网上经验总结：  
 
-## 备份TC设置
+## 备份 TC 设置
 
-备份：打开tc的安装目录，一般只需要备份Wincmd.ini和User文件夹
+备份：打开 tc 的安装目录，一般只需要备份 Wincmd.ini 和 User 文件夹
 
-还原：打开tc的安装目录，覆盖Wincmd.ini和User文件夹
+还原：打开 tc 的安装目录，覆盖 Wincmd.ini 和 User 文件夹
 
-Wincmd.ini TC的系统配置
+Wincmd.ini TC 的系统配置
 
 User/ 用户的个性化设置
 
 User/User.ini 中保存着用户的收藏夹。
 
-## 定制属于你的TC
+## 定制属于你的 TC
 
-### 在当前路径打开CMD
+### 在当前路径打开 CMD
 
 1、在工具栏点击右键，选择 "更改" 弹出更改工具栏面板  
-2、点击添加，在命令栏中输入 cm\_ExecuteDos ，选择图标
+2、点击添加，在命令栏中输入 cm\_ExecuteDos，选择图标
 
 #### 方法一
 
-拖动应用程序.exe到工具栏；
+拖动应用程序.exe 到工具栏；
 
 #### 方法二
 
-工具栏右键/更改 ，设置相应的参数
+工具栏右键/更改，设置相应的参数
 
   
 
 ## 常用快捷键
 
-Ctrl+D ：下拉列表打开常用目录，类似收藏夹功能
+Ctrl+D：下拉列表打开常用目录，类似收藏夹功能
 
 Ctrl+D +A 添加当前目录到常用目录\[可以设置二级菜单及快捷键\]
 
@@ -125,11 +125,11 @@ F10 比较文本内容
 
 Alt+F11 弹出磁盘下拉列表
 
-Alt+F12更改工具栏
+Alt+F12 更改工具栏
 
 Ctrl+S 在当前目录内搜索文件
 
-Tab 左右窗口切换，TC默认分两栏样式
+Tab 左右窗口切换，TC 默认分两栏样式
 
 F3 查看文件
 
@@ -143,7 +143,7 @@ http://xbeta.info/studytc/tc002.htm 
 
   
 
-## **TC强大的****排序**
+## **TC 强大的****排序**
 
 ### 组合排序
 
@@ -151,20 +151,20 @@ http://xbeta.info/studytc/tc002.htm 
 
 ### 排序方法
 
-先点“扩展名”标签，再按住ctrl点“日期”“文件名”。
+先点“扩展名”标签，再按住 ctrl 点“日期”“文件名”。
 
-## TC强大的插件
+## TC 强大的插件
 
 插件地址：
 
-更多插件(非官方)：http://totalcmd.net/
+更多插件 (非官方)：http://totalcmd.net/
 
 ### 插件安装方法
 
-放到TC目录/Plugins/，双击\*.wlx安装
+放到 TC 目录/Plugins/，双击\*.wlx 安装
 
   
 
   
 
-公众号回复TC，获取链接或点击阅读原文下载。
+公众号回复 TC，获取链接或点击阅读原文下载。

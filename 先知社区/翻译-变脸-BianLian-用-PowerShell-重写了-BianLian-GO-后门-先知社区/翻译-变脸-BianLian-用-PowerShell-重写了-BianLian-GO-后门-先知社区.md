@@ -37,7 +37,7 @@ tags:
 在最近的一次入侵中，GuidePoint 的 DFIR 团队观察到客户端网络中的恶意活动。威胁行为团体识别出易受攻击的 TeamCity 服务器，并利用 CVE-2024-27198 / CVE-2023-42793 作为初始访问环境，在 TeamCity 中创建用户并在 TeamCity 产品的服务帐户下调用恶意命令。在分析时，无法获取确定威胁行为团体所利用的两个 CVE 中的哪一个所需的日志。
 
 <<<<<<< HEAD
-初次访问环境后，威胁行为团体使用 Windows 本机命令发现了受害者网络中的其他基础设施，包括 net user 、 systeminfo 、 nltest ，也许是所有 CLI 命令中最常见的 - whoami 。随着威胁行为团体继续进行后渗透工作，他们在环境中发现了两个 build servers，可以从中进行进一步的利用。威胁行为团体利用了两个文件 winpty-agent.exe 和 winpty.dll 到 build servers，这些文件是 winpty 的合法文件，用于创建运行 Windows 命令的界面。威胁行为团体在 build servers 上使用 winpty-agent.exe 从被利用的 TeamCity 服务器远程运行命令，并利用 BITSAdmin 将其他工具部署到服务器，包括恶意 PowerShell 脚本 web.ps1 。在下载和执行 web.ps1 之前的几个时间点，威胁行为团体尝试部署几个 DLL，这些 DLL 最终根据被 Windows 自带杀毒软件根据签名 Win64/BianDoor.D 进行了隔离，这提供了一些有关 web.ps1 其功能推断 。 其他部署的工具包括其他恶意二进制文件，它们与威胁行为团体的 C2 服务器进行通信。威胁行为团体还使用 FuzzySecurity 的 PowerShell Suite 中的工具尝试转储凭据。
+初次访问环境后，威胁行为团体使用 Windows 本机命令发现了受害者网络中的其他基础设施，包括 net user、systeminfo、nltest，也许是所有 CLI 命令中最常见的 - whoami。随着威胁行为团体继续进行后渗透工作，他们在环境中发现了两个 build servers，可以从中进行进一步的利用。威胁行为团体利用了两个文件 winpty-agent.exe 和 winpty.dll 到 build servers，这些文件是 winpty 的合法文件，用于创建运行 Windows 命令的界面。威胁行为团体在 build servers 上使用 winpty-agent.exe 从被利用的 TeamCity 服务器远程运行命令，并利用 BITSAdmin 将其他工具部署到服务器，包括恶意 PowerShell 脚本 web.ps1。在下载和执行 web.ps1 之前的几个时间点，威胁行为团体尝试部署几个 DLL，这些 DLL 最终根据被 Windows 自带杀毒软件根据签名 Win64/BianDoor.D 进行了隔离，这提供了一些有关 web.ps1 其功能推断。其他部署的工具包括其他恶意二进制文件，它们与威胁行为团体的 C2 服务器进行通信。威胁行为团体还使用 FuzzySecurity 的 PowerShell Suite 中的工具尝试转储凭据。
 =======
 初次访问环境后，威胁行为团体使用 Windows 本机命令发现了受害者网络中的其他基础设施，包括 net user、systeminfo、nltest，也许是所有 CLI 命令中最常见的 - whoami。随着威胁行为团体继续进行后渗透工作，他们在环境中发现了两个 build servers，可以从中进行进一步的利用。威胁行为团体利用了两个文件 winpty-agent.exe 和 winpty.dll 到 build servers，这些文件是 winpty 的合法文件，用于创建运行 Windows 命令的界面。威胁行为团体在 build servers 上使用 winpty-agent.exe 从被利用的 TeamCity 服务器远程运行命令，并利用 BITSAdmin 将其他工具部署到服务器，包括恶意 PowerShell 脚本 web.ps1。在下载和执行 web.ps1 之前的几个时间点，威胁行为团体尝试部署几个 DLL，这些 DLL 最终根据被 Windows 自带杀毒软件根据签名 Win64/BianDoor.D 进行了隔离，这提供了一些有关 web.ps1 其功能推断。其他部署的工具包括其他恶意二进制文件，它们与威胁行为团体的 C2 服务器进行通信。威胁行为团体还使用 FuzzySecurity 的 PowerShell Suite 中的工具尝试转储凭据。
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -98,7 +98,7 @@ Figure 1: Initial PowerShell Script
 -   整个脚本中调用了有关 SSL 流和 TCP 套接字的多种方法，这使该脚本比简单的下载程序更具隧道或后门的感觉，但需要进行更多分析才能确定。
 
 <<<<<<< HEAD
-在我们进行初步审查时最后注意到的一件事是脚本中发生了一些非常基本的字符串替换，因此我们决定采用我们熟悉的 “查找和替换” 方法。我们继续处理脚本内容，执行与大多数人在 IDA 或 Ghidra 中重命名变量类似的过程，不久之后，我们得到了一些更容易处理的东西。  
+在我们进行初步审查时最后注意到的一件事是脚本中发生了一些非常基本的字符串替换，因此我们决定采用我们熟悉的“查找和替换”方法。我们继续处理脚本内容，执行与大多数人在 IDA 或 Ghidra 中重命名变量类似的过程，不久之后，我们得到了一些更容易处理的东西。  
 [![](assets/1710898882-4d21fae0148d1caf77ef39d636be0176.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311210537-0da53f40-dfa8-1.png)
 =======
 在我们进行初步审查时最后注意到的一件事是脚本中发生了一些非常基本的字符串替换，因此我们决定采用我们熟悉的“查找和替换”方法。我们继续处理脚本内容，执行与大多数人在 IDA 或 Ghidra 中重命名变量类似的过程，不久之后，我们得到了一些更容易处理的东西。  
@@ -118,7 +118,7 @@ cookies 函数
 
 [![](assets/1710898882-340e61bedfaf0ada14572e747f9569f6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311211042-c3c4aa4a-dfa8-1.png)
 
-Cookies 功能的另一个有趣方面是使用了运行 Runspace Pool 。Runspace Pool 允许 PowerShell 高效异步地执行代码。之前的 PowerShell 恶意软件程序使用了 jobs 来实现此目的，但利用.NET 可以提高性能。
+Cookies 功能的另一个有趣方面是使用了运行 Runspace Pool。Runspace Pool 允许 PowerShell 高效异步地执行代码。之前的 PowerShell 恶意软件程序使用了 jobs 来实现此目的，但利用.NET 可以提高性能。
 
 [![](assets/1710898882-0d0c13ea9997124a51bd4792a855214b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311211433-4d7f8b24-dfa9-1.png)  
 这个后门中最有趣的组件可能是对 Runspace Pool 的创新使用，结合了 .NET PowerShell.Create () 方法来调用具有异步功能的 ScriptBlock，同时利用 SSL 流在 C2 服务器和被感染系统之间传递数据。在以往对恶意 PowerShell 脚本的分析中，攻击者通常利用 Invoke-Command 或 Invoke-Expression 作为执行恶意代码的手段，这提供了一种更少异步且可能更易被检测到的执行命令方法。通过一个加密的 SSL 通道异步传递命令，攻击者实现了更高效的性能，同时也可能更难被检测到的后期利用活动手段。
@@ -159,9 +159,9 @@ BianLian 在其 GO 后门方面以证书认证而闻名；事实上，这正是�
 如前所述，我们分析的 PowerShell 脚本的最后一行显示了使用一些指定参数调用 cookies 函数。  
 <<<<<<< HEAD
 [![](assets/1710898882-7d3021684c6596ac6ed43475e057c440.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311212900-523c6a0e-dfab-1.png)  
-当 Cookies\_Param1 中传入的十六进制值转换为十进制时，观察到的值为 136 \[.\] 0 \[.\] 3 \[.\] 71 。简单进行 OSINT 搜索后发现，根据 C2IntelFeeds 的说法，该 IP 地址与截至 2024 年 3 月 6 日 运行 BianLian GO 后门的服务器相关联，这对应于在此事件中观察到的活动。  
+当 Cookies\_Param1 中传入的十六进制值转换为十进制时，观察到的值为 136 \[.\] 0 \[.\] 3 \[.\] 71。简单进行 OSINT 搜索后发现，根据 C2IntelFeeds 的说法，该 IP 地址与截至 2024 年 3 月 6 日 运行 BianLian GO 后门的服务器相关联，这对应于在此事件中观察到的活动。  
 [![](assets/1710898882-5e66af5bfef37d76260bc99d77ceab5d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311213038-8cc22b32-dfab-1.png)  
-另外，在首次成功执行 PowerShell 后门之前不久，GuidePoint 的事件响应团队观察到多次检测到 Microsoft AV 签名 Win64/BianDoor.D 。  
+另外，在首次成功执行 PowerShell 后门之前不久，GuidePoint 的事件响应团队观察到多次检测到 Microsoft AV 签名 Win64/BianDoor.D。  
 =======
 [![](assets/1710465455-7d3021684c6596ac6ed43475e057c440.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311212900-523c6a0e-dfab-1.png)  
 当 Cookies\_Param1 中传入的十六进制值转换为十进制时，观察到的值为 136 \[.\] 0 \[.\] 3 \[.\] 71。简单进行 OSINT 搜索后发现，根据 C2IntelFeeds 的说法，该 IP 地址与截至 2024 年 3 月 6 日 运行 BianLian GO 后门的服务器相关联，这对应于在此事件中观察到的活动。  

@@ -31,7 +31,7 @@ tags:
 **投毒分析**
 
 攻击流程  
-以 ts-patch-moongoose 投毒包为例:
+以 ts-patch-moongoose 投毒包为例：
 
 攻击目标针对 Window 系统平台 NPM 开发者，恶意文件 mongoose.js 中调用 child\_process 模块执行经过 base64 编码后的 powershell 恶意命令。
 
@@ -87,7 +87,7 @@ npm remove ts-patch-moongoose -g
     "version": "[1.0.0,1.0.0]||[2.0.0,2.0.0]",
     "language": "javascript",
     "id": "XMIRROR-MAL45-1E9AA373",
-    "description": "恶意NPM组件利用反向shell后门攻击Windows系统NPM开发者。",
+    "description": "恶意 NPM 组件利用反向 shell 后门攻击 Windows 系统 NPM 开发者。",
     "release_date": "2024-02-19"
   },
   {
@@ -95,7 +95,7 @@ npm remove ts-patch-moongoose -g
     "version": "[1.0.0,1.0.0]||[2.0.0,2.0.0]",
     "language": "javascript",
     "id": "XMIRROR-MAL45-6963D463",
-    "description": "恶意NPM组件利用反向shell后门攻击Windows系统NPM开发者。",
+    "description": "恶意 NPM 组件利用反向 shell 后门攻击 Windows 系统 NPM 开发者。",
     "release_date": "2024-02-19"
   },
   {
@@ -103,7 +103,7 @@ npm remove ts-patch-moongoose -g
     "version": "[1.0.0,1.0.0]||[2.0.0,2.0.0]||[3.0.0,3.0.0]||[3.0.1,3.0.1]||[4.0.0,4.0.0]",
     "language": "javascript",
     "id": "XMIRROR-MAL45-60C73BA0",
-    "description": "恶意NPM组件利用反向shell后门攻击Windows系统NPM开发者。",
+    "description": "恶意 NPM 组件利用反向 shell 后门攻击 Windows 系统 NPM 开发者。",
     "release_date": "2024-02-19"
   }
 ]

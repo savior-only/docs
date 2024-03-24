@@ -148,7 +148,7 @@ pip install frida-tools
 
 ```plain
 Java.perform(function(){
-    console.log("frida注入成功")
+    console.log("frida 注入成功")
 
     let Response = Java.use("com.xxx.EncryptAESJsonHandler");
     Response["encryptJSon"].implementation = function () {

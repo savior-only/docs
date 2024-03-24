@@ -12,7 +12,7 @@ tags:
 
 ## 1\. 简介
 
-Buildah\[1\] 是一种基于 Linux 的开源工具，用于构建与开放容器倡议 (OCI) 兼容的容器\[2\]，这意味着容器也与Docker\[3\]和Kubernetes\[4\]兼容。借助 `Buildah`，您可以使用自己喜欢的工具从现有基础镜像或使用空镜像从头开始创建高效的容器镜像。这是一种更灵活、更安全的构建容器镜像的方式。
+Buildah\[1\] 是一种基于 Linux 的开源工具，用于构建与开放容器倡议 (OCI) 兼容的容器\[2\]，这意味着容器也与 Docker\[3\]和 Kubernetes\[4\]兼容。借助 `Buildah`，您可以使用自己喜欢的工具从现有基础镜像或使用空镜像从头开始创建高效的容器镜像。这是一种更灵活、更安全的构建容器镜像的方式。
 
 `Buildah`由 `Daniel Walsh` 和他在 `Red Hat` 的团队于 2017 年创建。他们着手创建容器镜像的“`coreutils`”——一种可以与现有容器主机工具一起使用来构建 `OCI` 和 Docker 兼容容器镜像的工具。然后，这些镜像可以存储在容器仓库\[5\]中，并在多个运行时环境\[6\]中使用。
 
@@ -22,7 +22,7 @@ Buildah\[1\] 是一种基于 Linux 的开源工具，用于构建与开放容�
     
 -   • 从头开始或从现有容器镜像起点创建容器镜像；
     
--   • 不在镜像本身中包含构建工具，减少构建镜像的大小，提高安全性，并允许使用更少的资源更容易地传输 ；
+-   • 不在镜像本身中包含构建工具，减少构建镜像的大小，提高安全性，并允许使用更少的资源更容易地传输；
     
 -   • 与 `Dockerfiles` 兼容，允许从 Docker 轻松转换；
     
@@ -43,11 +43,11 @@ Buildah\[1\] 是一种基于 Linux 的开源工具，用于构建与开放容�
 
 ## 3\. Buildah 和 Podman
 
-`Buildah` 和Podman\[9\]都是互补的开源项目和命令行工具，使用并构建 OCI 镜像和容器。首先创建了 Buildah，Podman 使用与 Buildah 相同的代码进行构建。但是，Buildah 的命令比 Podman 的命令详细得多，允许对镜像进行更细粒度的控制并允许创建更精细的镜像层。Podman 的“构建”命令使用了 Buildah 功能的一个子集。
+`Buildah` 和 Podman\[9\]都是互补的开源项目和命令行工具，使用并构建 OCI 镜像和容器。首先创建了 Buildah，Podman 使用与 Buildah 相同的代码进行构建。但是，Buildah 的命令比 Podman 的命令详细得多，允许对镜像进行更细粒度的控制并允许创建更精细的镜像层。Podman 的“构建”命令使用了 Buildah 功能的一个子集。
 
-Buildah 专注于构建容器镜像，复制在没有守护程序套接字组件的 Dockerfile 中找到的所有命令，而 Podman 专注于维护和修改容器中的这些镜像所需的东西。使用 Podman，您可以创建一个容器——使用 Buildah 提供容器镜像——然后使用熟悉的命令行界面 (CLI) 命令（如果您可以运行一个Docker CLI 中的命令，您可以在 Podman CLI 中运行相同的命令）。
+Buildah 专注于构建容器镜像，复制在没有守护程序套接字组件的 Dockerfile 中找到的所有命令，而 Podman 专注于维护和修改容器中的这些镜像所需的东西。使用 Podman，您可以创建一个容器——使用 Buildah 提供容器镜像——然后使用熟悉的命令行界面 (CLI) 命令（如果您可以运行一个 Docker CLI 中的命令，您可以在 Podman CLI 中运行相同的命令）。
 
-Podman 和 Buildah 的另一个不同之处是：Buildah 的容器主要是临时创建的，以允许将内容传输到正在创建的容器镜像中，而使用 Podman，用户创建传统容器，旨在使用和维护更长时间. Buildah 的容器用于短期目的，而 Podman 的容器用于长期目的。
+Podman 和 Buildah 的另一个不同之处是：Buildah 的容器主要是临时创建的，以允许将内容传输到正在创建的容器镜像中，而使用 Podman，用户创建传统容器，旨在使用和维护更长时间。Buildah 的容器用于短期目的，而 Podman 的容器用于长期目的。
 
 `Buildah` 和 `Podman` 各自创建的容器是互相看不到的。
 
@@ -83,7 +83,7 @@ y install buildah
 sudo subscription
 -
 manager repos
---
+
 enable
 =
 rhel
@@ -138,7 +138,7 @@ ostree install buildah
 | buildah-push(1)\[23\] | 将镜像从本地存储推送到其他地方。 |
 | buildah-rename(1)\[24\] | 重命名本地容器 |
 | buildah-rm(1)\[25\] | 删除一个或多个工作容器。 |
-| buildah-rmi(1)\[26\] | 删除一个或多个镜像. |
+| buildah-rmi(1)\[26\] | 删除一个或多个镜像。|
 | buildah-run(1)\[27\] | 在容器内运行命令。 |
 | buildah-tag(1)\[28\] | 为本地镜像添加一个额外的名称。 |
 | buildah-umount(1)\[29\] | 卸载工作容器的根文件系统。 |
@@ -214,7 +214,7 @@ container dnf install httpd
 y
 ```
 
-为Web服务器创建包含某些内容的工作目录：
+为 Web 服务器创建包含某些内容的工作目录：
 
 ```plain
 mkdir
@@ -265,7 +265,7 @@ html
 
 ```plain
 buildah config
---
+
 entrypoint
 "/usr/sbin/httpd -DFOREGROUND"
  fedora
@@ -303,7 +303,7 @@ myhttpd            latest   e1fb00a4662b
  MB
 ```
 
-现在可以使用podman在本地利用新生成的镜像运行容器：
+现在可以使用 podman 在本地利用新生成的镜像运行容器：
 
 ```plain
 podman run
@@ -326,7 +326,7 @@ localhost
 sample container
 ```
 
-要将映像推送到本地Docker仓库，请执行以下操作：
+要将映像推送到本地 Docker 仓库，请执行以下操作：
 
 ```plain
 #登陆仓库
@@ -385,7 +385,7 @@ Storing
 
 ```plain
 buildah push
---
+
 creds registryuser
 :
 registryuserpassword fedora
@@ -553,7 +553,7 @@ $
 buildah from fedora
 )
 buildah config
---
+
 env
  GOPATH
 =/
@@ -575,7 +575,7 @@ c
 buildah run
 $ctr
 
---
+
  sed
 -
 i
@@ -607,13 +607,13 @@ c
 'mkdir -p /var/lib/shared/overlay-images /var/lib/shared/overlay-layers; touch /var/lib/shared/overlay-images/images.lock; touch /var/lib/shared/overlay-layers/layers.lock'
 
 buildah config
---
+
 env
  _BUILDAH_STARTED_IN_USERNS
 =
 ""
 
---
+
 env
  BUILDAH_ISOLATION
 =

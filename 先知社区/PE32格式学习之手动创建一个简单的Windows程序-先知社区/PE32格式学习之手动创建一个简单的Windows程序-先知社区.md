@@ -1,5 +1,5 @@
 ---
-title: PE32格式学习之手动创建一个简单的Windows程序 - 先知社区
+title: PE32 格式学习之手动创建一个简单的 Windows 程序 - 先知社区
 url: https://xz.aliyun.com/t/14105?u_atoken=cb7195dbc2fe24fead270c785b657594&u_asession=01qXSm5YwBj0Vr9l5msfKLWTq5EpI1fLHokB0KmyMwcl7a7MbujpI7VExi84oAzxRwdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05KSFHoAoEbI0nFMyiGbILeOCvoRb1x2nOQz0FUQS8tMp82ZhRf8_z56ezAtpg3Yn4HKwogs8S72W-wi_u1NkAz1rGLuhnIsH0SX3fzWjFi_irUHnx5tY9XIcFMRLCY2FW4YnCYhVTHm_0l-ywnNa-yMsDomoaR8INndD-6uuK2Opg2QMxYs6lyXb1lFWKql564KQ9eMYvZsyBnWuuEJ3YZg4Re7i-4TJvr8PVS_CjAY3HQ-VB_jVkLhgFljKJ7eRYf9Mzvwb3osQWoTOfxkhSC3LsJl9mgC3aDCSr2OuSZ9B6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=hTyo96t9feFpArTjtO8Jr45g6xo%3D
 clipped_at: 2024-03-21 11:49:35
 category: default
@@ -8,11 +8,11 @@ tags:
 ---
 
 
-# PE32格式学习之手动创建一个简单的Windows程序 - 先知社区
+# PE32 格式学习之手动创建一个简单的 Windows 程序 - 先知社区
 
-本项目通过手动创建一个简单的exe文件，介绍PE32可执行文件的基本结构。作为入门级别的教程，本文尽可能把需要的前置知识将到最低。其他必要的知识在构建文件的时候讲解。
+本项目通过手动创建一个简单的 exe 文件，介绍 PE32 可执行文件的基本结构。作为入门级别的教程，本文尽可能把需要的前置知识将到最低。其他必要的知识在构建文件的时候讲解。
 
-## 一、项目目标：手动创建简单的PE.exe程序。
+## 一、项目目标：手动创建简单的 PE.exe 程序。
 
 功能：弹出一个如下图的对话框（图）
 
@@ -20,22 +20,22 @@ tags:
 
 ## 二、基础知识
 
-### 在开始正式创建PE文件之前，默认操作者掌握以下概念（不懂的，可以自行学习，不难）：
+### 在开始正式创建 PE 文件之前，默认操作者掌握以下概念（不懂的，可以自行学习，不难）：
 
 -   懂得二进制、十进制、十六进制的表示、计算和转换
 -   理解计算机中 bit 和 byte 的概念、组织方式和表示。
--   理解BYTE、WORD、DWORD的概念。
+-   理解 BYTE、WORD、DWORD 的概念。
 -   掌握 little ending 规范。
 -   了解 ASCII 编码和 C 字符串规则。
--   学习过C语言，知道struct结构的尤佳，但不强求。
+-   学习过 C 语言，知道 struct 结构的尤佳，但不强求。
 -   会使用至少一种二进制编辑工具，推荐 ImHex，易上手开源无费用。
 
 ### 基础知识 1：进程虚拟地址空间
 
-Widnows中运行一个程序，系统会首先为这个程序创建一个“进程”。进程是程序运行的容器，包含程序运行所需要的各种资源。  
-我们知道程序只有加载到内存才能运行，磁盘上的exe程序加载到内存哪里呢？  
-与我们想象的直接加载到计算机的物理内存不同，操作系统通过“进程”容器给程序提供了一个叫做“虚拟内存地址空间”的东西。磁盘上的exe文件是加载到这个“虚拟内存空间”中的。现代操作系统这么设计的主要目的就是屏蔽操作物理内存的底层细节，让程序员开发的程序面对一个一致的，完整的运行空间。  
-以手动创建的PE.exe为例，其运行时的虚拟内存空间环境大致如下图：
+Widnows 中运行一个程序，系统会首先为这个程序创建一个“进程”。进程是程序运行的容器，包含程序运行所需要的各种资源。  
+我们知道程序只有加载到内存才能运行，磁盘上的 exe 程序加载到内存哪里呢？  
+与我们想象的直接加载到计算机的物理内存不同，操作系统通过“进程”容器给程序提供了一个叫做“虚拟内存地址空间”的东西。磁盘上的 exe 文件是加载到这个“虚拟内存空间”中的。现代操作系统这么设计的主要目的就是屏蔽操作物理内存的底层细节，让程序员开发的程序面对一个一致的，完整的运行空间。  
+以手动创建的 PE.exe 为例，其运行时的虚拟内存空间环境大致如下图：
 
 [![](assets/1710992975-7b4292bc6656cc6d37a3e2eddfe2f2b3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315140751-5b36b968-e292-1.png)
 
@@ -43,120 +43,120 @@ Widnows中运行一个程序，系统会首先为这个程序创建一个“进�
 
 ### 基础知识 2：内存页和物理内存映射
 
-现代操作系统都是多任务操作系统，可以同时运行很多进程。根据上面介绍的，每一个32位进程都有 4G 的虚拟内存空间，显然我们的计算机物理内存是不够的。通过观察上面的PE.exe虚拟内存分布，可以发现绝大多数虚拟内存是用不上的。而系统DLL其实每一个进程都要用到。所以操作系统巧妙的将虚拟内存“裁减”成一块一块同样大小的内存片，同时把物理内存也“裁减”成同样大小的内存片。只有需要使用的虚拟内存片，操作系统才会将其映射到实际的物理内存片上。这种机制可以轻松实现内存共享，比如系统DLL的物理内存片，可以映射到所有进程的虚拟内存空间中。如下图所示：
+现代操作系统都是多任务操作系统，可以同时运行很多进程。根据上面介绍的，每一个 32 位进程都有 4G 的虚拟内存空间，显然我们的计算机物理内存是不够的。通过观察上面的 PE.exe 虚拟内存分布，可以发现绝大多数虚拟内存是用不上的。而系统 DLL 其实每一个进程都要用到。所以操作系统巧妙的将虚拟内存“裁减”成一块一块同样大小的内存片，同时把物理内存也“裁减”成同样大小的内存片。只有需要使用的虚拟内存片，操作系统才会将其映射到实际的物理内存片上。这种机制可以轻松实现内存共享，比如系统 DLL 的物理内存片，可以映射到所有进程的虚拟内存空间中。如下图所示：
 
 [![](assets/1710992975-3ce9689a309fdc397c0aa71195d1bf54.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315140846-7bb85336-e292-1.png)
 
-“裁减”的内存片的大小很有讲究。裁小了，映射的开销就会增大，最终会得不偿失；裁大了，又会造成许多浪费。现代操作系统根据计算机一般配备的物理内存大小，普遍选用 4KB（4096） 字节大小的内存分片。
+“裁减”的内存片的大小很有讲究。裁小了，映射的开销就会增大，最终会得不偿失；裁大了，又会造成许多浪费。现代操作系统根据计算机一般配备的物理内存大小，普遍选用 4KB（4096）字节大小的内存分片。
 
-### 基础知识 3：PE32可执行文件基本结构
+### 基础知识 3：PE32 可执行文件基本结构
 
-一个典型的exe可执行程序一般包含：
+一个典型的 exe 可执行程序一般包含：
 
--   文件头：PE32文件头是多个结构的组合
+-   文件头：PE32 文件头是多个结构的组合
 -   .code 节：包含用户代码编译后的二进制指令流
 -   .data 节：包含代码运行前需要预初始化的数据，例如全局变量等
 -   .idata 节：一般包含程序运行需要用到的系统函数等的导入表。
 
-可以参考“基础知识 4”里面的图。本项目按照这种结构手动构建PE.exe。
+可以参考“基础知识 4”里面的图。本项目按照这种结构手动构建 PE.exe。
 
 ### 基础知识 4：从磁盘 File 到内存 Image
 
 将可执行程序从磁盘文件被加载到内存的程序，一般称为`Loader`。这个过程中`Loader`会做许多工作，十分复杂。就理解这个项目来说，需要了解以下两项：
 
-> PE.exe在磁盘上的时候我们称为可执行文件，但被加载到内存时，我们将其称为Image。
+> PE.exe 在磁盘上的时候我们称为可执行文件，但被加载到内存时，我们将其称为 Image。
 
 1、程序并不是原封不动拷贝的，而是有个“拉伸”过程。
 
 [![](assets/1710992975-209bf14f2f6eee562eb0acd1166ef839.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315140918-8ead4bf4-e292-1.png)
 
-图中可以看出`section`在文件中和加载到虚拟内存中，起始地址对齐的位置不同。为什么是512和4096呢？因为传统磁盘一个扇区是512个字节，而前面讲过内存页的大小是 4KB，也就是4096个字节。显然磁盘文件保存形式更紧凑，节约存储空间。而内存模式，因为是以内存页的形式将虚拟内存映射到物理内存，用不到的虚拟内存不映射到物理内存，所以也不存在“浪费”一说。
+图中可以看出`section`在文件中和加载到虚拟内存中，起始地址对齐的位置不同。为什么是 512 和 4096 呢？因为传统磁盘一个扇区是 512 个字节，而前面讲过内存页的大小是 4KB，也就是 4096 个字节。显然磁盘文件保存形式更紧凑，节约存储空间。而内存模式，因为是以内存页的形式将虚拟内存映射到物理内存，用不到的虚拟内存不映射到物理内存，所以也不存在“浪费”一说。
 
-由于这种加载时候的“拉伸”过程存在，程序中变量/字段的相对位置（相对于文件/内存Image起始位置）会不一样。所以产生FOA和RVA的概念。
+由于这种加载时候的“拉伸”过程存在，程序中变量/字段的相对位置（相对于文件/内存 Image 起始位置）会不一样。所以产生 FOA 和 RVA 的概念。
 
--   FOA：File Offset Address，字段在文件中，相对文件起始位置的偏移量。我们手动创建PE.exe时就需要使用这个偏移量来定位需要编辑的字段。
--   RVA：Relative Virtual Address，字段在内存Image中，相对Image起始位置的偏移量。编辑字段值时需要特别注意。
+-   FOA：File Offset Address，字段在文件中，相对文件起始位置的偏移量。我们手动创建 PE.exe 时就需要使用这个偏移量来定位需要编辑的字段。
+-   RVA：Relative Virtual Address，字段在内存 Image 中，相对 Image 起始位置的偏移量。编辑字段值时需要特别注意。
 
-2、根据导入表加载相应的DLL，并将实际的函数虚拟地址更新到导入表的地址表中。
+2、根据导入表加载相应的 DLL，并将实际的函数虚拟地址更新到导入表的地址表中。
 
-导入表是一个新概念，这里只简单提一下，不理解没关系。后面讲到 `.idata`节的时候，会详细介绍这一部分。这是理解windows可执行文件格式中很重要的内容，也是本项目知识点中理解起来最困难的部分。不过不要害怕，只要认真学习这个简化到及至的例子，其实也就那么回事。
+导入表是一个新概念，这里只简单提一下，不理解没关系。后面讲到 `.idata`节的时候，会详细介绍这一部分。这是理解 windows 可执行文件格式中很重要的内容，也是本项目知识点中理解起来最困难的部分。不过不要害怕，只要认真学习这个简化到及至的例子，其实也就那么回事。
 
-## 三、创建PE32可执行文件框架
+## 三、创建 PE32 可执行文件框架
 
-按照“基础知识 3”介绍的典型PE32可执行文件基本结构，准备创建的PE.exe文件，分为4个部分：文件头、.code 节、.data 节、.idata 节。
+按照“基础知识 3”介绍的典型 PE32 可执行文件基本结构，准备创建的 PE.exe 文件，分为 4 个部分：文件头、.code 节、.data 节、.idata 节。
 
-由于PE.exe功能简单，本项目设定每个部分大小都是512字节。
+由于 PE.exe 功能简单，本项目设定每个部分大小都是 512 字节。
 
-使用二进制编辑工具（如imHex），创建一个`512*4=2048`个字节，值全为0的二进制文件，保存为`PE.exe`。
+使用二进制编辑工具（如 imHex），创建一个`512*4=2048`个字节，值全为 0 的二进制文件，保存为`PE.exe`。
 
 [![](assets/1710992975-504b096fc8c1e8edf7df8d8640932fea.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315140947-9feab186-e292-1.png)
 
-## 四、编辑PE.exe文件头
+## 四、编辑 PE.exe 文件头
 
-PE32文件头十分复杂，本文尽可能只介绍必须用到的部分，尽量降低复杂度。相信只要有点耐心，看着复杂的文件头，其实际要编辑的地方并不是很多。
+PE32 文件头十分复杂，本文尽可能只介绍必须用到的部分，尽量降低复杂度。相信只要有点耐心，看着复杂的文件头，其实际要编辑的地方并不是很多。
 
-PE32文件头大致可以分为如图的几个部分：DOS Header、PE File Header、PE Optional Header、Section Table（Section Headers Array）
+PE32 文件头大致可以分为如图的几个部分：DOS Header、PE File Header、PE Optional Header、Section Table（Section Headers Array）
 
 [![](assets/1710992975-ccd54cd5c8c91c8dbcb31f993a675512.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315141012-af111128-e292-1.png)
 
 下面我们来逐一编辑创建这些文件头。
 
-### 1、DOS Header
+### 1, DOS Header
 
 | FOA | RVA | Size | Field | Value | Description |
 | --- | --- | --- | --- | --- | --- |
-| 0   | 0   | 2   | e\_magic | 0x5A4D | DOS头标志 ‘MZ’ |
-| 2   | 2   | 58  | e\_xxx | 00  | DOS头字段，可以忽略 |
-| 0x3C | 0x3C | 4   | e\_lfanew | 0x80 | 指向PE Header头部的偏移量 |
+| 0   | 0   | 2   | e\_magic | 0x5A4D | DOS 头标志‘MZ’ |
+| 2   | 2   | 58  | e\_xxx | 00  | DOS 头字段，可以忽略 |
+| 0x3C | 0x3C | 4   | e\_lfanew | 0x80 | 指向 PE Header 头部的偏移量 |
 | 0x40 | 0x40 | 0x40 | DOS Stub | 00  | DOS 模式下的一段程序，可以忽略 |
 
-### 2、PE File Header
+### 2, PE File Header
 
 | FOA | RVA | Size | Field | Value | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| 0x80 | 0x80 | 4   | PE Signature | 0x4550 | PE头标志 ‘PE\\x00\\x00' |
+| 0x80 | 0x80 | 4   | PE Signature | 0x4550 | PE 头标志‘PE\\x00\\x00' |
 | 0x84 | 0x84 | 2   | Machine | 0x014C | 表示这个文件需要运行在 Intel 386 or later processors and compatible processors。 |
-| 0x86 | 0x86 | 2   | NumberOfSections | 3   | 本项目规划3个节：.code、.data、.idata |
+| 0x86 | 0x86 | 2   | NumberOfSections | 3   | 本项目规划 3 个节：.code、.data、.idata |
 | 0x88 | 0x88 | 4   | TimeDateStamp | 00  | 文件创建时间，可以忽略 |
 | 0x8C | 0x8C | 4   | PointerToSymbolTable | 00  | 指向符号表的偏移量，本项目没有符号表，可以忽略 |
 | 0x90 | 0x90 | 4   | NumberOfSymbols | 00  | 没有符号，可以忽略 |
 | 0x94 | 0x94 | 2   | SizeOfOptionalHeader | 0xE0 | PE32 的 OptionalHeader 大小 |
-| 0x96 | 0x96 | 2   | Characteristics | 0x0102 | IMAGE\_FILE\_EXECUTABLE\_IMAGE \\ | IMAGE\_FILE\_32BIT\_MACHINE  <br>文件的属性：32位的可执行文件 |
+| 0x96 | 0x96 | 2   | Characteristics | 0x0102 | IMAGE\_FILE\_EXECUTABLE\_IMAGE \\ | IMAGE\_FILE\_32BIT\_MACHINE  <br>文件的属性：32 位的可执行文件 |
 
-### 3、PE Optional Header
+### 3, PE Optional Header
 
 | FOA | RVA | Size | Field | Value | Description |
 | --- | --- | --- | --- | --- | --- |
-| 0x98 | 0x98 | 2   | Magic | 0x010B | 标识该文件是 PE32 文件（相对于64位的PE32+：0x20B） |
+| 0x98 | 0x98 | 2   | Magic | 0x010B | 标识该文件是 PE32 文件（相对于 64 位的 PE32+：0x20B） |
 | 0x9A | 0x9A | 1   | MajorLinkerVersion | 00  | 链接器主版本号，可以忽略 |
 | 0x9B | 0x9B | 1   | MinorLinkerVersion | 00  | 链接器副版本号，可以忽略 |
-| 0x9C | 0x9C | 4   | SizeOfCode | 0x1000 | .code 节需对齐到内存页边界，内存页大小为0x1000。实际代码只有十几个字节。 |
+| 0x9C | 0x9C | 4   | SizeOfCode | 0x1000 | .code 节需对齐到内存页边界，内存页大小为 0x1000。实际代码只有十几个字节。 |
 | 0xA0 | 0xA0 | 4   | SizeOfInitializedData | 00  | 已初始化的数据（节）大小，可以忽略 |
 | 0xA4 | 0xA4 | 4   | SizeOfUninitializedData | 00  | 未初始化的数据（节）大小，可以忽略 |
-| 0xA8 | 0xA8 | 4   | AddressOfEntryPoint | 0x1000 | 程序的入口点RVA。这里设置成 .code 节在内存中的起始RVA |
-| 0xAC | 0xAC | 4   | BaseOfCode | 0x1000 | .code 节在内存Image中的起始地址RVA |
-| 0xB0 | 0xB0 | 4   | BaseOfData | 0x2000 | .data 节在内存Image中的起始地址RVA |
+| 0xA8 | 0xA8 | 4   | AddressOfEntryPoint | 0x1000 | 程序的入口点 RVA。这里设置成 .code 节在内存中的起始 RVA |
+| 0xAC | 0xAC | 4   | BaseOfCode | 0x1000 | .code 节在内存 Image 中的起始地址 RVA |
+| 0xB0 | 0xB0 | 4   | BaseOfData | 0x2000 | .data 节在内存 Image 中的起始地址 RVA |
 | 0xB4 | 0xB4 | 4   | ImageBase | 0x400000 | 文件加载到进程虚拟内存地址空间的起始位置 |
-| 0xB8 | 0xB8 | 4   | SectionAlignment | 0x1000 | 每个节在内存Image中需要对齐到内存页大小的边界上 |
-| 0xBC | 0xBC | 4   | FileAlignment | 0x200 | 每个节在磁盘文件中需要对其到512字节的边界上 |
+| 0xB8 | 0xB8 | 4   | SectionAlignment | 0x1000 | 每个节在内存 Image 中需要对齐到内存页大小的边界上 |
+| 0xBC | 0xBC | 4   | FileAlignment | 0x200 | 每个节在磁盘文件中需要对其到 512 字节的边界上 |
 | 0xC0 | 0xC0 | 2   | MajorOperatingSystemVersion | 00  | 程序运行需要的操作系统主版本号，可以忽略 |
 | 0xC2 | 0xC2 | 2   | MinorOperatingSystemVersion | 00  | 程序运行需要的操作系统副版本号，可以忽略 |
 | 0xC4 | 0xC4 | 2   | MajorImageVersion | 00  | 程序的主版本号，可以忽略 |
 | 0xC6 | 0xC6 | 2   | MinorImageVersion | 00  | 程序的副版本号，可以忽略 |
 | 0xC8 | 0xC8 | 2   | MajorSubsystemVersion | 6   | 程序要求的子系统主版本号 |
-| 0xCA | 0xCA | 2   | MinorSubsystemVersion | 1   | 程序要求的子系统副版本号。Win7的版本号是 6.1 |
-| 0xCC | 0xCC | 4   | Win32VersionValue | 00  | 保留，必须是00 |
-| 0xD0 | 0xD0 | 4   | SizeOfImage | 0x4000 | 程序的内存Image大小，Headers+3Sections，每个对齐到内存页边界后就是4\*0x1000 |
-| 0xD4 | 0xD4 | 4   | SizeOfHeaders | 0x200 | 不足512字节，对齐到512边界 |
+| 0xCA | 0xCA | 2   | MinorSubsystemVersion | 1   | 程序要求的子系统副版本号。Win7 的版本号是 6.1 |
+| 0xCC | 0xCC | 4   | Win32VersionValue | 00  | 保留，必须是 00 |
+| 0xD0 | 0xD0 | 4   | SizeOfImage | 0x4000 | 程序的内存 Image 大小，Headers+3Sections，每个对齐到内存页边界后就是 4\*0x1000 |
+| 0xD4 | 0xD4 | 4   | SizeOfHeaders | 0x200 | 不足 512 字节，对齐到 512 边界 |
 | 0xD8 | 0xD8 | 4   | CheckSum | 00  | 校验值，可以忽略 |
-| 0xDC | 0xDC | 2   | Subsystem | 2   | IMAGE\_SUBSYSTEM\_WINDOWS\_GUI Windows图形界面子系统 |
-| 0xDE | 0xDE | 2   | DllCharacteristics | 00  | 这是一个exe程序，不是一个DLL |
+| 0xDC | 0xDC | 2   | Subsystem | 2   | IMAGE\_SUBSYSTEM\_WINDOWS\_GUI Windows 图形界面子系统 |
+| 0xDE | 0xDE | 2   | DllCharacteristics | 00  | 这是一个 exe 程序，不是一个 DLL |
 | 0xE0 | 0xE0 | 4   | SizeOfStackReserve | 00  | 使用系统默认值 |
 | 0xE4 | 0xE4 | 4   | SizeOfStackCommit | 00  | 使用系统默认值 |
 | 0xE8 | 0xE8 | 4   | SizeOfHeapReserve | 00  | 使用系统默认值 |
 | 0xEC | 0xEC | 4   | SizeOfHeapCommit | 00  | 使用系统默认值 |
-| 0xF0 | 0xF0 | 4   | LoaderFlags | 00  | 保留，必须是00 |
-| 0xF4 | 0xF4 | 4   | NumberOfRvaAndSizes | 16  | data-diretory 结构的数组，每一项都代表一个重要的数据结构的RVA和Size。 |
+| 0xF0 | 0xF0 | 4   | LoaderFlags | 00  | 保留，必须是 00 |
+| 0xF4 | 0xF4 | 4   | NumberOfRvaAndSizes | 16  | data-diretory 结构的数组，每一项都代表一个重要的数据结构的 RVA 和 Size。 |
 | 0xF8 | 0xF8 | 8   | Export Table | 00  | 导出表 |
 | 0x100 | 0x100 | 4   | Import Table RVA | 0x3000 | 导入表的结构在 .idata 节的起始处 |
 | 0x104 | 0x104 | 4   | Import Table Size | 20  | 导入表结构大小 |
@@ -175,50 +175,50 @@ PE32文件头大致可以分为如图的几个部分：DOS Header、PE File Head
 | 0x168 | 0x168 | 8   | CLR Runtime Header | 00  | 本项目用不到，可以忽略 |
 | 0x170 | 0x170 | 8   | Reserved, must be zero | 00  | 本项目用不到，可以忽略 |
 
-data-diretory 结构的数组一共16个Entry，每一个Entry的含义都是固定的。本项目中只用到了导入表。
+data-diretory 结构的数组一共 16 个 Entry，每一个 Entry 的含义都是固定的。本项目中只用到了导入表。
 
-### 4、Section Table (Section Headers)
+### 4, Section Table (Section Headers)
 
 `Section Table`紧接着上面的各种 Headers，本质上是一个`Section Header`结构的数组，有几个 Section 就有几个数组元素。每个`Section Header`结构描述该节的一些基本属性。
 
-> 补充知识：为了加强安全性，操作系统在CPU的配合下，给内存页设置了三个权限：READ、WRITE、EXECUTE。存放代码的内存页一般赋予READ和EXECUTE权限，防止代码被篡改。存放数据的内存页一般赋予READ、WRITE权限，万一攻击者写入恶意代码，页不能执行。
+> 补充知识：为了加强安全性，操作系统在 CPU 的配合下，给内存页设置了三个权限：READ、WRITE、EXECUTE。存放代码的内存页一般赋予 READ 和 EXECUTE 权限，防止代码被篡改。存放数据的内存页一般赋予 READ、WRITE 权限，万一攻击者写入恶意代码，页不能执行。
 > 
 > 这个概念方便理解 Section Header 里的 Characteristics 字段的含义。Sections 都是要随着 File to Image 被加载到进程虚拟内存中的。
 
 | FOA | RVA | Size | Field | Value | Description |
 | --- | --- | --- | --- | --- | --- |
 | 0x178 | 0x178 | 8   | Name | ".code" | 字符串".code" |
-| 0x180 | 0x180 | 4   | VirtualSize | 0x1000 | 该节在内存Image中的大小 |
-| 0x184 | 0x184 | 4   | VirtualAddress | 0x1000 | 该节在内存Image中的起始地址RVA |
+| 0x180 | 0x180 | 4   | VirtualSize | 0x1000 | 该节在内存 Image 中的大小 |
+| 0x184 | 0x184 | 4   | VirtualAddress | 0x1000 | 该节在内存 Image 中的起始地址 RVA |
 | 0x188 | 0x188 | 4   | SizeOfRawData | 0x200 | 该节在磁盘文件中的大小 |
-| 0x18C | 0x18C | 4   | PointerToRawData | 0x200 | 该节在磁盘文件中的起始地址FOA |
+| 0x18C | 0x18C | 4   | PointerToRawData | 0x200 | 该节在磁盘文件中的起始地址 FOA |
 | 0x190 | 0x190 | 4   | PointerToRelocations | 00  | 本项目用不到，可以忽略 |
 | 0x194 | 0x194 | 4   | PointerToLinenumbers | 00  | 本项目用不到，可以忽略 |
 | 0x198 | 0x198 | 2   | NumberOfRelocations | 00  | 本项目用不到，可以忽略 |
 | 0x19A | 0x19A | 2   | NumberOfLinenumbers | 00  | 本项目用不到，可以忽略 |
 | 0x19C | 0x19C | 4   | Characteristics | 0x60000020 | IMAGE\_SCN\_CNT\_CODE 该节包含执行代码  <br>IMAGE\_SCN\_MEM\_EXECUTE 该节可以被执行  <br>IMAGE\_SCN\_MEM\_READ 该节可以被访问 |
 | 0x1A0 | 0x1A0 | 8   | Name | ".data" | 字符串".data" |
-| 0x1A8 | 0x1A8 | 4   | VirtualSize | 0x1000 | 该节在内存Image中的大小 |
-| 0x1AC | 0x1AC | 4   | VirtualAddress | 0x2000 | 该节在内存Image中的起始地址RVA |
+| 0x1A8 | 0x1A8 | 4   | VirtualSize | 0x1000 | 该节在内存 Image 中的大小 |
+| 0x1AC | 0x1AC | 4   | VirtualAddress | 0x2000 | 该节在内存 Image 中的起始地址 RVA |
 | 0x1B0 | 0x1B0 | 4   | SizeOfRawData | 0x200 | 该节在磁盘文件中的大小 |
-| 0x1B4 | 0x1B4 | 4   | PointerToRawData | 0x400 | 该节在磁盘文件中的起始地址FOA |
+| 0x1B4 | 0x1B4 | 4   | PointerToRawData | 0x400 | 该节在磁盘文件中的起始地址 FOA |
 | 0x1B8 | 0x1B8 | 4   | PointerToRelocations | 00  | 本项目用不到，可以忽略 |
 | 0x1BC | 0x1BC | 4   | PointerToLinenumbers | 00  | 本项目用不到，可以忽略 |
 | 0x1C0 | 0x1C0 | 2   | NumberOfRelocations | 00  | 本项目用不到，可以忽略 |
 | 0x1C2 | 0x1C2 | 2   | NumberOfLinenumbers | 00  | 本项目用不到，可以忽略 |
 | 0x1C4 | 0x1C4 | 4   | Characteristics | 0xC0000040 | IIMAGE\_SCN\_CNT\_INITIALIZED\_DATA 该节包含初始化数据  <br>IMAGE\_SCN\_MEM\_READ 该节可以被访问  <br>IMAGE\_SCN\_MEM\_WRITE 该节可以被写入 |
 | 0x1C8 | 0x1C8 | 8   | Name | ".idata" | 字符串".idata" |
-| 0x1D0 | 0x1D0 | 4   | VirtualSize | 0x1000 | 该节在内存Image中的大小 |
-| 0x1D4 | 0x1D4 | 4   | VirtualAddress | 0x3000 | 该节在内存Image中的起始地址RVA |
+| 0x1D0 | 0x1D0 | 4   | VirtualSize | 0x1000 | 该节在内存 Image 中的大小 |
+| 0x1D4 | 0x1D4 | 4   | VirtualAddress | 0x3000 | 该节在内存 Image 中的起始地址 RVA |
 | 0x1D8 | 0x1D8 | 4   | SizeOfRawData | 0x200 | 该节在磁盘文件中的大小 |
-| 0x1DC | 0x1DC | 4   | PointerToRawData | 0x600 | 该节在磁盘文件中的起始地址FOA |
+| 0x1DC | 0x1DC | 4   | PointerToRawData | 0x600 | 该节在磁盘文件中的起始地址 FOA |
 | 0x1E0 | 0x1E0 | 4   | PointerToRelocations | 00  | 本项目用不到，可以忽略 |
 | 0x1E4 | 0x1E4 | 4   | PointerToLinenumbers | 00  | 本项目用不到，可以忽略 |
 | 0x1E8 | 0x1E8 | 2   | NumberOfRelocations | 00  | 本项目用不到，可以忽略 |
 | 0x1EA | 0x1EA | 2   | NumberOfLinenumbers | 00  | 本项目用不到，可以忽略 |
 | 0x1EC | 0x1EC | 4   | Characteristics | 0xC0000040 | IIMAGE\_SCN\_CNT\_INITIALIZED\_DATA 该节包含初始化数据  <br>IMAGE\_SCN\_MEM\_READ 该节可以被访问  <br>IMAGE\_SCN\_MEM\_WRITE 该节可以被写入 |
 
-至此PE.exe的所有头部数据结构都已经编辑完毕，一共 0x1F0 个字节大小。有兴趣的读者可以根据表格内的`FOA`偏移量和`Value`值进行编辑和保存。看着挺多，实际大部分地方都是0。
+至此 PE.exe 的所有头部数据结构都已经编辑完毕，一共 0x1F0 个字节大小。有兴趣的读者可以根据表格内的`FOA`偏移量和`Value`值进行编辑和保存。看着挺多，实际大部分地方都是 0。
 
 ## 五、编辑`.idata`节
 
@@ -230,13 +230,13 @@ data-diretory 结构的数组一共16个Entry，每一个Entry的含义都是固
 
 我们在编写程序，需要访问磁盘/网络、获取系统信息、进行程序之间的交互等等，只需要调用一些系统函数，而不需要自己去实现这些功能。这些由操作系统提供的函数，本质上是操作系统对用户提供的一系列服务，被封装成了`Application Programming Interface`（应用程序编程接口 API）。
 
-这些API函数按照一定功能分类，被放在一个个系统的DLL文件里面。比如我们这个PE.exe就需要用到`MessageBoxA`这个API函数来显示对话框，`MessageBoxA`实现在`user32.dll`文件里面。那么PE.exe怎么在运行时知道，并调用`user32.dll`文件里面的`MessageBoxA`函数呢？实际上它不需要知道，这是一个复杂的机制。
+这些 API 函数按照一定功能分类，被放在一个个系统的 DLL 文件里面。比如我们这个 PE.exe 就需要用到`MessageBoxA`这个 API 函数来显示对话框，`MessageBoxA`实现在`user32.dll`文件里面。那么 PE.exe 怎么在运行时知道，并调用`user32.dll`文件里面的`MessageBoxA`函数呢？实际上它不需要知道，这是一个复杂的机制。
 
--   首先要在PE.exe文件里面保存需要用到的DLL及其函数的信息，并保留出存放运行时这些函数“实际地址”的存储空间。而保存这些信息的数据结构就是——导入表。
--   操作系统的`Loader`在加载PE.exe时，查看导入表，并根据这些信息，将DLL加载到进程虚拟地址空间的高位地址空间中，然后将API函数在进程虚拟地址空间中的“实际地址”填入导入表为其保留的存放空间中。
--   PE.exe执行到调用API函数时，就会直接跳转到`Import Address Table`（IAT）对应表项中的实际地址。
+-   首先要在 PE.exe 文件里面保存需要用到的 DLL 及其函数的信息，并保留出存放运行时这些函数“实际地址”的存储空间。而保存这些信息的数据结构就是——导入表。
+-   操作系统的`Loader`在加载 PE.exe 时，查看导入表，并根据这些信息，将 DLL 加载到进程虚拟地址空间的高位地址空间中，然后将 API 函数在进程虚拟地址空间中的“实际地址”填入导入表为其保留的存放空间中。
+-   PE.exe 执行到调用 API 函数时，就会直接跳转到`Import Address Table`（IAT）对应表项中的实际地址。
 
-简单来说，就是PE.exe在导入表中专门给`MessageBoxA`函数留了个位置，`Loader`根据导入表信息，加载DLL并用实际的`MessageBoxA`的地址更新这个位置。.code节中的代码只是调用这个位置的函数。（试想一下如果这个位置换一个其他函数，会是啥情况？这有个术语叫API劫持）
+简单来说，就是 PE.exe 在导入表中专门给`MessageBoxA`函数留了个位置，`Loader`根据导入表信息，加载 DLL 并用实际的`MessageBoxA`的地址更新这个位置。.code 节中的代码只是调用这个位置的函数。（试想一下如果这个位置换一个其他函数，会是啥情况？这有个术语叫 API 劫持）
 
 ### 2、导入表的结构
 
@@ -244,82 +244,82 @@ data-diretory 结构的数组一共16个Entry，每一个Entry的含义都是固
 
 [![](assets/1710992975-95c80d45754a86cbc37bb74f3ad1df62.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315141049-c51b3386-e292-1.png)
 
-这个图展示了一个有两个DLL，每个DLL通过函数名分别导入2个函数的导入表基本结构。（当然这只是最基本的导入方式，本项目只解释最基本的概念）
+这个图展示了一个有两个 DLL，每个 DLL 通过函数名分别导入 2 个函数的导入表基本结构。（当然这只是最基本的导入方式，本项目只解释最基本的概念）
 
 一眼看上去就懵了，是不是复杂到有点不知所云。没关系，我们只需要抓住上面结构的三个关键数据结构：
 
--   Directory Entry（Import Descriptor） 结构
+-   Directory Entry（Import Descriptor）结构
 -   Import Lookup Entry 结构
 -   Hit-Name Entry 结构
 
 所谓的`Table`都是这三种结构分别组成的数组。让我们来了解一下这三个结构：
 
-（1）Directory Entry结构（20字节）
+（1）Directory Entry 结构（20 字节）
 
-这个结构描述一个需要导入的DLL。
+这个结构描述一个需要导入的 DLL。
 
 | Offset | Size | Field | Description |
 | --- | --- | --- | --- |
-| 0   | 4   | Import Lookup Table RVA | import lookup table（ILT） 在内存image中的偏移量 |
-| 4   | 4   | Time/Date Stamp | 初始为0，Loader 会将其更新为DLL加载成功的时间。 |
-| 8   | 4   | Forwarder Chain | 设置为0就好。不用关心 |
-| 12  | 4   | Name RVA | DLL名称字符串在内存image中的偏移量。 |
-| 16  | 4   | Import Address Table RVA (Thunk Table) | import address table（IAT） 在内存image中的偏移量。这个值和ILT RVA相同 |
+| 0   | 4   | Import Lookup Table RVA | import lookup table（ILT）在内存 image 中的偏移量 |
+| 4   | 4   | Time/Date Stamp | 初始为 0，Loader 会将其更新为 DLL 加载成功的时间。 |
+| 8   | 4   | Forwarder Chain | 设置为 0 就好。不用关心 |
+| 12  | 4   | Name RVA | DLL 名称字符串在内存 image 中的偏移量。 |
+| 16  | 4   | Import Address Table RVA (Thunk Table) | import address table（IAT）在内存 image 中的偏移量。这个值和 ILT RVA 相同 |
 
-结合导入表的图，Import Lookup Table RVA（ILT RVA）和 Import Address Table RVA（IAT RVA）实际指向同块内存区域。 这是一个设计上很巧妙的地方。
+结合导入表的图，Import Lookup Table RVA（ILT RVA）和 Import Address Table RVA（IAT RVA）实际指向同块内存区域。这是一个设计上很巧妙的地方。
 
-（2）Import Lookup Entry结构（4字节）
+（2）Import Lookup Entry 结构（4 字节）
 
-这个结构描述DLL中需要导入的一个函数。可以使用`Ordinal`或者`函数名`两种方式导入一个函数。这里只讲解最直观的`函数名`导入方式。
+这个结构描述 DLL 中需要导入的一个函数。可以使用`Ordinal`或者`函数名`两种方式导入一个函数。这里只讲解最直观的`函数名`导入方式。
 
-注意这个结构的大小是4字节，意味着本身就可以作为一个地址指针。
+注意这个结构的大小是 4 字节，意味着本身就可以作为一个地址指针。
 
 | Bit(s) | Size | Bit field | Description |
 | --- | --- | --- | --- |
 | 31  | 1   | Ordinal/Name Flag | 标志位，表示该函数是`Ordinal`还是`函数名`方式导入 |
-| 15-0 | 16  | Ordinal Number | 如果是`Ordinal`方式导入函数，此16位是代表这个函数的数值。这种方式导入函数速度最快。 |
-| 30-0 | 31  | Hint/Name Table RVA | 如果是`函数名`方式导入函数，此31位值代表指向 Hint/Name Entry 结构的内存image偏移量。 |
+| 15-0 | 16  | Ordinal Number | 如果是`Ordinal`方式导入函数，此 16 位是代表这个函数的数值。这种方式导入函数速度最快。 |
+| 30-0 | 31  | Hint/Name Table RVA | 如果是`函数名`方式导入函数，此 31 位值代表指向 Hint/Name Entry 结构的内存 image 偏移量。 |
 
-在PE.exe文件中，这个字段保存函数名称的偏移量。在被加载到进程虚拟内存后，Loader会根据函数名查找真实地址，然后存入这个字段。
+在 PE.exe 文件中，这个字段保存函数名称的偏移量。在被加载到进程虚拟内存后，Loader 会根据函数名查找真实地址，然后存入这个字段。
 
-在PE.exe文件中，这个字段叫 ILT（Import Lookup Table）；在内存中，这个字段叫 IAT （Import Address Table）。区别就在于保存的内容变了。
+在 PE.exe 文件中，这个字段叫 ILT（Import Lookup Table）；在内存中，这个字段叫 IAT（Import Address Table）。区别就在于保存的内容变了。
 
-（3）Hint/Name Entry结构（不定长）
+（3）Hint/Name Entry 结构（不定长）
 
 | Offset | Size | Field | Description |
 | --- | --- | --- | --- |
 | 0   | 2   | Hint | 可以看成是对函数名的一种散列值，用来快速匹配函数名对应的函数。 |
-| 2   | variable | Name | 一个 ASCII 字符串，以NULL结尾。 |
-| \*  | 0 or 1 | Pad | 填充字节，保证下一个Entry的起始地址是偶数。 |
+| 2   | variable | Name | 一个 ASCII 字符串，以 NULL 结尾。 |
+| \*  | 0 or 1 | Pad | 填充字节，保证下一个 Entry 的起始地址是偶数。 |
 
 以函数名导入函数，需要涉及大量的字符串比较，效率不高。所以定义了一个 `Hint`来加快这种比对查找。
 
 ### 3、手动构造导入表
 
-PE.exe只从`user32.dll`导入`MessageBoxA`，所以只有两个`Directory Entry`（最后一个是表示结束的NULL Entry），两个`Import Lookup Table`（最后一个是表示结束的NULL Entry）。我们在`.idata`节的起始位置开始布置导入表。
+PE.exe 只从`user32.dll`导入`MessageBoxA`，所以只有两个`Directory Entry`（最后一个是表示结束的 NULL Entry），两个`Import Lookup Table`（最后一个是表示结束的 NULL Entry）。我们在`.idata`节的起始位置开始布置导入表。
 
 | FOA | RVA | Size | Field | Value | Description |
 | --- | --- | --- | --- | --- | --- |
 | 0x600 | 0x3000 | 4   | Import Lookup Table RVA | 0x3028 | 导入查询表位置偏移量 |
-| 0x604 | 0x3004 | 4   | Time/Date Stamp | 00  | 时间戳，置0 |
-| 0x608 | 0x3008 | 4   | Forwarder Chain | 00  | 用不到，置0 |
-| 0x60C | 0x300C | 4   | DLL Name RVA | 0x3030 | DLL名字符串存放位置偏移量 |
+| 0x604 | 0x3004 | 4   | Time/Date Stamp | 00  | 时间戳，置 0 |
+| 0x608 | 0x3008 | 4   | Forwarder Chain | 00  | 用不到，置 0 |
+| 0x60C | 0x300C | 4   | DLL Name RVA | 0x3030 | DLL 名字符串存放位置偏移量 |
 | 0x610 | 0x3010 | 4   | Import Address Table RVA (Thunk Table) | 0x3028 | 导入地址表的位置偏移量 |
-| 0x614 | 0x3014 | 20  | Null Directory Entry | 00  | 表示导入的DLL结束 |
+| 0x614 | 0x3014 | 20  | Null Directory Entry | 00  | 表示导入的 DLL 结束 |
 | 0x628 | 0x3028 | 4   | Import Lookup Table / Import Address Table | 0x303B | Import Lookup Entries |
-| 0x62C | 0x302C | 4   | Null Import Lookup Entry | 00  | 表示Import Lookup Table结束 |
-| 0x630 | 0x3030 | 11  | DLL Name | "user32.dll\\0" | DLL名字符串 |
-| 0x63B | 0x303B | 2   | Hint | 00  | 用不上，置0 |
+| 0x62C | 0x302C | 4   | Null Import Lookup Entry | 00  | 表示 Import Lookup Table 结束 |
+| 0x630 | 0x3030 | 11  | DLL Name | "user32.dll\\0" | DLL 名字符串 |
+| 0x63B | 0x303B | 2   | Hint | 00  | 用不上，置 0 |
 | 0x63D | 0x303D | 12  | Function Name | “MessageBoxA\\0" | 函数名字符串 |
-| 0x649 | 0x3049 | 1   | Pad | 00  | 下一个Entry需要对齐到偶数地址 |
+| 0x649 | 0x3049 | 1   | Pad | 00  | 下一个 Entry 需要对齐到偶数地址 |
 
-导入表涉及到许多地址偏移量，且都是以内存image中的偏移量表示。这些在文件编辑中，需要明白FOA和RVA的区别以及转换。可以参考前面的基础知识仔细比对，加深理解。实际的布局如下图（这是一个紧凑型的布局）：
+导入表涉及到许多地址偏移量，且都是以内存 image 中的偏移量表示。这些在文件编辑中，需要明白 FOA 和 RVA 的区别以及转换。可以参考前面的基础知识仔细比对，加深理解。实际的布局如下图（这是一个紧凑型的布局）：
 
 [![](assets/1710992975-3589b62162dc8a7ebec0e4c1d8a195a0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240315141110-d1e7cf48-e292-1.png)
 
 ## 六、编辑`.data`节
 
-PE.exe显示一个对话框。对话框需要定义“标题”和“显示内容”。这两个字符串保存在`.data`节中。
+PE.exe 显示一个对话框。对话框需要定义“标题”和“显示内容”。这两个字符串保存在`.data`节中。
 
 | FOA | RVA | Value | Description |
 | --- | --- | --- | --- |
@@ -332,10 +332,10 @@ PE.exe显示一个对话框。对话框需要定义“标题”和“显示内�
 
 ```plain
 int MessageBoxA(
-  [in, optional] HWND   hWnd,       // 要创建的消息框的所有者窗口的句柄。 如果此参数为 NULL，则消息框没有所有者窗口。
-  [in, optional] LPCSTR lpText,     // 要显示的消息。 如果字符串由多行组成，则可以在每行之间使用回车符和/或换行符分隔这些行。
-  [in, optional] LPCSTR lpCaption,  // 对话框标题。 如果此参数为 NULL，则默认标题为 Error。
-  [in]           UINT   uType       // 对话框的内容和行为。 此参数可以是标志组中的标志的组合。
+  [in, optional] HWND   hWnd,       // 要创建的消息框的所有者窗口的句柄。如果此参数为 NULL，则消息框没有所有者窗口。
+  [in, optional] LPCSTR lpText,     // 要显示的消息。如果字符串由多行组成，则可以在每行之间使用回车符和/或换行符分隔这些行。
+  [in, optional] LPCSTR lpCaption,  // 对话框标题。如果此参数为 NULL，则默认标题为 Error。
+  [in]           UINT   uType       // 对话框的内容和行为。此参数可以是标志组中的标志的组合。
 );
 ```
 
@@ -345,7 +345,7 @@ int MessageBoxA(
 
 | 参数  | Value | Description |
 | --- | --- | --- |
-| uType | 0x40 | MB\_OK 消息框包含一个按钮： **“确定**”。 这是默认值。  <br>MB\_ICONASTERISK 消息框中将显示一个由圆圈中的小写字母 *i* 组成的图标。 |
+| uType | 0x40 | MB\_OK 消息框包含一个按钮： **“确定**”。这是默认值。  <br>MB\_ICONASTERISK 消息框中将显示一个由圆圈中的小写字母 *i* 组成的图标。 |
 | lpCaption | 0x402000 | 对话框标题字符串的地址，存放在 .data 节的起始位置。Image Base Address + Title String RVA |
 | lpText | 0x40200E | 对话框显示消息的地址，存放在 标题字符串之后。Image Base Address + Content String RVA |
 | hWnd | 00  | NULL，对话框不需要所有者。 |
@@ -361,9 +361,9 @@ ret
 
 `call DWORD ptr ds:0x403028`这里的`0x403028`就是上面设置的`MessageBoxA`函数的 Import Address Table(IAT) 地址。
 
-> 代码需要使用变量的“绝对地址”，所以我们编辑的变量字段的RVA偏移量，需要加上 Image Base Address 才能在代码中使用。程序才能正确找到变量字段。
+> 代码需要使用变量的“绝对地址”，所以我们编辑的变量字段的 RVA 偏移量，需要加上 Image Base Address 才能在代码中使用。程序才能正确找到变量字段。
 > 
-> 关于 Image Base Address，可以参考“基础知识1”，一般程序的可执行Image会加载到进程虚拟内存空间的 0x00400000 位置。
+> 关于 Image Base Address，可以参考“基础知识 1”，一般程序的可执行 Image 会加载到进程虚拟内存空间的 0x00400000 位置。
 
 可以使用 [Online x86 / x64 Assembler and Disassembler](https://defuse.ca/online-x86-assembler.htm#disassembly) 这个网站在线将汇编代码翻译成二进制。
 
@@ -373,8 +373,8 @@ ret
 
 ## 八、收工验证
 
-按照以上步骤手动编辑并保存好文件后，就可以执行PE.exe。应该能弹出文章开头的那个对话框。如果读者能认真操作一遍，是不是到这个时候有点小激动？
+按照以上步骤手动编辑并保存好文件后，就可以执行 PE.exe。应该能弹出文章开头的那个对话框。如果读者能认真操作一遍，是不是到这个时候有点小激动？
 
-文章很长，但实际的操作部分其实并不多。操作看上去复杂，但存在大量值是00的情况，估计5-10分钟就能编辑好，只需要一点点耐心和足够的仔细。
+文章很长，但实际的操作部分其实并不多。操作看上去复杂，但存在大量值是 00 的情况，估计 5-10 分钟就能编辑好，只需要一点点耐心和足够的仔细。
 
-除去操作部分，理解PE32格式最主要的还是对文章中介绍的基础知识的理解。这可能需要花一些时间，最好有一定的编程基础。
+除去操作部分，理解 PE32 格式最主要的还是对文章中介绍的基础知识的理解。这可能需要花一些时间，最好有一定的编程基础。

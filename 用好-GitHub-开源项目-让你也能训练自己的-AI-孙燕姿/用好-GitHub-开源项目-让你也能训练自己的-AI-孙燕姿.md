@@ -473,7 +473,7 @@ SPEAKER = "female_RuiQian"
 async def generate_one(filepath) -> None:
     # 读取 txt 文件内容
     with open(filepath, "r", encoding="utf-8") as f:
-        text = f.read().replace("　", "").replace(" ", "").replace("\n", "").replace("\t", "").replace("\a", "")
+        text = f.read().replace(" ", "").replace(" ", "").replace("\n", "").replace("\t", "").replace("\a", "")
     # 微软 TTS 生成语音和字幕的保存路径
     base_name = os.path.basename(filepath)
     name = os.path.splitext(base_name)[0]

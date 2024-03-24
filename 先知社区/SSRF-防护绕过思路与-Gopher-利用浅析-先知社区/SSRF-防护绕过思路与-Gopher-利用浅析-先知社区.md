@@ -108,7 +108,7 @@ SSRF 漏洞在下面几种 web 应用场景中较为常见，在日常安全测�
 
 ### 白名单过滤绕过
 
-在 Web 开发中部分应用程序只允许与白名单匹配的值，例如：以白名单开头或包含白名单的输入，在这种情况下您可以利用 URL 解析中的不一致性来规避过滤器，例如：我们可以使用 @字符在主机名之前的 URL 中嵌入凭据，例如:[https://expected-host:fakepassword@evil-host](https://expected-host:fakepassword@evil-host/) ， 同时也可以使用 #字符来表示 URL 分段，例如:[https://evil-host#expected-host](https://evil-host/#expected-host) ，同时我们也可以对字符进行 URL 编码以混淆 URL 解析代码，如果实现过滤器的代码处理 URL 编码的字符的方式不同于执行后端 HTTP 请求的代码，也可以尝试双重编码字符，一些服务器递归地对它们接收到的输入进行 URL 解码，这可能导致进一步的差异，下面我们继续以上面的接口为例进行演示说明，不过这里的过滤策略有变更，成为了白名单，具体如下：  
+在 Web 开发中部分应用程序只允许与白名单匹配的值，例如：以白名单开头或包含白名单的输入，在这种情况下您可以利用 URL 解析中的不一致性来规避过滤器，例如：我们可以使用 @字符在主机名之前的 URL 中嵌入凭据，例如：[https://expected-host:fakepassword@evil-host](https://expected-host:fakepassword@evil-host/) ，同时也可以使用 #字符来表示 URL 分段，例如：[https://evil-host#expected-host](https://evil-host/#expected-host) ，同时我们也可以对字符进行 URL 编码以混淆 URL 解析代码，如果实现过滤器的代码处理 URL 编码的字符的方式不同于执行后端 HTTP 请求的代码，也可以尝试双重编码字符，一些服务器递归地对它们接收到的输入进行 URL 解码，这可能导致进一步的差异，下面我们继续以上面的接口为例进行演示说明，不过这里的过滤策略有变更，成为了白名单，具体如下：  
 首先我们将 stockApi 更改为 [http://127.0.0.1/](http://127.0.0.1/) ，此时应用程序会解析 URL，提取主机名并根据白名单进行验证  
 [![](assets/1710898772-02d041a3f779e296561af35b28502240.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312170316-5d7274be-e04f-1.png)  
 随后我们将 URL 更改为 [http://username@stock.weliketoshop.net/](http://username@stock.weliketoshop.net/) 后重新请求，可以看到请求被接受，表明 URL 解析器支持嵌入的凭证
@@ -117,7 +117,7 @@ SSRF 漏洞在下面几种 web 应用场景中较为常见，在日常安全测�
 随后在用户名后添加一个 #并观察 URL，发现请求被拒绝
 
 [![](assets/1710898772-ab2d645da8e19d35d5b4c416e774a9b6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312170408-7c3182b4-e04f-1.png)  
-紧接着我们将 #双 URL 编码为 %2523 并观察极其可疑的 "Internal Server Error” 响应，这表明服务器可能试图连接到"username"
+紧接着我们将 #双 URL 编码为 %2523 并观察极其可疑的 "Internal Server Error”响应，这表明服务器可能试图连接到"username"
 
 [![](assets/1710898772-663e8677250e5aef8f50586dcac0669c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312170444-91805550-e04f-1.png)  
 随后将 URL 更改为如下来访问 admin 路径
@@ -130,7 +130,7 @@ SSRF 漏洞在下面几种 web 应用场景中较为常见，在日常安全测�
 
 ### 重定向绕过检查
 
-有时候通过利用开放重定向漏洞可以规避任何类型的基于过滤器的防御，在前面的 SSRF 示例中假设用户提交的 URL 经过严格验证以防止恶意利用 SSRF 行为，但是允许其 URL 的应用程序包含一个开放重定向漏洞，如果用于后端 HTTP 请求的 API 支持重定向，那么您可以构造一个满足过滤器的 URL 并构造一个到所需后端目标的重定向请求，例如：应用程序包含一个开放重定向漏洞，其中以下 URL：/product/nextProduct?currentProductId=6&path=[http://evil-user.net](http://evil-user.net/) ， 我们可以将其重定向返回到:[http://evil-user.net](http://evil-user.net/) ， 下面我们继续以上面的例子为例进行演示：  
+有时候通过利用开放重定向漏洞可以规避任何类型的基于过滤器的防御，在前面的 SSRF 示例中假设用户提交的 URL 经过严格验证以防止恶意利用 SSRF 行为，但是允许其 URL 的应用程序包含一个开放重定向漏洞，如果用于后端 HTTP 请求的 API 支持重定向，那么您可以构造一个满足过滤器的 URL 并构造一个到所需后端目标的重定向请求，例如：应用程序包含一个开放重定向漏洞，其中以下 URL：/product/nextProduct?currentProductId=6&path=[http://evil-user.net](http://evil-user.net/) ，我们可以将其重定向返回到：[http://evil-user.net](http://evil-user.net/) ，下面我们继续以上面的例子为例进行演示：  
 首先尝试篡改 stockApi 参数，观察到无法让服务器直接向不同的主机发出请求  
 [![](assets/1710898772-8af6d5574483fe22e628f0c75377bbc3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312171117-7c2466fa-e050-1.png)
 

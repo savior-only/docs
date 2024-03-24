@@ -130,7 +130,7 @@ Large Bins 用于存储那些超出 Small Bins 管理范围的较大尺寸的空
 
 又被成为垃圾桶回收还未来的及进入分类的 chunk
 
--   Unsorted Bin 不按照 chunk 大小进行排序，因此被称为 “未排序”。
+-   Unsorted Bin 不按照 chunk 大小进行排序，因此被称为“未排序”。
 -   刚释放的 chunk 会直接插入到 unsorted bin 的链表头部。
 -   在新的内存分配请求发生时，malloc 首先检查 unsorted bin 是否有合适的 chunk 可用，因为这里可能存放了最近刚刚释放的大块内存。
 -   一段时间后（例如，在下一次 malloc 或 realloc 操作），unsorted bin 中的 chunk 会被正确地转移到相应的 small bin、large bin 或其他适当的区域，以确保内存管理的有序性和效率。

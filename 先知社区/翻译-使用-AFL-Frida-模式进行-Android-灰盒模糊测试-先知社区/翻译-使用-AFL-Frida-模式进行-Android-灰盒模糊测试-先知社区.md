@@ -78,7 +78,7 @@ tags:
     ```
     
 <<<<<<< HEAD
--   如果缓冲区的前 16 个字节与 Quarksl4bfuzzMe! 匹配 ，那么崩溃是由对该 crashMe 函数的调用故意引起的。函数 crashMe 指针初始化为 0，在取消引用时引发 SIGSEGV。  
+-   如果缓冲区的前 16 个字节与 Quarksl4bfuzzMe! 匹配，那么崩溃是由对该 crashMe 函数的调用故意引起的。函数 crashMe 指针初始化为 0，在取消引用时引发 SIGSEGV。  
     [![](assets/1710899736-50290c5d227dca7794c1e6a27280e193.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240308151756-fc9f69ac-dd1b-1.png)
 =======
 -   如果缓冲区的前 16 个字节与 Quarksl4bfuzzMe! 匹配，那么崩溃是由对该 crashMe 函数的调用故意引起的。函数 crashMe 指针初始化为 0，在取消引用时引发 SIGSEGV。  
@@ -100,7 +100,7 @@ tags:
 ### 编译过程
 
 <<<<<<< HEAD
--   在本节中，我们将了解如何编译在具有 Android 12 stock ROM 的 aarch64 设备上使用模糊测试解决方案所需的最低限度。设备已 root，以便在运行模糊器时拥有必要的权限，尤其是共享内存管理。为 Android 构建 AFL++ 并非易事。如果您想使用 AOSP 编译 AFL++，请参考 fpicker-aflpp-android 项目。出于研究目的，作者使用 CMakeLists.txt ，它允许以最低要求为所使用的平台构建基本的二进制文件。
+-   在本节中，我们将了解如何编译在具有 Android 12 stock ROM 的 aarch64 设备上使用模糊测试解决方案所需的最低限度。设备已 root，以便在运行模糊器时拥有必要的权限，尤其是共享内存管理。为 Android 构建 AFL++ 并非易事。如果您想使用 AOSP 编译 AFL++，请参考 fpicker-aflpp-android 项目。出于研究目的，作者使用 CMakeLists.txt，它允许以最低要求为所使用的平台构建基本的二进制文件。
 
 #### 要求
 
@@ -124,11 +124,11 @@ $ curl https://codeload.github.com/AFLplusplus/AFLplusplus/zip/refs/tags/4.06c -
 $ unzip 4.06c.zip
 
 <<<<<<< HEAD
-# 下载Android NDK
+# 下载 Android NDK
 $ curl https://dl.google.com/android/repository/android-ndk-r25c-linux.zip --output ndk.zip
 $ unzip ndk.zip
 
-# 获取AFL++ Android CMakeLists.txt
+# 获取 AFL++ Android CMakeLists.txt
 =======
 # 下载 Android NDK
 $ curl https://dl.google.com/android/repository/android-ndk-r25c-linux.zip --output ndk.zip

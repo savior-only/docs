@@ -73,7 +73,7 @@ int main()
 
 [![](assets/1710900139-bcd6eb9155ca6297c15af42c3eb8a212.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240303101441-cb45767e-d903-1.png)
 
-我们修改一下源代码，增加一个 fun1 函数，方便我们修改 jmp 地址:
+我们修改一下源代码，增加一个 fun1 函数，方便我们修改 jmp 地址：
 
 ```plain
 #include <iostream>
@@ -147,7 +147,7 @@ E9 是 jmp，然后就是一个地址了，并且我们可以发现 `<hook.fun>`
 
 [![](assets/1710900139-abeb87e4f64bcef326045b60494cee4f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240303101607-fec60d10-d903-1.png)
 
-这样我们就完成了一次 hook ，看效果：
+这样我们就完成了一次 hook，看效果：
 
 [![](assets/1710900139-e38076cce7fa1b4a3374339171437575.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240303101620-06636fae-d904-1.png)
 

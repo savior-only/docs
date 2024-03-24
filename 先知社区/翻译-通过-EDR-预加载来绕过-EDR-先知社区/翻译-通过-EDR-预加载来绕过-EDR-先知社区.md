@@ -35,7 +35,7 @@ ntdll!LdrpInitialize () 首先检查全局变量 ntdll!LdrpProcessInitialized，
 
 ntdll!LdrpInitializeProcess () 按照它字面描述的操作，它将设置 PEB，解析进程导入，并加载任何所需的 DLL。
 
-在 ntdll!LdrpInitialize () 的最后 是对 ntdll !ZwTestAlert () 的调用，这是用于运行当前线程的 APC 队列中的所有异步进程调用 （APCs） 的函数。将代码注入目标进程并调用 ntoskrnl !NtQueueApcThread () ，EDR 驱动程序将在此处执行它们的代码。
+在 ntdll!LdrpInitialize () 的最后 是对 ntdll !ZwTestAlert () 的调用，这是用于运行当前线程的 APC 队列中的所有异步进程调用（APCs）的函数。将代码注入目标进程并调用 ntoskrnl !NtQueueApcThread () ，EDR 驱动程序将在此处执行它们的代码。
 
 一旦线程和进程初始化完成，并且 ntdll!LdrpInitialize () 返回有效值，ntdll!LdrInitializeThunk () 将调用 ntdll!ZwContinue () 来执行传输到内核。然后，内核会将线程指令指针设置为指向 ntdll!RtlUserThreadStart ()，它将调用可执行的入口点，进程的生命正式开始。
 
@@ -45,7 +45,7 @@ ntdll!LdrpInitializeProcess () 按照它字面描述的操作，它将设置 PEB
 
 ## 早期异步过程调用（APC）队列
 
-由于 APC 以先进先出的顺序执行，因此有时可以通过先将自己的 APC 排入队列来抢占某些 EDR。许多 EDR 通过使用 ntoskrnl !PsSetLoadImageNotifyRoutine () 注册内核回调来监视新进程。每当新进程启动时，它都会自动加载 ntdll.dll 和 kernel32.dll，因此这是检测何时初始化新进程的好方法。通过在挂起状态下启动进程，您可以在初始化之前对 APC 进行排队，从而最终排在队列的前面。这种技术有时被称为 “Early Bird injection 早鸟注入”。
+由于 APC 以先进先出的顺序执行，因此有时可以通过先将自己的 APC 排入队列来抢占某些 EDR。许多 EDR 通过使用 ntoskrnl !PsSetLoadImageNotifyRoutine () 注册内核回调来监视新进程。每当新进程启动时，它都会自动加载 ntdll.dll 和 kernel32.dll，因此这是检测何时初始化新进程的好方法。通过在挂起状态下启动进程，您可以在初始化之前对 APC 进行排队，从而最终排在队列的前面。这种技术有时被称为“Early Bird injection 早鸟注入”。
 
 APC 队列的问题在于它们长期以来一直用于代码注入，因此 ntdll!NtQueueApcThread () 由大多数 EDR 挂钩和监控。将 APC 队列进入暂停的进程是高度可疑的，并且有据可查。EDR 也有可能挂钩 APC、重新排序 APC 队列或执行任何其他操作以确保其 DLL 首先运行。
 
@@ -71,13 +71,13 @@ TLS 回调在 ntdll !LdrpInitializeProcess () 末尾执行，但在 ntdll !ZwTes
 
 [![](assets/1710901013-ca9ea8fa9f9448d791d5133f4e628b38.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229235258-9c2c82be-d71a-1.png)
 
-这些回调函数是完美的，因为 LdrGetProcedureAddress () 在加载 LdrpInitializeProcess () 时保证 kernelbase.dll 被调用。每当任何尝试使用 GetProcAddress () / LdrGetProcedureAddress () 解析导出时，它也会被调用，包括 EDR，它有很多有趣的潜力。 更好的是，这些指针存在于内存部分中，该内存部分在进程初始化之前是可写的。
+这些回调函数是完美的，因为 LdrGetProcedureAddress () 在加载 LdrpInitializeProcess () 时保证 kernelbase.dll 被调用。每当任何尝试使用 GetProcAddress () / LdrGetProcedureAddress () 解析导出时，它也会被调用，包括 EDR，它有很多有趣的潜力。更好的是，这些指针存在于内存部分中，该内存部分在进程初始化之前是可写的。
 
 ## 决定对钩子的回调
 
 虽然有很多不错的选择，但我决定使用 AvrfpAPILookupCallbackRoutine，它似乎是在 Windows 8.1 中引入的。虽然我可以使用较旧的回调来与早期的 Windows 版本兼容，但这需要做更多的工作，而且我想让我的 PoC 保持简单。
 
-AppVerifer 接口的其余部分需要安装 “验证程序提供程序”，这需要大量的内存操作。ShimEngine 稍微容易一些，但将 g\_ShimsEnabled 设置为 TRUE 会启用所有回调，而不仅仅是我们想要的回调，因此我们必须注册每个回调函数，否则应用程序将崩溃。
+AppVerifer 接口的其余部分需要安装“验证程序提供程序”，这需要大量的内存操作。ShimEngine 稍微容易一些，但将 g\_ShimsEnabled 设置为 TRUE 会启用所有回调，而不仅仅是我们想要的回调，因此我们必须注册每个回调函数，否则应用程序将崩溃。
 
 较新的 AvrfpAPILookupCallbackRoutine 非常好，原因有两个：
 

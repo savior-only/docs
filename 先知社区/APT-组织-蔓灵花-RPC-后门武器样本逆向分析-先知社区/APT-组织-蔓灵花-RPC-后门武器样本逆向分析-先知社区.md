@@ -1,5 +1,5 @@
 ---
-title: APT 组织 “蔓灵花 “RPC” 后门武器样本逆向分析 - 先知社区
+title: APT 组织“蔓灵花“RPC”后门武器样本逆向分析 - 先知社区
 url: https://xz.aliyun.com/t/13977
 clipped_at: 2024-03-20 10:16:32
 category: default
@@ -8,18 +8,18 @@ tags:
 ---
 
 
-# APT 组织 “蔓灵花 “RPC” 后门武器样本逆向分析 - 先知社区
+# APT 组织“蔓灵花“RPC”后门武器样本逆向分析 - 先知社区
 
 # 一、前言
 
-此篇是 “APT 组织 “蔓灵花” 恶意邮件附件 5 种手法分析”（[https://xz.aliyun.com/t/13789）](https://xz.aliyun.com/t/13789%EF%BC%89) 的续篇，前文介绍了恶意附件执行的常见手法，包括：
+此篇是“APT 组织“蔓灵花”恶意邮件附件 5 种手法分析”（[https://xz.aliyun.com/t/13789）](https://xz.aliyun.com/t/13789%EF%BC%89) 的续篇，前文介绍了恶意附件执行的常见手法，包括：
 
--   恶意 “.chm” 文件投放
+-   恶意“.chm”文件投放
 -   恶意 "DDE" 隐藏域代码执行
--   “.ppt” 文件 PowerPoint 单击鼠标事件
+-   “.ppt”文件 PowerPoint 单击鼠标事件
 -   恶意宏文档  
     \- 公式编辑器漏洞利用  
-    本篇继续介绍恶意附件的后续远控武器 “ORPCBackdoor”，该武器样本于 2023 年 5 月被首次曝光。文章记录分析流程较为详尽，如果你也在分析学习此样本，本文会很有帮助。  
+    本篇继续介绍恶意附件的后续远控武器“ORPCBackdoor”，该武器样本于 2023 年 5 月被首次曝光。文章记录分析流程较为详尽，如果你也在分析学习此样本，本文会很有帮助。  
     \# 二、样本概述  
     \## 1. 样本执行流程
 
@@ -54,13 +54,13 @@ tags:
 -   DWN 指令，文件下载  
     \# 三、样本分析  
     \## 1. 初始化  
-    “MSOutlookServices.exe” 执行会加载和执行包含恶意程序的动态链接库 “OLMAPI32.dll”，exe 文件本身不包含恶意功能。
+    “MSOutlookServices.exe”执行会加载和执行包含恶意程序的动态链接库“OLMAPI32.dll”，exe 文件本身不包含恶意功能。
     
 
 [![](assets/1710900992-80ea09da1490484fa476432b2f9c607b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301093751-5102105e-d76c-1.png)  
-从 “OLMAPI32.dll” 导出函数情况来看，” 蔓灵花 “组织使用了 dll 劫持技术，以白加黑的形式，在安全的”version.dll“中封装了恶意程序。
+从“OLMAPI32.dll”导出函数情况来看，”蔓灵花“组织使用了 dll 劫持技术，以白加黑的形式，在安全的”version.dll“中封装了恶意程序。
 
-安全的”version.dll“（左）与包含恶意程序 “OLMAPI32.dll”（右）导出函数结构对比如图。
+安全的”version.dll“（左）与包含恶意程序“OLMAPI32.dll”（右）导出函数结构对比如图。
 
 [![](assets/1710900992-3d9a7c1fca188d38eb76eea0c5ed53d7.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301093801-56f908fa-d76c-1.png)  
 恶意程序包含在 GetFileVersionInfoByHandleEx ()、DllMain () 两个函数中。DllMain () 运行即会调用 GetFileVersionInfoByHandleEx ()，主要的恶意功能模块也在其中。
@@ -69,18 +69,18 @@ tags:
 
 ## 2\. 持久化
 
-开始执行恶意功能，首先 ORPCBackdoor 通过当前路径 “ts.dat” 文件是否存在，防止多次执行持久化操作。
+开始执行恶意功能，首先 ORPCBackdoor 通过当前路径“ts.dat”文件是否存在，防止多次执行持久化操作。
 
 样本内字符硬编码以 hex 形式存储在文件中，后续字符获取也常见于此方法，包括路径、文件名、远控指令等。
 
 [![](assets/1710900992-cb845fac4c4feb4ec7dca7fdde514509.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301093827-66ace258-d76c-1.png)  
-进入功能函数，在当前路径查看文件 “ts.dat” 是否存在，如果不存在则休眠 1 分钟。
+进入功能函数，在当前路径查看文件“ts.dat”是否存在，如果不存在则休眠 1 分钟。
 
 [![](assets/1710900992-8ea65f84723fc18d05edfc800c5dd0f6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301093837-6cae0736-d76c-1.png)  
-休眠结束创建任务调度流程，初始化 COM 组件后调用 TaskScheduler CLSID 创建计划任务 “Microsoft Update”，每日零时执行 “MSOutlookServices.exe”。
+休眠结束创建任务调度流程，初始化 COM 组件后调用 TaskScheduler CLSID 创建计划任务“Microsoft Update”，每日零时执行“MSOutlookServices.exe”。
 
 [![](assets/1710900992-0c28f29376c2a642ad417f4e0eaf898c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301093845-7151da88-d76c-1.png)  
-任务结束后在当前路径创建 “ts.dat”
+任务结束后在当前路径创建“ts.dat”
 
 ## 3\. 详尽的系统信息搜集
 
@@ -107,7 +107,7 @@ tags:
 
 交互初始化也是判断路径 "C:\\ProgramData\\$cache.dat" 文件是否存在，防止与服务端同时多进程交互。（同时只存在一个通讯会话）。
 
-如果文件不存在将创建 “$cache.dat” 并且初始化 RPC 调用，初始化 pct\_pi\_ncacn、ncacn\_ip\_tcp 两种远程过程调用（RPC）的协议。APT 组织使用的域名 “outlook-services.ddns.net” 硬编码在这里。调用 RpcStringBindingComposeA 构建 RPC 绑定字符串。
+如果文件不存在将创建“$cache.dat”并且初始化 RPC 调用，初始化 pct\_pi\_ncacn、ncacn\_ip\_tcp 两种远程过程调用（RPC）的协议。APT 组织使用的域名“outlook-services.ddns.net”硬编码在这里。调用 RpcStringBindingComposeA 构建 RPC 绑定字符串。
 
 ```plain
 ncacn_ip_tcp:outlook-services.ddns.net[443]
@@ -129,7 +129,7 @@ ncacn_ip_tcp:outlook-services.ddns.net[443]
 
 ### 7.1 ID 指令，获取 ID
 
-判断 “c:\\ProgramData\\$tmp.txt” 是否存在，若存在则删除，然后重新创建 $tmp.txt。
+判断“c:\\ProgramData\\$tmp.txt”是否存在，若存在则删除，然后重新创建 $tmp.txt。
 
 [![](assets/1710900992-e815770bf2988cf874bc53e8b7cbbcfb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301094315-12572db6-d76d-1.png)  
 随后在 $tmp.txt 文件中写入从服务端获取的 ID 值，此 ID 值后续在客户端别无他用。

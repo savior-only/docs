@@ -23,7 +23,7 @@ tags:
 -   下载 VenomRAT 项目、DcRAT 项目、在野 DcRAT 样本及在野 VenomRAT 样本、xRAT 项目进行对比分析；
 -   尝试对上述样本配置信息及通信数据进行解密，并对解密算法进行对比；
 
-通过分析，笔者发现上述 VenomRAT 项目、DcRAT 项目、在野 DcRAT 样本及在野 VenomRAT 样本使用的配置信息加密算法均相同，以《AsyncRAT 加解密技术剖析》文章中 “配置信息解密” 章节中描述的解密流程作为基础解密算法标准，梳理各样本针对配置信息解密算法的区别如下：
+通过分析，笔者发现上述 VenomRAT 项目、DcRAT 项目、在野 DcRAT 样本及在野 VenomRAT 样本使用的配置信息加密算法均相同，以《AsyncRAT 加解密技术剖析》文章中“配置信息解密”章节中描述的解密流程作为基础解密算法标准，梳理各样本针对配置信息解密算法的区别如下：
 
 -   VenomRAT：PBKDF2 算法运算中，salt 字符串值为：VenomByVenom
 -   DcRAT：PBKDF2 算法运算中，salt 字符串值为：DcRatByqwqdanchun
@@ -436,9 +436,9 @@ func FileToSlice(file string) []string {
 300000  #载荷数据大小
 8954472455a849b42094be7cba1fc9d487725502301762beee04955ded9ad8df5acd0e07dbc128545a7ce086c8552233    #加密载荷数据
 
-#AES解密后数据
+#AES 解密后数据
 4F130000000600000000000080020000000A00
 
-#QuickLZ解压缩后数据
+#QuickLZ 解压缩后数据
 020000000A00
 ```

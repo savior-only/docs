@@ -16,7 +16,7 @@ tags:
 
 ## 2\. 简介
 
-sleep命令将下一个命令的调用进程挂起一段指定的时间，俗称等待。
+sleep 命令将下一个命令的调用进程挂起一段指定的时间，俗称等待。
 
 ## 3\. 语法
 
@@ -24,7 +24,7 @@ sleep命令将下一个命令的调用进程挂起一段指定的时间，俗称
 sleep [number]
 ```
 
-默认情况下，系统读取之后sleep的数字作为秒数。要指定其他时间单位，请使用以下语法：
+默认情况下，系统读取之后 sleep 的数字作为秒数。要指定其他时间单位，请使用以下语法：
 
 ```plain
 sleep [number][unit]
@@ -34,7 +34,7 @@ sleep [number][unit]
  sleep 1h 2m 0.5s
 ```
 
-该`sleep`命令接受浮点数。它允许多个值相加，以计算sleep.
+该`sleep`命令接受浮点数。它允许多个值相加，以计算 sleep.
 
 可用单位有：
 
@@ -49,7 +49,7 @@ sleep [number][unit]
 
 要`sleep`在开始后和指定的等待时间结束前停止，请按`Ctrl + C`。
 
-要查看该sleep命令的帮助，请键入：
+要查看该 sleep 命令的帮助，请键入：
 
 ```plain
 sleep --help 
@@ -63,7 +63,7 @@ sleep --version
 
 ## 4\. 与 wait 区别
 
-bash wait\[1\] 命令是一个Shell 命令，它等待后台运行的进程完成并返回退出状态。与等待指定时间的 sleep 命令不同，`wait` 命令等待所有或特定的后台任务完成。
+bash wait\[1\] 命令是一个 Shell 命令，它等待后台运行的进程完成并返回退出状态。与等待指定时间的 sleep 命令不同，`wait` 命令等待所有或特定的后台任务完成。
 
 ## 5\. 实例
 
@@ -77,7 +77,7 @@ sleep 7h 30m && mplayer alarm.mp3
 
 ### 5.2 终端中的延迟命令
 
-`sleep`对于强制执行两个命令之间的时间很有用,以一秒的间隔执行：
+`sleep`对于强制执行两个命令之间的时间很有用，以一秒的间隔执行：
 
 ```plain
 $ sleep 1 && echo "one" && sleep 1 && echo "two"
@@ -100,7 +100,7 @@ CURRENT_TIME=$(date +"%T")
 echo "Time after sleep: ${CURRENT_TIME}"
 ```
 
-该脚本定义了一个名为的变量`SLEEP_INTERVAL` ，其值稍后用作sleep命令的参数。此示例脚本的输出显示执行持续了 30 秒：
+该脚本定义了一个名为的变量`SLEEP_INTERVAL` ，其值稍后用作 sleep 命令的参数。此示例脚本的输出显示执行持续了 30 秒：
 
 ```plain
 $ ./time_script.sh
@@ -141,7 +141,7 @@ done
 
 ### 5.6 预测延迟
 
-用于sleep允许某些命令执行的延迟。
+用于 sleep 允许某些命令执行的延迟。
 
 ```plain
 for (( i = 1 ; i <= 250 ; i++ )); 

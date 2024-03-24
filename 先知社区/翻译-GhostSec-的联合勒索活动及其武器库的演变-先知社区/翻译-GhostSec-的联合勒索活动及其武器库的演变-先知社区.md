@@ -30,7 +30,7 @@ tags:
 -   GhostSec 和 Stormous 勒索软件组织正在联合对多个国家（包括中国）的各种商业垂直领域进行双重勒索软件攻击。
 -   GhostLocker 和 Stormous 勒索软件启动了一个新的勒索软件即服务 (RaaS) 计划 STMX\_GhostLocker，为其附属机构提供各种选择。
 <<<<<<< HEAD
--   Talos 还在 GhostSec 武器库中发现了两个新工具，“GhostSec 深度扫描工具” 和 “GhostPresser”，两者都可能用于针对网站的攻击。
+-   Talos 还在 GhostSec 武器库中发现了两个新工具，“GhostSec 深度扫描工具”和“GhostPresser”，两者都可能用于针对网站的攻击。
 =======
 -   Talos 还在 GhostSec 武器库中发现了两个新工具，“GhostSec 深度扫描工具”和“GhostPresser”，两者都可能用于针对网站的攻击。
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -42,10 +42,10 @@ Talos 观察到 GhostSec 和 Stormous 勒索软件团伙进行了联合行动，
 根据这些组织在其 Telegram 频道中披露的信息，此次联合行动影响了各个垂直行业的受害者。  
 <<<<<<< HEAD
 [![](assets/1710899798-39081b858d70c67972984258777f8991.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310150655-c7627c24-deac-1.png)  
-Talos 在 GhostSec Telegram 频道中的观察到该组织强调了对以色列工业系统、关键基础设施和技术公司的持续攻击。 2023 年 11 月 12 日，他们声称受影响的组织还包括以色列国防部。  
+Talos 在 GhostSec Telegram 频道中的观察到该组织强调了对以色列工业系统、关键基础设施和技术公司的持续攻击。2023 年 11 月 12 日，他们声称受影响的组织还包括以色列国防部。  
 2023 年 10 月，GhostSec 宣布推出名为 GhostLocker 的新勒索软件即服务 (RaaS) 框架。在 2023 年 7 月与 Stormous 勒索软件组织成功合作针对古巴各部委实施行动后，Stormous 团伙于 2023 年 10 月 14 日宣布，除了 StormousX 程序外，他们还将使用 GhostLocker 勒索软件程序。  
 此后，GhostSec 和 Stormous 勒索软件组织联合针对多个国家各个行业的受害者进行双重勒索勒索软件攻击。除了勒索软件攻击之外，GhostSec 似乎还对企业网站进行攻击，其中包括印度尼西亚的一家国家铁路运营商和加拿大领先的能源公司之一。他们可能利用 GhostPresser 工具以及跨站点脚本攻击技术来破坏网站。  
-2024 年 2 月 24 日，Stormous 组织在 “The Five Families” Telegram 频道上提到，他们已经与 GhostSec 的合作伙伴一起启动了新的勒索软件即服务 (RaaS) 计划 “STMX\_GhostLocker”。新计划由三类为附属机构提供的服务组成：付费服务、免费服务，以及另一类为没有计划但只想在博客上出售或发布数据的个人提供的服务（PYV 服务）。
+2024 年 2 月 24 日，Stormous 组织在“The Five Families”Telegram 频道上提到，他们已经与 GhostSec 的合作伙伴一起启动了新的勒索软件即服务 (RaaS) 计划“STMX\_GhostLocker”。新计划由三类为附属机构提供的服务组成：付费服务、免费服务，以及另一类为没有计划但只想在博客上出售或发布数据的个人提供的服务（PYV 服务）。
 
 Stmx\_GhostLocker 会员组织架构  
 [![](assets/1710899798-6e5e51f4238445eb6c52745738bda475.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310151400-c4ed4b8a-dead-1.png)
@@ -58,13 +58,13 @@ Stormous 和 GhostSec 在 TOR 网络上重建了 RAAS 程序 Stmx\_GhostLocker �
 
 # GhostLocker 2.0 勒索软件的演变
 
-2023 年 11 月，GhostSec 发布了其 GhostLocker 勒索软件的新版本，称为 GhostLocker 2.0。最近我们观察到，他们再次开始宣传他们最新的 Golang 版本 “GhostLocker 2.0”，称其为 “GhostLocker V2”，并提到他们正在进行的 GhostLocker V3 工作，这表明他们在持续开发新的勒索武器库。  
+2023 年 11 月，GhostSec 发布了其 GhostLocker 勒索软件的新版本，称为 GhostLocker 2.0。最近我们观察到，他们再次开始宣传他们最新的 Golang 版本“GhostLocker 2.0”，称其为“GhostLocker V2”，并提到他们正在进行的 GhostLocker V3 工作，这表明他们在持续开发新的勒索武器库。  
 [![](assets/1710899798-7f1de29139ebc4e9ba5414c69a7d905c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310151750-4de5785e-deae-1.png)  
-GhostLocker 2.0 通过使用文件扩展名 “.ghost” 加密受害者机器上的文件，并且释放并打开一个勒索说明。勒索说明从其先前版本发生了变化，勒索者告诉受害者在勒索说明中显示的加密 ID，并在通过点击 “点击我” 进行谈判时，在他们的聊天服务中与他们分享这一 ID。勒索者还提到，如果受害者在七天内未能联系他们，其被盗数据将会被公开。  
+GhostLocker 2.0 通过使用文件扩展名“.ghost”加密受害者机器上的文件，并且释放并打开一个勒索说明。勒索说明从其先前版本发生了变化，勒索者告诉受害者在勒索说明中显示的加密 ID，并在通过点击“点击我”进行谈判时，在他们的聊天服务中与他们分享这一 ID。勒索者还提到，如果受害者在七天内未能联系他们，其被盗数据将会被公开。  
 [![](assets/1710899798-cc073b32fcbc08516e0628980a082c2b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310152035-b005082e-deae-1.png)  
 GhostLocker 的勒索信（左）和 GhostLocker 2.0 的勒索信（右）。
 
-GhostLocker RAAS 有一个 C2 面板，附属机构可以在其中概述他们的攻击和收益。当部署在受害者的机器上时，勒索软件二进制文件将注册到 C2 面板，附属机构可以跟踪受害者机器上的加密状态。 Talos 发现位于俄罗斯莫斯科的 GhostLocker 2.0 C2 服务器，IP 地址为 94 \[.\] 103 \[.\] 91 \[.\] 246。我们观察到，C2 服务器的地理位置与 Uptycs 安全研究人员报告的 GhostLocker 勒索软件早期版本的 C2 服务器相似。  
+GhostLocker RAAS 有一个 C2 面板，附属机构可以在其中概述他们的攻击和收益。当部署在受害者的机器上时，勒索软件二进制文件将注册到 C2 面板，附属机构可以跟踪受害者机器上的加密状态。Talos 发现位于俄罗斯莫斯科的 GhostLocker 2.0 C2 服务器，IP 地址为 94 \[.\] 103 \[.\] 91 \[.\] 246。我们观察到，C2 服务器的地理位置与 Uptycs 安全研究人员报告的 GhostLocker 勒索软件早期版本的 C2 服务器相似。  
 [![](assets/1710899798-e89139a54f20648da67aa62a9b0ebeac.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310152154-df36a8fa-deae-1.png)  
 =======
 [![](assets/1710206201-39081b858d70c67972984258777f8991.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310150655-c7627c24-deac-1.png)  
@@ -102,7 +102,7 @@ GhostLocker RAAS 为其附属公司提供勒索软件构建器，其中包含配
 GhostLocker 2.0 勒索软件构建面板。
 
 Talos 在 2023 年 11 月 15 日发现了 GhostLocker 勒索软件的新变种，“GhostLocker 2.0”。GhostLocker 2.0 的大部分勒索软件功能与早期版本 GhostLocker 相同，早期版本是用 Python 编写的，但排除了操作员在早期版本中使用的监视组件，该组件用于从受害者计算机的 Windows 启动位置启动已释放的勒索软件二进制文件，以及早期版本中的 AES 加密密钥长度从 256 位更改为 128 位。  
-在初始执行期间，GhostLocker 2.0 将自身复制到 Windows 启动文件夹以确立持久性。 它还生成一个 32 字节的随机字符串，并将生成的字符串用作其在 Windows 启动文件夹中的复制的文件名。  
+在初始执行期间，GhostLocker 2.0 将自身复制到 Windows 启动文件夹以确立持久性。它还生成一个 32 字节的随机字符串，并将生成的字符串用作其在 Windows 启动文件夹中的复制的文件名。  
 [![](assets/1710899798-29b6b4aef4385eba3d92ca538c4a4fe2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310152640-89863b72-deaf-1.png)
 
 在保持权限维持后，勒索软件通过 URL hxxp \[://\] 94 \[.\] 103 \[.\] 91 \[.\] 246 \[/\] incrementLaunch 建立与 C2 服务器的连接。  
@@ -122,7 +122,7 @@ GhostLocker 2.0 根据威胁行为团体定义的文件扩展名列表，在受�
 [![](assets/1710899798-c64dd900f4a20277ce0fa35bc7508cfd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310153207-4cc8e012-deb0-1.png)  
 将目标文件上传到 C2 服务器的功能
 
-在成功上传目标文件后，GhostLocker 2.0 会对目标文件进行加密，并附加 “.ghost” 作为加密文件的文件扩展名。在加密过程中，GhostLocker 2.0 会跳过 “C:\\Windows” 文件夹。完成加密例程后，勒索软件将嵌入的勒索字条放入受害者桌面上文件名为 “Ransomnote.html” 的 HTML 文件中，并使用 Windows “开始” 命令启动它。  
+在成功上传目标文件后，GhostLocker 2.0 会对目标文件进行加密，并附加“.ghost”作为加密文件的文件扩展名。在加密过程中，GhostLocker 2.0 会跳过“C:\\Windows”文件夹。完成加密例程后，勒索软件将嵌入的勒索字条放入受害者桌面上文件名为“Ransomnote.html”的 HTML 文件中，并使用 Windows“开始”命令启动它。  
 [![](assets/1710899798-ac49272e4937380a2e4f589d51c29ea4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310153403-91bd8dee-deb0-1.png)  
 =======
 [![](assets/1710206201-2aa8b3041819331a2e7f7e187055c83b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310152243-fc1a4530-deae-1.png)  
@@ -157,7 +157,7 @@ GhostLocker 2.0 根据威胁行为团体定义的文件扩展名列表，在受�
 # 可能用于扫描和入侵网站的其他工具
 
 <<<<<<< HEAD
-Talos 的研究发现了 GhostSec 武器库中的两种新工具，该黑客组织声称使用它们来破坏合法网站。其中之一是 “GhostSec 深度扫描工具集”，用于递归扫描合法网站，另一个是名为 “GhostPresser” 的执行跨站脚本（XSS）攻击的黑客工具。
+Talos 的研究发现了 GhostSec 武器库中的两种新工具，该黑客组织声称使用它们来破坏合法网站。其中之一是“GhostSec 深度扫描工具集”，用于递归扫描合法网站，另一个是名为“GhostPresser”的执行跨站脚本（XSS）攻击的黑客工具。
 
 GhostSec 深度扫描工具  
 GhostSec 深度扫描工具集是一个 Python 实用程序，攻击者可以使用它来扫描潜在目标的网站。  
@@ -183,7 +183,7 @@ GhostSec 深度扫描工具集是一个 Python 实用程序，攻击者可以使
 
 该工具还包含用于执行特定功能的占位符，包括 SSL 分析、DNS 查找、检查 robots.txt 和 sitemap.xml、目标网站上的 CVE 扫描以及基于文件类型、日期范围和自定义标准的高级搜索。这些网站，表明 GhostSec 的工具库在不断发展。  
 <<<<<<< HEAD
-对我们来说最突出的模块之一是 “deep\_scan” 函数，攻击者定义该函数用于解析和抓取目标网页中的信息，并评估网页中使用的技术。它是通过使用 Python 库 Beautiful Soup 来完成的，Beautiful Soup 是一个用于从 HTML 和 XML 文件中解析数据的 Python 包，而 BuiltWith Python 库是一个用于检测网站使用的技术的 Python 包，例如 Apache、JQuery 和 WordPress。  
+对我们来说最突出的模块之一是“deep\_scan”函数，攻击者定义该函数用于解析和抓取目标网页中的信息，并评估网页中使用的技术。它是通过使用 Python 库 Beautiful Soup 来完成的，Beautiful Soup 是一个用于从 HTML 和 XML 文件中解析数据的 Python 包，而 BuiltWith Python 库是一个用于检测网站使用的技术的 Python 包，例如 Apache、JQuery 和 WordPress。  
 [![](assets/1710899798-fcfc42c43ab7c05dce3d3ff5e6fa29b3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240310153740-13080f5a-deb1-1.png)  
 =======
 对我们来说最突出的模块之一是“deep\_scan”函数，攻击者定义该函数用于解析和抓取目标网页中的信息，并评估网页中使用的技术。它是通过使用 Python 库 Beautiful Soup 来完成的，Beautiful Soup 是一个用于从 HTML 和 XML 文件中解析数据的 Python 包，而 BuiltWith Python 库是一个用于检测网站使用的技术的 Python 包，例如 Apache、JQuery 和 WordPress。  

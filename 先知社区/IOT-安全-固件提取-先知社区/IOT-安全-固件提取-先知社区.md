@@ -80,7 +80,7 @@ ECU 探针
 
 ### 芯片的串口通信接口
 
-> STM32 的串口通信接口有两种，分别是： UART（通用异步收发器）、USART（通用同步异步收发器）。 而对于大容量 STM32F10x 系列芯片，分别有 3 个 USART 和 2 个 UART。
+> STM32 的串口通信接口有两种，分别是：UART（通用异步收发器）、USART（通用同步异步收发器）。而对于大容量 STM32F10x 系列芯片，分别有 3 个 USART 和 2 个 UART。
 
 本次用到的是 UART，在利用其进行连接时需要先分辨其 4 个 PIN 脚，有的固件给出了标识而有的没有。  
 一般 UART 时裸露的并且好辨认，注意虽然我们需要辨别的是 4 个 PIN 脚，但裸露在外的有时候不仅是 4 个可能超过 4 个，因此我们需要掌握识别的方法。  
@@ -105,7 +105,7 @@ ECU 探针
 
 ### 从外部 Flash 提取固件
 
-> 智能设备固件存在 Flash 里，Flash 没有保护固件被非法读取的措施。 如果 Flash 和 RAM 集成在 CPU 上，并且开启了加密的话是比较难提取固件的。但如果它用另外一种方式：（Flash 和 RAM、CPU 分别独立）这种情况下可以直接从外部连接 Flash 进行尝试提取
+> 智能设备固件存在 Flash 里，Flash 没有保护固件被非法读取的措施。如果 Flash 和 RAM 集成在 CPU 上，并且开启了加密的话是比较难提取固件的。但如果它用另外一种方式：（Flash 和 RAM、CPU 分别独立）这种情况下可以直接从外部连接 Flash 进行尝试提取
 
 我们反汇编 STM32 底层驱动代码的时候，会牵涉到一些与芯片引脚、电气特性相关的知识。这个时候，就需要查看芯片对应的官方手册。  
 一般《Reference manual 参考手册》和《Datasheet 数据手册》这两本手册是我们底层编程常用到。所以，推荐初学者一定要把这两本手册下载来对照学习。  
@@ -118,7 +118,7 @@ ECU 探针
 
 > [https://www.st.com/resource/en/reference\_manual/rm0365-stm32f302xbcde-and-stm32f302x68-advanced-armbased-32bit-mcus-stmicroelectronics.pdf](https://www.st.com/resource/en/reference_manual/rm0365-stm32f302xbcde-and-stm32f302x68-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
 
-在芯片上如何查找 Flash，因为芯片上存在很多内容，因此我们需要找到外部独立 Flash 的位置，如果眼睛好可以直接肉眼搜索。有条件可以使用电子显微镜查看.
+在芯片上如何查找 Flash，因为芯片上存在很多内容，因此我们需要找到外部独立 Flash 的位置，如果眼睛好可以直接肉眼搜索。有条件可以使用电子显微镜查看。
 
 [![](assets/1710901019-2d8364b4b5bf387aee2fb3dd642087ca.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229235029-434faa22-d71a-1.png)
 
@@ -137,7 +137,7 @@ ECU 探针
 
 > [https://www.st.com/en/microcontrollers-microprocessors/stm32f302cb.html](https://www.st.com/en/microcontrollers-microprocessors/stm32f302cb.html)
 
-查询引脚位置，在 datasheet 中的 Pinouts and pin description ，并且其中的 MCU 又分为 LQFP48、 LQFP64 和 LQFP100 后面的数字对应的是他们的引脚数量。
+查询引脚位置，在 datasheet 中的 Pinouts and pin description，并且其中的 MCU 又分为 LQFP48、LQFP64 和 LQFP100 后面的数字对应的是他们的引脚数量。
 
 [![](assets/1710901019-80bed7b749fc8e8d6687e70fa56ec9cd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229235044-4c2fb506-d71a-1.png)
 
@@ -158,7 +158,7 @@ ECU 探针
 成功连接后我们利用 STM32CubeProgrammer 软件进行查看首先查看是否开启保护，下图为打勾或者取消勾选表示打开或者未开启，如果是 AA、BB 和 CC 作为等级划分表示如下
 
 > 级别 0：无读保护（0xAA）  
-> 读保护级别即设为 0。此时，在所有自举配置（用户 Flash 自举、调试或从 RAM 自举）中，均可执行对 Flash 或备份 SRAM 的读.
+> 读保护级别即设为 0。此时，在所有自举配置（用户 Flash 自举、调试或从 RAM 自举）中，均可执行对 Flash 或备份 SRAM 的读。
 > 
 > 级别 1：使能读保护  
 > 在连接调试功能或从 RAM 或系统存储器自举时，不能对 Flash 或备份 SRAM 进行访问（读取、擦除、编程）。读请求将导致总线错误。

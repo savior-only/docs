@@ -22,7 +22,7 @@ tags:
 
 ```python
 sum_data = ''
-str1 = input("请输入要转化的命令:")
+str1 = input("请输入要转化的命令：")
 str1 = str1.strip()  # 去除首尾空格
 data_len = len(str1)  # 判断总长度来循环
 for i in range(data_len):
@@ -86,12 +86,12 @@ def bashfuckx():
     final_str1 = ''
     final_str2 = ''
     final_str3 = ''
-    str3 = input("请输入要转化的命令:")
+    str3 = input("请输入要转化的命令：")
     for j in str3:
         final_str1 += '$0<<<$0\\<\\<\\<\\$\\\'' +f'\\\\$(($((1<<1))#{bin(int(get_oct(j)))[2:]}))'+ '\\\''
         final_str2 = '$0<<<$0\\<\\<\\<\\$\\\'' +final_str1.replace('1', '${##}')+ '\\\''  # 用 ${##} 来替换 1
         final_str3 = '${!#}<<<${!#}\\<\\<\\<\\$\\\'' +final_str1.replace('1', '${##}').replace('0', '${#}')+ '\\\''  # 用 ${#} 来替换 0
-    result = input("请输入你要的格式\n1代表直接转化\n2代表替换1\n3代表全部替换（无数字）")
+    result = input("请输入你要的格式\n1 代表直接转化\n2 代表替换 1\n3 代表全部替换（无数字）")
     if result == '1':
         print(final_str1)
     elif result == '2':
@@ -111,7 +111,7 @@ def bashfuckx():
 /bin/bash<<<
 ```
 
-所以最后的 playload 的前面要加上:`$0<<<`  
+所以最后的 playload 的前面要加上：`$0<<<`  
 `$0` 可以表示当前脚本的文件名，在终端中，`$0` 其实就是 bash 本身。
 
 # 0x03bashfuck\_y

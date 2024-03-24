@@ -37,16 +37,16 @@ rules:
   # 域名，内置规则
   - id: domain
     enabled: false
-  # IP， 内置规则
+  # IP，内置规则
   - id: ip
     enabled: false
   # 路径，内置规则
   - id: path
     enabled: false
-  # URL主机部分为域名，内置规则
+  # URL 主机部分为域名，内置规则
   - id: domain_url
     enabled: false
-  # URL主机部分为IP，内置规则
+  # URL 主机部分为 IP，内置规则
   - id: ip_url
     enabled: false
   # 邮箱
@@ -61,19 +61,19 @@ rules:
   - id: phone
     enabled: false
     pattern: \b1[3-9]\d{9}\b
-  # jwt token (不要修改ID)
+  # jwt token (不要修改 ID)
   - id: jwt_token
     enabled: true
     pattern: eyJ[A-Za-z0-9_/+\-]{10,}={0,2}\.[A-Za-z0-9_/+\-\\]{15,}={0,2}\.[A-Za-z0-9_/+\-\\]{10,}={0,2}
-  # 阿里云 AccessKey ID (不要修改ID)
+  # 阿里云 AccessKey ID (不要修改 ID)
   - id: Aliyun_AK_ID
     enabled: true
     pattern: \bLTAI[A-Za-z\d]{12,30}\b
-  # 腾讯云 AccessKey ID (不要修改ID)
+  # 腾讯云 AccessKey ID (不要修改 ID)
   - id: QCloud_AK_ID
     enabled: true
     pattern: \bAKID[A-Za-z\d]{13,40}\b
-  # 京东云 AccessKey ID (不要修改ID)
+  # 京东云 AccessKey ID (不要修改 ID)
   - id: JDCloud_AK_ID
     enabled: true
     pattern: \bJDC_[0-9A-Z]{25,40}\b
@@ -120,7 +120,7 @@ rules:
   - id: github_token
     enabled: true
     pattern: \b((?:ghp|gho|ghu|ghs|ghr|github_pat)_[a-zA-Z0-9_]{36,255})\b
-  #腾讯云 API网关 APPKEY
+  #腾讯云 API 网关 APPKEY
   - id: qcloud_api_gateway_appkey
     enabled: true
     pattern: \bAPID[a-zA-Z0-9]{32,42}\b
@@ -172,7 +172,7 @@ rules:
     enabled: true
     pattern: \b(?:VUE|APP|REACT)_[A-Z_0-9]{1,15}_(?:KEY|PASS|PASSWORD|TOKEN|APIKEY)['"]*[:=]"(?:[A-Za-z0-9_\-]{15,50}|[a-z0-9/+]{50,100}==?)"
 
-# 排除规则， 支持字段 id, content, target , source 逻辑为 and ，如果是正则匹配，需要使用 regex: 开头
+# 排除规则，支持字段 id, content, target , source 逻辑为 and，如果是正则匹配，需要使用 regex: 开头
 exclude_rules:
     # 排除站点 https://cc.163.com 中 类型为 secret_key 的内容
   - name: "不收集 cc.163.com 的 secret_key" # 排除规则名称，无实际意义

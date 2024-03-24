@@ -1,5 +1,5 @@
 ---
-title: [翻译]【Ninja 逆向】使用 Ninja IL 逆向自定义 ISA：破解大赛 37C3 “Pot of Gold” - 先知社区
+title: [翻译]【Ninja 逆向】使用 Ninja IL 逆向自定义 ISA：破解大赛 37C3“Pot of Gold” - 先知社区
 url: https://xz.aliyun.com/t/14042
 clipped_at: 2024-03-20 09:59:32
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# [翻译]【Ninja 逆向】使用 Ninja IL 逆向自定义 ISA：破解大赛 37C3 “Pot of Gold” - 先知社区
+# [翻译]【Ninja 逆向】使用 Ninja IL 逆向自定义 ISA：破解大赛 37C3“Pot of Gold” - 先知社区
 
 翻译原文链接：[https://www.synacktiv.com/en/publications/leveraging-binary-ninja-il-to-reverse-a-custom-isa-cracking-the-pot-of-gold-37c3](https://www.synacktiv.com/en/publications/leveraging-binary-ninja-il-to-reverse-a-custom-isa-cracking-the-pot-of-gold-37c3)
 
@@ -18,7 +18,7 @@ tags:
 
 这篇文章深入研究了如何通过 Binary Ninja 中间语言（IL）对 Pot of Gold CTF 挑战（37C3 CTF）的定制指令集架构（ISA）进行逆向工程，以实现对挑战代码的反编译。文章接着详细阐述了利用过程：首先如何在模拟器中实现代码执行，随后如何转移到第二个进程，并最终如何借助操作码模拟功能来获取挑战的标志。
 
-“Pot Of Gold” 是一个逆向工程和漏洞利用挑战，由 blasty 设计，并在 37C3 Potluck CTF 中被两支队伍成功解答。
+“Pot Of Gold”是一个逆向工程和漏洞利用挑战，由 blasty 设计，并在 37C3 Potluck CTF 中被两支队伍成功解答。
 
 ## 一、关卡引入
 
@@ -38,7 +38,7 @@ sleep 1
 /chall /kitchen.bin /tmp/x 0
 ```
 
-`chall` 文件是一个标准的、去除了符号信息的 x86-64 ELF 可执行文件，而另外两个文件是特殊格式的二进制数据块。这些特殊二进制文件以特定的标识 "`UNICORN`" 开头（*这与 Unicorn Engine 模拟器无关*），并且 `kitchen.bin` 文件包含了欢迎信息，因此它们很可能没有经过加密处理。在这里，“blob” 指的是不遵循常见文件格式或结构的二进制数据块。
+`chall` 文件是一个标准的、去除了符号信息的 x86-64 ELF 可执行文件，而另外两个文件是特殊格式的二进制数据块。这些特殊二进制文件以特定的标识 "`UNICORN`" 开头（*这与 Unicorn Engine 模拟器无关*），并且 `kitchen.bin` 文件包含了欢迎信息，因此它们很可能没有经过加密处理。在这里，“blob”指的是不遵循常见文件格式或结构的二进制数据块。
 
 ## 二、逆向二进制
 
@@ -243,7 +243,7 @@ POTLUCKView.register()
 
 [![](assets/1710899972-f58486bdfb3618a2d547c853aa41e56e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301234600-cd71c672-d7e2-1.png)
 
-现在应该添加架构，以向 Binary Ninja 提供指令集架构（ISA）信息。 一个架构必须包含三个回调函数：
+现在应该添加架构，以向 Binary Ninja 提供指令集架构（ISA）信息。一个架构必须包含三个回调函数：
 
 ```plain
 get_instruction_text(self, data: bytes, addr: int) -> Optional[Tuple[List[InstructionTextToken], int]]
@@ -327,7 +327,7 @@ POTLUCK.register()
 
 [![](assets/1710899972-adbccb02ea2e2b739fc129bc187871d5.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301234621-da3a905a-d7e2-1.png)
 
-在开发过程中，为了获得线性反汇编，实现一个基本 `get_instruction_info` 存根 stub ，接受任何字节序列。
+在开发过程中，为了获得线性反汇编，实现一个基本 `get_instruction_info` 存根 stub，接受任何字节序列。
 
 ```plain
 def get_instruction_info(self, data:bytes, addr:int) -> Optional[InstructionInfo]:
@@ -457,7 +457,7 @@ self.platform.system_call_convention = cc_sys
 [![](assets/1710899972-85b53850efebb50af65e91b086c11f50.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301234700-f154d048-d7e2-1.png)
 
 -   `0xf01dc0d`e -> 向 Kitchen 发送随机句子
--   `0xbadf0001` -> 向 Kitchen 发送硬编码的 “Friendship is not for sale, dummy!”
+-   `0xbadf0001` -> 向 Kitchen 发送硬编码的“Friendship is not for sale, dummy!”
 -   `0xc0cac01a` -> 提供空闲的的**堆栈缓冲区溢出**
 -   `0xc01db007` -> 向 Kitchen 发送系统运行时间
 

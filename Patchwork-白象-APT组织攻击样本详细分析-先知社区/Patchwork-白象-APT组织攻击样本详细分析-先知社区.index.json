@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1710992949",
   "format": "md",
-  "title": "Patchwork(白象) APT组织攻击样本详细分析 - 先知社区",
+  "title": "Patchwork(白象) APT 组织攻击样本详细分析 - 先知社区",
   "link": "https://xz.aliyun.com/t/14110?u_atoken=64a8e7ecaf73e5a2e783578288a7f785&u_asession=01XVWWUJXPOfme6nIgxGMRTlzNLsFVW2-tbTu8ZkHQNuIEQXBKHwHueBH3aU7uLxVtdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05xlCV4kWBpCJNTfgw6HZ4phrwoEIufL_09AFgNOMwThrKxBPbyWh3AAS-bUMBUZeivcr3BayFNNn8YmxOogm5Aeuvyoo-cE4YRYPOD7Zmbpw3XqmSuIw0rYLeYF0lbFf61K3f71ImWL8K1hDkyrMw08gxfDFY8MhlTyKDTcv_GK5g2QMxYs6lyXb1lFWKql56i6Hl_6MSgHOWD-C8UPXxTA4Re7i-4TJvr8PVS_CjAY1WGrL7oHUtEGNoyAIYqh-bpIVe7soZVTWj4-toJv_jf4Z6Ylzg7dT5f3StFdeRFxR6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=BF85wcnt%2B4kAEaNmdux313MNTzk%3D",
   "category": "default",
   "tags": [
     "xz.aliyun.com"
   ],
   "created_at": "2024-03-21 11:49:09",
-  "mainPath": "Patchwork-白象-APT组织攻击样本详细分析-先知社区.md",
+  "mainPath": "Patchwork-白象-APT 组织攻击样本详细分析 - 先知社区.md",
   "paths": [
-    "Patchwork-白象-APT组织攻击样本详细分析-先知社区.index.json",
+    "Patchwork-白象-APT 组织攻击样本详细分析 - 先知社区.index.json",
     "assets/1710992949-14b797ffd1a9cd6ffc11ec7478f5d073.png",
     "assets/1710992949-83cdfc01b67d7e9d9b042d4293652882.png",
     "assets/1710992949-6c251b768e40059af0ff715579978644.png",
@@ -37,6 +37,6 @@
     "assets/1710992949-4b9885077971843808515a9f89098937.png",
     "assets/1710992949-36bae8fa93b626aedeea21910a2cc330.png",
     "assets/1710992949-41fd1502e7fa51bd07b6e46775bc212f.png",
-    "Patchwork-白象-APT组织攻击样本详细分析-先知社区.md"
+    "Patchwork-白象-APT 组织攻击样本详细分析 - 先知社区.md"
   ]
 }

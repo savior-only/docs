@@ -12,7 +12,7 @@ tags:
 
 ![图片](assets/1711241467-bf25e641b775e0f86c6b1c91f7390175.png "null")
 
-Podman\[1\]是一个无守护进程的开源 Linux 原生工具，旨在使用开放容器倡议 ( OCI )容器和容器映像轻松查找、运行、构建、共享和部署应用程序。主要是由`RedHat`推动改进。
+Podman\[1\]是一个无守护进程的开源 Linux 原生工具，旨在使用开放容器倡议 ( OCI ) 容器和容器映像轻松查找、运行、构建、共享和部署应用程序。主要是由`RedHat`推动改进。
 
 关于了解 Podman 更多内容：
 
@@ -35,7 +35,7 @@ yum install -y podman httpd-tools
 mkdir -p /opt/registry/{auth,certs,data}
 ```
 
--   • `Auth`子目录存储htpasswd用于身份验证的文件。
+-   • `Auth`子目录存储 htpasswd 用于身份验证的文件。
     
 -   • `Certs`子目录存储仓库使用的证书验证。
     
@@ -68,7 +68,7 @@ Filesystem             Type  Size  Used Avail Use% Mounted 
 
 ### 3.1 htpasswd 用户名和密码
 
-身份验证由一个简单的htpasswd文件和一个 SSL 密钥对提供
+身份验证由一个简单的 htpasswd 文件和一个 SSL 密钥对提供
 
 `htpasswd`将在该`/opt/registry/auth/`目录中创建一个名为 `Bcrypt Htpasswd` 的文件
 
@@ -76,11 +76,11 @@ Filesystem             Type  Size  Used Avail Use% Mounted 
 htpasswd -bBc /opt/registry/auth/htpasswd registryuser  registryuserpassword
 ```
 
--   • b通过命令提供密码。
+-   • b 通过命令提供密码。
     
--   • B使用 Bcrypt 加密存储密码。
+-   • B 使用 Bcrypt 加密存储密码。
     
--   • c创建文件。
+-   • c 创建文件。
     
 -   • 用户名为 registryuser。
     
@@ -208,9 +208,9 @@ docker.io/library/registry:latest
     
 -   • `-v /opt/registry/auth:/auth:z/opt/registry/auth`在主机上安装，就像`/auth` 在具有正确 SELinux 上下文的容器中一样。
     
--   • `-v opt/registry/certs:/certs:z`像 在具有正确 SELinux 上下文的容器中一样安装`/opt/registry/certs` 在主机上 。/certs
+-   • `-v opt/registry/certs:/certs:z`像 在具有正确 SELinux 上下文的容器中一样安装`/opt/registry/certs` 在主机上。/certs
     
--   • `-e "REGISTRY_AUTH=htpasswd"` 使用bcrypt加密htpasswd文件进行身份验证。由容器的 `REGISTRY_AUTH_HTPASSWD_PATH` 环境变量设置的文件位置。
+-   • `-e "REGISTRY_AUTH=htpasswd"` 使用 bcrypt 加密 htpasswd 文件进行身份验证。由容器的 `REGISTRY_AUTH_HTPASSWD_PATH` 环境变量设置的文件位置。
     
 -   • `-e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm"` 指定用于`htpasswd`.
     
@@ -249,14 +249,14 @@ docker login -u registryuser -p registryuserpassword 192.168.10.80:5000
 Login Succeeded!
 ```
 
-### 5.2 API访问
+### 5.2 API 访问
 
 ```plain
 $ curl  -k -u "registryuser:registryuserpassword" https://192.168.10.80:5000/v2/_catalog
 {"repositories":[]}
 ```
 
--   • 更多API 访问策略请参考这里\[4\]
+-   • 更多 API 访问策略请参考这里\[4\]
     
 
 ### 5.3 镜像入库
@@ -351,7 +351,7 @@ $ curl  -k -u "registryuser:registryuserpassword"https://192.168.10.80:5000
 
 -   • How to implement a simple personal/private Linux container image registry for internal use\[5\]
     
--   • docker registry仓库私搭并配置证书\[6\]
+-   • docker registry 仓库私搭并配置证书\[6\]
     
 
 #### 引用链接
@@ -359,6 +359,6 @@ $ curl  -k -u "registryuser:registryuserpassword"https://192.168.10.80:5000
 `[1]` Podman: *https://podman.io/*  
 `[2]` Podman 下一代 Linux 容器工具: *https://blog.csdn.net/xixihahalelehehe/article/details/125618884*  
 `[3]` Podman 入门指南: *https://blog.csdn.net/xixihahalelehehe/article/details/121611523*  
-`[4]` 更多API 访问策略请参考这里: *https://ghostwritten.blog.csdn.net/article/details/105926147*  
+`[4]` 更多 API 访问策略请参考这里: *https://ghostwritten.blog.csdn.net/article/details/105926147*  
 `[5]` How to implement a simple personal/private Linux container image registry for internal use: *https://www.redhat.com/sysadmin/simple-container-registry*  
-`[6]` docker registry仓库私搭并配置证书: *https://ghostwritten.blog.csdn.net/article/details/105926147*
+`[6]` docker registry 仓库私搭并配置证书: *https://ghostwritten.blog.csdn.net/article/details/105926147*

@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1710992939",
   "format": "md",
-  "title": "利用MSIX安装包传播恶意软件攻击样本的详细分析 - 先知社区",
+  "title": "利用 MSIX 安装包传播恶意软件攻击样本的详细分析 - 先知社区",
   "link": "https://xz.aliyun.com/t/14111?u_atoken=63ee1dc8fc9d37c934d392c6e87e0f07&u_asession=01vf4tNhk6Xq9Akf3jqgwVmkfPOvcMTb3PRZGPA9aUMJ1Vc0awvODDHhioL69tSzXmdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05-anYStJOoCtNf8TiSGILcVkvwymefi5l1FgLSWy8lG9QtKPX8G9ETsgUG0s817yDy33PiK8-aGyEtYnVyGvbo1kQs8EU-dp-HVqeryM-PflRO3yR5AQVbGlZJIXXA6My9Y74MGP_U9lc1VO9j_tpXXTcRmcCaep89X6PuuKof1Jg2QMxYs6lyXb1lFWKql562Sc33qds-H_ngD7qwE5WcA4Re7i-4TJvr8PVS_CjAY1C4_BIebmo_0s1pW4MMpf27jhnfB8XIoA6NQPC3lyayL4ZtntKRp52nOcUh7ucKJ96gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=0Hsx7jg4cB%2B%2FM%2Fit6uaLgZqiDJs%3D",
   "category": "default",
   "tags": [
     "xz.aliyun.com"
   ],
   "created_at": "2024-03-21 11:48:59",
-  "mainPath": "利用MSIX安装包传播恶意软件攻击样本的详细分析-先知社区.md",
+  "mainPath": "利用 MSIX 安装包传播恶意软件攻击样本的详细分析 - 先知社区.md",
   "paths": [
-    "利用MSIX安装包传播恶意软件攻击样本的详细分析-先知社区.index.json",
+    "利用 MSIX 安装包传播恶意软件攻击样本的详细分析 - 先知社区.index.json",
     "assets/1710992939-766482cf474afc5a8f655b1cf7f1d305.png",
     "assets/1710992939-2764b10b31b319a4d33c8b1835860cf3.png",
     "assets/1710992939-f4d85de0104e7983fdcdf2c51b68f2e5.png",
@@ -57,6 +57,6 @@
     "assets/1710992939-9d406db781a9289bc4474ea8e3a48c8b.png",
     "assets/1710992939-d6ff204f12f6a84ebcc46e258afbe023.png",
     "assets/1710992939-56ae85e394cd7e92f7e755c6b162cd9f.png",
-    "利用MSIX安装包传播恶意软件攻击样本的详细分析-先知社区.md"
+    "利用 MSIX 安装包传播恶意软件攻击样本的详细分析 - 先知社区.md"
   ]
 }

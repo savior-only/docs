@@ -38,7 +38,7 @@ Evasive Panda（也称为 BRONZE HIGHLAND 和 Daggerfly）是一个中文 APT �
 
 2024 年 1 月，我们发现了一次网络间谍活动，攻击者入侵了至少三个网站以进行水坑攻击，并入侵了一家西藏软件公司的供应链。  
 <<<<<<< HEAD
-这个被水坑攻击侵害的受损网站属于印度的 Kagyu 国际祈愿信托基金会，该组织在国际上推广藏传佛教。攻击者在网站中放置了一个脚本，用于验证潜在受害者的 IP 地址，如果该地址位于目标地址范围之一，则向用户显示一个虚假的错误页面，诱使用户下载一个名为 “证书” 的 “修复”（如果访问者使用 Windows，则扩展名为 .exe，如果使用 macOS，则为 .pkg）。这个文件是一个恶意下载器，用于部署侵害链中的下一个阶段。  
+这个被水坑攻击侵害的受损网站属于印度的 Kagyu 国际祈愿信托基金会，该组织在国际上推广藏传佛教。攻击者在网站中放置了一个脚本，用于验证潜在受害者的 IP 地址，如果该地址位于目标地址范围之一，则向用户显示一个虚假的错误页面，诱使用户下载一个名为“证书”的“修复”（如果访问者使用 Windows，则扩展名为 .exe，如果使用 macOS，则为 .pkg）。这个文件是一个恶意下载器，用于部署侵害链中的下一个阶段。  
 根据代码检查的 IP 地址范围，我们发现攻击者针对的是印度、台湾、香港、澳大利亚和美国的用户；这次袭击可能旨在利用国际社会对每年 1 月在印度菩提伽耶市举行的噶举祈愿节（图 1）的兴趣。  
 [![](assets/1710898817-c1eb743275641431fcbde4b4ae45a37b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311232426-72951610-dfbb-1.png)
 
@@ -59,7 +59,7 @@ Evasive Panda（也称为 BRONZE HIGHLAND 和 Daggerfly）是一个中文 APT �
 # 水坑攻击
 
 <<<<<<< HEAD
-2024 年 1 月 14 日 th ，我们在 [https://www.kagyumonlam\[.\]org/media/vendor/jquery/js/jquery.js?3.6.3](https://www.kagyumonlam[.]org/media/vendor/jquery/js/jquery.js?3.6.3) 上检测到可疑脚本。  
+2024 年 1 月 14 日 th，我们在 [https://www.kagyumonlam\[.\]org/media/vendor/jquery/js/jquery.js?3.6.3](https://www.kagyumonlam[.]org/media/vendor/jquery/js/jquery.js?3.6.3) 上检测到可疑脚本。  
 恶意混淆代码被附加到合法的 jQuery JavaScript 库脚本中，如下图 3 所示。  
 [![](assets/1710898817-2be65b6f40fdb8913dab4c5a04f14c14.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311233054-59a47c94-dfbc-1.png)  
 该脚本向本地主机地址 [http://localhost:63403/?callback=handleCallback](http://localhost:63403/?callback=handleCallback) 发送 HTTP 请求，以检查攻击者的中间下载程序是否已在潜在受害者计算机上运行（参见图 3）。在之前受感染的计算机上，植入程序会使用 handleCallback ({"success":true}) 进行回复（参见图 4），并且脚本不会采取进一步的操作。  
@@ -70,10 +70,10 @@ Evasive Panda（也称为 BRONZE HIGHLAND 和 Daggerfly）是一个中文 APT �
 如果计算机未回复预期数据，则恶意代码会继续从 [https://update.devicebug\[.\]com/getVersion.php](https://update.devicebug[.]com/getVersion.php) 上的辅助服务器获取 MD5 哈希值。然后根据 74 个哈希值的列表检查哈希值，如图 6 所示。  
 图 6  
 [![](assets/1710898817-45f490bc0039a61a8daf51f9be514ec1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311233305-a7cc0fea-dfbc-1.png)  
-如果存在匹配，该脚本将呈现一个 HTML 页面，其中包含虚假的崩溃通知（图 7），旨在诱使访问用户下载解决方案来解决问题。该页面模仿典型的 “喔唷，崩溃啦！” 来自 Google Chrome 的警告。  
+如果存在匹配，该脚本将呈现一个 HTML 页面，其中包含虚假的崩溃通知（图 7），旨在诱使访问用户下载解决方案来解决问题。该页面模仿典型的“喔唷，崩溃啦！”来自 Google Chrome 的警告。  
 图 7  
 [![](assets/1710898817-3887e97482b3e93f56ca3addc0541c96.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311233348-c146f052-dfbc-1.png)  
-“立即修复” 按钮会触发一个脚本，该脚本会根据用户的操作系统下载有效负载（图 8）。  
+“立即修复”按钮会触发一个脚本，该脚本会根据用户的操作系统下载有效负载（图 8）。  
 图 8  
 [![](assets/1710898817-08b94cb7bdac4978b62499b3a22eea6f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311233532-ff162d8a-dfbc-1.png)
 =======
@@ -132,7 +132,7 @@ macOS 恶意软件与我们在供应链妥协中更详细记录的下载程序�
 # 供应链侵害
 
 <<<<<<< HEAD
-1 月 18 日 ，我们发现一款多平台藏文翻译软件产品的官方网站（图 12）托管着包含合法软件木马安装程序的 ZIP 包，该安装程序在 Windows 和 macOS 上部署了恶意下载程序。  
+1 月 18 日，我们发现一款多平台藏文翻译软件产品的官方网站（图 12）托管着包含合法软件木马安装程序的 ZIP 包，该安装程序在 Windows 和 macOS 上部署了恶意下载程序。  
 [![](assets/1710898817-539f0d5d29571d2786feee84421e9649.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311234207-eab400c8-dfbd-1.png)  
 =======
 1 月 18 日，我们发现一款多平台藏文翻译软件产品的官方网站（图 12）托管着包含合法软件木马安装程序的 ZIP 包，该安装程序在 Windows 和 macOS 上部署了恶意下载程序。  
@@ -177,7 +177,7 @@ macOS 恶意软件与我们在供应链妥协中更详细记录的下载程序�
 从官方应用商店下载的 ZIP 存档包含修改后的安装程序包（.pkg 文件），其中添加了 Mach-O 可执行文件和安装后脚本。安装后脚本将 Mach-O 文件复制到 $HOME/Library/Containers/CalendarFocusEXT/ 并继续在 $HOME/Library/LaunchAgents/com.Terminal.us.plist 中安装启动代理以实现持久性。图 14 显示了负责安装和启动恶意启动代理的脚本。  
 <<<<<<< HEAD
 [![](assets/1710898817-ed7eb62186833132893152c1db7dbca2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311235105-2b5b2f92-dfbf-1.png)  
-图 13 中的恶意 Mach-O Monlam-bodyig\_Keyboard\_2017 使用名称和团队标识符为 ya ni yang (2289F6V4BN) 的开发者证书（不是通常用于分发的证书类型）进行签名，但未经公证。签名中的时间戳显示其签署日期为 2024 年 1 月 7 日 th 。该日期也用于 ZIP 存档元数据中恶意文件的修改时间戳。该证书是在三天前才颁发的。完整的证书可在 IoC 部分找到。我们的团队于 1 月 25 日联系了 Apple th ，证书于同一天被撤销。  
+图 13 中的恶意 Mach-O Monlam-bodyig\_Keyboard\_2017 使用名称和团队标识符为 ya ni yang (2289F6V4BN) 的开发者证书（不是通常用于分发的证书类型）进行签名，但未经公证。签名中的时间戳显示其签署日期为 2024 年 1 月 7 日 th。该日期也用于 ZIP 存档元数据中恶意文件的修改时间戳。该证书是在三天前才颁发的。完整的证书可在 IoC 部分找到。我们的团队于 1 月 25 日联系了 Apple th，证书于同一天被撤销。  
 =======
 [![](assets/1710465439-ed7eb62186833132893152c1db7dbca2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311235105-2b5b2f92-dfbf-1.png)  
 图 13 中的恶意 Mach-O Monlam-bodyig\_Keyboard\_2017 使用名称和团队标识符为 ya ni yang (2289F6V4BN) 的开发者证书（不是通常用于分发的证书类型）进行签名，但未经公证。签名中的时间戳显示其签署日期为 2024 年 1 月 7 日 th。该日期也用于 ZIP 存档元数据中恶意文件的修改时间戳。该证书是在三天前才颁发的。完整的证书可在 IoC 部分找到。我们的团队于 1 月 25 日联系了 Apple th，证书于同一天被撤销。  
@@ -189,7 +189,7 @@ mac 键下的对象应包含以下内容：
 -   md5：有效载荷的 MD5 和。
 -   vernow：硬件 UUID 列表。如果存在，则有效负载将仅安装在具有列出的硬件 UUID 之一的 Mac 上。如果列表为空或缺失，则跳过此检查。
 <<<<<<< HEAD
--   version：一个数值，必须高于之前下载的第二阶段 “版本”。否则不会下载有效负载。当前运行版本的值保留在应用程序用户默认值中。
+-   version：一个数值，必须高于之前下载的第二阶段“版本”。否则不会下载有效负载。当前运行版本的值保留在应用程序用户默认值中。
 =======
 -   version：一个数值，必须高于之前下载的第二阶段“版本”。否则不会下载有效负载。当前运行版本的值保留在应用程序用户默认值中。
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -201,7 +201,7 @@ mac 键下的对象应包含以下内容：
 
 我们命名为 Nightdoor 的后门（恶意软件作者根据 PDB 路径将其命名为 NetMM）是 Evasive Panda 工具集中的最新添加内容。我们对 Nightdoor 的最早了解可以追溯到 2020 年，当时 Evasive Panda 将其部署到了越南一个备受瞩目的目标的机器上。后门通过 UDP 或 Google Drive API 与其 C&C 服务器通信。这次活动中的 Nightdoor 植入程序使用了后者。它对数据部分中的 Google API OAuth 2.0 令牌进行加密，并使用该令牌访问攻击者的 Google Drive。我们已要求删除与此令牌关联的 Google 帐户。  
 <<<<<<< HEAD
-首先，Nightdoor 在 Google Drive 中创建一个文件夹，其中包含受害者的 MAC 地址，该地址也充当受害者 ID。该文件夹将包含植入程序和 C&C 服务器之间的所有消息。 Nightdoor 和 C&C 服务器之间的每条消息都被构造为一个文件，并分为文件名和文件数据，如图 15 所示。  
+首先，Nightdoor 在 Google Drive 中创建一个文件夹，其中包含受害者的 MAC 地址，该地址也充当受害者 ID。该文件夹将包含植入程序和 C&C 服务器之间的所有消息。Nightdoor 和 C&C 服务器之间的每条消息都被构造为一个文件，并分为文件名和文件数据，如图 15 所示。  
 [![](assets/1710898817-2950ab4e14766774aff3ffb8763c9a6b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311235422-a0b27516-dfbf-1.png)  
 =======
 首先，Nightdoor 在 Google Drive 中创建一个文件夹，其中包含受害者的 MAC 地址，该地址也充当受害者 ID。该文件夹将包含植入程序和 C&C 服务器之间的所有消息。Nightdoor 和 C&C 服务器之间的每条消息都被构造为一个文件，并分为文件名和文件数据，如图 15 所示。  

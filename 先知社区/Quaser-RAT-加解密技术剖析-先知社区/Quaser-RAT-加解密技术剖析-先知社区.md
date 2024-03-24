@@ -67,7 +67,7 @@ Quaser RAT 通过 AES 算法解密经过 Base64 编码的密文字符串，外�
 ```plain
 初始密文
 K9+5GQdWhtwvWqnr4WXcNt1Fuig7c0813j6YdzFtSI48rf1lpnSb45VpxLZGC7R/XiWEzPea0ItdoE7sIDU1VOtCuuMNS0/KbJaEaWVbz38=
-初始密文base64解码，转为hex流
+初始密文 base64 解码，转为 hex 流
 =======
 ```bash
 初始密文
@@ -80,10 +80,10 @@ AES key
 0C394B409E44CC1C10BFA99B3FADFB3AF3474B7CA97303AA2774A044AFF23D6C
 
 <<<<<<< HEAD
-密文hex流前32字节用于HMAC-SHA256校验
+密文 hex 流前 32 字节用于 HMAC-SHA256 校验
 2BDFB919075686DC2F5AA9EBE165DC36DD45BA283B734F35DE3E9877316D488E
 
-密文hex流33~48的16字节作为AES初始化向量 (IV)
+密文 hex 流 33~48 的 16 字节作为 AES 初始化向量 (IV)
 =======
 密文 hex 流前 32 字节用于 HMAC-SHA256 校验
 2BDFB919075686DC2F5AA9EBE165DC36DD45BA283B734F35DE3E9877316D488E
@@ -109,8 +109,8 @@ AES key
 
 ```plain
 客户端标识，Office01
-RAT版本信息，1.4.1
-外连IP:port
+RAT 版本信息，1.4.1
+外连 IP:port
 =======
 [![](assets/1710206304-0a96774a0d4fb2fef022068ed297fdef.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311125501-84c232f8-df63-1.png)
 
@@ -144,11 +144,11 @@ RAT 版本信息，1.4.1
 ## 1\. 服务端 RSA 私钥提取
 
 <<<<<<< HEAD
-服务端初始化时，需要用户配置或自动生成文件 “quasar.p12”，并保存在项目根目录中。“.p12” 是 PKCS＃12 文件的文件扩展名，它是保存私钥和证书的组合格式。
+服务端初始化时，需要用户配置或自动生成文件“quasar.p12”，并保存在项目根目录中。“.p12”是 PKCS＃12 文件的文件扩展名，它是保存私钥和证书的组合格式。
 
 [![](assets/1710898957-20b203c85f3d8c15ca042f598d501b78.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311125519-8fa2d538-df63-1.png)
 
-可以使用 OPENSSL 工具在 “.p12” 中提取私钥，生成阶段也没写保护，空密码即可。
+可以使用 OPENSSL 工具在“.p12”中提取私钥，生成阶段也没写保护，空密码即可。
 
 ```plain
 openssl pkcs12 -in quasar.p12 -out certificate.pem -nodes
@@ -184,7 +184,7 @@ openssl pkcs12 -in quasar.p12 -out certificate.pem -nodes
 如果没有密码学基础这一快看着可能会很模糊，这一部分是 TLS 1.2 加密流程的细节分析。
 
 <<<<<<< HEAD
-从通讯流量中可获悉，在客户端和服务端密钥协商阶段数据包，最后使用的加密协议套件为 “TLS\_ECDHE\_RSA\_WITH\_AES\_256\_GCM\_SHA384”。使用此套件即使获取 RSA 私钥依然无法解密通讯数据。
+从通讯流量中可获悉，在客户端和服务端密钥协商阶段数据包，最后使用的加密协议套件为“TLS\_ECDHE\_RSA\_WITH\_AES\_256\_GCM\_SHA384”。使用此套件即使获取 RSA 私钥依然无法解密通讯数据。
 
 [![](assets/1710898957-1690c56d0d86d0a0aebe65d7d784e9f0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311125609-ad3b8fea-df63-1.png)
 =======
@@ -216,17 +216,17 @@ ECDHE（Elliptic Curve Diffie-Hellman Ephemeral），Diffie-Hellman 密钥交换
 
 <<<<<<< HEAD
 ```plain
-TLS_RSA_WITH_AES_128_CBC_SHA：使用AES-128-CBC加密算法和SHA-1哈希算法，RSA密钥用于密钥交换。
+TLS_RSA_WITH_AES_128_CBC_SHA：使用 AES-128-CBC 加密算法和 SHA-1 哈希算法，RSA 密钥用于密钥交换。
 
-TLS_RSA_WITH_AES_256_CBC_SHA: 使用AES-256-CBC加密算法和SHA-1哈希算法，RSA密钥用于密钥交换。
+TLS_RSA_WITH_AES_256_CBC_SHA: 使用 AES-256-CBC 加密算法和 SHA-1 哈希算法，RSA 密钥用于密钥交换。
 
-TLS_RSA_WITH_AES_128_GCM_SHA256: 使用AES-128-GCM加密算法和SHA-256哈希算法，RSA密钥用于密钥交换。
+TLS_RSA_WITH_AES_128_GCM_SHA256: 使用 AES-128-GCM 加密算法和 SHA-256 哈希算法，RSA 密钥用于密钥交换。
 
-TLS_RSA_WITH_AES_256_GCM_SHA384: 使用AES-256-GCM加密算法和SHA-384哈希算法，RSA密钥用于密钥交换。
+TLS_RSA_WITH_AES_256_GCM_SHA384: 使用 AES-256-GCM 加密算法和 SHA-384 哈希算法，RSA 密钥用于密钥交换。
 
-TLS_RSA_WITH_3DES_EDE_CBC_SHA: 使用3DES（Triple DES）加密算法和SHA-1哈希算法，RSA密钥用于密钥交换。
+TLS_RSA_WITH_3DES_EDE_CBC_SHA: 使用 3DES（Triple DES）加密算法和 SHA-1 哈希算法，RSA 密钥用于密钥交换。
 
-TLS_RSA_WITH_RC4_128_SHA: 使用RC4加密算法和SHA-1哈希算法，RSA密钥用于密钥交换。
+TLS_RSA_WITH_RC4_128_SHA: 使用 RC4 加密算法和 SHA-1 哈希算法，RSA 密钥用于密钥交换。
 =======
 ```bash
 TLS_RSA_WITH_AES_128_CBC_SHA：使用 AES-128-CBC 加密算法和 SHA-1 哈希算法，RSA 密钥用于密钥交换。
@@ -281,8 +281,8 @@ pause
 
 -   打开组策略编辑器：运行 gpedit.msc 以打开本地组策略编辑器。
 <<<<<<< HEAD
--   定位到密钥套件设置：在组策略编辑器中，导航到计算机配置 -> 管理模板 -> 网络 -> SSL 配置设置。在这里，可以找到 “SSL 密码套件顺序” 设置。
--   配置密码套件：双击 “SSL 密码套件顺序”，启用该设置，并在文本框中输入你希望使用的密钥套件列表。密钥套件应该按照优先级排序，使用逗号分隔。
+-   定位到密钥套件设置：在组策略编辑器中，导航到计算机配置 -> 管理模板 -> 网络 -> SSL 配置设置。在这里，可以找到“SSL 密码套件顺序”设置。
+-   配置密码套件：双击“SSL 密码套件顺序”，启用该设置，并在文本框中输入你希望使用的密钥套件列表。密钥套件应该按照优先级排序，使用逗号分隔。
 -   重启操作系统。
 
 [![](assets/1710898957-80f2eb680ad19eb09abccb709fd84aa9.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311125650-c5a9de60-df63-1.png)

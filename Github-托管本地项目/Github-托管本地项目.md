@@ -35,9 +35,9 @@ tags:
 
 ## 1\. github 是什么
 
-GitHub\[1\] 是一个共享虚拟主机服务，用于存放使用 Git\[2\] 版本控制的软件代码和内容项目。它由GitHub公司（曾称Logical Awesome）的开发者Chris Wanstrath\[3\]、PJ Hyett\[4\]和Tom Preston-Werner\[5\]使用Ruby on Rails\[6\]编写而成。
+GitHub\[1\] 是一个共享虚拟主机服务，用于存放使用 Git\[2\] 版本控制的软件代码和内容项目。它由 GitHub 公司（曾称 Logical Awesome）的开发者 Chris Wanstrath\[3\]、PJ Hyett\[4\]和 Tom Preston-Werner\[5\]使用 Ruby on Rails\[6\]编写而成。
 
-它还是什么?
+它还是什么？
 
 -   • 网站
     
@@ -60,13 +60,13 @@ GitHub\[1\] 是一个共享虚拟主机服务，用于存放使用 Git\[2\] �
 
 ## 2\. GitHub 与 Git 关系
 
-`Git`是一个分布式的版本控制系统，最初由Linus Torvalds\[7\]编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在Ruby社区中。目前，包括`Rubinius`、`Merb`和`Bitcoin`在内的很多知名项目都使用了Git。Git同样可以被诸如 Capistrano\[8\] 和 Vlad the Deployer\[9\] 这样的部署工具所使用。
+`Git`是一个分布式的版本控制系统，最初由 Linus Torvalds\[7\]编写，用作 Linux 内核代码的管理。在推出后，Git 在其它项目中也取得了很大成功，尤其是在 Ruby 社区中。目前，包括`Rubinius`、`Merb`和`Bitcoin`在内的很多知名项目都使用了 Git。Git 同样可以被诸如 Capistrano\[8\] 和 Vlad the Deployer\[9\] 这样的部署工具所使用。
 
-`GitHub`可以托管各种git库，并提供一个web界面，但与其它像 SourceForge\[10\]或Google Code\[11\]这样的服务不同，GitHub的独特卖点在于从另外一个项目进行分支的简易性。为一个项目贡献代码非常简单：首先点击项目站点的“fork”的按钮，然后将代码检出并将修改加入到刚才分出的代码库中，最后通过内建的“pull request”机制向项目负责人申请代码合并。已经有人将GitHub称为代码玩家的MySpace。
+`GitHub`可以托管各种 git 库，并提供一个 web 界面，但与其它像 SourceForge\[10\]或 Google Code\[11\]这样的服务不同，GitHub 的独特卖点在于从另外一个项目进行分支的简易性。为一个项目贡献代码非常简单：首先点击项目站点的“fork”的按钮，然后将代码检出并将修改加入到刚才分出的代码库中，最后通过内建的“pull request”机制向项目负责人申请代码合并。已经有人将 GitHub 称为代码玩家的 MySpace。
 
 ## 3\. git 安装
 
-windows 下载git工具\[12\]：git bash 、git gui 、git cmd linux环境下如果yum源有git包，
+windows 下载 git 工具\[12\]：git bash、git gui、git cmd linux 环境下如果 yum 源有 git 包，
 
 ### 3.1 yum 安装
 
@@ -76,7 +76,7 @@ $ git version
 git version 2.27.0
 ```
 
-默认yum安装的git好像不太新。
+默认 yum 安装的 git 好像不太新。
 
 ### 3.2 tar 安装
 
@@ -105,7 +105,7 @@ git version 2.38.1
 
 ## 4\. git 配置
 
-1.  1. 打开git bash，执行以下命令，配置git的`用户名`与`邮箱`
+1.  1. 打开 git bash，执行以下命令，配置 git 的`用户名`与`邮箱`
     
 
 ```plain
@@ -128,21 +128,21 @@ $ git config --global core.quotepath off
 $ git lfs install --skip-repo
 ```
 
-1.  1. 设置`SSH key`（git中sshkey有何作用？）
+1.  1. 设置`SSH key`（git 中 sshkey 有何作用？）
     
 
-首先检查是否已生成密钥`cd ~/.ssh`，如果返回的ls有3个文件,则密钥已经生成。
+首先检查是否已生成密钥`cd ~/.ssh`，如果返回的 ls 有 3 个文件，则密钥已经生成。
 
 ```plain
 $ ssh-keygen -t rsa -C "1zoxun1@gmail.com"
 ```
 
-生成密钥 把`id_rsa.pub`的公钥内容复制 ，然后找到github的用户设置的列表中SSH and GPG keys选项，添加 new SSH key，随便起个名字，粘贴复制公钥。
+生成密钥 把`id_rsa.pub`的公钥内容复制，然后找到 github 的用户设置的列表中 SSH and GPG keys 选项，添加 new SSH key，随便起个名字，粘贴复制公钥。
 
 ![图片](assets/1711241268-75c289631df5f4305c53a9f3b53ce369.png "null")
 
 ```plain
-ssh -T git@github.com   #远程登录git
+ssh -T git@github.com   #远程登录 git
 ```
 
 ## 5\. 界面创建 github 仓库
@@ -153,7 +153,7 @@ ssh -T git@github.com   #远程登录git
 
 ## 6\. 上传本地项目到 github
 
-非常简单，起名字，描述库的作用功能，设置公有，私有。是否设置创建README，如果之前没有设置它，上传文件就会报错。否则执行以下命令：
+非常简单，起名字，描述库的作用功能，设置公有，私有。是否设置创建 README，如果之前没有设置它，上传文件就会报错。否则执行以下命令：
 
 ```plain
 mkdir python-mysql
@@ -169,7 +169,7 @@ git push origin master
 
 ## 7\. 常见错误
 
-1.  1. 错误1
+1.  1. 错误 1
     
 
 ```plain
@@ -182,7 +182,7 @@ error: failed to push some refs to 'https://github.com/ghostwritten/pytho
 git push origin master --force   #强制推送到库名下
 ```
 
-1.  1. 错误2
+1.  1. 错误 2
     
 
 ```plain
@@ -197,15 +197,15 @@ git remote rm origin
 git remote add origin https://github.com/ghostwritten/python-mysql.git 
 ```
 
-1.  1. 错误3
+1.  1. 错误 3
     
 
 ```plain
-在执行git push origin master时，报错：
+在执行 git push origin master 时，报错：
 error:failed to push som refs to.......
 则执行以下语句：
 git pull origin master
-先把远程服务器github上面的文件拉先来，再push 上去。
+先把远程服务器 github 上面的文件拉先来，再 push 上去。
 ```
 
 可以看到我们的本地项目已经上传到了`github`上了。
@@ -223,4 +223,4 @@ git pull origin master
 `[9]` Vlad the Deployer: *https://rubygems.org/gems/vlad/versions/2.7.0*  
 `[10]` SourceForge: *https://sourceforge.net/*  
 `[11]` Google Code: *https://code.google.com/*  
-`[12]` 下载git工具: *https://git-scm.com/downloads*
+`[12]` 下载 git 工具: *https://git-scm.com/downloads*

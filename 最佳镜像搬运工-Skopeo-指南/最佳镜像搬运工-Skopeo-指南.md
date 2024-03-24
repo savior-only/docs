@@ -118,7 +118,7 @@ Skopeo 也允许您从存储库删除镜像，并将外部镜像存储库同步�
 
 ### 3.1 灵活性
 
-Skopeo\[9\] 是一套容器模块化工具的一部分，具有许多优势。将重要变更引入到单体式架构的工具中，而且不影响现有用户的使用，这绝非易事。Skopeo、Podman 和 Buildah 等尺寸更小巧、用途更专一的工具会以更快的速度更新换代。成套使用工具的话，可以使每个工具专注于单一用途，并且可以添加新的工具来增加功能，或者尝试与现有工具不兼容的想法和架构。工具的尺寸越小巧、模块化程度越高，保证安全也更加容易。 Podman 的部分功能源自于 `libpod` 库，允许与其他工具共享代码；Skopeo 与之相似，其功能也是在库中实施的。Skopeo 的容器/镜像库可由 Podman、Buildah 和 CRI-O\[10\] 等其他容器工具共享，并且与 Docker 命令行界面（CLI）兼容。
+Skopeo\[9\] 是一套容器模块化工具的一部分，具有许多优势。将重要变更引入到单体式架构的工具中，而且不影响现有用户的使用，这绝非易事。Skopeo、Podman 和 Buildah 等尺寸更小巧、用途更专一的工具会以更快的速度更新换代。成套使用工具的话，可以使每个工具专注于单一用途，并且可以添加新的工具来增加功能，或者尝试与现有工具不兼容的想法和架构。工具的尺寸越小巧、模块化程度越高，保证安全也更加容易。Podman 的部分功能源自于 `libpod` 库，允许与其他工具共享代码；Skopeo 与之相似，其功能也是在库中实施的。Skopeo 的容器/镜像库可由 Podman、Buildah 和 CRI-O\[10\] 等其他容器工具共享，并且与 Docker 命令行界面（CLI）兼容。
 
 ### 3.2 安全性和可访问性
 
@@ -135,7 +135,7 @@ Understanding root inside and outside a container\[11\]
 
 ### 3.3 功能多样性
 
--   • Skopeo 与 API V2 容器镜像仓库一起工作，例如docker.io和quay.io仓库、私有仓库、本地目录和本地 OCI 布局目录。Skopeo 可以执行的操作包括：
+-   • Skopeo 与 API V2 容器镜像仓库一起工作，例如 docker.io 和 quay.io 仓库、私有仓库、本地目录和本地 OCI 布局目录。Skopeo 可以执行的操作包括：
     
 
 -   • 从和向各种存储机制复制镜像。例如，您可以将镜像从一个仓库复制到另一个仓库，而无需特权。
@@ -152,7 +152,7 @@ Understanding root inside and outside a container\[11\]
 -   • Skopeo 对以下镜像和存储库类型进行操作：
     
 
--   • `containers-storage:docker-reference` 位于本地 `containers/storage`镜像存储中的镜像。位置和镜像存储都在 `/etc/containers/storage.conf` 中指定。（这是Podman、CRI-O、Buildah和朋友的后端）
+-   • `containers-storage:docker-reference` 位于本地 `containers/storage`镜像存储中的镜像。位置和镜像存储都在 `/etc/containers/storage.conf` 中指定。（这是 Podman、CRI-O、Buildah 和朋友的后端）
     
 -   • `dir:path` 一个现有的本地目录路径，将清单、层 tarball 和签名存储为单独的文件。这是一种非标准化格式，主要用于调试或非侵入式容器检查。
     
@@ -200,7 +200,7 @@ CentOS 7: Package Repo\[17\]
 
 ### 4.4 Ubuntu
 
-skopeo包在Ubuntu 20.10及更新版本的官方存储库中可用。
+skopeo 包在 Ubuntu 20.10 及更新版本的官方存储库中可用。
 
 ```plain
 # Ubuntu 20.10 and newer
@@ -208,7 +208,7 @@ sudo apt-get -y update
 sudo apt-get -y install skopeo
 ```
 
-Ubuntu： Package Info\[18\]
+Ubuntu: Package Info\[18\]
 
 ### 4.5 容器安装
 
@@ -269,7 +269,7 @@ Use "skopeo [command] --help" for more information about a command.
 
 ## 6\. 查询（skopeo inspect）
 
-`skopeo inspect` 能够检查容器 Registry 上的存储库并获取镜像层。检查命令获取存储库的清单，它能够向您显示有关整个存储库或标签的类似 docker inspect 的 json 输出。与 docker inspect 相比,此工具可帮助您在拉取存储库或标签之前收集有用的信息(使用磁盘空间), 检查命令可以向您显示给定存储库可用的标签、映像具有的标签、映像的创建日期和操作系统等。
+`skopeo inspect` 能够检查容器 Registry 上的存储库并获取镜像层。检查命令获取存储库的清单，它能够向您显示有关整个存储库或标签的类似 docker inspect 的 json 输出。与 docker inspect 相比，此工具可帮助您在拉取存储库或标签之前收集有用的信息 (使用磁盘空间), 检查命令可以向您显示给定存储库可用的标签、映像具有的标签、映像的创建日期和操作系统等。
 
 支持传输的类型 : containers-storage, dir, docker, docker-archive, docker-daemon, oci, oci-archive, ostree, tarball。
 
@@ -476,7 +476,7 @@ Name: docker.io/library/alpine Digest: sha256:b95359c2505145f16c6aa384f9cc74e
 
 ### 6.4 免登陆查询
 
--   • --creds=testuser:testpassword  绕过login登陆实现用户认证
+-   • --creds=testuser:testpassword  绕过 login 登陆实现用户认证
     
 
 ```plain
@@ -655,7 +655,7 @@ $ skopeo list-tags docker://docker.io/alpine
 -   • Registry 私有仓库：`192.168.10.80:5000`
     
 
-在使用 `skopeo` 前，如果 `src` 或 `dest` 镜像是在 `registry` 仓库中的并且配置了非 `public` 的镜像需要相应的 `auth` 认证, 此时我们可以使用 `docker login` 或者 `skopeo login` 的方式登录到 `registry` 仓库，然后默认会在`~/.docker`目录下生成 registry 登录配置文件 `config.json` ,该文件里保存了登录需要的验证信息，`skopeo` 拿到该验证信息才有权限往 `registry push` 镜像。
+在使用 `skopeo` 前，如果 `src` 或 `dest` 镜像是在 `registry` 仓库中的并且配置了非 `public` 的镜像需要相应的 `auth` 认证，此时我们可以使用 `docker login` 或者 `skopeo login` 的方式登录到 `registry` 仓库，然后默认会在`~/.docker`目录下生成 registry 登录配置文件 `config.json` ,该文件里保存了登录需要的验证信息，`skopeo` 拿到该验证信息才有权限往 `registry push` 镜像。
 
 `skopeo` 使用来自 `--creds`（对于 `skopeo inspect|delete`）或 `--src-creds|--dest-creds`（对于 `skopeo copy`）标志的凭据，如果已设置；否则它使用由 `skopeo` 登录、`podman` 登录、`buildah` 登录或 `docker` 登录设置的配置。
 
@@ -783,7 +783,7 @@ $ docker images localhost/busybox:latest
 REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
 busybox      latest    9d5226e6ce3f   4 days ago   1.24MB
 
-如果你得容器以podman为引擎。
+如果你得容器以 podman 为引擎。
 $ skopeo copy containers-storage:localhost/busybox:latest docker://192.168.10.80:5000/busybox:latest
 INFO[0000] Not using native diff for overlay, this may cause degraded performance for building images: kernel has CONFIG_OVERLAY_FS_REDIRECT_DIR enabled
 Getting image source signatures
@@ -792,10 +792,10 @@ Copying config 9d5226e6ce [======================================] 1.4KiB /
 Writing manifest to image destination
 Storing signatures
 
-#如果你得容器以docker为引擎。
+#如果你得容器以 docker 为引擎。
 $ skopeo copy docker-daemon:localhost/busybox:latest docker://192.168.10.80:5000/busybox:latest
 
-# 没有tls安全的registry的情况下这样操作。
+# 没有 tls 安全的 registry 的情况下这样操作。
 $ skopeo copy --insecure-policy --dest-tls-verify=false --dest-authfile /root/.docker/config.json docker-daemon:localhost/busybox:latest docker://192.168.10.80:5000/busybox:latest
 ```
 
@@ -848,13 +848,13 @@ $ skopeo inspect docker://harbor.fumai.com/library/alpine:latest
 其它仓库同步方法：
 
 ```plain
-#  docker://quay.io的buildah 同步到docker://registry.internal.company.com
+#  docker://quay.io 的 buildah 同步到 docker://registry.internal.company.com
 $ skopeo copy docker://quay.io/buildah/stable docker://harbor.fumai.com/library/buildah
 
-#如果 registry 是一个没有tls验证的仓库并且以 docker 为容器引擎。
+#如果 registry 是一个没有 tls 验证的仓库并且以 docker 为容器引擎。
 $ skopeo copy --insecure-policy --dest-tls-verify=false --dest-authfile /root/.docker/config.json docker://192.168.10.80:5000/alpine:latest docker://harbor.fumai.com/library/alpine:latest
 
-#如果 registry 是一个没有tls验证的仓库并且以 podman 为容器引擎。
+#如果 registry 是一个没有 tls 验证的仓库并且以 podman 为容器引擎。
  $ skopeo copy --insecure-policy --dest-tls-verify=false --dest-authfile /run/user/0/containers/auth.json docker://192.168.10.80:5000/alpine:latest docker://harbor.fumai.com/library/alpine:latest
 ```
 
@@ -905,7 +905,7 @@ $ skopeo copy --src-creds=admin:harbor12345 docker://harbor.fumai.com/librar
 
 ## 10\. 同步镜像（Skopeo sync）
 
-`Skopeo sync`可以在容器仓库和本地目录之间同步镜像，其功能类似于阿里云的 image-syncer\[30\] 工具, 实际上其比 `image-syncer` 更强大、灵活性更强一些
+`Skopeo sync`可以在容器仓库和本地目录之间同步镜像，其功能类似于阿里云的 image-syncer\[30\] 工具，实际上其比 `image-syncer` 更强大、灵活性更强一些
 
 ```plain
 $ skopeo sync --src docker --dest dir registry.example.com/busybox /media/usb
@@ -915,7 +915,7 @@ $ skopeo sync --src docker --dest dir registry.example.com/busybox /medi
 
 将仓库中所有 `busybox` 镜像版本同步到本地目录
 
-查询当前`harbor.fumai.com`仓库 busybox版本
+查询当前`harbor.fumai.com`仓库 busybox 版本
 
 ```plain
 skopeo list-tags docker://harbor.fumai.com/library/busybox
@@ -1014,14 +1014,14 @@ $ skopeo list-tags docker://192.168.10.80:5000/busybox
 }
 ```
 
-成功。 其他同步方式：
+成功。其他同步方式：
 
 ```plain
 skopeo sync --dest-creds=registryuser:registryuserpassword  --src dir --dest docker /images_busybox 192.168.10.80:5000 
 
 skopeo sync --src-authfile=/run/user/0/containers/auth.json  --src dir --dest docker /images_busybox 192.168.10.80:5000 
 
-#如果 registry 是一个没有tls验证的仓库
+#如果 registry 是一个没有 tls 验证的仓库
 skopeo sync --insecure-policy --dest-tls-verify=false --src dir --dest docker /images_busybox 192.168.10.80:5000
 ```
 
@@ -1135,7 +1135,7 @@ Storing signatures
 
 ### 11.1 skopeo 删除镜像
 
-使用`skopeo delete`命令我们可以删除镜像 Tag,注意此处仅仅只是通过 registry API 来删除镜像的 tag（即删除了 tag 对 manifests 文件的引用）并非真正将镜像删除掉，如果想要删除镜像的 layer 还是需要通过 registry GC 的方式。
+使用`skopeo delete`命令我们可以删除镜像 Tag，注意此处仅仅只是通过 registry API 来删除镜像的 tag（即删除了 tag 对 manifests 文件的引用）并非真正将镜像删除掉，如果想要删除镜像的 layer 还是需要通过 registry GC 的方式。
 
 ```plain
 $ curl  -k -u "admin:Harbor12345" https://harbor.fumai.com/v2/_catalog
@@ -1213,7 +1213,7 @@ help() {
     echo "test.sh [-i Images] [-h Registry_Url] [-u Registry_Username] [-p Registry_Password] [-d]"
     echo "Description:"
     echo "  Images,One or more mirror images,exmple: (busybox:latest alpine:latest)."
-    echo "  Registry_Url, registry name，exmaple: docker.io."
+    echo "  Registry_Url, registry name, exmaple: docker.io."
     echo "  Registry_Username, registry username，exmaple: 'admin'."
     echo "  Registry_Password, registry password，exmaple: 'Harbor12345'."
     echo "  -d, Indicates the deletion action."

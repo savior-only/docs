@@ -59,7 +59,7 @@ return (0, r.requestWithContent)("zyhyy.qryOrgStructureView", {
 
 [![](assets/1710900218-74c199e1c3befb59188939bc837d12ab.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301164026-59faaf0a-d7a7-1.png)
 
-发现 areaId 值可用，于是在 js 文件中继续搜索 method 为 zyhyy 开头的，发现 zyhyy.qryOrgInfoByAreaId，构造 area\_id 值和 staff\_type 值在数据包中:
+发现 areaId 值可用，于是在 js 文件中继续搜索 method 为 zyhyy 开头的，发现 zyhyy.qryOrgInfoByAreaId，构造 area\_id 值和 staff\_type 值在数据包中：
 
 [![](assets/1710900218-c9f1b6ec70dbf83dd9d5144137d468c1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240301164049-67e2332c-d7a7-1.png)
 

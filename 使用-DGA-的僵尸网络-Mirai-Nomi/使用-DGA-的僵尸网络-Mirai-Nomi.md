@@ -221,7 +221,7 @@ for i, c in enumerate(m5):
 print(check.decode())
 ```
 
-经过上述计算，`1a1f31761f.dontargetme.nl` 的校验码为: `4ihsnicnc766x8nn5xih9c7138780xcn`
+经过上述计算，`1a1f31761f.dontargetme.nl` 的校验码为：`4ihsnicnc766x8nn5xih9c7138780xcn`
 
 连接上述解密后的 C2，端口为 `24150`，尝试接收大小为 1023 数据，如图所示，返回中包含校验码，代表 C2 可用。  
 ![dga_check.PNG](assets/1710812098-270c5cb289e2e3a7cae307ae7ae9edc0.png)

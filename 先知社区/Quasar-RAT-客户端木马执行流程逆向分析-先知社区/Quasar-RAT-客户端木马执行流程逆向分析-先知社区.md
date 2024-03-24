@@ -216,8 +216,8 @@ BFEB1E56FBCD973BB219022430A57843003D5644D21E62B9D4F180E7E6C33941
 
 ```plain
 客户端标识，Office01
-RAT版本信息，1.4.1
-外连IP:port
+RAT 版本信息，1.4.1
+外连 IP:port
 =======
 [![](assets/1710206252-8b075a77e4514e9aa8654a5d4e6ad297.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311124355-f7a24012-df61-1.png)
 
@@ -425,7 +425,7 @@ TLS 交互通讯数据包如下。
 
 ###### 3.3.2 二次 TCP 连接建立，发送上线信息
 
-初次链接断开后，程序会重新执行三次握手、TLS1.2 加密流程，和首次通讯不同的是，客户端异步执行 “GClass31\_ClientState” 搜集系统基本信息，包括包括操作系统版本、用户名，地理位置等等。作为上线信息。
+初次链接断开后，程序会重新执行三次握手、TLS1.2 加密流程，和首次通讯不同的是，客户端异步执行“GClass31\_ClientState”搜集系统基本信息，包括包括操作系统版本、用户名，地理位置等等。作为上线信息。
 
 [![](assets/1710898966-eac88b9b2e2a4e1e6bd3cdc2bcd7e7dd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311124842-a2796588-df62-1.png)
 
@@ -485,7 +485,7 @@ TLS1.2 加密流量数据如下。
 
 [![](assets/1710898966-165f3e2617f5a14dabbd5d4144e384ad.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311125027-e1747e8a-df62-1.png)
 
-执行结束后恢复等待 “ClientRead” 事件再次触发，循环接收指令并调用功能函数处理。
+执行结束后恢复等待“ClientRead”事件再次触发，循环接收指令并调用功能函数处理。
 =======
 [![](assets/1710206252-3ea453131961123e421995b375ca38a8.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311124927-bdc6feea-df62-1.png)
 

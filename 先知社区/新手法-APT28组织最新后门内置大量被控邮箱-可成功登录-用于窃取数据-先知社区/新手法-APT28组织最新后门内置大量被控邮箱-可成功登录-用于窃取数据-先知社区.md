@@ -1,5 +1,5 @@
 ---
-title: 新手法！APT28组织最新后门内置大量被控邮箱（可成功登录）用于窃取数据 - 先知社区
+title: 新手法！APT28 组织最新后门内置大量被控邮箱（可成功登录）用于窃取数据 - 先知社区
 url: https://xz.aliyun.com/t/14123?time__1311=mqmx9DBQqeTqlxGg2Dy0%2BdbPiTeQq4hD&alichlgref=https%3A%2F%2Fwww.inoreader.com%2F
 clipped_at: 2024-03-21 11:48:29
 category: default
@@ -8,22 +8,22 @@ tags:
 ---
 
 
-# 新手法！APT28组织最新后门内置大量被控邮箱（可成功登录）用于窃取数据 - 先知社区
+# 新手法！APT28 组织最新后门内置大量被控邮箱（可成功登录）用于窃取数据 - 先知社区
 
 ## 概述
 
-近期，笔者在浏览网络中威胁情报信息的时候，发现美国securityscorecard安全公司于2024年3月5日发布了一篇《A technical analysis of the APT28’s backdoor called OCEANMAP》白皮书报告，此报告对APT28组织使用的OCEANMAP后门进行了详细介绍。
+近期，笔者在浏览网络中威胁情报信息的时候，发现美国 securityscorecard 安全公司于 2024 年 3 月 5 日发布了一篇《A technical analysis of the APT28’s backdoor called OCEANMAP》白皮书报告，此报告对 APT28 组织使用的 OCEANMAP 后门进行了详细介绍。
 
-整篇报告的内容不多，全是对OCEANMAP后门功能的描述，笔者很快就浏览完了。浏览完后，笔者也是对OCEANMAP后门产生了一定的兴趣，结合网络中的其他调研信息，也同时让笔者理解了美国securityscorecard安全公司为什么会专门发布一篇白皮书对OCEANMAP后门进行研究：
+整篇报告的内容不多，全是对 OCEANMAP 后门功能的描述，笔者很快就浏览完了。浏览完后，笔者也是对 OCEANMAP 后门产生了一定的兴趣，结合网络中的其他调研信息，也同时让笔者理解了美国 securityscorecard 安全公司为什么会专门发布一篇白皮书对 OCEANMAP 后门进行研究：
 
 -   其实根据样本分析结果，此OCEANMAP后门的整体功能不是特别的复杂，而且其是由C#语言编写的，分析难度也不是很高；
--   根据网络调研信息，OCEANMAP后门被乌克兰国家计算机应急响应中心首次于2023年12月28日曝光，算是一款比较新的后门；
--   根据网络调研信息，OCEANMAP后门归属于APT28组织；
+-   根据网络调研信息，OCEANMAP 后门被乌克兰国家计算机应急响应中心首次于 2023 年 12 月 28 日曝光，算是一款比较新的后门；
+-   根据网络调研信息，OCEANMAP 后门归属于 APT28 组织；
     
--   根据样本分析结果，此OCEANMAP后门的恶意行为利用方式与我们常见的木马利用方式有所不同，此OCEANMAP后门通过邮件接收远控指令及返回远程指令执行结果；
+-   根据样本分析结果，此 OCEANMAP 后门的恶意行为利用方式与我们常见的木马利用方式有所不同，此 OCEANMAP 后门通过邮件接收远控指令及返回远程指令执行结果；
     
 
-通过网络调研，笔者将网络中能下载的所有曝光的OCEANMAP后门进行了梳理对比，情况如下：
+通过网络调研，笔者将网络中能下载的所有曝光的 OCEANMAP 后门进行了梳理对比，情况如下：
 
 | Hash | 编译时间（伪造） | 支持命令 | 命名空间名 | 加解密算法 |
 | --- | --- | --- | --- | --- |
@@ -40,9 +40,9 @@ tags:
 
 为便于对比分析，笔者基于支持命令及加解密算法将此系列样本分为了三个版本：
 
--   第一版本：使用的加解密算法为RC4+Base64
--   第二版本：使用的加解密算法为DES+Base64
--   第三版本：使用的加解密算法为Base64
+-   第一版本：使用的加解密算法为 RC4+Base64
+-   第二版本：使用的加解密算法为 DES+Base64
+-   第三版本：使用的加解密算法为 Base64
 
 相关网络报道截图如下：
 
@@ -50,13 +50,13 @@ tags:
 
 [![](assets/1710992909-43614addef889cbbd7da8ffa53b33e8e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318191717-14a5e882-e519-1.png)
 
-## OCEANMAP后门分析
+## OCEANMAP 后门分析
 
 ### 移动自身至启动目录
 
 通过分析，笔者发现除第三版本样本外，其余样本的自启动方式均相同，均是通过将自身移动至启动目录中以实现自启动功能。
 
-相关cmd命令如下：
+相关 cmd 命令如下：
 
 ```plain
 move /Y email.exe \"C:\\Users\\%username%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\email.exe\"
@@ -89,13 +89,13 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 ### 内置邮箱账户信息
 
-通过分析，发现在OCEANMAP后门中，内置了邮箱账户信息，相关代码截图如下：
+通过分析，发现在 OCEANMAP 后门中，内置了邮箱账户信息，相关代码截图如下：
 
 [![](assets/1710992909-7b59a478eb1fe2d2c1dd48a007b461fd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190002-ab7a688a-e516-1.png)
 
-### 生成用户ID
+### 生成用户 ID
 
-通过分析，发现OCEANMAP后门运行后，将根据主机信息（主机名、用户名、系统版本）生成用户ID，此用户ID将作为接收特定远控指令的标识，因此其将被作为邮件主题添加至邮件中。
+通过分析，发现 OCEANMAP 后门运行后，将根据主机信息（主机名、用户名、系统版本）生成用户 ID，此用户 ID 将作为接收特定远控指令的标识，因此其将被作为邮件主题添加至邮件中。
 
 第一二版本样本代码截图如下：
 
@@ -105,9 +105,9 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 [![](assets/1710992909-05e6dd83ebc508b72a9d99d16b8a74f6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190035-bf35e67e-e516-1.png)
 
-### 收件箱添加邮件-返回初始命令执行结果
+### 收件箱添加邮件 - 返回初始命令执行结果
 
-通过分析，发现OCEANMAP后门中内置了初始命令，后门运行后，将以邮件形式返回初始命令执行结果，并以此作为后门上线信息，相关初始命令梳理如下：
+通过分析，发现 OCEANMAP 后门中内置了初始命令，后门运行后，将以邮件形式返回初始命令执行结果，并以此作为后门上线信息，相关初始命令梳理如下：
 
 | Hash | 内置初始命令 |
 | --- | --- |
@@ -128,11 +128,11 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 [![](assets/1710992909-66749b4aed5582d8693e030cebdec72a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190120-da0c3476-e516-1.png)
 
-### 提取草稿箱内容-接收远控指令
+### 提取草稿箱内容 - 接收远控指令
 
-通过分析，发现当OCEANMAP后门向收件箱添加邮件后，下一步则将从邮箱草稿箱中提取远控指令命令，提取远控指令的方式为：
+通过分析，发现当 OCEANMAP 后门向收件箱添加邮件后，下一步则将从邮箱草稿箱中提取远控指令命令，提取远控指令的方式为：
 
--   搜索邮件主题内容中包含对应用户ID的邮件；
+-   搜索邮件主题内容中包含对应用户 ID 的邮件；
 -   提取对应邮件内容并对其进行解密（RC4+Base64、DES+Base64、Base64）；
 
 相关代码截图如下：
@@ -141,13 +141,13 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 ### 第一版样本加解密算法-RC4+Base64
 
-通过分析，发现OCEANMAP后门第一版样本使用的邮件内容加解密算法为RC4+Base64，相关代码截图如下：
+通过分析，发现 OCEANMAP 后门第一版样本使用的邮件内容加解密算法为 RC4+Base64，相关代码截图如下：
 
 [![](assets/1710992909-3080c6b0fa46c3142e478487812559f1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190158-f081263a-e516-1.png)
 
 [![](assets/1710992909-a057c92d87ce3361bc4eddadaf7af655.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190215-fb12763a-e516-1.png)
 
-第一版样本向收件箱添加邮件及从草稿箱提取远控指令时，均会调用RC4+Base64算法对邮件内容进行加解密。
+第一版样本向收件箱添加邮件及从草稿箱提取远控指令时，均会调用 RC4+Base64 算法对邮件内容进行加解密。
 
 向收件箱添加邮件的代码截图如下：
 
@@ -157,7 +157,7 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 [![](assets/1710992909-bbee196c1d2462924075f50553618bec.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190250-0fcf3e6e-e517-1.png)
 
-提取RC4密钥如下：
+提取 RC4 密钥如下：
 
 ```plain
 8C18634C6374CE4E75F155F806808F0532FEF8A8472DB2543390A3A48CB69B7CB143BCE139919D33C209220170F0D98FDE4FA497F668EC180AE29F13DBECE33E97D5E8438619CE70283DDC0A392A27193A043E026FC45EB39A44F3526F80F720F3966AA171BE577483BE7D1CF60B50CC96BA56FEE54909A319E3C945B342B89EADA490EA8631908F2E2871EF556BF121E61DE9351E41D19D24714BD071AA3E22CEE916D08459D9071670B61603128A5C2D5781086DB11E5580CC55CBEE716791C36986B91086305FA4E47D8EE370E8F1722CA8CDA944ED8E2550F29CA285EC63CD893A123101CB927CE9B79647AE331726066D6264280C9A4AE540C279986669
@@ -169,13 +169,13 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 ### 第二版样本加解密算法-DES+Base64
 
-通过分析，发现OCEANMAP后门第二版样本使用的邮件内容加解密算法为DES+Base64，相关代码截图如下：
+通过分析，发现 OCEANMAP 后门第二版样本使用的邮件内容加解密算法为 DES+Base64，相关代码截图如下：
 
 [![](assets/1710992909-953d3dffb7f6a6d4cae182e272ef8e7e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190338-2c505186-e517-1.png)
 
 [![](assets/1710992909-10022bd23b3b436c78e6722b16f338e7.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190359-389fef3c-e517-1.png)
 
-第二版样本向收件箱添加邮件及从草稿箱提取远控指令时，均会调用DES+Base64算法对邮件内容进行加解密。
+第二版样本向收件箱添加邮件及从草稿箱提取远控指令时，均会调用 DES+Base64 算法对邮件内容进行加解密。
 
 向收件箱添加邮件的代码截图如下：
 
@@ -187,7 +187,7 @@ move /Y igmtSX.exe \"%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Startu
 
 [![](assets/1710992909-92cc11ad447624e1dd92c521f1bec3bf.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190458-5c33cde2-e517-1.png)
 
-提取DES-CBC密钥如下：
+提取 DES-CBC 密钥如下：
 
 ```plain
 key：
@@ -202,28 +202,28 @@ IV：
 
 ### 第三版样本加解密算法-Base64
 
-通过分析，发现OCEANMAP后门第三版样本向收件箱添加邮件时，并未使用加密算法对其邮件内容进行加密，相关代码截图如下：
+通过分析，发现 OCEANMAP 后门第三版样本向收件箱添加邮件时，并未使用加密算法对其邮件内容进行加密，相关代码截图如下：
 
 [![](assets/1710992909-ce2b2cd03dec2dd2a172627e22ccc1f6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190535-71d4f540-e517-1.png)
 
-从邮件内容中解密提取远控指令解密算法为Base64，相关代码截图如下：
+从邮件内容中解密提取远控指令解密算法为 Base64，相关代码截图如下：
 
 [![](assets/1710992909-cb1ee9a3c7766e4f9b1462202c2edf6b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190559-8045d96e-e517-1.png)
 
 ### 远控指令
 
-通过分析，梳理发现OCEANMAP后门系列样本中目前共存在两个远控指令：
+通过分析，梳理发现 OCEANMAP 后门系列样本中目前共存在两个远控指令：
 
--   changesecond：用于修改内置的邮箱账户信息（备注：第一版本样本中内置的change\_指令功能与changesecond指令功能相同）
+-   changesecond：用于修改内置的邮箱账户信息（备注：第一版本样本中内置的 change\_指令功能与 changesecond 指令功能相同）
 -   newtime：用于修改内置的程序休眠时间
 
-changesecond指令代码截图如下：
+changesecond 指令代码截图如下：
 
 [![](assets/1710992909-3d47ef962a7d4a6e1701918b9f2b537e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190618-8bdb3742-e517-1.png)
 
 [![](assets/1710992909-867be3a7be7297eba85d34ddd0880b0d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190639-980445ae-e517-1.png)
 
-newtime指令代码截图如下：
+newtime 指令代码截图如下：
 
 [![](assets/1710992909-13054621900060bde7be5b38eda20ffa.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190657-a2f55b56-e517-1.png)
 
@@ -231,21 +231,21 @@ newtime指令代码截图如下：
 
 [![](assets/1710992909-dcd0fcf7b00c646d74a42986c297b638.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190736-b9e749c8-e517-1.png)
 
-## OCEANMAP后门通信模型分析
+## OCEANMAP 后门通信模型分析
 
 ### 模拟构建邮服
 
-为了能够详细的对OCEANMAP后门通信模型进行研究分析，笔者准备尝试构建一套模拟的邮件服务器，虽然构建邮件服务器的过程并不是很难，但是笔者在利用模拟的邮件服务器进行模拟复现的时候，却遇到了一些小曲折，因此，笔者还是决定将相关曲折历程简单写下来：
+为了能够详细的对 OCEANMAP 后门通信模型进行研究分析，笔者准备尝试构建一套模拟的邮件服务器，虽然构建邮件服务器的过程并不是很难，但是笔者在利用模拟的邮件服务器进行模拟复现的时候，却遇到了一些小曲折，因此，笔者还是决定将相关曲折历程简单写下来：
 
--   阶段一：起初，为了能够快速的模拟构建邮件服务器，笔者选择了windows系统下的hMailServer软件进行构建
-    -   问题：实际模拟复现的时候，笔者发现hMailServer软件构建的邮件服务器无法使用WEB方式访问，因此只能使用foxmail等邮件客户端进行访问，但使用foxmail等邮件客户端进行写草稿的时候，**草稿箱内容不会保存至邮件服务器中**（使用foxmail保存草稿、退出邮箱账号后，再次登录邮箱账户，发现没有草稿内容）。
--   阶段二：笔者推测支持WEB方式访问的邮件服务器才支持将草稿内容保存至邮件服务器中，因此，笔者又选择了windows系统下的MailEnable软件进行构建
-    -   问题：实际模拟复现的时候，笔者发现MailEnable软件构建的邮件服务器可以使用WEB方式访问，但是却**不能响应OCEANMAP后门向收件箱添加邮件的指令**。
--   阶段三：笔者选择了hmailserver+phpstudy+roundcube的方式构建邮件服务器，参考网页：`[blog.csdn.net/ljh_mm/article/details/131221407](https://blog.csdn.net/ljh_mm/article/details/131221407)`
-    -   问题：实际模拟复现的时候，笔者发现邮件服务器可以使用WEB方式访问，也能够成功响应OCEANMAP后门向收件箱添加邮件的指令，但是却**不能响应OCEANMAP后门从草稿箱提取邮件内容的指令**。
-    -   由于笔者暂未进一步进行模拟构建邮件服务器，因此也不清楚具体是什么导致不能响应OCEANMAP后门从草稿箱提取邮件内容的指令，结合实际被控邮箱的邮件服务器使用的有Linux系统，推测Linux环境下的邮件服务器可正常响应OCEANMAP后门行为。
+-   阶段一：起初，为了能够快速的模拟构建邮件服务器，笔者选择了 windows 系统下的 hMailServer 软件进行构建
+    -   问题：实际模拟复现的时候，笔者发现 hMailServer 软件构建的邮件服务器无法使用 WEB 方式访问，因此只能使用 foxmail 等邮件客户端进行访问，但使用 foxmail 等邮件客户端进行写草稿的时候，**草稿箱内容不会保存至邮件服务器中**（使用 foxmail 保存草稿、退出邮箱账号后，再次登录邮箱账户，发现没有草稿内容）。
+-   阶段二：笔者推测支持 WEB 方式访问的邮件服务器才支持将草稿内容保存至邮件服务器中，因此，笔者又选择了 windows 系统下的 MailEnable 软件进行构建
+    -   问题：实际模拟复现的时候，笔者发现 MailEnable 软件构建的邮件服务器可以使用 WEB 方式访问，但是却**不能响应 OCEANMAP 后门向收件箱添加邮件的指令**。
+-   阶段三：笔者选择了 hmailserver+phpstudy+roundcube 的方式构建邮件服务器，参考网页：`[blog.csdn.net/ljh_mm/article/details/131221407](https://blog.csdn.net/ljh_mm/article/details/131221407)`
+    -   问题：实际模拟复现的时候，笔者发现邮件服务器可以使用 WEB 方式访问，也能够成功响应 OCEANMAP 后门向收件箱添加邮件的指令，但是却**不能响应 OCEANMAP 后门从草稿箱提取邮件内容的指令**。
+    -   由于笔者暂未进一步进行模拟构建邮件服务器，因此也不清楚具体是什么导致不能响应 OCEANMAP 后门从草稿箱提取邮件内容的指令，结合实际被控邮箱的邮件服务器使用的有 Linux 系统，推测 Linux 环境下的邮件服务器可正常响应 OCEANMAP 后门行为。
 
-阶段二中“不能响应OCEANMAP后门向收件箱添加邮件的指令”截图如下：
+阶段二中“不能响应 OCEANMAP 后门向收件箱添加邮件的指令”截图如下：
 
 [![](assets/1710992909-cecb2ea1c56d0257e54b3c8e06f640d8.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190758-c72ec520-e517-1.png)
 
@@ -263,7 +263,7 @@ newtime指令代码截图如下：
 
 [![](assets/1710992909-86e439323992141a51af0536270d80dc.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190908-f0f8dc88-e517-1.png)
 
-阶段三中“不能响应OCEANMAP后门从草稿箱提取邮件内容的指令”相关截图如下：
+阶段三中“不能响应 OCEANMAP 后门从草稿箱提取邮件内容的指令”相关截图如下：
 
 [![](assets/1710992909-5a35cd0f0654797c5e3a7c2d5a5d536a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240318190928-fccf1c02-e517-1.png)
 
@@ -275,7 +275,7 @@ newtime指令代码截图如下：
 
 #### 第一版样本
 
-第一版样本IMAP协议指令内容如下：
+第一版样本 IMAP 协议指令内容如下：
 
 ```plain
 向收件箱添加邮件的指令
@@ -300,7 +300,7 @@ $ UID SEARCH subject "V0lOLUpNS0pFTUpDNE9UX2FkbWluX01pY3Jvc29mdCBXaW5kb3dzIE5UID
 
 #### 第二版样本
 
-第二版样本IMAP协议指令内容如下：
+第二版样本 IMAP 协议指令内容如下：
 
 ```plain
 向收件箱添加邮件的指令
@@ -330,7 +330,7 @@ $ UID SEARCH subject "V0lOLUpNS0pFTUpDNE9UX2FkbWluX01pY3Jvc29mdCBXaW5kb3dzIE5UID
 
 #### 第三版样本
 
-第三版样本IMAP协议指令内容如下：
+第三版样本 IMAP 协议指令内容如下：
 
 ```plain
 向收件箱添加邮件的指令
@@ -378,7 +378,7 @@ $ EXPUNGE
 
 ## 被控邮箱梳理
 
-通过分析，对搜集的OCEANMAP后门样本中内置的被控邮箱进行梳理，提取了8个邮件服务器地址，13个被控邮箱账户密码，相关梳理信息如下：
+通过分析，对搜集的 OCEANMAP 后门样本中内置的被控邮箱进行梳理，提取了 8 个邮件服务器地址，13 个被控邮箱账户密码，相关梳理信息如下：
 
 | 邮件服务器 | 邮箱  | hash |
 | --- | --- | --- |
@@ -422,10 +422,10 @@ $ EXPUNGE
 
 ### 邮服被控原理推测
 
-通过分析，笔者发现可成功登录的多个邮箱服务访问页面相同，进一步对比分析，笔者发现其页面结构与笔者模拟构建的邮件服务器页面也比较相同，因此，笔者就推测攻击者是否批量获取了使用相同Web邮件客户端的邮件服务器：
+通过分析，笔者发现可成功登录的多个邮箱服务访问页面相同，进一步对比分析，笔者发现其页面结构与笔者模拟构建的邮件服务器页面也比较相同，因此，笔者就推测攻击者是否批量获取了使用相同 Web 邮件客户端的邮件服务器：
 
--   笔者模拟构建的邮件服务器使用的是roundcube邮件客户端
--   进一步对比分析，发现多个被控邮箱的邮件服务器确实是使用的roundcube邮件客户端
+-   笔者模拟构建的邮件服务器使用的是 roundcube 邮件客户端
+-   进一步对比分析，发现多个被控邮箱的邮件服务器确实是使用的 roundcube 邮件客户端
 
 相关截图如下：
 

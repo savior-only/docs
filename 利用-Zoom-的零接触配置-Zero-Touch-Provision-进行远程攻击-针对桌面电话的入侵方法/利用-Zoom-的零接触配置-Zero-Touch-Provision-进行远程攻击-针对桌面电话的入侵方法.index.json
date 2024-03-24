@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1710900833",
   "format": "md",
-  "title": "利用 Zoom 的零接触配置（ Zero Touch Provision）进行远程攻击：针对桌面电话的入侵方法",
+  "title": "利用 Zoom 的零接触配置（Zero Touch Provision）进行远程攻击：针对桌面电话的入侵方法",
   "link": "https://xz.aliyun.com/t/13948",
   "category": "default",
   "tags": [
     "xz.aliyun.com"
   ],
   "created_at": "2024-03-20 10:13:53",
-  "mainPath": "利用-Zoom-的零接触配置-Zero-Touch-Provision-进行远程攻击-针对桌面电话的入侵方法.md",
+  "mainPath": "利用-Zoom-的零接触配置-Zero-Touch-Provision-进行远程攻击 - 针对桌面电话的入侵方法.md",
   "paths": [
-    "利用-Zoom-的零接触配置-Zero-Touch-Provision-进行远程攻击-针对桌面电话的入侵方法.index.json",
+    "利用-Zoom-的零接触配置-Zero-Touch-Provision-进行远程攻击 - 针对桌面电话的入侵方法.index.json",
     "assets/1710900833-44284b7620c34da321059ece3e10888b.png",
     "assets/1710900833-e34c5738c7a7475dd635d33b5f2fe8bf.png",
     "assets/1710900833-54b1beb99d7ae862ab5920064a7632aa.png",
@@ -44,6 +44,6 @@
     "assets/1710900833-2af7f320a15e914abf061882e9e23e80.png",
     "assets/1710900833-c6e8731a6e4514ac1d2254d6b1dca65f.png",
     "assets/1710900833-4fc2a361c7e2753f6f9cd9ae0261be48.gif",
-    "利用-Zoom-的零接触配置-Zero-Touch-Provision-进行远程攻击-针对桌面电话的入侵方法.md"
+    "利用-Zoom-的零接触配置-Zero-Touch-Provision-进行远程攻击 - 针对桌面电话的入侵方法.md"
   ]
 }

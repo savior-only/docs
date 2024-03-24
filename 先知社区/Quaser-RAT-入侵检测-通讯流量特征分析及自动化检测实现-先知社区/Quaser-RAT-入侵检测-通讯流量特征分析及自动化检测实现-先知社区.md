@@ -52,7 +52,7 @@ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 
 ## 1.2 默认配置下的固定证书 CN 值
 
-如果使用 Quasar RAT 自带的配置信息，证书中的 CN 值会是 “Quasar Server CA”，当然这会被秒杀。
+如果使用 Quasar RAT 自带的配置信息，证书中的 CN 值会是“Quasar Server CA”，当然这会被秒杀。
 
 动态调试查看内存中解密的证书 CN 值。
 

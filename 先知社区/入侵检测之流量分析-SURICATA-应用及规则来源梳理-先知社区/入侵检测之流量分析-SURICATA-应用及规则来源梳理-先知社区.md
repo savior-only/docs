@@ -19,7 +19,7 @@ tags:
 
 关于规则来源我从各个渠道收录和维护着一个十二万条左右的规则库，在日常流量分析中优化和更新、新增，所以对各个开源库的性能和概况相对了解，这里主要讨论 suricata，lua 脚本暂时不讨论。
 
-总的来说，目前国内没有维护的很好的开源规则库，在 github 或者其他渠道能够找到的中文规则库，我见过的无一列外都是大量翻译而来的（比如 github 星最多的中文库 github.com/al0ne/suricata-rules）， 部分库有很少量的独立编写规则，如果你用这样的库，那么规则的准确程度和后续更新都会面临极大的问题，所以建议还是使用原生的库。
+总的来说，目前国内没有维护的很好的开源规则库，在 github 或者其他渠道能够找到的中文规则库，我见过的无一列外都是大量翻译而来的（比如 github 星最多的中文库 github.com/al0ne/suricata-rules），部分库有很少量的独立编写规则，如果你用这样的库，那么规则的准确程度和后续更新都会面临极大的问题，所以建议还是使用原生的库。
 
 国外靓仔或者社区维护的规则库都有一个通病，一整个水土不服，比如维护的最好 (没有之一) 的开源 Emerging Threats 规则库，在其 5 万余条规则中几乎没有国内厂商的 web 应用 (例如咱们天天打的各种国产 OA)、网络设备等漏洞利用检测规则，但好在操作系统、底层协议等通用领域恶意行为检测效果还是值得肯定的。
 
@@ -62,7 +62,7 @@ suricata 做规则内容和配置文件自检，然后开始、结束扫描。
 - 逐字段说明：
 事件发生的时间戳：11/15/2021-10:07:02.200926
 
-规则集id:规则sid:版本id：[1:2026096:3]
+规则集 id:规则 sid:版本 id：[1:2026096:3]
 
 规则概述：ET EXPLOIT Apache Struts getWriter and opensymphony inbound OGNL injection remote code execution attempt
 
@@ -70,7 +70,7 @@ suricata 做规则内容和配置文件自检，然后开始、结束扫描。
 
 通讯协议类型：{TCP}
 
-四元组信息：119.188.53.154:33506 -> 60.8.110.130:80 （四元组 源ip:源端口 流量流向 目的ip:目的端口）
+四元组信息：119.188.53.154:33506 -> 60.8.110.130:80（四元组 源 ip:源端口 流量流向 目的 ip:目的端口）
 ```
 
 这样就在流量中发现了恶意的攻击行为，检测引擎对这些可以选择丢弃或告警输出，这样就成了实现了检测和防御两个方面的功能。
@@ -82,7 +82,7 @@ suricata 做规则内容和配置文件自检，然后开始、结束扫描。
 如果遇到难解决的问题你可以私信我，我将编译好的 SURICATA 二进制文件和其所需依赖打包给你。
 
 [![](assets/1710899211-7a10e268e2f22c915baaf037a1ad521a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228162216-7baac838-d612-1.png)  
-你可以在文件 “/etc/ld.so.conf” 中手动添加动态链接库路径，将缺失库放入路径，SURICATA 就可以执行了。
+你可以在文件“/etc/ld.so.conf”中手动添加动态链接库路径，将缺失库放入路径，SURICATA 就可以执行了。
 
 [![](assets/1710899211-06f95e33af3038ef4d41228c61f64f15.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228162225-81066d1e-d612-1.png)
 
@@ -105,7 +105,7 @@ output        告警信息等输出文件
 
 [![](assets/1710899211-021ab3d04db6e900e9ac19d9b3ddc7ec.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228162343-af3bedd0-d612-1.png)
 
--   模块二，选择启用哪些输出模块，用于记录 Suricata 的日志。例如轻量级告警日志 “fast.log”，EVE JSON 格式的日志 “eve-log” 等，也可以解析和输出部分应用层协议日志，例如 http 访问日志。
+-   模块二，选择启用哪些输出模块，用于记录 Suricata 的日志。例如轻量级告警日志“fast.log”，EVE JSON 格式的日志“eve-log”等，也可以解析和输出部分应用层协议日志，例如 http 访问日志。
 
 [![](assets/1710899211-476a1f10a9e37782917e82fabb05f4b4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228162357-b7ec6a86-d612-1.png)
 
@@ -117,7 +117,7 @@ output        告警信息等输出文件
 
 [![](assets/1710899211-856f2c7080645d8dfb61586ba4b94d34.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228162419-c51a4a02-d612-1.png)
 
--   规则模块配置，也是最重要的配置。在路径 “default-rule-path” 存放检测规则，在 “rule-files” 下添加文件名使得规则生效，“classification-file” 是对应规则字段 classtype 的规则分类信息。
+-   规则模块配置，也是最重要的配置。在路径“default-rule-path”存放检测规则，在“rule-files”下添加文件名使得规则生效，“classification-file”是对应规则字段 classtype 的规则分类信息。
 
 [![](assets/1710899211-557e96d249f4286619557a9db492c692.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228162433-cd2e707e-d612-1.png)
 
@@ -147,7 +147,7 @@ suricata -c /home/suricata/config/suricata.yaml -r /home/work/test-data/* -l /ho
 
 [![](assets/1710899211-71d55ff2ebd5b50207e19f4b4f070fd4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228165447-069b4e00-d617-1.png)
 
--   suricata.log ，包含 Suricata 运行时的日志信息，如启动、关闭、规则加载等，用于故障排除和监视。
+-   suricata.log，包含 Suricata 运行时的日志信息，如启动、关闭、规则加载等，用于故障排除和监视。
 -   stats.log，包含 Suricata 的统计信息，如流量统计、规则匹配统计等，，用于性能调优和网络活动分析。
 -   fast.log，就是告警输出日志了，通常看这个就可以。
 -   eve.json，详细的事件记录，以 JSON 格式呈现，包括有关规则匹配事件的详细信息，包括协议解析、源和目标地址、端口、负载数据等，用于深入分析和检测。这也是各家公司将 suricata 产品化后主要数据来源。  
@@ -179,7 +179,7 @@ et/open 和下一个要介绍的 et/pro 规则是被包含关系，规则文件�
 它是 Emerging Threats 社区维护的付费规则集，这玩意儿在官方渠道很不便宜，订阅一年 749 欧元 (初始库加未来一年的更新推送)，合人民币及税务大概 6500 左右。
 
 [![](assets/1710899211-fbe78dac9f52ed19b8764c7170eaf07c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228163639-7dca9416-d614-1.png)  
-它包含 et/open，截至此篇公众号发文当日，规则库共计 99941 条规则.
+它包含 et/open，截至此篇公众号发文当日，规则库共计 99941 条规则。
 
 [![](assets/1710899211-759afe0d12eeb6aea534d5bc47321ab1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240228163654-870ee932-d614-1.png)  
 毕竟是付费的，总体效果还是很不错的，但还是一整个水土不服。如果你纠结的是哪些规则好用，可以沿用 et/open 的停用策略

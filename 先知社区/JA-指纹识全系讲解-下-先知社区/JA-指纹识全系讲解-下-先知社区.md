@@ -117,7 +117,7 @@ JA4 对标的是早期的 JA3，主要是对 Client Hello 报文实现指纹化�
 
 ### 什么是 QUIC
 
-对于用户侧来说 QUIC 主要解决的是延迟的问题，这里我们主要说一下它和 TCP 的区别，简单来说，QUIC 进行了一次 “资源整合”，它把之前 HTTP/2、TLS、TCP 三者的优势集合起来
+对于用户侧来说 QUIC 主要解决的是延迟的问题，这里我们主要说一下它和 TCP 的区别，简单来说，QUIC 进行了一次“资源整合”，它把之前 HTTP/2、TLS、TCP 三者的优势集合起来
 
 由于 QUIC 已经整合了这些内容，那么让它继续工作在 HTTP/2 下会出现许多问题，所以便催生了 HTTP/3，因为 QUIC 本身是要取代 TCP 的，所以它的传输层协议选择的是 UDP  
 [![](assets/1710899873-9151d547e55c738c347dac6035332a4d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229094403-048b1536-d6a4-1.png)
@@ -417,7 +417,7 @@ JA4H\_c 是基于网站的 Cookie 字段计算的，同样是按照 HTTP 报文�
 
 #### JA4H\_d
 
-JA4H\_d 在官方 Blog 中被称为 “用户指纹”，其本质还是对 Cookie 的计算，只是加入了用户的 Cookie 值（不包含敏感的个人身份信息），
+JA4H\_d 在官方 Blog 中被称为“用户指纹”，其本质还是对 Cookie 的计算，只是加入了用户的 Cookie 值（不包含敏感的个人身份信息），
 
 换句话说，就是将网站的 Cookie 字段和用户唯一的 Cookie 值一起作为算子，依然是按照 HTTP 报文的顺序排列后进行 SHA256 加密后取其前 12 位作为 JA4H\_d（若不存在 Cookie 则输出 12 个 0 占位）  
 [![](assets/1710899873-5220bb16935b8e3bac16626870b356e0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229094956-d6f6a940-d6a4-1.png)
@@ -592,7 +592,7 @@ tcp.len
 例如这里就使用了 `chacha20-poly1305` 加密，当客户端在 SSH 终端中键入一个字符时，该字符会被填充为 36 字节的数据包加密，然后发送到服务器，服务器将在 36 字节数据包中以相同的字符进行响应  
 [![](assets/1710899873-7ab48515754a4cab547b16e31df05203.png)](https://s2.loli.net/2024/02/27/uUOaWwP5kB1D43r.png)
 
-需要注意的是，Client 和 Server 的 TCP Payload 并不是一直保持相等的，例如，当 SCP 文件传输时， JA4SSH 为 `c112s1460_c0s179_c21s0`，表明 Server 端的 TCP Payload 长度已经到达最大值 1460，而 Client 只有 112
+需要注意的是，Client 和 Server 的 TCP Payload 并不是一直保持相等的，例如，当 SCP 文件传输时，JA4SSH 为 `c112s1460_c0s179_c21s0`，表明 Server 端的 TCP Payload 长度已经到达最大值 1460，而 Client 只有 112
 =======
 ```bash
 tcp.len

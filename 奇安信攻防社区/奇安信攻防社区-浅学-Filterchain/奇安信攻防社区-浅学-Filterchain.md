@@ -42,7 +42,7 @@ echo base64_encode($data);
 
 ## Decode Process
 
-那么相反，你就会发现解码过程就是编码的逆运算，但是 base64 是以 4 个 8bit 的数据进行解码并且仅对有效字符进行解码，所以这个地方记住，在后面的知识点需要利用这个知识点.
+那么相反，你就会发现解码过程就是编码的逆运算，但是 base64 是以 4 个 8bit 的数据进行解码并且仅对有效字符进行解码，所以这个地方记住，在后面的知识点需要利用这个知识点。
 
 # 0x02 死亡杂糅
 
@@ -368,14 +368,14 @@ tql wupco 师傅
 # 0x04php://temp
 
 在这里插入一条知识点，就是 temp 和 memory 伪协议：  
-`php://memory` 和 `php://temp` 是一个类似文件 包装器的数据流，允许读写临时数据。 两者的唯一区别是 php://memory 总是把数据储存在内存中， 而 php://temp 会在内存量达到预定义的限制后（默认是 2MB）存入临时文件中。 临时文件位置的决定和 sys\_get\_temp\_dir () 的方式一致  
+`php://memory` 和 `php://temp` 是一个类似文件 包装器的数据流，允许读写临时数据。两者的唯一区别是 php://memory 总是把数据储存在内存中，而 php://temp 会在内存量达到预定义的限制后（默认是 2MB）存入临时文件中。临时文件位置的决定和 sys\_get\_temp\_dir () 的方式一致  
 php://temp 的内存限制可通过添加 /maxmemory:NN 来控制，NN 是以字节为单位、保留在内存的最大数据量，超过则使用临时文件
 
 ```php
 $fiveMBs = 5 * 1024 * 1024;  
 $fp = fopen("php://temp/maxmemory:$fiveMBs", 'r+');  
 fputs($fp, "hello\n");  
-// 读取写入的数据.  
+// 读取写入的数据。 
 rewind($fp);  
 echo stream_get_contents($fp);
 ```

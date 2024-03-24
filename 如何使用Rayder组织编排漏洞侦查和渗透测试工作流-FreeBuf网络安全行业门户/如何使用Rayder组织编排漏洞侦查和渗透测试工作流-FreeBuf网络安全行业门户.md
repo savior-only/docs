@@ -1,5 +1,5 @@
 ---
-title: 如何使用Rayder组织编排漏洞侦查和渗透测试工作流 - FreeBuf网络安全行业门户
+title: 如何使用 Rayder 组织编排漏洞侦查和渗透测试工作流 - FreeBuf 网络安全行业门户
 url: https://www.freebuf.com/sectool/392348.html
 clipped_at: 2024-03-24 08:33:15
 category: default
@@ -8,15 +8,15 @@ tags:
 ---
 
 
-# 如何使用Rayder组织编排漏洞侦查和渗透测试工作流 - FreeBuf网络安全行业门户
+# 如何使用 Rayder 组织编排漏洞侦查和渗透测试工作流 - FreeBuf 网络安全行业门户
 
-## 关于Rayder
+## 关于 Rayder
 
-Rayder是一款针对漏洞网络侦查和渗透测试自动化工作流工具，该工具本质上是一个命令行工具，旨在帮助广大研究人员更轻松地组织、编排和执行漏洞侦查和渗透测试工作流。
+Rayder 是一款针对漏洞网络侦查和渗透测试自动化工作流工具，该工具本质上是一个命令行工具，旨在帮助广大研究人员更轻松地组织、编排和执行漏洞侦查和渗透测试工作流。
 
 ![](assets/1711240395-7db5d57ad2be8b936f198fb557ca1ed1.jpeg)
 
-Rayder允许我们在YAML文件中定义一系列功能模块，且每个模块都由要执行的命令所组成。Rayder可以帮助广大研究人员自动化复杂的流程，使重复的模块变得简单，并在命令不相互依赖的情况下并行执行。
+Rayder 允许我们在 YAML 文件中定义一系列功能模块，且每个模块都由要执行的命令所组成。Rayder 可以帮助广大研究人员自动化复杂的流程，使重复的模块变得简单，并在命令不相互依赖的情况下并行执行。
 
 ## 工具要求
 
@@ -24,7 +24,7 @@ Rayder允许我们在YAML文件中定义一系列功能模块，且每个模块�
 
 ## 工具安装
 
-首先，我们需要在本地设备上安装并配置好Go v1.16+环境。然后直接运行下列命令即可安装最新版本的Rayder：
+首先，我们需要在本地设备上安装并配置好 Go v1.16+ 环境。然后直接运行下列命令即可安装最新版本的 Rayder：
 
 ```plain
 go install github.com/devanshbatham/rayder@v0.0.4
@@ -32,7 +32,7 @@ go install github.com/devanshbatham/rayder@v0.0.4
 
 ## 工具使用
 
-Rayder提供了一种非常简单且直接的工作流执行方法，所有要执行的内容都在YAML文件中定义，使用下列命令即可直接运行Rayder：
+Rayder 提供了一种非常简单且直接的工作流执行方法，所有要执行的内容都在 YAML 文件中定义，使用下列命令即可直接运行 Rayder：
 
 ```plain
 rayder -w path/to/workflow.yaml
@@ -40,7 +40,7 @@ rayder -w path/to/workflow.yaml
 
 ## 工作流配置
 
-定义在YAML文件中的工作流数据结构如下所示：
+定义在 YAML 文件中的工作流数据结构如下所示：
 
 ```plain
 vars:
@@ -72,7 +72,7 @@ modules:
 
 ## 在工作流中使用变量
 
-Rayder支持在工作流配置文件中使用各种变量，这种方式不仅实现了命令参数化，而且也能够更大程度地实现灵活性。我们可以在YAML工作流文件的vars部分定义变量，然后使用双大括号{{}}在命令字符串中引用这些变量。
+Rayder 支持在工作流配置文件中使用各种变量，这种方式不仅实现了命令参数化，而且也能够更大程度地实现灵活性。我们可以在 YAML 工作流文件的 vars 部分定义变量，然后使用双大括号{{}}在命令字符串中引用这些变量。
 
 ### 定义变量
 
@@ -130,7 +130,7 @@ modules:
       - echo "Output directory {{OUTPUT_DIR}}"
 ```
 
-执行工作流时，我们可以在命令行命令中提供ORG和OUTPUT\_DIR的变量值：
+执行工作流时，我们可以在命令行命令中提供 ORG 和 OUTPUT\_DIR 的变量值：
 
 ```plain
 rayder -w path/to/workflow.yaml ORG=custom_org OUTPUT_DIR=custom_results_dir
@@ -140,7 +140,7 @@ rayder -w path/to/workflow.yaml ORG=custom_org OUTPUT_DIR=custom_results_dir
 
 ### 使用样例二
 
-以下是一个为反向whois定制的工作流配置示例，它将根域名重新配置并处理为子域名，然后解析它们并检查哪些是有效域名：
+以下是一个为反向 whois 定制的工作流配置示例，它将根域名重新配置并处理为子域名，然后解析它们并检查哪些是有效域名：
 
 ```plain
 vars:
@@ -214,7 +214,7 @@ silent: false
 rayder -w path/to/reverse-whois.yaml ORG="Yelp, Inc" OUTPUT_DIR=results
 ```
 
-需要注意的是，如果将配置文件中parallel字段设置为true，则模块将会并行执行。
+需要注意的是，如果将配置文件中 parallel 字段设置为 true，则模块将会并行执行。
 
 ## 工具运行截图
 
@@ -238,7 +238,7 @@ MIT
 
 [↓↓↓](https://github.com/devanshbatham/rayder)  
   
-GitHub传送门  
+GitHub 传送门  
   
 [↑↑↑](https://github.com/devanshbatham/rayder)
 

@@ -53,23 +53,23 @@ tags:
 
 `windows terminal` 相比其他终端更加美观、简洁，而且它的开放性使你可以自由的配置定制终端的风格，其中还有充满现代化的界面、完整的字体字符渲染机制（包括 `Emoji`）、GPU 加速和 Fluent 设计风格等等，如果你尊崇`简约`、`唯美`却不失丰富的软件工具，`windows terminal` 值得你去关注它！
 
-历经两天，我学习完成了来自日本的Takuya 🐾 devaslife\[1\]（独立开发者、油管博主）的视频内容：How to set up PowerShell prompt with Oh My Posh on Windows 11\[2\]，并对此记录了关于实践 `windows terminal` 的学习笔记，分享给大家。
+历经两天，我学习完成了来自日本的 Takuya 🐾 devaslife\[1\]（独立开发者、油管博主）的视频内容：How to set up PowerShell prompt with Oh My Posh on Windows 11\[2\]，并对此记录了关于实践 `windows terminal` 的学习笔记，分享给大家。
 
-，时长39:34
+，时长 39:34
 
-`Takuya`使用的是min\[3\] 浏览器，我也下载体验了一番，确实小巧、简洁。
+`Takuya`使用的是 min\[3\] 浏览器，我也下载体验了一番，确实小巧、简洁。
 
 ![图片](assets/1711241298-0a98de056ad458bea1dad2c40e1f344b.png "null")
 
 ## 2\. 安装 Windows Terminal
 
-直接从 `Microsoft Store` 安装Windows Terminal\[4\]即可。
+直接从 `Microsoft Store` 安装 Windows Terminal\[4\]即可。
 
-如果你刚刚安装完成，想要快速对它有一个快速入门的了解，除了翻阅官网Windows Terminal Docs\[5\]，你还可以从我的博客浏览简单的Windows Terminal 界面设置\[6\]以及Windows Terminal 快捷键\[7\]。
+如果你刚刚安装完成，想要快速对它有一个快速入门的了解，除了翻阅官网 Windows Terminal Docs\[5\]，你还可以从我的博客浏览简单的 Windows Terminal 界面设置\[6\]以及 Windows Terminal 快捷键\[7\]。
 
 ## 3\. 安装 nerd-fonts
 
-ryanoasis/nerd-fonts\[8\]是一个用大量字形（图标）修补开发人员目标字体的项目。特别是从流行的“标志性字体”（如Font Awesome、Devicons、Octicons等）添加大量额外字形\[9\]。
+ryanoasis/nerd-fonts\[8\]是一个用大量字形（图标）修补开发人员目标字体的项目。特别是从流行的“标志性字体”（如 Font Awesome、Devicons、Octicons 等）添加大量额外字形\[9\]。
 
 我们下载这个`Hack`版本
 
@@ -402,7 +402,7 @@ d-r--          2022-11-15    23:34                
 
 Oh my posh\[13\] 是一款终端 Prompt 个性化工具，虽然肇始于同类工具 Oh My Zsh\[14\]，但当更新到 5.0 版本时，重新设计的 Oh my posh 已经摆脱平台的桎梏，支持了 `Windows`、`GNU/Linux（WSL）`、`macOS` 三个系统上的 `PowerShell`、`bash`、`zsh` 等终端
 
-方法1（Takuya）：
+方法 1（Takuya）：
 
 ```plain
 PS C:\Users\XH> Install-Module posh-git -Scope CurrentUser -Force
@@ -413,7 +413,7 @@ oh-my-posh is not recognized as a name of a cmdlet, function, script�
 
 感觉此方法已过时。
 
-方法2（官方）：
+方法 2（官方）：
 
 -   • 最新官方 windows 安装方式你也可以看这里\[15\]
     
@@ -440,22 +440,22 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-
 
 ![图片](assets/1711241298-ee03b67cf5a599d388d71f65412f26aa.png "null")
 
-有一点乱码，在安装fonts时，忽略了字体配置导致，改成新安装的`Hack NFM`就好了。
+有一点乱码，在安装 fonts 时，忽略了字体配置导致，改成新安装的`Hack NFM`就好了。
 
 ![图片](assets/1711241298-e92a4c6a3c5eee12299e5b427585c684.png "null")
 
 ## 11\. 自定义 prompt（path）
 
-自定义 prompt方法\[16\]你可以看这里。初始命令格式：`oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jandedobbeleer.omp.json"`
+自定义 prompt 方法\[16\]你可以看这里。初始命令格式：`oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jandedobbeleer.omp.json"`
 
 ![图片](assets/1711241298-3bdde5fa58d89d50132e91edb4440b1c.png "null")
 
 | Name | Type | Description |
 | --- | --- | --- |
 | final\_space | boolean | 当 true 时在提示末尾添加一个空格 |
-| pwd | string | 通知当前工作目录的终端，值可以是osc99或osc7取决于您的终端 |
+| pwd | string | 通知当前工作目录的终端，值可以是 osc99 或 osc7 取决于您的终端 |
 | terminal\_background | string | color\[17\] - 终端背景颜色，当您在 Windows 终端或 Visual Studio Code 集成终端中注意到黑色元素时，设置为终端的背景颜色 |
-| accent\_color | string | color\[18\] - 强调色，当accent 颜色不受支持时用作回退 |
+| accent\_color | string | color\[18\] - 强调色，当 accent 颜色不受支持时用作回退 |
 
 ```plain
 $ cat  takuya.omp.json
@@ -591,7 +591,7 @@ pwsh> cat .\takuya.omp.json
 }
 ```
 
-输出效果:
+输出效果：
 
 ![图片](assets/1711241298-4da901bb07a069e1ef9e75deca4e8290.png "null")
 
@@ -639,7 +639,7 @@ Import-Module -Name Terminal-Icons
 
 ## 14\. 安装 z Directory jumper
 
-z模块是实现跳转目录的快捷方式。
+z 模块是实现跳转目录的快捷方式。
 
 ```plain
 Install-Module z -force
@@ -865,7 +865,7 @@ Mode                LastWriteTime         Length Name
 cp -r  C:\Users\XH\AppData\Local\Programs\oh-my-posh\themes C:\Users\XH\AppData\Local\oh-my-posh\
 ```
 
-参考:
+参考：
 
 -   • oh my posh\[21\]
     
@@ -893,7 +893,7 @@ cp -r  C:\Users\XH\AppData\Local\Programs\oh-my-posh\themes C:\Users\XH\AppD
 `[13]` Oh my posh: *https://ohmyposh.dev/*  
 `[14]` Oh My Zsh: *https://ohmyz.sh/*  
 `[15]` 最新官方 windows 安装方式你也可以看这里: *https://ohmyposh.dev/docs/installation/windows*  
-`[16]` 自定义 prompt方法: *https://ohmyposh.dev/docs/installation/customize*  
+`[16]` 自定义 prompt 方法: *https://ohmyposh.dev/docs/installation/customize*  
 `[17]` color: *https://ohmyposh.dev/docs/configuration/colors*  
 `[18]` color: *https://ohmyposh.dev/docs/configuration/colors*  
 `[19]` PSReadLine: *https://github.com/PowerShell/PSReadLine*  

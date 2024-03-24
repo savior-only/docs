@@ -40,7 +40,7 @@ tags:
 public function upload(): void
     {
         AdminLog::setTitle(__('Upload install module'));
-        //对于$file和token进行检测
+        //对于$file 和 token 进行检测
         $file  = $this->request->get("file/s", '');
         $token = $this->request->get("token/s", '');
         if (!$file) $this->error(__('Parameter error'));
@@ -180,7 +180,7 @@ public function upload(string $token, string $file): array
 ```plain
 public static function getIni(string $dir): array
     {
-        //获取路径下的一个info.ini文件
+        //获取路径下的一个 info.ini 文件
         $infoFile = $dir . 'info.ini';
         $info     = [];
         //判断是否存在这个文件

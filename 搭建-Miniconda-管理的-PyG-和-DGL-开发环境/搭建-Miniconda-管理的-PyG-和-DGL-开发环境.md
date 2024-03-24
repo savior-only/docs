@@ -19,20 +19,20 @@ tags:
 
 ## 安装 PyTorch Geometric
 
-步骤如下:
+步骤如下：
 
-1.  **打开终端(Terminal)或命令提示符(Command Prompt)。**
+1.  **打开终端 (Terminal) 或命令提示符 (Command Prompt)。**
     
-2.  **创建一个新的 Conda 环境:**
+2.  **创建一个新的 Conda 环境：**
     
 
 ```plain
 conda create -n graph_env python=3.11
 ```
 
-这将创建一个名为 `graph_env` 的新环境,使用 Python 3.11 版本。你可以根据需要选择其他 Python 版本。但是目前暂时别装 3.12，很多库还不支持。
+这将创建一个名为 `graph_env` 的新环境，使用 Python 3.11 版本。你可以根据需要选择其他 Python 版本。但是目前暂时别装 3.12，很多库还不支持。
 
-3.  **激活新创建的环境:**
+3.  **激活新创建的环境：**
 
 ```plain
 conda activate graph_env
@@ -44,7 +44,7 @@ conda activate graph_env
 conda install pytorch==2.0.1 torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 ```
 
-这里我们安装的是 PyTorch 2.0.1 版本,并启用了 CUDA 11.8 支持。
+这里我们安装的是 PyTorch 2.0.1 版本，并启用了 CUDA 11.8 支持。
 
 5.  **安装 PyG:**
 
@@ -52,9 +52,9 @@ conda install pytorch==2.0.1 torchvision torchaudio pytorch-cuda=11.8 -c pytorch
 pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv torch_geometric -f https://data.pyg.org/whl/torch-2.0.1+cpu.html
 ```
 
-6.  **验证安装:**
+6.  **验证安装：**
 
-进入 Python 交互式环境,并导入 PyTorch 和 PyG:
+进入 Python 交互式环境，并导入 PyTorch 和 PyG:
 
 ```python
 1
@@ -67,11 +67,11 @@ print(torch.__version__)
 print(torch_geometric.__version__)
 ```
 
-如果没有错误,则表示安装成功。
+如果没有错误，则表示安装成功。
 
 7.  **开始使用 PyG 进行开发。**
 
-就是这些步骤!现在你已经在 Miniconda 下创建了一个干净的 PyG 开发环境。根据你的具体需求,你可以继续安装其他必需的库和依赖项。
+就是这些步骤！现在你已经在 Miniconda 下创建了一个干净的 PyG 开发环境。根据你的具体需求，你可以继续安装其他必需的库和依赖项。
 
 ## 安装 DGL
 
@@ -87,7 +87,7 @@ conda install pandas
 
 ### 原理
 
-图神经网络(GNN)的消息传递公式：
+图神经网络 (GNN) 的消息传递公式：
 
 ```
 
@@ -98,24 +98,24 @@ LATEX_BLOCK___h_{i}^{(l + 1)} = \sigma (b^{(l)} + \sum \limits_{j \in N(i)}e_{ij
 
 -   `` $h_{i}^{(l + 1)}$ `` 表示节点 `` $i$ `` 在第 `` $(l + 1)$ `` 层的新特征向量。
     
--   `` $\sigma $ `` 是激活函数,通常使用 ReLU 或其他非线性函数。
+-   `` $\sigma $ `` 是激活函数，通常使用 ReLU 或其他非线性函数。
     
 -   `` $N(i)$ `` 表示与节点`` $i$ ``相邻的所有节点的集合。
     
--   `` $e_{ij}$ `` 是连接节点 `` $i$ `` 和 `` $j$ `` 的边的权重, 可以是二值(0或1)或者其他实数。
+-   `` $e_{ij}$ `` 是连接节点 `` $i$ `` 和 `` $j$ `` 的边的权重，可以是二值 (0 或 1) 或者其他实数。
     
 -   `` $h_{j}^{(l)}$ `` 是节点 `` $j$ `` 在第 `` $l$ `` 层的特征向量。
     
--   `` $W^{(l)}$ `` 是第 `` $l$ `` 层的可学习参数矩阵,用于线性变换邻居节点的特征。
+-   `` $W^{(l)}$ `` 是第 `` $l$ `` 层的可学习参数矩阵，用于线性变换邻居节点的特征。
     
 -   `` $b^{(l)}$ `` 是第 `` $l$ `` 层的偏置项。
     
 
-这个公式的计算过程如下:
+这个公式的计算过程如下：
 
 1.  遍历节点 `` $i$ `` 的所有邻居节点 `` $j$ ``。
     
-2.  将邻居节点 `` $j$ `` 的特征 `` $h_{j}^{(l)}$ `` 与边权重 `` $e_{ij}$ `` 相乘, 得到加权特征。
+2.  将邻居节点 `` $j$ `` 的特征 `` $h_{j}^{(l)}$ `` 与边权重 `` $e_{ij}$ `` 相乘，得到加权特征。
     
 3.  将所有加权邻居特征相加。
     
@@ -387,8 +387,8 @@ if __name__ == '__main__':
     ])
 ```
 
-`g.update_all()` 函数是 DGL 中的一个重要函数,它负责在图上执行消息传递和节点特征更新的过程。在 DGL 中,`fn.u_mul_e('h', 'w', 'm')` 和 `fn.sum('m', 'h')` 这样的函数并不会直接执行，而是需要等到调用 `g.update_all()` 函数的时候才会真正执行。
+`g.update_all()` 函数是 DGL 中的一个重要函数，它负责在图上执行消息传递和节点特征更新的过程。在 DGL 中，`fn.u_mul_e('h', 'w', 'm')` 和 `fn.sum('m', 'h')` 这样的函数并不会直接执行，而是需要等到调用 `g.update_all()` 函数的时候才会真正执行。
 
-这是因为 DGL 采用了延迟执行的机制。当你调用这些函数时,它们只是创建了一些计算图节点,并将它们存储在图对象中,等待最终的 `g.update_all()` 函数被调用。
+这是因为 DGL 采用了延迟执行的机制。当你调用这些函数时，它们只是创建了一些计算图节点，并将它们存储在图对象中，等待最终的 `g.update_all()` 函数被调用。
 
-当调用 `g.update_all()` 函数时,DGL 会遍历图中的所有节点和边,并按照之前定义的计算图节点,依次执行消息传递和节点特征更新的操作。这种方式可以大大提高计算效率,因为它可以将多个操作进行合并和优化,减少不必要的计算。
+当调用 `g.update_all()` 函数时，DGL 会遍历图中的所有节点和边，并按照之前定义的计算图节点，依次执行消息传递和节点特征更新的操作。这种方式可以大大提高计算效率，因为它可以将多个操作进行合并和优化，减少不必要的计算。

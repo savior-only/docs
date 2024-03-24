@@ -100,7 +100,7 @@ def generate_page(request):
 
 一堆 python 文件
 
-这个题可以说是把 awdp 给玩明白了，通过控制变量法，重复修改导入包：硬 fuzz 《这就是 FUZZ 的魅力》
+这个题可以说是把 awdp 给玩明白了，通过控制变量法，重复修改导入包：硬 fuzz《这就是 FUZZ 的魅力》
 
 [![](assets/1710899137-bbebab1d85efe1b21f48915735f9b9ca.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240226193125-9330b996-d49a-1.png)
 

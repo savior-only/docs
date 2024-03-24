@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1710992957",
   "format": "md",
-  "title": "恶意通讯流量案例分析，钓鱼邮件附件链路执行，导致Cobalt Strike、IcedID木马受控等多种威胁行为 - 先知社区",
+  "title": "恶意通讯流量案例分析，钓鱼邮件附件链路执行，导致 Cobalt Strike、IcedID 木马受控等多种威胁行为 - 先知社区",
   "link": "https://xz.aliyun.com/t/14108?u_atoken=674559d961e16d2340ca7cff9ae10c10&u_asession=01QndfrGV1BInSefcsbuaS49rRxUJWpvdC0Ebbdr5PHUO-EIfBH310nHhhBALZpUvSdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=050M2ol6j0bVML8ROuLRoamX5rNvIftgKUw13ApLP7R2Cs7CyaA2aRCXy9F7WxOS_BzmrdEqf3e_C7xGfc8FqGLPc-XxFKeqyz2w1ZOXJ6BRX952Zn1kQNJYRVKPdIkQfl65HqcNGjhbpZfc4iRP3w635r5f5hDdyhbJg2V_uUdapg2QMxYs6lyXb1lFWKql56xd9Lqap7aJgKCMjaHMD6ZQ4Re7i-4TJvr8PVS_CjAY1j6BqQqvoxo6ucH4nOCuey3jThmp5QhCQXsV9sju92VgyCuEQIUWo6oFu2MP612VR6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=B0sJOnrneIgFFAPJKHczNnxYVC4%3D",
   "category": "default",
   "tags": [
     "xz.aliyun.com"
   ],
   "created_at": "2024-03-21 11:49:17",
-  "mainPath": "恶意通讯流量案例分析-钓鱼邮件附件链路执行-导致Cobalt-Strike、IcedID木马受控等多种威胁行为-先知社区.md",
+  "mainPath": "恶意通讯流量案例分析 - 钓鱼邮件附件链路执行 - 导致 Cobalt-Strike、IcedID 木马受控等多种威胁行为 - 先知社区.md",
   "paths": [
-    "恶意通讯流量案例分析-钓鱼邮件附件链路执行-导致Cobalt-Strike、IcedID木马受控等多种威胁行为-先知社区.index.json",
+    "恶意通讯流量案例分析 - 钓鱼邮件附件链路执行 - 导致 Cobalt-Strike、IcedID 木马受控等多种威胁行为 - 先知社区.index.json",
     "assets/1710992957-c811fc3b387a51666a4c82e4a8960f44.png",
     "assets/1710992957-191a85bb21474bfef0b7e0b70f3c337c.png",
     "assets/1710992957-f0e348848280e41b63d94f1bacc2e632.png",
@@ -38,6 +38,6 @@
     "assets/1710992957-469cc50099f702c3ecf8f1a6aa5660a4.png",
     "assets/1710992957-f3bea1644502d7ef3931d207b214997c.png",
     "assets/1710992957-6a81d96049239465862c5fdb0375021b.png",
-    "恶意通讯流量案例分析-钓鱼邮件附件链路执行-导致Cobalt-Strike、IcedID木马受控等多种威胁行为-先知社区.md"
+    "恶意通讯流量案例分析 - 钓鱼邮件附件链路执行 - 导致 Cobalt-Strike、IcedID 木马受控等多种威胁行为 - 先知社区.md"
   ]
 }

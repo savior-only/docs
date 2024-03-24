@@ -49,7 +49,7 @@ tags:
 
 ## 1\. FROM
 
-FROM指令用于指定其后构建新镜像所使用的基础镜像。
+FROM 指令用于指定其后构建新镜像所使用的基础镜像。
 
 ```plain
 FROM <image>
@@ -57,16 +57,16 @@ FROM <image>:<tag>
 FROM <image>:<digest>
 ```
 
--   • FROM必须是Dockerfile中第一条非注释命令
+-   • FROM 必须是 Dockerfile 中第一条非注释命令
     
--   • 在一个Dockerfile文件中创建多个镜像时，docker17.05版本以后，FROM可以多次出现。只需在每个新命令FROM之前，记录提交上次的镜像ID。
+-   • 在一个 Dockerfile 文件中创建多个镜像时，docker17.05 版本以后，FROM 可以多次出现。只需在每个新命令 FROM 之前，记录提交上次的镜像 ID。
     
--   • tag或digest是可选的，如果不使用这两个值时，会使用latest版本的基础镜像
+-   • tag 或 digest 是可选的，如果不使用这两个值时，会使用 latest 版本的基础镜像
     
 
-**多次使用FROM的情况时构建与运行分离的场景** 基础镜像`golang:1.10.3`是非常庞大的，因为其中包含了所有的Go语言编译工具和库，而运行时候我们仅仅需要编译后的server程序 就行了，不需要编译时的编译工具，最后生成的大体积镜像就是一种浪费。
+**多次使用 FROM 的情况时构建与运行分离的场景** 基础镜像`golang:1.10.3`是非常庞大的，因为其中包含了所有的 Go 语言编译工具和库，而运行时候我们仅仅需要编译后的 server 程序 就行了，不需要编译时的编译工具，最后生成的大体积镜像就是一种浪费。
 
-`scratch` 是内置关键词，并不是一个真实存在的镜像。 FROM scratch 会使用一个完全干净的文件系统，不包含任何文件。因为Go语言编译后不需要运行时，也就不需要安装任何的运行库。FROM scratch可以使得最后生成的镜像最小化，其中只包含了server 程序。 当然，你也可以FROM一个你熟悉的并且空间占用小的镜像，比如：`centos、ubuntu、busybox`等。
+`scratch` 是内置关键词，并不是一个真实存在的镜像。FROM scratch 会使用一个完全干净的文件系统，不包含任何文件。因为 Go 语言编译后不需要运行时，也就不需要安装任何的运行库。FROM scratch 可以使得最后生成的镜像最小化，其中只包含了 server 程序。当然，你也可以 FROM 一个你熟悉的并且空间占用小的镜像，比如：`centos、ubuntu、busybox`等。
 
 ```plain
 # 编译阶段
@@ -81,7 +81,7 @@ COPY --from=0 /build/server /
 ENTRYPOINT ["/server"]
 ```
 
-COPY 指令的`--from=0` 参数，从前边的阶段中拷贝文件到当前阶段中，多个FROM语句时，0代表第一个阶段。除了使用数字，我们还可以给阶段命名，比如：
+COPY 指令的`--from=0` 参数，从前边的阶段中拷贝文件到当前阶段中，多个 FROM 语句时，0 代表第一个阶段。除了使用数字，我们还可以给阶段命名，比如：
 
 ```plain
 # 编译阶段 命名为 builder
@@ -103,7 +103,7 @@ COPY --from=quay.io/coreos/etcd:v3.3.9 /usr/local/bin/etcd /usr/local/bin/
 
 ## 2\. COPY
 
-COPY同样用于复制构建环境中的文件或目录到镜像中。
+COPY 同样用于复制构建环境中的文件或目录到镜像中。
 
 ```plain
 COPY <src>... <dest>
@@ -112,11 +112,11 @@ COPY --from=builder /build/server /
 COPY --from=quay.io/coreos/etcd:v3.3.9 /usr/local/bin/etcd /usr/local/bin/
 ```
 
-COPY指令非常类似于ADD，不同点在于COPY**只会复制构建目录下的文件，不能使用URL也不会进行解压操作。**
+COPY 指令非常类似于 ADD，不同点在于 COPY**只会复制构建目录下的文件，不能使用 URL 也不会进行解压操作。**
 
 ## 3\. ADD
 
-ADD用于复制构建环境中的文件或目录到镜像中。
+ADD 用于复制构建环境中的文件或目录到镜像中。
 
 ```plain
 ADD <src>... <dest>
@@ -125,26 +125,26 @@ ADD ["<src>",... "<dest>"]
 
 -   • `<src>`指定源文件位置，`<dest>`来指定目标位置。
     
--   • `<src>`可以是一个构建上下文中的文件或目录，也可以是一个URL，但不能访问构建上下文之外的文件或目录。
+-   • `<src>`可以是一个构建上下文中的文件或目录，也可以是一个 URL，但不能访问构建上下文之外的文件或目录。
     
 
-ADD复制一个网络文件：
+ADD 复制一个网络文件：
 
 ```plain
 ADD http://wordpress.org/test.zip $WORKER_PATH
 ```
 
-另外，如果使用的是本地归档文件（gzip、bzip2、xz）时，Docker会自动进行解包操作，类似使用`tar -x`
+另外，如果使用的是本地归档文件（gzip、bzip2、xz）时，Docker 会自动进行解包操作，类似使用`tar -x`
 
 ## 4\. RUN
 
-RUN用于在镜像容器中执行命令，其有以下两种命令执行方式：
+RUN 用于在镜像容器中执行命令，其有以下两种命令执行方式：
 
-**shell执行**
+**shell 执行**
 
-在这种方式会在shell中执行命令，Linux下默认使用`/bin/sh -c`，Windows下使用`cmd /S /C`。
+在这种方式会在 shell 中执行命令，Linux 下默认使用`/bin/sh -c`，Windows 下使用`cmd /S /C`。
 
-注意：通过SHELL命令修改RUN所使用的默认shell
+注意：通过 SHELL 命令修改 RUN 所使用的默认 shell
 
 ```plain
 RUN <command>
@@ -152,24 +152,24 @@ RUN <command>
 
 ```plain
 RUN /bin/bash -c 'source $HOME/.bashrc; \
-echo $HOME'                          #通过RUN执行多条命令时，可以通过\换行执行
+echo $HOME'                          #通过 RUN 执行多条命令时，可以通过\换行执行
 ```
 
 ```plain
 RUN /bin/bash -c 'source $HOME/.bashrc; echo $HOME'  #同一行中，通过分号分隔命令
 ```
 
-**exec执行**
+**exec 执行**
 
 ```plain
 RUN ["executable", "param1", "param2"]
 ```
 
-RUN指令创建的中间镜像会被缓存，并会在下次构建中使用。如果不想使用这些缓存镜像，可以在构建时指定--no-cache参数，如：`docker build --no-cache`。
+RUN 指令创建的中间镜像会被缓存，并会在下次构建中使用。如果不想使用这些缓存镜像，可以在构建时指定--no-cache 参数，如：`docker build --no-cache`。
 
 ## 5\. CMD
 
-CMD用于指定在容器启动时所要执行的命令。CMD有以下三种格式：
+CMD 用于指定在容器启动时所要执行的命令。CMD 有以下三种格式：
 
 ```plain
 CMD ["executable","param1","param2"]
@@ -177,9 +177,9 @@ CMD ["param1","param2"]
 CMD command param1 param2
 ```
 
-CMD不同于RUN，CMD用于指定在容器启动时所要执行的命令，而RUN用于指定镜像构建时所要执行的命令。
+CMD 不同于 RUN，CMD 用于指定在容器启动时所要执行的命令，而 RUN 用于指定镜像构建时所要执行的命令。
 
-CMD与RUN在功能实现上也有相似之处。如：
+CMD 与 RUN 在功能实现上也有相似之处。如：
 
 ```plain
 docker run -t -i ghostwritten/web_server /bin/true
@@ -191,30 +191,30 @@ docker run -t -i ghostwritten/web_server /bin/true
 cmd ["/bin/true"]
 ```
 
--   • CMD在Dockerfile文件中仅可指定一次，指定多次时，会覆盖前的指令。
+-   • CMD 在 Dockerfile 文件中仅可指定一次，指定多次时，会覆盖前的指令。
     
--   • docker run命令也会覆盖Dockerfile中CMD命令。
+-   • docker run 命令也会覆盖 Dockerfile 中 CMD 命令。
     
 
 ## 6\. ENTRYPOINT
 
-ENTRYPOINT用于给容器配置一个可执行程序。也就是说，每次使用镜像创建容器时，通过ENTRYPOINT指定的程序都会被设置为默认程序。ENTRYPOINT有以下两种形式：
+ENTRYPOINT 用于给容器配置一个可执行程序。也就是说，每次使用镜像创建容器时，通过 ENTRYPOINT 指定的程序都会被设置为默认程序。ENTRYPOINT 有以下两种形式：
 
 ```plain
 ENTRYPOINT ["executable", "param1", "param2"]
 ENTRYPOINT command param1 param2
 ```
 
--   • ENTRYPOINT与CMD非常类似，不同的是通过docker run执行的命令不会覆盖 ENTRYPOINT
+-   • ENTRYPOINT 与 CMD 非常类似，不同的是通过 docker run 执行的命令不会覆盖 ENTRYPOINT
     
--   • docker run命令中指定的任何参数，都会被当做参数再次传递给ENTRYPOINT。
+-   • docker run 命令中指定的任何参数，都会被当做参数再次传递给 ENTRYPOINT。
     
--   • Dockerfile中只允许有一个ENTRYPOINT命令，多指定时会覆盖前面的设置，而只执行最后的ENTRYPOINT指令。
+-   • Dockerfile 中只允许有一个 ENTRYPOINT 命令，多指定时会覆盖前面的设置，而只执行最后的 ENTRYPOINT 指令。
     
 
-docker run运行容器时指定的参数都会被传递给`ENTRYPOINT`，且会覆盖CMD命令指定的参数。如，执行`docker run <image> -d`时，-d参数将被传递给入口点。
+docker run 运行容器时指定的参数都会被传递给`ENTRYPOINT`，且会覆盖 CMD 命令指定的参数。如，执行`docker run <image> -d`时，-d 参数将被传递给入口点。
 
-也可以通过`docker run --entrypoint`重写ENTRYPOINT入口点。
+也可以通过`docker run --entrypoint`重写 ENTRYPOINT 入口点。
 
 示例：
 
@@ -249,16 +249,16 @@ docker run -i -t  ghostwritten/app -g "daemon off;"
 
 ## 7\. LABEL
 
-LABEL用于为镜像添加元数据，元数以键值对的形式指定：
+LABEL 用于为镜像添加元数据，元数以键值对的形式指定：
 
 ```plain
 LABEL <key>=<value> <key>=<value> <key>=<value> ...
 ```
 
-使用LABEL指定元数据时，一条LABEL指定可以指定一或多条元数据，指定多条元数据时不同元数据之间通过空格分隔。
+使用 LABEL 指定元数据时，一条 LABEL 指定可以指定一或多条元数据，指定多条元数据时不同元数据之间通过空格分隔。
 
 ```plain
-LABEL version="1.0" description="这是一个Web服务器" by="ghostwritten"
+LABEL version="1.0" description="这是一个 Web 服务器" by="ghostwritten"
 ```
 
 也可以换行
@@ -269,18 +269,18 @@ LABEL multi.label1="value1" \
       other="value3"
 ```
 
-docker inspect查看：
+docker inspect 查看：
 
 ```plain
 $ docker inspect itbilu/test
 "Labels": {
     "version": "1.0",
-    "description": "这是一个Web服务器",
+    "description": "这是一个 Web 服务器",
     "by": "ghostwritten"
 },
 ```
 
-**注意**:Dockerfile中还有个`MAINTAINER`命令，该命令用于指定镜像作者。但MAINTAINER并不推荐使用，更推荐使用LABEL来指定镜像作者。如：
+**注意**:Dockerfile 中还有个`MAINTAINER`命令，该命令用于指定镜像作者。但 MAINTAINER 并不推荐使用，更推荐使用 LABEL 来指定镜像作者。如：
 
 ```plain
 LABEL maintainer="ghostwritten"
@@ -288,17 +288,17 @@ LABEL maintainer="ghostwritten"
 
 ## 8\. EXPOSE
 
-EXPOSE用于指定容器在运行时监听的端口：
+EXPOSE 用于指定容器在运行时监听的端口：
 
 ```plain
 EXPOSE <port> [<port>...]
 ```
 
-EXPOSE并不会让容器的端口访问到主机。要使其可访问，需要在docker run运行容器时通过`-p`来发布这些端口，或通过`-P`参数来发布EXPOSE导出的所有端口。
+EXPOSE 并不会让容器的端口访问到主机。要使其可访问，需要在 docker run 运行容器时通过`-p`来发布这些端口，或通过`-P`参数来发布 EXPOSE 导出的所有端口。
 
 ## 9\. ENV
 
-ENV用于设置环境变量，其有以下两种设置形式：
+ENV 用于设置环境变量，其有以下两种设置形式：
 
 ```plain
 ENV <key> <value>
@@ -311,13 +311,13 @@ ENV <key>=<value> ...
 ENV $WORKER_PATH /myapp
 ```
 
-设置后，这个环境变量在ENV命令后都可以使用。如：
+设置后，这个环境变量在 ENV 命令后都可以使用。如：
 
 ```plain
 WORKERDIR  $WORKER_PATH
 ```
 
-docker run可以通过 `-e` 新添环境变量或者覆盖环境变量。
+docker run 可以通过 `-e` 新添环境变量或者覆盖环境变量。
 
 ```plain
 docker run -tid --name test -e $WORKER_PATH /web -e IP=192.168.1.2 ghostwritten/web:v1.0 
@@ -330,7 +330,7 @@ docker run -tid --name test -e $WORKER_PATH /web -e IP=192.168.1.2 gho
 
 ## 10\. VOLUME
 
-VOLUME用于创建挂载点，即向基于所构建镜像创始的容器添加卷：
+VOLUME 用于创建挂载点，即向基于所构建镜像创始的容器添加卷：
 
 ```plain
 VOLUME ["/data"]
@@ -347,7 +347,7 @@ VOLUME ["/data"]
 -   • 对卷的修改不会对镜像产生影响
     
 
-VOLUME创建一个挂载点：
+VOLUME 创建一个挂载点：
 
 ```plain
 ENV WORKER_PATH /web
@@ -362,7 +362,7 @@ docker run -itd --name web -v ~/data:/web/   ghostwritten/web:v1.0
 
 ## 11\. USER
 
-USER用于指定运行镜像所使用的用户 可以使用用户名、UID或GID，或是两者的组合。
+USER 用于指定运行镜像所使用的用户 可以使用用户名、UID 或 GID，或是两者的组合。
 
 ```plain
 USER user
@@ -377,13 +377,13 @@ USER uid:group
 
 ## 12\. WORKDIR
 
-WORKDIR用于在容器内设置一个工作目录：
+WORKDIR 用于在容器内设置一个工作目录：
 
 ```plain
 WORKDIR /path/to/workdir
 ```
 
-通过WORKDIR设置工作目录后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT、ADD、COPY等命令都会在该目录下执行。
+通过 WORKDIR 设置工作目录后，Dockerfile 中其后的命令 RUN、CMD、ENTRYPOINT、ADD、COPY 等命令都会在该目录下执行。
 
 ```plain
 WORKDIR /a
@@ -392,13 +392,13 @@ WORKDIR c
 RUN pwd
 ```
 
-pwd最终将会在/a/b/c目录中执行。
+pwd 最终将会在/a/b/c 目录中执行。
 
-docker run运行容器时，可以通过`-w`参数覆盖构建时所设置的工作目录。
+docker run 运行容器时，可以通过`-w`参数覆盖构建时所设置的工作目录。
 
 ## 13\. ARG
 
-ARG用于指定传递给构建运行时的变量：
+ARG 用于指定传递给构建运行时的变量：
 
 ```plain
 ARG <name>[=<default value>]
@@ -411,7 +411,7 @@ ARG site
 ARG build_user=ghostwritten
 ```
 
-以上我们指定了site和build\_user两个变量，其中build\_user指定了默认值。在使用docker build构建镜像时，可以通过`--build-arg <varname>=<value>`参数来指定或重设置这些变量的值。
+以上我们指定了 site 和 build\_user 两个变量，其中 build\_user 指定了默认值。在使用 docker build 构建镜像时，可以通过`--build-arg <varname>=<value>`参数来指定或重设置这些变量的值。
 
 ```plain
 $ docker build --build-arg site=ghostwritten -t ghostwritten/test .
@@ -419,7 +419,7 @@ $ docker build --build-arg site=ghostwritten -t ghostwritten/test .
 
 ## 14\. ONBUILD
 
-ONBUILD用于设置镜像触发器：
+ONBUILD 用于设置镜像触发器：
 
 ```plain
 ONBUILD [INSTRUCTION]
@@ -429,7 +429,7 @@ ONBUILD RUN /usr/local/bin/python-build --dir /app/src
 
 当所构建的镜像被用做其它镜像的基础镜像，该镜像中的触发器将会被钥触发。
 
-示例： 第一个构建镜像的Dockerfile，文件名为`base.df`
+示例：第一个构建镜像的 Dockerfile，文件名为`base.df`
 
 ```plain
 FROM busybox:latest
@@ -444,7 +444,7 @@ ONBUILD RUN ls -al /app
 docker build -t ghostwritten/onbuild:v1.0 -f base.df .
 ```
 
-第二个构建镜像的Dockerfile，文件名`downstream.df`
+第二个构建镜像的 Dockerfile，文件名`downstream.df`
 
 ```plain
 FROM ghostwritten/onbuild:v1.0
@@ -458,11 +458,11 @@ RUN ls -al .
 docker build -t ghostwritten/onbuild_down:v1.0 -f downstream.df .
 ```
 
-onbuild指令在第一次构建时不会执行，在第二次被引用时会首先执行。
+onbuild 指令在第一次构建时不会执行，在第二次被引用时会首先执行。
 
 ## 15\. STOPSIGNAL
 
-STOPSIGNAL用于设置停止容器所要发送的系统调用信号：
+STOPSIGNAL 用于设置停止容器所要发送的系统调用信号：
 
 ```plain
 STOPSIGNAL signal
@@ -472,13 +472,13 @@ STOPSIGNAL signal
 
 ## 16\. SHELL
 
-SHELL用于设置执行命令（shell式）所使用的的默认shell类型：
+SHELL 用于设置执行命令（shell 式）所使用的的默认 shell 类型：
 
 ```plain
 SHELL ["executable", "parameters"]
 ```
 
-SHELL在Windows环境下比较有用，Windows下通常会有cmd和powershell两种shell，可能还会有sh。这时就可以通过SHELL来指定所使用的shell类型。
+SHELL 在 Windows 环境下比较有用，Windows 下通常会有 cmd 和 powershell 两种 shell，可能还会有 sh。这时就可以通过 SHELL 来指定所使用的 shell 类型。
 
 参考：
 

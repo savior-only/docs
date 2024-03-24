@@ -44,7 +44,7 @@ tags:
 
 由于笔者发现在 VenomRAT 控制端进程下，运行了很多的可疑进程程序，因此，笔者准备对其行为进行一谈究竟。
 
-通过对 VenomRAT 项目源码进行分析，笔者发现 VenomRAT 项目会在多个代码片段处执行 “Stub\\ClientFix.bat” 文件，若项目中无 “Stub\\ClientFix.bat” 文件，还会从 `hxxps://underground-cheat.com/venomFix/ClientFix.bat` 地址处下载 “Stub\\ClientFix.bat” 文件。
+通过对 VenomRAT 项目源码进行分析，笔者发现 VenomRAT 项目会在多个代码片段处执行“Stub\\ClientFix.bat”文件，若项目中无“Stub\\ClientFix.bat”文件，还会从 `hxxps://underground-cheat.com/venomFix/ClientFix.bat` 地址处下载“Stub\\ClientFix.bat”文件。
 
 相关代码截图如下：
 
@@ -65,13 +65,13 @@ tags:
 ```plain
 文件名称：VenomRAT-V5.6-HVNC\Stub\ClientFix.bat
 文件大小：11052586 字节
-修改时间：2022年12月23日 16:27:46
+修改时间：2022 年 12 月 23 日 16:27:46
 MD5     ：42EF9DB764C0F7361BA2157D9553C0E6
 SHA1    ：6AF1E60F9CD75627DA67C3103B8E83D492F6D9D4
 CRC32   ：4BAEBE66
 ```
 
-尝试对 “Stub\\ClientFix.bat” 文件进行分析，笔者发现此批处理文件内容被混淆处理了，相关代码截图如下：
+尝试对“Stub\\ClientFix.bat”文件进行分析，笔者发现此批处理文件内容被混淆处理了，相关代码截图如下：
 
 [![](assets/1710899866-c5ea60ef85c13eb69dbd10c23b9b8cea.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240307174337-2c2829d0-dc67-1.png)
 
@@ -118,7 +118,7 @@ $OfYbS.Invoke($null, (, [string[]]('')))
 
 进一步分析，笔者发现此代码的功能为：
 
--   从 “Stub\\ClientFix.bat” 文件中提取 “::” 行内容；
+-   从“Stub\\ClientFix.bat”文件中提取“::”行内容；
 -   使用 Base64 对其内容进行解码；
 -   使用 AES 对其解码后内容进行解密；
 -   使用 gzip 解压算法对其解密内容进行解压，解压获取一个 PE 文件；
@@ -134,7 +134,7 @@ $OfYbS.Invoke($null, (, [string[]]('')))
 5df4c7526149a8897a358611bd58ba53
 ```
 
-“Stub\\ClientFix.bat” 文件中 “::” 行内容如下：
+“Stub\\ClientFix.bat”文件中“::”行内容如下：
 
 [![](assets/1710899866-5de24dd887ed59125b42fd4af24c78b4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240307174410-3f7e1d82-dc67-1.png)
 
@@ -500,7 +500,7 @@ Hosts:dofucks.com:12482;private115.duckdns.org:12482;
 Install Subdirectory:
 Install Name:.exe
 Mutex：adf10731-c83d-4166-9137-39d0b1e48856
-Startup Name：$sxr-seroxen
+Startup Name:$sxr-seroxen
 Client Tag:v15.4.1 | Venom
 Log Directory Name:$sxr-Logs
 Serversignature:lqUkxdzwxgbOlYuIPVObQJBs3QffK3qoqKQoJ/8r37WXI/zMaghHdnXsPremJ56CFRa07VGmdUuTexJBSvnAGq19XEnckMPf3xXK4GG2UFmRCilXzbU5EwTOn7RKEAo70/VU5o6Dpn+xmsORHX4gRLq9d6Rlsn0SbRsYE6OUa1AO+XE0ywTeCH8HvQ7DGRfedEzqwz0yXQ9cggCGyPW1vTeAqOYjyQVRt31VVfXelK5jMYgeAO8Ap+UCNS58mOgGA/IxJ05y3PU9dnGZ6fWgb71ZVMff49W0zmccGuaXrIRa4+XW2hld4SkFcNtRiYoLiYoZVqzwfu6f4luLa72n0Jv7n476ZJKWryKdsYI3PV/GmtfjTViQJWizq9aqUY1WpIYJUt5MYGxS0ORiwoVQy9MaXhzRKPxTUHlN6pc7CdPZTaXjQdYx4bDjHvya/IFguDC2N5J2ZTF+w3PmXKGEaOeJ3j+VSWa9qIoNZJSKE78lQ/X5CkVeQcEBOnTv93olvczTaEdTXVsCOUvVWBVibqS6eT/1VzygSgCnCB+CuAvFj8iRaqDRJVp29rZslpnDkhE25ZfOlqmgwGH2T1wQJ21iyVDgpdqyfFpyGShldZXfvJ8KVxe8P8ygLIjK5+vteIJVQjb4rX2arOceMO6r6rOpAgHQWOlMLJdj628TV60=

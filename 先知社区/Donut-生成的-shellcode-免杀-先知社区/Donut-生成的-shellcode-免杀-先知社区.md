@@ -12,7 +12,7 @@ tags:
 
 ## 什么是 Donut
 
-TheWover 的 Donut 项目: [https://github.com/TheWover/donut](https://github.com/TheWover/donut)
+TheWover 的 Donut 项目：[https://github.com/TheWover/donut](https://github.com/TheWover/donut)
 
 其可将 VBScript, JScript, EXE, DLL, .NET 文件转为位置无关的 shellcode。
 
@@ -30,9 +30,9 @@ TheWover 的 Donut 项目: [https://github.com/TheWover/donut](https://github.co
 
 ## shellcode 生成流程和组成
 
-代码见: [https://github.com/TheWover/donut/blob/v1.0/donut.c#L1226](https://github.com/TheWover/donut/blob/v1.0/donut.c#L1226)
+代码见：[https://github.com/TheWover/donut/blob/v1.0/donut.c#L1226](https://github.com/TheWover/donut/blob/v1.0/donut.c#L1226)
 
-根据其代码，shellcode 主要由 3 部分组成:
+根据其代码，shellcode 主要由 3 部分组成：
 
 1.  自定位汇编
 2.  DONUT\_INSTANCE 结构数据
@@ -42,7 +42,7 @@ TheWover 的 Donut 项目: [https://github.com/TheWover/donut](https://github.co
 
 其中 LOADER 是一个函数，通过传入参数 DONUT\_INSTANCE 来加载 dotnet、pe、script 等
 
-LOADER 入口为: [HANDLE DonutLoader(PDONUT\_INSTANCE inst)](https://github.com/TheWover/donut/blob/v1.0/loader/loader.c#L36)
+LOADER 入口为：[HANDLE DonutLoader(PDONUT\_INSTANCE inst)](https://github.com/TheWover/donut/blob/v1.0/loader/loader.c#L36)
 
 LOADER 中分别实现了以下类型的内存加载
 
@@ -52,7 +52,7 @@ LOADER 中分别实现了以下类型的内存加载
 
 ### 自定位汇编
 
-以 x86 为例，自定位汇编如下:
+以 x86 为例，自定位汇编如下：
 
 ```plain
 CALL label
@@ -72,7 +72,7 @@ PUSH edx
 
 ## LOADER 的免杀
 
-以 x86 为例，LOADER 的数据来自: [loader\_exe\_x86.h](https://github.com/TheWover/donut/blob/v1.0/loader_exe_x86.h)
+以 x86 为例，LOADER 的数据来自：[loader\_exe\_x86.h](https://github.com/TheWover/donut/blob/v1.0/loader_exe_x86.h)
 
 ### 二分法定位查杀特征
 
@@ -106,7 +106,7 @@ F5 5F 5E C3 8A 44 24  08 8B 4C 24 0C 57 8B 7C 24
 75 04 40 41 EB EC 0F  BE 00 0F BE 09 2B C1 5B C3
 ```
 
-查杀结果: [链接](https://www.virustotal.com/gui/file/10f270e8aa8cce1554d82adce686278164571996408cef9f98d8e118f60c5221)
+查杀结果：[链接](https://www.virustotal.com/gui/file/10f270e8aa8cce1554d82adce686278164571996408cef9f98d8e118f60c5221)
 
 可以看到 `Kaspersky` 和 `ZoneAlarm by Check Point` 会报 `HEUR:Trojan.Win64.Donut.a`
 
@@ -211,7 +211,7 @@ Path('test5.bin').write_bytes(build_loader(b'\x90' * 1024 * 1024))
 Path('test6.bin').write_bytes(build_loader(b'\x90' * 1024 * 1024, noeip=True))
 ```
 
-测试结果如下:
+测试结果如下：
 
 | 文件名 | 是否被杀 | 说明  | 报告  |
 | --- | --- | --- | --- |
@@ -247,7 +247,7 @@ Path('test6.bin').write_bytes(build_loader(b'\x90' * 1024 * 1024, noeip=True))
 
 OLLVM 中控制流平坦化是一种常用的代码控制流混淆技术，它通过将程序的控制流程转换为一个平坦的结构，使得代码的执行路径变得难以预测和理解。控制流平坦化技术通常使用控制流图和状态机来表示程序的控制流程，然后通过一系列转换和重排操作，将程序的控制流程转换为一个平坦的结构。
 
-详见: [https://github.com/obfuscator-llvm/obfuscator/wiki/Control-Flow-Flattening](https://github.com/obfuscator-llvm/obfuscator/wiki/Control-Flow-Flattening)
+详见：[https://github.com/obfuscator-llvm/obfuscator/wiki/Control-Flow-Flattening](https://github.com/obfuscator-llvm/obfuscator/wiki/Control-Flow-Flattening)
 
 流程平坦特性通过 `scrambling_key` 随机种子来平坦代码块，这意味每次编译将产生不同的 LOADER，在下次杀软检测后只需要重新编译一次 LOADER 即可。
 

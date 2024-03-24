@@ -55,15 +55,15 @@ tags:
 ```plain
 //  启动时调用以初始化驱动程序并运行事件循环
 static void aos_loop_proc(void *pvParameters) {
-  //  省略部分: 初始化驱动程序
+  //  省略部分：初始化驱动程序
   ...
-  //  为WiFi事件注册回调函数
+  //  为 WiFi 事件注册回调函数
   aos_register_event_filter(
     EV_WIFI,              //  Event Type
     event_cb_wifi_event,  //  Event Callback Function
     NULL);                //  Event Callback Argument
 
-  //  启动WiFi网络堆栈
+  //  启动 WiFi 网络堆栈
   cmd_stack_wifi(NULL, 0, 0, NULL);
 
   //  运行事件循环
@@ -71,7 +71,7 @@ static void aos_loop_proc(void *pvParameters) {
 }
 ```
 
-（我们稍后会讨论 event\_cb\_wifi\_event 变量） 启动代码中，通过调用 cmd\_stack\_wifi 来启动 WiFi 网络堆栈。 现在，让我们深入了解其内部实现…
+（我们稍后会讨论 event\_cb\_wifi\_event 变量）启动代码中，通过调用 cmd\_stack\_wifi 来启动 WiFi 网络堆栈。现在，让我们深入了解其内部实现…
 
 ### 1.2 启动 WiFi 固件管理
 
@@ -80,17 +80,17 @@ static void aos_loop_proc(void *pvParameters) {
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/customer\_app/bl602\_demo\_wifi/bl602\_demo\_wifi/main.c#L729-L747](https://github.com/lupyuen/bl_iot_sdk/blob/master/customer_app/bl602_demo_wifi/bl602_demo_wifi/main.c#L729-L747)
 
 ```plain
-//  启动WiFi网络堆栈
+//  启动 WiFi 网络堆栈
 static void cmd_stack_wifi(char *buf, int len, int argc, char **argv) {
   //  Check whether WiFi Networking is already started
   static uint8_t stack_wifi_init  = 0;
   if (1 == stack_wifi_init) { return; }  //  Already started
   stack_wifi_init = 1;
 
-  //  启动WiFi固件任务 (FreeRTOS)
+  //  启动 WiFi 固件任务 (FreeRTOS)
   hal_wifi_start_firmware_task();
 
-  //  发布WiFi事件以启动WiFi管理器任务
+  //  发布 WiFi 事件以启动 WiFi 管理器任务
   aos_post_event(
     EV_WIFI,                 //  Event Type
     CODE_WIFI_ON_INIT_DONE,  //  Event Code
@@ -98,7 +98,7 @@ static void cmd_stack_wifi(char *buf, int len, int argc, char **argv) {
 }
 ```
 
-（本文稍后将讨论 hal\_wifi\_start\_firmware\_task 函数） 任务启动后，我们触发 WiFi 事件 CODE\_WIFI\_ON\_INIT\_DONE，以便**启动 WiFi 管理任务**。 现在，让我们探究 WiFi 事件处理程序的内部工作原理…
+（本文稍后将讨论 hal\_wifi\_start\_firmware\_task 函数）任务启动后，我们触发 WiFi 事件 CODE\_WIFI\_ON\_INIT\_DONE，以便**启动 WiFi 管理任务**。现在，让我们探究 WiFi 事件处理程序的内部工作原理…
 
 ### 1.3 启动 WiFi 管理任务
 
@@ -107,13 +107,13 @@ static void cmd_stack_wifi(char *buf, int len, int argc, char **argv) {
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/customer\_app/bl602\_demo\_wifi/bl602\_demo\_wifi/main.c#L374-L512](https://github.com/lupyuen/bl_iot_sdk/blob/master/customer_app/bl602_demo_wifi/bl602_demo_wifi/main.c#L374-L512)
 
 ```plain
-//  WiFi事件的回调功能
+//  WiFi 事件的回调功能
 static void event_cb_wifi_event(input_event_t *event, void *private_data) {
 
-  //  处理WiFi事件
+  //  处理 WiFi 事件
   switch (event->code) {
 
-  //  由cmd_stack_wifi发布以启动Wi-Fi管理器任务
+  //  由 cmd_stack_wifi 发布以启动 Wi-Fi 管理器任务
     case CODE_WIFI_ON_INIT_DONE:
 
     //  启动WiFi管理器任务 (FreeRTOS)
@@ -123,13 +123,13 @@ static void event_cb_wifi_event(input_event_t *event, void *private_data) {
     //  省略部分: 处理其他WiFi事件
 ```
 
-当接收到 WiFi 事件 CODE\_WIFI\_ON\_INIT\_DONE 时，我们会调用 wifi\_mgmr\_start\_background **启动 WiFi 管理任务**（在 FreeRTOS 中）。 wifi\_mgmr\_start\_background 函数是由 BL602 WiFi 驱动程序提供的。（请参考源代码）
+当接收到 WiFi 事件 CODE\_WIFI\_ON\_INIT\_DONE 时，我们会调用 wifi\_mgmr\_start\_background **启动 WiFi 管理任务**（在 FreeRTOS 中）。wifi\_mgmr\_start\_background 函数是由 BL602 WiFi 驱动程序提供的。（请参考源代码）
 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/wifi\_mgmr.c#L1406-L1415](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/wifi_mgmr.c#L1406-L1415)
 
 ### 1.4 连接到 WiFi 网络
 
-既然我们已经启动了 WiFi 固件任务和 WiFi 管理任务这两个后台任务，接下来让我们连接到一个 WiFi 网络！ 通过演示固件，我们可以输入特定的命令来连接到 **WiFi\*\*** 接入点 \*\*…
+既然我们已经启动了 WiFi 固件任务和 WiFi 管理任务这两个后台任务，接下来让我们连接到一个 WiFi 网络！通过演示固件，我们可以输入特定的命令来连接到 **WiFi\*\*** 接入点 \*\*…
 
 ```plain
 wifi_sta_connect YOUR_WIFI_SSID YOUR_WIFI_PASSWORD
@@ -140,14 +140,14 @@ wifi_sta_connect YOUR_WIFI_SSID YOUR_WIFI_PASSWORD
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/customer\_app/bl602\_demo\_wifi/bl602\_demo\_wifi/main.c#L366-L372](https://github.com/lupyuen/bl_iot_sdk/blob/master/customer_app/bl602_demo_wifi/bl602_demo_wifi/main.c#L366-L372)
 
 ```plain
-//  连接到WiFi接入点
+//  连接到 WiFi 接入点
 static void wifi_sta_connect(char *ssid, char *password) {
 
-  //  启用WiFi客户端
+  //  启用 WiFi 客户端
   wifi_interface_t wifi_interface
     = wifi_mgmr_sta_enable();
 
-  //  连接到WiFi接入点
+  //  连接到 WiFi 接入点
   wifi_mgmr_sta_connect(
     wifi_interface,  //  WiFi Interface
     ssid,            //  SSID
@@ -161,7 +161,7 @@ static void wifi_sta_connect(char *ssid, char *password) {
 
 我们通过调用 BL602 WiFi 驱动程序提供的 wifi\_mgmr\_sta\_enable 函数来**激活 WiFi 客户端功能**。
 
-（“STA” 代表 “WiFi 站点”，也就是 WiFi 客户端）
+（“STA”代表“WiFi 站点”，也就是 WiFi 客户端）
 
 接着，我们通过调用 BL602 WiFi 驱动程序中的 wifi\_mgmr\_sta\_connect 函数来**连接到 WiFi\*\*** 接入点 \*\*。
 
@@ -184,20 +184,20 @@ httpc
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/customer\_app/bl602\_demo\_wifi/bl602\_demo\_wifi/main.c#L704-L727](https://github.com/lupyuen/bl_iot_sdk/blob/master/customer_app/bl602_demo_wifi/bl602_demo_wifi/main.c#L704-L727)
 
 ```plain
-//  使用LWIP发送HTTP GET请求
+//  使用 LWIP 发送 HTTP GET 请求
 static void cmd_httpc_test(char *buf, int len, int argc, char **argv) {
-  //  检查HTTP请求是否已在运行
+  //  检查 HTTP 请求是否已在运行
   static httpc_connection_t settings;
   static httpc_state_t *req;
   if (req) { return; }  //  请求已在运行
 
-  //  初始化LWIP HTTP设置
+  //  初始化 LWIP HTTP 设置
   memset(&settings, 0, sizeof(settings));
   settings.use_proxy = 0;
   settings.result_fn = cb_httpc_result;
   settings.headers_done_fn = cb_httpc_headers_done_fn;
 
-  //  使用LWIP发送HTTP GET请求
+  //  使用 LWIP 发送 HTTP GET 请求
   httpc_get_file_dns(
     "nf.cr.dandanman.com",  //  Host
     80,                     //  Port
@@ -209,7 +209,7 @@ static void cmd_httpc_test(char *buf, int len, int argc, char **argv) {
 }
 ```
 
-在 BL602 上，我们采用 LWIP（轻量级 IP 堆栈）来实现 IP、UDP、TCP 和 HTTP 网络功能。 httpc\_get\_file\_dns 的详细文档可以在此查阅。 想要获取更多关于 BL602 WiFi 演示固件的信息，请参阅相关文档…
+在 BL602 上，我们采用 LWIP（轻量级 IP 堆栈）来实现 IP、UDP、TCP 和 HTTP 网络功能。httpc\_get\_file\_dns 的详细文档可以在此查阅。想要获取更多关于 BL602 WiFi 演示固件的信息，请参阅相关文档…
 
 -   BL602 WiFi 演示固件文档
 
@@ -236,18 +236,18 @@ static void cmd_httpc_test(char *buf, int len, int argc, char **argv) {
 
 ### 2.1 向 WiFi 管理任务发送请求
 
-我们之前使用 **wifi\_mgmr\_sta\_connect** 函数来连接到 WiFi 接入点。 这里是该函数内部的工作原理：wifi\_mgmr\_ext.c
+我们之前使用 **wifi\_mgmr\_sta\_connect** 函数来连接到 WiFi 接入点。这里是该函数内部的工作原理：wifi\_mgmr\_ext.c
 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/wifi\_mgmr\_ext.c#L302-L307](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/wifi_mgmr_ext.c#L302-L307)
 
 ```plain
-//  连接到WiFi接入点
+//  连接到 WiFi 接入点
 int wifi_mgmr_sta_connect(wifi_interface_t *wifi_interface, char *ssid, char *psk, char *pmk, uint8_t *mac, uint8_t band, uint16_t freq) {
-  //  设置WiFi SSID和PSK
+  //  设置 WiFi SSID 和 PSK
   wifi_mgmr_sta_ssid_set(ssid);
   wifi_mgmr_sta_psk_set(psk);
 
-  //  连接到WiFi接入点
+  //  连接到 WiFi 接入点
   return wifi_mgmr_api_connect(ssid, psk, pmk, mac, band, freq);
 }
 ```
@@ -259,11 +259,11 @@ int wifi_mgmr_sta_connect(wifi_interface_t *wifi_interface, char *ssid, char *ps
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/wifi\_mgmr\_api.c#L40-L84](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/wifi_mgmr_api.c#L40-L84)
 
 ```plain
-//  连接到WiFi接入点
+//  连接到 WiFi 接入点
 int wifi_mgmr_api_connect(char *ssid, char *psk, char *pmk, uint8_t *mac, uint8_t band, uint16_t freq) {
-  //  省略部分: 复制PSK、PMK、MAC地址、频带和频率
+  //  省略部分：复制 PSK、PMK、MAC 地址、频带和频率
   ...
-  //  向WiFi管理器任务发送连接请求
+  //  向 WiFi 管理器任务发送连接请求
   wifi_mgmr_event_notify(msg);
   return 0;
 }
@@ -278,11 +278,11 @@ int wifi_mgmr_api_connect(char *ssid, char *psk, char *pmk, uint8_t *mac, uint8_
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/wifi\_mgmr.c#L1332-L1343](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/wifi_mgmr.c#L1332-L1343)
 
 ```plain
-//  向WiFi管理器任务发送请求
+//  向 WiFi 管理器任务发送请求
 int wifi_mgmr_event_notify(wifi_mgmr_msg_t *msg) {
-  //  省略部分: 等待WiFi管理器启动
+  //  省略部分：等待 WiFi 管理器启动
   ...
-  //  通过消息队列向WiFi管理器发送请求
+  //  通过消息队列向 WiFi 管理器发送请求
   if (os_mq_send(
     &(wifiMgmr.mq),  //  Message Queue
     msg,             //  Request Message
@@ -294,7 +294,7 @@ int wifi_mgmr_event_notify(wifi_mgmr_msg_t *msg) {
 }
 ```
 
-os\_mq\_send 函数是如何将请求发送给 WiFi 管理任务的？ os\_mq\_send 函数通过调用 FreeRTOS，将请求消息发送到 **WiFi 管理器的 \*\*** 消息队列 \*\* 中：os\_hal.h
+os\_mq\_send 函数是如何将请求发送给 WiFi 管理任务的？os\_mq\_send 函数通过调用 FreeRTOS，将请求消息发送到 **WiFi 管理器的 \*\*** 消息队列 \*\* 中：os\_hal.h
 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/os\_hal.h#L174](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/os_hal.h#L174)
 
@@ -307,23 +307,23 @@ os\_mq\_send 函数是如何将请求发送给 WiFi 管理任务的？ os\_mq\_s
 
 ### 2.2 WiFi 管理状态机
 
-WiFi 管理器在其后台任务（FreeRTOS）中运行着一个**状态机**，用来管理每个 WiFi 连接的状态。 当 WiFi 管理器接收到我们发出的连接到 WiFi 接入点的请求时，会发生什么？ 让我们深入 wifi\_mgmr.c 文件来一探究竟…
+WiFi 管理器在其后台任务（FreeRTOS）中运行着一个**状态机**，用来管理每个 WiFi 连接的状态。当 WiFi 管理器接收到我们发出的连接到 WiFi 接入点的请求时，会发生什么？让我们深入 wifi\_mgmr.c 文件来一探究竟…
 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/wifi\_mgmr.c#L702-L745](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/wifi_mgmr.c#L702-L745)
 
 ```plain
-//  当WiFi管理器接收到连接请求时调用
+//  当 WiFi 管理器接收到连接请求时调用
 static void stateIdleAction_connect( void *oldStateData, struct event *event, void *newStateData) {
-  //  为连接请求设置WiFi配置文件
+  //  为连接请求设置 WiFi 配置文件
   wifi_mgmr_msg_t *msg = event->data;
   wifi_mgmr_profile_msg_t *profile_msg = (wifi_mgmr_profile_msg_t*) msg->data;
   profile_msg->ssid_tail[0] = '\0';
   profile_msg->psk_tail[0]  = '\0';
 
-  //  记住WiFi管理器中的WiFi配置文件
+  //  记住 WiFi 管理器中的 WiFi 配置文件
   wifi_mgmr_profile_add(&wifiMgmr, profile_msg, -1);
 
-  //  连接到WiFi配置文件。TODO:其他安全支持
+  //  连接到 WiFi 配置文件。TODO:其他安全支持
   bl_main_connect(
     (const uint8_t *) profile_msg->ssid, profile_msg->ssid_len,
     (const uint8_t *) profile_msg->psk, profile_msg->psk_len,
@@ -334,20 +334,20 @@ static void stateIdleAction_connect( void *oldStateData, struct event *event, vo
 
 [![](assets/1710901207-5c1c17fbca57c53a488fab07ae651304.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229193340-62c9bc9a-d6f6-1.png)
 
-在此，我们配置了 **WiFi 配置文件**，并通过调用 bl\_main\_connect 函数来连接到该配置文件。 在 **bl\_main\_connect** 函数中，我们为 **802.11 WiFi 协议**设定了连接参数：bl\_main.c
+在此，我们配置了 **WiFi 配置文件**，并通过调用 bl\_main\_connect 函数来连接到该配置文件。在 **bl\_main\_connect** 函数中，我们为 **802.11 WiFi 协议**设定了连接参数：bl\_main.c
 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/bl\_main.c#L189-L216](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/bl_main.c#L189-L216)
 
 ```plain
-//  连接到WiFi配置文件
+//  连接到 WiFi 配置文件
 int bl_main_connect(const uint8_t* ssid, int ssid_len, const uint8_t *psk, int psk_len, const uint8_t *pmk, int pmk_len, const uint8_t *mac, const uint8_t band, const uint16_t freq) {
 
-  //  802.11 WiFi协议的连接参数
+  //  802.11 WiFi 协议的连接参数
   struct cfg80211_connect_params sme;    
 
-  //  省略部分: 设置802.11连接参数
+  //  省略部分：设置 802.11 连接参数
   ...
-  //  使用802.11连接参数连接到WiFi网络
+  //  使用 802.11 连接参数连接到 WiFi 网络
   bl_cfg80211_connect(&wifi_hw, &sme);
   return 0;
 }
@@ -358,16 +358,16 @@ int bl_main_connect(const uint8_t* ssid, int ssid_len, const uint8_t *psk, int p
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/bl\_main.c#L539-L571](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/bl_main.c#L539-L571)
 
 ```plain
-//  使用802.11连接参数连接到WiFi网络
+//  使用 802.11 连接参数连接到 WiFi 网络
 int bl_cfg80211_connect(struct bl_hw *bl_hw, struct cfg80211_connect_params *sme) {
 
   //  将填充连接结果
   struct sm_connect_cfm sm_connect_cfm;
 
-  //  将连接参数转发到LMAC
+  //  将连接参数转发到 LMAC
   int error = bl_send_sm_connect_req(bl_hw, sme, &sm_connect_cfm);
 
-  //  省略部分: 检查连接结果
+  //  省略部分：检查连接结果
 ```
 
 该函数通过调用 **bl\_send\_sm\_connect\_req**，将连接参数发送至 **WiFi 硬件**（**LMAC**）。
@@ -387,35 +387,35 @@ int bl_cfg80211_connect(struct bl_hw *bl_hw, struct cfg80211_connect_params *sme
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/bl\_msg\_tx.c#L722-L804](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/bl_msg_tx.c#L722-L804)
 
 ```plain
-//  将连接参数转发到LMAC
+//  将连接参数转发到 LMAC
 int bl_send_sm_connect_req(struct bl_hw *bl_hw, struct cfg80211_connect_params *sme, struct sm_connect_cfm *cfm) {
 
-  //  生成SM_CONNECT_REQ消息
+  //  生成 SM_CONNECT_REQ 消息
   struct sm_connect_req *req = bl_msg_zalloc(SM_CONNECT_REQ, TASK_SM, DRV_TASK_ID, sizeof(struct sm_connect_req));
 
-  //  省略部分: 设置SM_CONNECT_REQ消息的参数
+  //  省略部分：设置 SM_CONNECT_REQ 消息的参数
   ...
-  //  向LMAC固件发送SM_CONNECT_REQ消息
+  //  向 LMAC 固件发送 SM_CONNECT_REQ 消息
   return bl_send_msg(bl_hw, req, 1, SM_CONNECT_CFM, cfm);
 }
 ```
 
 在这里，我们构建了一个包含连接参数的 **SM\_CONNECT\_REQ** 消息。
 
-（“SM” 指的是 RivieraWaves 的 LMAC 状态机）
+（“SM”指的是 RivieraWaves 的 LMAC 状态机）
 
 接着，我们通过调用 **bl\_send\_msg** 函数将该消息**发送给 LMAC**：bl\_msg\_tx.c
 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/bl\_msg\_tx.c#L315-L371](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/bl_msg_tx.c#L315-L371)
 
 ```plain
-//  向LMAC固件发送消息的函数，静态定义
+//  向 LMAC 固件发送消息的函数，静态定义
 static int bl_send_msg(struct bl_hw *bl_hw, const void *msg_params, int reqcfm, lmac_msg_id_t reqid, void *cfm) {
   //  省略：为消息分配缓冲区
   ...
   //  省略：将消息复制到缓冲区 
   ...
-  //  将消息添加到LMAC消息队列
+  //  将消息添加到 LMAC 消息队列
   int ret = bl_hw->cmd_mgr.queue(&bl_hw->cmd_mgr, cmd);
 ```
 
@@ -426,7 +426,7 @@ static int bl_send_msg(struct bl_hw *bl_hw, const void *msg_params, int reqcfm, 
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/ipc\_host.c#L139-L171](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/ipc_host.c#L139-L171)
 
 ```plain
-//  将消息添加到LMAC消息队列。
+//  将消息添加到 LMAC 消息队列。
 //  IPC = Interprocess Communication 进程间通信
 int ipc_host_msg_push(struct ipc_host_env_tag *env, void *msg_buf, uint16_t len) {
     //  Get the address of the IPC message buffer in Shared RAM
@@ -457,7 +457,7 @@ int ipc_host_msg_push(struct ipc_host_env_tag *env, void *msg_buf, uint16_t len)
 *我们是如何触发 LMAC 中断的呢？*
 
 ```plain
-//  触发LMAC中断以将消息发送到EMB
+//  触发 LMAC 中断以将消息发送到 EMB
 //  IPC_IRQ_A2E_MSG is 2
 ipc_app2emb_trigger_set(IPC_IRQ_A2E_MSG);
 ```
@@ -467,10 +467,10 @@ ipc_app2emb_trigger_set(IPC_IRQ_A2E_MSG);
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/bl602/bl602\_wifidrv/bl60x\_wifi\_driver/reg\_ipc\_app.h#L41-L69](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/bl602/bl602_wifidrv/bl60x_wifi_driver/reg_ipc_app.h#L41-L69)
 
 ```plain
-//  WiFi硬件寄存器基本地址
+//  WiFi 硬件寄存器基本地址
 #define REG_WIFI_REG_BASE          0x44000000
 
-//  IPC硬件寄存器基址
+//  IPC 硬件寄存器基址
 #define IPC_REG_BASE_ADDR          0x00800000
 
 //  APP2EMB_TRIGGER 寄存器定义
@@ -487,9 +487,9 @@ ipc_app2emb_trigger_set(IPC_IRQ_A2E_MSG);
   (*(volatile u32 *) ((u8 *) env + IPC_REG_BASE_ADDR + 4*(INDEX)) \
     = value)
 
-//  触发LMAC中断
+//  触发 LMAC 中断
 static inline void ipc_app2emb_trigger_set(u32 value) {
-  //  写入地址为0x4480 0000的WiFi IPC寄存器
+  //  写入地址为 0x4480 0000 的 WiFi IPC 寄存器
   REG_IPC_APP_WR(
     REG_WIFI_REG_BASE, 
     IPC_APP2EMB_TRIGGER_INDEX, 
@@ -559,7 +559,7 @@ REG_WIFI_REG_BASE + IPC_REG_BASE_ADDR + 4 * IPC_APP2EMB_TRIGGER_INDEX
 
 > [https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602\_demo\_wifi.c#L38512-L38609](https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602_demo_wifi.c#L38512-L38609)
 
-点击链接右侧（或长按），然后选择 “复制链接地址”。
+点击链接右侧（或长按），然后选择“复制链接地址”。
 
 1.  将复制的地址粘贴到文本编辑器中。
 
@@ -609,15 +609,15 @@ BL602 WiFi 驱动程序运行在两个后台任务（FreeRTOS）上…
 > [https://github.com/lupyuen/bl\_iot\_sdk/blob/master/components/hal\_drv/bl602\_hal/hal\_wifi.c#L41-L49](https://github.com/lupyuen/bl_iot_sdk/blob/master/components/hal_drv/bl602_hal/hal_wifi.c#L41-L49)
 
 ```plain
-//  启动WiFi固件任务 (FreeRTOS)
+//  启动 WiFi 固件任务 (FreeRTOS)
 int hal_wifi_start_firmware_task(void) {
-  //  WiFi固件任务的堆栈空间
+  //  WiFi 固件任务的堆栈空间
   static StackType_t wifi_fw_stack[WIFI_STACK_SIZE];
 
-  //  WiFi固件任务的任务句柄
+  //  WiFi 固件任务的任务句柄
   static StaticTask_t wifi_fw_task;
 
-  //  创建FreeRTOS后台任务
+  //  创建 FreeRTOS 后台任务
   xTaskCreateStatic(
     wifi_main,         //  即将运行的任务函数
     (char *) "fw",     //  任务名 
@@ -643,10 +643,10 @@ int hal_wifi_start_firmware_task(void) {
 > [https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602\_demo\_wifi.c#L32959-L33006](https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602_demo_wifi.c#L32959-L33006)
 
 ```plain
-//  WiFi固件任务将永远运行
+//  WiFi 固件任务将永远运行
 void wifi_main(void *param) {
   ...
-  //  初始化LMAC和UMAC
+  //  初始化 LMAC 和 UMAC
   rfc_init(40000000);
   mpif_clk_init();
   sysctrl_init();
@@ -654,13 +654,13 @@ void wifi_main(void *param) {
   ipc_emb_init();
   bl_init();
   ...
-  //  循环永远处理WiFi内核事件
+  //  循环永远处理 WiFi 内核事件
   do {
     ...
     //  等等 
     if (ke_env.evt_field == 0) { ipc_emb_wait(); }
     ...
-    //  安排WiFi内核事件并进行处理
+    //  安排 WiFi 内核事件并进行处理
     ke_evt_schedule();
 
     //  休息一下
@@ -679,7 +679,7 @@ wifi\_main 函数的实际反编译 C 代码要复杂得多……
 
 **wifi\_main** 函数会不断循环，处理 **WiFi 内核事件**，以实现 WiFi 数据包的传输和接收。
 
-（“ke” 代表 WiFi 内核，它是 WiFi 驱动程序的心脏）
+（“ke”代表 WiFi 内核，它是 WiFi 驱动程序的心脏）
 
 wifi\_main 通过调用 **ke\_evt\_schedule** 函数来处理 WiFi 内核事件。
 
@@ -688,7 +688,7 @@ wifi\_main 通过调用 **ke\_evt\_schedule** 函数来处理 WiFi 内核事件�
 > [https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602\_demo\_wifi.c#L28721-L28737](https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602_demo_wifi.c#L28721-L28737)
 
 ```plain
-//  安排WiFi内核事件并进行处理
+//  安排 WiFi 内核事件并进行处理
 void ke_evt_schedule(void) {
   int iVar1;
   evt_ptr_t *peVar2;
@@ -776,7 +776,7 @@ void ke_evt_schedule(void) {
 > [https://github.com/lupyuen/AliOS-Things/blob/master/platform/mcu/bk7231u/beken/ip/ke/ke\_event.c#L78-L138](https://github.com/lupyuen/AliOS-Things/blob/master/platform/mcu/bk7231u/beken/ip/ke/ke_event.c#L78-L138)
 
 ```plain
-//  ke_evt_schedule调用的事件处理程序
+//  ke_evt_schedule 调用的事件处理程序
 static const struct ke_evt_tag ke_evt_hdlr[32] = {
   {&rwnxl_reset_evt,    0},      // [KE_EVT_RESET]        
   {&ke_timer_schedule,  0},      // [KE_EVT_KE_TIMER]   
@@ -809,12 +809,12 @@ static const struct ke_evt_tag ke_evt_hdlr[32] = {
 > [https://github.com/lupyuen/AliOS-Things/blob/master/platform/mcu/bk7231u/beken/ip/lmac/src/tx/txl/txl\_cntrl.h#L377-L386](https://github.com/lupyuen/AliOS-Things/blob/master/platform/mcu/bk7231u/beken/ip/lmac/src/tx/txl/txl_cntrl.h#L377-L386)
 
 ```plain
-//  对已从主机内存传输的有效负载执行操作。该原语由中断控制器ISR调用。如果需要，它执行LLC翻译和MIC计算。
-//  LLC = 逻辑链路控制, MIC = Message Integrity Code消息完整性代码
+//  对已从主机内存传输的有效负载执行操作。该原语由中断控制器 ISR 调用。如果需要，它执行 LLC 翻译和 MIC 计算。
+//  LLC = 逻辑链路控制，MIC = Message Integrity Code 消息完整性代码
 void txl_payload_handle(int access_category);
 ```
 
-这表明 txl\_payload\_handle 函数被调用来**发送 WiFi 数据包**…… 这发生在从 BL602 复制数据包有效负载到无线电硬件之后。（通过**共享 \*\***RAM**\*\* 缓冲区**） 在我们的反编译代码中搜索 txl\_payload\_handle，发现了如下内容：bl602\_demo\_wifi.c
+这表明 txl\_payload\_handle 函数被调用来**发送 WiFi 数据包**…… 这发生在从 BL602 复制数据包有效负载到无线电硬件之后。（通过**共享 \*\***RAM**\*\* 缓冲区**）在我们的反编译代码中搜索 txl\_payload\_handle，发现了如下内容：bl602\_demo\_wifi.c
 
 > [https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602\_demo\_wifi.c#L20205-L20216](https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602_demo_wifi.c#L20205-L20216)
 
@@ -850,8 +850,8 @@ void txl_payload_handle(void) {
 
 ```plain
 //  另一个传输有效负载处理程序。
-//可能与txl_payload_handle的工作方式相同
-//在BL602而不是LMAC固件上运行。
+//可能与 txl_payload_handle 的工作方式相同
+//在 BL602 而不是 LMAC 固件上运行。
 void txl_payload_handle_backup(void) {
   ...
   //  Iterate through a list of packet buffers (?)
@@ -870,7 +870,7 @@ LAB_230059f6:
 ```plain
 //  循环 (until when?)
   do {
-    //  调用一些RXU、TXL和TXU函数
+    //  调用一些 RXU、TXL 和 TXU 函数
     rxu_cntrl_monitor_pm((mac_addr *)&ptVar4[1].lenheader);
     ...
     txl_machdr_format((uint32_t)(ptVar4 + 1));
@@ -883,7 +883,7 @@ LAB_230059f6:
 接下来，我们将向一些尚未在文档中公开的 **WiFi 寄存器**写入数据：**0x44B0 8180、0x44B0 8198、0x44B0 81A4 和 0x44B0 81A8**……
 
 ```plain
-//  写入WiFi寄存器
+//  写入 WiFi 寄存器
     _DAT_44b08180 = 0x800;
     _DAT_44b081a4 = ptVar9;
     ...
@@ -1152,7 +1152,7 @@ WiFi Supplicant 是负责处理 WiFi 认证的代码。
 > [https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602\_demo\_wifi.c#L33527-L33614](https://github.com/lupyuen/bl602nutcracker1/blob/main/bl602_demo_wifi.c#L33527-L33614)
 
 ```plain
-//  来自BL602反编译代码：初始化物理层
+//  来自 BL602 反编译代码：初始化物理层
 void phy_init(phy_cfg_tag *config) {
   mdm_reset();
   ...
@@ -1188,7 +1188,7 @@ void phy_init(phy_cfg_tag *config) {
 > [https://github.com/lupyuen/bl602-604/blob/master/components/bl602/bl602\_wifi/plf/refip/src/driver/phy/bl602\_phy\_rf/phy\_bl602.c#L474-L492](https://github.com/lupyuen/bl602-604/blob/master/components/bl602/bl602_wifi/plf/refip/src/driver/phy/bl602_phy_rf/phy_bl602.c#L474-L492)
 
 ```plain
-//  从GitHub搜索： Init Physical Layer //初始化物理层:
+//  从 GitHub 搜索：Init Physical Layer //初始化物理层：
 void phy_init(const struct phy_cfg_tag *config) {
   const struct phy_bl602_cfg_tag *cfg = (const struct phy_bl602_cfg_tag *)&config->parameters;
   phy_hw_init(cfg);
@@ -1312,9 +1312,9 @@ BL602 WiFi 库 libbl602\_wifi.a 可能包含一些不会链接到 WiFi 固件的
 
 接下来，我们将每个**反编译函数根据所属模块进行分类**。
 
-上面的图片显示我们已经将 “rxl\_” 函数分类为 “???RivieraWaves RXL”（RXL 代表接收 LMAC）。
+上面的图片显示我们已经将“rxl\_”函数分类为“???RivieraWaves RXL”（RXL 代表接收 LMAC）。
 
-我们使用 “???” 来标记那些我们找不到任何源代码的模块。
+我们使用“???”来标记那些我们找不到任何源代码的模块。
 
 对所有 3,000 个反编译函数进行分类听起来很繁琐…… 吗？
 
@@ -1340,7 +1340,7 @@ BL602 WiFi 库 libbl602\_wifi.a 可能包含一些不会链接到 WiFi 固件的
 
 我们还添加了一条评论，说明它们**匹配得有多近**。例如：“BL602 版本有所不同”
 
-如果发现的原代码与反编译函数不匹配，我们会用 **“???” 标记模块名称**。
+如果发现的原代码与反编译函数不匹配，我们会用 **“???”标记模块名称**。
 
 *我们需要匹配每一个反编译函数吗？*
 
@@ -1429,7 +1429,7 @@ WiFi 相关函数占据了反编译 WiFi 固件总代码行数的 **29%**。
 
 因此下次在进行任何逆向工程时，别忘了使用 GitHub 搜索！
 
-## 十一、 下一步内容
+## 十一、下一步内容
 
 这是一次激动人心的逆向旅程…… 感谢 **[Pine64 BL602 Reverse Engineering Project](https://github.com/pine64/bl602-re)** 工程项目的贡献者激发了我撰写这篇文章的灵感！
 
@@ -1449,7 +1449,7 @@ WiFi 相关函数占据了反编译 WiFi 固件总代码行数的 **29%**。
 
 -   [赞助一杯咖啡](https://github.com/sponsors/lupyuen)
 -   [在 Reddit 上评论](https://www.reddit.com/r/RISCV/comments/ofj34x/reverse_engineering_wifi_on_riscv_bl602/?utm_source=share&utm_medium=web2x&context=3)
--   [阅读 “The RISC-V BL602 Book”](https://lupyuen.github.io/articles/book)
+-   [阅读“The RISC-V BL602 Book”](https://lupyuen.github.io/articles/book)
 -   [C 查看文章 heck o](https://lupyuen.github.io/)
 -   [RSS 订阅](https://lupyuen.github.io/rss.xml)
 
@@ -1463,7 +1463,7 @@ BL706 音视频开发板
 
 [![](assets/1710901207-7b4ebfbd0653f7e51c3756fd9d04d188.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229195112-d5dd6450-d6f8-1.png)
 
-## 十二、 附录与笔记
+## 十二、附录与笔记
 
 1.  本篇文章属于该推文的完整版本 [this Twitter Thread](https://twitter.com/MisterTechBlog/status/1407971263088193540)
 2.  根据推文信息 [madushan1000](https://twitter.com/madushan1000/status/1409392882612637696), **BL602 WiFi** **RTL** 也许能在这里找到…
@@ -1471,9 +1471,9 @@ BL706 音视频开发板
     2.  [fengmaoqiao/workplace](https://github.com/fengmaoqiao/workplace)
     3.  [More tips on BL602 WiFi and Bluetooth LE](https://twitter.com/madushan1000/status/1412694106816585728?s=19)
 3.  更多有关 **BL602 RF** **IP** **and 硬件寄存器信息**:
-    1.  [硬件信息: RF IP](https://github.com/pine64/bl602-docs/tree/main/hardware_notes#rf-ip)
-    2.  [硬件信息: MDM 寄存器](https://github.com/pine64/bl602-docs/blob/main/hardware_notes/registers/phy/mdm.md)
-    3.  [硬件信息: AGC 寄存器](https://github.com/pine64/bl602-docs/blob/main/hardware_notes/registers/phy/agc.md)
+    1.  [硬件信息：RF IP](https://github.com/pine64/bl602-docs/tree/main/hardware_notes#rf-ip)
+    2.  [硬件信息：MDM 寄存器](https://github.com/pine64/bl602-docs/blob/main/hardware_notes/registers/phy/mdm.md)
+    3.  [硬件信息：AGC 寄存器](https://github.com/pine64/bl602-docs/blob/main/hardware_notes/registers/phy/agc.md)
 4.  有一个有趣的讨论涉及到 **WiFi Supplicant 的许可问题**，这个讨论的版本看起来与 Rockchip RK3399 上的 Linux 版本完全一样。
 
 [![](assets/1710901207-6d1ddb6e6ad33fb4ba0218996fdb3e8f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229195125-dd9e772e-d6f8-1.png)

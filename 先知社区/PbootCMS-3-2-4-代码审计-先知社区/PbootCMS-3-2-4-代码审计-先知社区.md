@@ -288,7 +288,7 @@ function handle_upload($file, $temp, $array_ext_allow, $max_width, $max_height, 
 
 # 关于标签
 
-`PbootCMS` 定义了很多渲染模板的标签，其中有一部分存在危险的属性，如 `{pboot:if}`，`{pboot:sql}`，除此之外，还有很多其它带危险的标签，如下:
+`PbootCMS` 定义了很多渲染模板的标签，其中有一部分存在危险的属性，如 `{pboot:if}`，`{pboot:sql}`，除此之外，还有很多其它带危险的标签，如下：
 =======
 [![](assets/1710465368-d0528a0af9df74327f47e123079eb2b6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240313175609-ea936e04-e11f-1.png)
 

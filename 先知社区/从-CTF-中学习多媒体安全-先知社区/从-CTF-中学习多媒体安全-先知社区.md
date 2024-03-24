@@ -38,7 +38,7 @@ tags:
 
 > 基于混沌理论，这篇论文打破彩色图像通道的相关性，提出了一种新的像素级混淆机制  
 > 混沌映射是生成混沌序列的一种方法，混沌映射可以用于替代伪随机数生成器，生成 0 到 1 之间的混沌数。常见的混沌映射方式有 Logistic 映射、Tent 映射、Circle 映射，而 Piecewise 映射作为混沌映射的典型代表，数学形式简单，具有遍历性和随机性  
-> 本文主要使用三种混沌算法: PWLCM 序列排序、Chen 模型、Lorenz 模型
+> 本文主要使用三种混沌算法：PWLCM 序列排序、Chen 模型、Lorenz 模型
 
 ##### 混沌系统：Piecewise 混沌映射 / PWLCM 混沌映射
 
@@ -134,7 +134,7 @@ def Chen(u0, v0, w0, x0, a, b, c, d, k, T):
 
 我们通过一个例子进行解释
 
-> ・一幅数字图像的像素强度在 0 到 255 之间，所以将 8 位像素强度值表示到 DNA 域只需要 4 个 DNA 碱基。例如，如果像素强度值为 93，则其二进制值为 “01 01 11 01”，93 的 DNA 转化值取决于 DNA 编码规则的选择，如果采用 DNA 编码规则 8，它将成为 “AACA”。利用相同的 DNA 规则 8 将 “AACA” 转换为数字格式，得到相同的强度值 93。但如果我们选择另一条 DNA 规则解码，如规则 1，那么 “AACA” 将是‘00 00 01 00’，像素的强度值将是 2。这是 DNA 编码 / 解码方法。
+> ・一幅数字图像的像素强度在 0 到 255 之间，所以将 8 位像素强度值表示到 DNA 域只需要 4 个 DNA 碱基。例如，如果像素强度值为 93，则其二进制值为“01 01 11 01”，93 的 DNA 转化值取决于 DNA 编码规则的选择，如果采用 DNA 编码规则 8，它将成为“AACA”。利用相同的 DNA 规则 8 将“AACA”转换为数字格式，得到相同的强度值 93。但如果我们选择另一条 DNA 规则解码，如规则 1，那么“AACA”将是‘00 00 01 00’，像素的强度值将是 2。这是 DNA 编码 / 解码方法。
 
 #### DNA 碱基 XOR 运算
 
@@ -167,7 +167,7 @@ G->10,C->01,G->10,A->11
 ```plain
 def DNA_Encode(pixel, rule):
     base = ''
-    # 将整数像素值转成8bits二进制
+    # 将整数像素值转成 8bits 二进制
     bits = bin(pixel)[2:].zfill(8)
     for k in range(4):
         b = bits[k*2:2*k+2]
@@ -254,11 +254,11 @@ def Generate_Key(img, key):
 2) 图像扁平化为一维  
 3) 第一次置乱，PWLCM 迭代 3* w\*h 次，得到迭代序列 ai  
 4) 根据 ai 排序，得到排序后的像素列表  
-5) 分成 R、G、B 三个通道。此时知识名称叫 R、G、B ，划分的依据为 1-wh,wh-2wh,2wh-3wh
+5) 分成 R、G、B 三个通道。此时知识名称叫 R、G、B，划分的依据为 1-wh,wh-2wh,2wh-3wh
 
 ```plain
 # 第一次置乱
-# PWLCM迭代3*w*h次，得到迭代序列ai
+# PWLCM 迭代 3*w*h 次，得到迭代序列 ai
 ai = []
 for i in range(3*w*h):
     if 0 <= a0 < p0:
@@ -270,11 +270,11 @@ for i in range(3*w*h):
     ai.append(a0)
 # 打包
 dic = list(zip(ai, pixels))
-# 根据ai排序
+# 根据 ai 排序
 dic.sort(key=lambda x: x[0])
 # 得到排序后的像素列表
 pixels = list(list(zip(*dic))[1])
-# 分成R、G、B三个通道
+# 分成 R、G、B 三个通道
 R = pixels[:w*h]
 G = pixels[w*h:2*w*h]
 B = pixels[2*w*h:]
@@ -287,35 +287,35 @@ B = pixels[2*w*h:]
 
 ```plain
 # 第二次置乱
-# Lorenz生成三个序列Y,Z,Q
+# Lorenz 生成三个序列 Y,Z,Q
 t = 100
 f = 10
 r = 28
 g = 8/3
-# 调用Lorenz模型函数
+# 调用 Lorenz 模型函数
 Y, Z, Q = Lorenz(y0, z0, q0, f, r, g, t+w*h)
-# 丢弃序列前t个值
+# 丢弃序列前 t 个值
 Y = Y[t:]
 Z = Z[t:]
 Q = Q[t:]
-# 分别在R、G、B三个通道进行排序
+# 分别在 R、G、B 三个通道进行排序
 Y_R = list(zip(Y, R))
-# 根据序列Y排序
+# 根据序列 Y 排序
 Y_R.sort(key=lambda x: x[0])
 # 得到排序后的像素列表
 R = list(list(zip(*Y_R))[1])
 Z_G = list(zip(Z, G))
-# 根据序列Z排序
+# 根据序列 Z 排序
 Z_G.sort(key=lambda x: x[0])
 # 得到排序后的像素列表
 G = list(list(zip(*Z_G))[1])
 Q_B = list(zip(Q, B))
-# 根据序列Q排序
+# 根据序列 Q 排序
 Q_B.sort(key=lambda x: x[0])
 # 得到排序后的像素列表
 B = list(list(zip(*Q_B))[1])
 
-# 得到重新排列后的R、G、B颜色分量
+# 得到重新排列后的 R、G、B 颜色分量
 ```
 
 ###### 混淆 / 扩散
@@ -336,7 +336,7 @@ B = list(list(zip(*Q_B))[1])
 在前置知识中我们讲解了 DNA 编码的原理，现在我们需要进行代码的实现
 
 ```plain
-# DNA编码
+# DNA 编码
     # Hyper Chaos Chen系统控制参数
     a = 36
     b = 3
@@ -391,7 +391,7 @@ B = list(list(zip(*Q_B))[1])
 ###### DNA 迭代异或
 
 ```plain
-# 八种DNA编码规则
+# 八种 DNA 编码规则
     rules = ['ACGT', 'CATG', 'GTAC', 'TCGA', 'CTAG', 'AGCT', 'TGCA', 'GATC']
     for i in range(w*h):
         # 起始规则位置
@@ -418,7 +418,7 @@ B = list(list(zip(*Q_B))[1])
 ###### DNA 解码
 
 ```plain
-# DNA解码
+# DNA 解码
     for i in range(3*w*h):
         rule = 'ACGT'
         if(int(X[i] % 1/0.05) in [0, 4, 8, 10, 19]):

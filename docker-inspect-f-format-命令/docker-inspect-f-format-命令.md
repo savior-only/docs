@@ -12,7 +12,7 @@ tags:
 
 ![图片](assets/1711241149-a7d538ac2292f8d6c3cab7f639bfa897.png "null")
 
-"大家好，我是幽灵代笔，这篇文章主要介绍`Docker inspect -f(--format)` 命令的实战应用，`docker --format`其实是提供了基于 Go模板 的日志格式化输出辅助功能，并提供了一些内置的增强函数，这篇文章原文来自博客园 `散尽浮华` 博主，再次基础上增添了命令场景应用案例。"
+"大家好，我是幽灵代笔，这篇文章主要介绍`Docker inspect -f(--format)` 命令的实战应用，`docker --format`其实是提供了基于 Go 模板 的日志格式化输出辅助功能，并提供了一些内置的增强函数，这篇文章原文来自博客园 `散尽浮华` 博主，再次基础上增添了命令场景应用案例。"
 
 ![图片](assets/1711241149-fe1e96645f65e344e980b43a82d0a4cd.png "null")
 
@@ -20,11 +20,11 @@ MVC 框架
 
 ## 1\. 什么是模板
 
-上图是大家熟悉的 MVC 框架（Model View Controller）： `Model（模型，通常在服务端）用于处理数据、View（视图，客户端代码）用于展现结果、Controller（控制器）`用于控制数据流，确保 M 和 V 的同步，即一旦 M 改变，V 也应该同步更新。 而对于 View 端的处理，在很多动态语言中是通过在静态 HTML 代码中插入动态数据来实现的。例如 JSP 的 `<%=....=%>` 和 PHP 的 `<?php.....?>` 语法。
+上图是大家熟悉的 MVC 框架（Model View Controller）： `Model（模型，通常在服务端）用于处理数据、View（视图，客户端代码）用于展现结果、Controller（控制器）`用于控制数据流，确保 M 和 V 的同步，即一旦 M 改变，V 也应该同步更新。而对于 View 端的处理，在很多动态语言中是通过在静态 HTML 代码中插入动态数据来实现的。例如 JSP 的 `<%=....=%>` 和 PHP 的 `<?php.....?>` 语法。
 
 由于最终展示给用户的信息大部分是静态不变的，只有少部分数据会根据用户的不同而动态生成。比如，对于 docker ls 的输出信息会根据附加参数的不同而不同，但其表头信息是固定的。所以，将静态信息固化为模板可以复用代码，提高展示效率。
 
-## 2\. Go模板语法
+## 2\. Go 模板语法
 
 格式： `{{/*注释内容*/}}`
 
@@ -36,14 +36,14 @@ $ docker network inspect --format='{{/*查看容器的默认网关*/}}{{rang
 
 ### 3.1 系统变量 {{.}}
 
-点号表示当前对象及上下文，和 Java、C++ 中的 this 类似。可以直接通过{{.}}获取当前对象。 另外，如果返回结果也是一个 Struct 对象（Json 中以花括号/大括号包含），则可以直接通过点号级联调用，获取子对象的指定属性值。
+点号表示当前对象及上下文，和 Java、C++ 中的 this 类似。可以直接通过{{.}}获取当前对象。另外，如果返回结果也是一个 Struct 对象（Json 中以花括号/大括号包含），则可以直接通过点号级联调用，获取子对象的指定属性值。
 
 ```plain
 #可以通过级联调用直接读取子对象 State 的 Status 属性，以获取容器的状态信息：
 $ docker inspect --format '{{/*读取容器状态*/}}{{.State.Status}}' $INSTANCE_ID   
 ```
 
-> **注意**： 如果需要获取的属性名称包含点号（比如下列示例数据）或者以数字开头，则不能直接通过级联调用获取信息。因为属性名称中的点号会被解析成级联信息，进而导致返回错误结果。即便使用引号将其包含也会提示语法格式错误。此时，需要通过 `index` 来读取指定属性信息。
+> **注意**：如果需要获取的属性名称包含点号（比如下列示例数据）或者以数字开头，则不能直接通过级联调用获取信息。因为属性名称中的点号会被解析成级联信息，进而导致返回错误结果。即便使用引号将其包含也会提示语法格式错误。此时，需要通过 `index` 来读取指定属性信息。
 
 ```plain
 "Options": {
@@ -66,13 +66,13 @@ $ docker inspect --format '{{.Options."com.docker.network.driver.mtu"}}' br
 Template parsing error: template: :1: bad character U+0022 '"'
  
 # 正确的用法，必须用 index 读取指定属性名称的属性值：
-$ docker inspect --format '{{/*读取网络在hosts上的名称*/}}{{index .Options "com.docker.network.bridge.name"}}' bridge
+$ docker inspect --format '{{/*读取网络在 hosts 上的名称*/}}{{index .Options "com.docker.network.bridge.name"}}' bridge
 docker0
 ```
 
 实例：
 
-1.  1. 获取容器ID
+1.  1. 获取容器 ID
     
 
 ```plain
@@ -80,7 +80,7 @@ $  docker inspect -f '{{.Id}}' prometheus 
 9094fdeb64edf75d52189e1b985d0926cf4e6d53880a8f09ab30fc2d6c8a0908
 ```
 
-1.  1. 获取容器Name
+1.  1. 获取容器 Name
     
 
 ```plain
@@ -97,7 +97,7 @@ qingscan
 mysqlser
 ```
 
-1.  1. 获取容器Hostname
+1.  1. 获取容器 Hostname
     
 
 ```plain
@@ -140,7 +140,7 @@ $ docker inspect --format='{{.LogPath}}' `docker ps -a -q`
 
 ### 3.2 自定义变量
 
-可以在处理过程中设置自定义变量，然后结合自定义变量做更复杂的处理。 如果自定义变量的返回值是对象，则可以通过点号进一步级联访问其属性。比如 `{{$Myvar.Field1}}`。
+可以在处理过程中设置自定义变量，然后结合自定义变量做更复杂的处理。如果自定义变量的返回值是对象，则可以通过点号进一步级联访问其属性。比如 `{{$Myvar.Field1}}`。
 
 ```plain
 # 结合变量的使用，对输出结果进行组装展现，以输出容器的所有绑定端口列表：
@@ -165,7 +165,7 @@ range 用于遍历结构内返回值的所有数据。支持的类型包括 `ar
 
 -   • 对应的值长度为 0 时，range 不会执行。
     
--   • 结构内部如要使用外部的变量，需要在前面加 引用，比如Var2。
+-   • 结构内部如要使用外部的变量，需要在前面加 引用，比如 Var2。
     
 -   • range 也支持 else 操作。效果是：当返回值为空或长度为 0 时执行 else 内的内容。
     
@@ -222,7 +222,7 @@ range 用于遍历结构内返回值的所有数据。支持的类型包括 `ar
 
 实例
 
-1.  1. 获取容器IP地址
+1.  1. 获取容器 IP 地址
     
 
 ```plain
@@ -242,7 +242,7 @@ $ docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}}�
  9090/tcp -> 9090 
 ```
 
-1.  1. 获取容器MacAddress
+1.  1. 获取容器 MacAddress
     
 
 ```plain
@@ -252,7 +252,7 @@ $ docker inspect --format='{{range .NetworkSettings.Networks}}{{.MacAddress}
 02:42:ac:14:00:02
 ```
 
-1.  1. 获取Hostname Name IP
+1.  1. 获取 Hostname Name IP
     
 
 ```plain
@@ -291,7 +291,7 @@ $ docker inspect --format '{{if not .State.Restarting}}容器没有配置�
 -   • 除了 null（空）和 false 被识别为 false，其它值（字符串、数字、对象等）均被识别为 true。
     
 
-示例:
+示例：
 
 ```plain
 $ docker inspect --format '{{or .State.Status .State.Restarting}}' $(docker ps -q)
@@ -306,7 +306,7 @@ running
 {{if 判断条件 .Var1 .Var2}}{{end}}
 ```
 
-go模板支持如下判断方式：
+go 模板支持如下判断方式：
 
 1.  1. `eq`: 相等，即 arg1 == arg2。比较特殊的是，它支持多个参数进行与比较，此时，它会将第一个参数和其余参数依次比较，返回下式的结果：
     
@@ -341,14 +341,14 @@ $ docker inspect --format '{{if ne 0.0 .State.ExitCode}}{{.Name}}{{else}}
 $ docker inspect --format '{{if ne 0.0 .State.ExitCode}}{{.Name}}{{else if .}}该容器还在运行{{end}}' $(docker ps -aq)
  
 # 输出所有已停止或配置了 Restarting 策略的容器名称
-$ docker inspect --format '{{if ne 0.0 .State.ExitCode}}{{.Name}}{{else if eq .State.Restarting true}}容器{{.Name}}配置了Restarting策略.{{else}}{{end}}' $(docker ps -aq)
+$ docker inspect --format '{{if ne 0.0 .State.ExitCode}}{{.Name}}{{else if eq .State.Restarting true}}容器{{.Name}}配置了 Restarting 策略.{{else}}{{end}}' $(docker ps -aq)
 ```
 
 ## 6\. 打印信息
 
-`docker --format` 默认调用 go语言的 print 函数对模板中的字符串进行输出。而 go语言还有另外 2 种相似的内置函数，对比说明如下：
+`docker --format` 默认调用 go 语言的 print 函数对模板中的字符串进行输出。而 go 语言还有另外 2 种相似的内置函数，对比说明如下：
 
--   • `print`： 将传入的对象转换为字符串并写入到标准输出中。如果后跟多个参数，输出结果之间会自动填充空格进行分隔。
+-   • `print`：将传入的对象转换为字符串并写入到标准输出中。如果后跟多个参数，输出结果之间会自动填充空格进行分隔。
     
 -   • `println`: 功能和 print 类似，但会在结尾添加一个换行符。也可以直接使用 {{println}} 来换行。
     
@@ -390,11 +390,11 @@ $ docker inspect --format '{{len .Name}}' prometheus 
 
 ## 11\. Docker 增强模板及函数
 
-Docker 基于 go模板的基础上，构建了一些内置函数。
+Docker 基于 go 模板的基础上，构建了一些内置函数。
 
 ### 11.1 json
 
-Docker 默认以字符串显示返回结果。而该函数可以将结果格式化为压缩后的 json 格式数据。 示例：
+Docker 默认以字符串显示返回结果。而该函数可以将结果格式化为压缩后的 json 格式数据。示例：
 
 ```plain
 $ docker inspect nginx -f '{{json .State}}' | jq
@@ -418,7 +418,7 @@ $ docker inspect nginx -f '{{json .State}}' | jq
 用指定的字符串将返回结果连接后一起展示。操作对象必须是字符串数组。
 
 ```plain
-# 查看容器的Entrypoint命令
+# 查看容器的 Entrypoint 命令
 $ docker ps --no-trunc
 CONTAINER ID                                                       IMAGE                              COMMAND                                                                                                                                           CREATED      STATUS      PORTS                                       NAMES
 681a3c5206b106463a3f4f65a2c44e6ecfe14ff0bc22ee76a153ebdf5e3d4084   google/cadvisor:latest             "/usr/bin/cadvisor -logtostderr"                                                                                                                  9 days ago   Up 9 days   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   cadvisor
@@ -474,10 +474,10 @@ $ docker inspect --format '{{split .HostsPath "/"}}' cadvisor 
 
 -   • What to Inspect When You're Inspecting\[1\]
     
--   • Docker格式化输出命令:"docker inspect --format" 学习笔记\[2\]
+-   • Docker 格式化输出命令："docker inspect --format" 学习笔记\[2\]
     
 
 #### 引用链接
 
 `[1]` What to Inspect When You're Inspecting: *https://www.ctl.io/developers/blog/post/what-to-inspect-when-youre-inspecting*  
-`[2]` Docker格式化输出命令:"docker inspect --format" 学习笔记: *https://www.cnblogs.com/kevingrace/p/6424476.html*
+`[2]` Docker 格式化输出命令："docker inspect --format" 学习笔记: *https://www.cnblogs.com/kevingrace/p/6424476.html*

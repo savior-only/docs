@@ -89,7 +89,7 @@ jarm="07d14d16d21d21d07c42d41d00041d24a458a375eef0c576d23a7bab9a9fb1" && categor
 
 从武器化趋势来看，BOF (Beacon Object Files) 是 CobaltStrike 4.1 版本后引入的，它是一个由 C 编译、可在 Beacon 进程中动态加载执行的二进制程序。无文件执行与无新进程创建的特性更加符合 OPSEC 的原则，适用于严苛的终端对抗场景。
 
-低开发门槛与便利的内部 Beacon API 调用与使得 BOF 特别适合后渗透阶段攻击工具的快速开发与移植， CobaltStrike 社区工具包近期更新的项目中 BOF 相关的项目占了 7 个：
+低开发门槛与便利的内部 Beacon API 调用与使得 BOF 特别适合后渗透阶段攻击工具的快速开发与移植，CobaltStrike 社区工具包近期更新的项目中 BOF 相关的项目占了 7 个：
 
 [![](assets/1710898890-df430a79cb8b94911458f03991b3ed60.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240311172427-28524de8-df89-1.png)
 
@@ -200,9 +200,9 @@ jarm="07d14d16d21d21d07c42d41d00041d24a458a375eef0c576d23a7bab9a9fb1" && categor
 
 -   CLR 全称 Common Language Runtime（公共语言运行库），是 `.NET Framework` 的主要执行引擎。
 <<<<<<< HEAD
--   在 CLR 监视之下运行的程序属于托管的代码（ managed ），不在 CLR 之下，直接在裸机上运行的应用或者组件属于非托管的代码（ unmanaged ）。
+-   在 CLR 监视之下运行的程序属于托管的代码（managed），不在 CLR 之下，直接在裸机上运行的应用或者组件属于非托管的代码（unmanaged）。
 -   Unmanaged API 用于将 `.NET` 程序集加载到任意程序中，作为非托管代码与 CLR 之间的桥梁，使得非托管应用程序能够加载 CLR、执行托管代码。
--   `CLRCreateInstance` 是 Unmanaged API 的一个函数，用于从非托管代码中创建和获取 CLR 的 COM 接口实例， 例如 `ICorRuntimeHost` 和 `ICLRRuntimeHost` 这两种接口。
+-   `CLRCreateInstance` 是 Unmanaged API 的一个函数，用于从非托管代码中创建和获取 CLR 的 COM 接口实例，例如 `ICorRuntimeHost` 和 `ICLRRuntimeHost` 这两种接口。
 =======
 -   在 CLR 监视之下运行的程序属于托管的代码（managed），不在 CLR 之下，直接在裸机上运行的应用或者组件属于非托管的代码（unmanaged）。
 -   Unmanaged API 用于将 `.NET` 程序集加载到任意程序中，作为非托管代码与 CLR 之间的桥梁，使得非托管应用程序能够加载 CLR、执行托管代码。
@@ -648,7 +648,7 @@ while (true)
     ```
     
 <<<<<<< HEAD
-7.  直接运行注册好的 BOF 命令（ 条件：需要用户侧加载脚本注册对应命令 ）
+7.  直接运行注册好的 BOF 命令（条件：需要用户侧加载脚本注册对应命令）
     
     ```plain
 =======
@@ -938,8 +938,8 @@ on beacon_initial {
 对于实战中 Beacon 上线主要是以下四类场景：
 
 <<<<<<< HEAD
-1.  直接上线普通用户权限 Session（ 无 UAC ）
-2.  直接上线管理员用户权限 Session（ 俗称带 \* 权限 ）
+1.  直接上线普通用户权限 Session（无 UAC）
+2.  直接上线管理员用户权限 Session（俗称带 \* 权限）
 =======
 1.  直接上线普通用户权限 Session（无 UAC）
 2.  直接上线管理员用户权限 Session（俗称带 \* 权限）
@@ -990,14 +990,14 @@ sub OnlyAdmin_Chain {
     ```plain
     sub UP_Loader {
         bcd($1, $LoaderPath);
-        blog($1,"\c9开始上传 Loader");
+        blog($1,"\c9 开始上传 Loader");
         bupload($1, script_resource("/scripts/".$LoaderName));
         blog($1, "\c8Loader 文件上传完成");
-        blog($1, "\c8Loader文件位置：$LoaderFullPath");
+        blog($1, "\c8Loader 文件位置：$LoaderFullPath");
     }
     ```
     
-2.  调用 `readbof` 函数加载 BOF 并执行 whoami、ipconfig、screenshot ；
+2.  调用 `readbof` 函数加载 BOF 并执行 whoami、ipconfig、screenshot；
 =======
     ```bash
     sub UP_Loader {
@@ -1044,7 +1044,7 @@ Note($1);
 if (!-isadmin $1) {
     http_get($onlineUrl);
 <<<<<<< HEAD
-    blog($1, "\c9普通用户权限");
+    blog($1, "\c9 普通用户权限");
 =======
     blog($1, "\c9 普通用户权限");
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f
@@ -1061,7 +1061,7 @@ if (!-isadmin $1) {
 } else {
     http_get($onlineUrl);
 <<<<<<< HEAD
-    blog($1, "\c9管理员权限");
+    blog($1, "\c9 管理员权限");
 =======
     blog($1, "\c9 管理员权限");
 >>>>>>> 4992f5f682bf7aa8873ceb2495ac1d2a8296850f

@@ -187,7 +187,7 @@ unserialize("ser.bin");
 
 其实意图就很明显三个组件都能相互配合 (马后炮)
 
-并且存在 Spring Security 的一个权限鉴权，先查看下 `AuthConfig.class`​ 发现是用 `regexMatchers`​来进行正则匹配路径，去查看下 spring Security 的版本为 5.6.3 ，而这里由于设计问题看他的控制器是随便什么都可以进入逻辑 相当于 `admin/*`​ ，所以完全符合漏洞版本所以可以使用 `%0d`​绕过
+并且存在 Spring Security 的一个权限鉴权，先查看下 `AuthConfig.class`​ 发现是用 `regexMatchers`​来进行正则匹配路径，去查看下 spring Security 的版本为 5.6.3，而这里由于设计问题看他的控制器是随便什么都可以进入逻辑 相当于 `admin/*`​ ，所以完全符合漏洞版本所以可以使用 `%0d`​绕过
 
 [![](assets/1710900819-60cc89bbfa66405b8daacbbeadfdfcd7.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240229162627-3ba6cc58-d6dc-1.png)
 

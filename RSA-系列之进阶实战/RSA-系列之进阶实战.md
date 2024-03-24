@@ -482,23 +482,23 @@ def poly_mul(x, y, z, poly_mod):
   init_poly = poly.polymul(x, y)
   res_poly = poly.polydiv(init_poly % z, poly_mod)[1] % z
   return np.int64(np.round(res_poly))
-#具体来说，该函数实现x、y多项式相乘后，每项系数模z，再将整个多项式模poly_mod，也就是这道题的基础算式。
-# poly_add函数则是跟poly_mul完全一样，不做赘述。
+#具体来说，该函数实现 x、y 多项式相乘后，每项系数模 z，再将整个多项式模 poly_mod，也就是这道题的基础算式。
+# poly_add 函数则是跟 poly_mul 完全一样，不做赘述。
 
 def r2_distribution(len):
 
   return np.random.randint(0, 2, len, dtype=np.int64)
-#该函数生成一个长度为len，元素为0或1的随机数列表
+#该函数生成一个长度为 len，元素为 0 或 1 的随机数列表
 
 def rz_distribution(z, len):
 
   return np.random.randint(0, z, len, dtype=np.int64)
-#该函数生成一个长度为len，元素为0-z之间的随机数列表
+#该函数生成一个长度为 len，元素为 0-z 之间的随机数列表
 
 def gass_distribution(len):
 
   return np.int64(np.random.normal(0, 2, size=len))
-#该函数返回一个长度为len，随机数从给定正态分布中抽取的列表，各个参数意义详见：
+#该函数返回一个长度为 len，随机数从给定正态分布中抽取的列表，各个参数意义详见：
 ```
 
 自己测试一下就可以知道，其实可以认为他就是一个小噪声，即小干扰：
@@ -705,7 +705,7 @@ q = p_q - p
 **< b >  
 **
 
-**已知 n，e \* d ，如何求 p，q**（注：n = p *q，e* d = 1 mod phi）:
+**已知 n，e \* d，如何求 p，q**（注：n = p *q，e* d = 1 mod phi）:
 
 > 此时已知的是 n = p \* q , e \* d = 1 mod phi, 那么我们便将已知转化为 n，phi  
 > \==>e \* d - 1 = k \* phi = k \* (p - 1) \* (q-1)  
@@ -713,8 +713,8 @@ q = p_q - p
 > k = ((e \* d-1) // n)+1  
 > phi = (e \* d- 1) // k
 > 
-> > k 的详细解析:  
-> > 这里不等式两边的分母一个 pq，一个 pq-(p+q)+1 相差并不大，并且还是整除，所以估计 (ed-1)//pq 和 (ed-1)//(pq-(p+q)+1) 差值不到 1 用:  
+> > k 的详细解析： 
+> > 这里不等式两边的分母一个 pq，一个 pq-(p+q)+1 相差并不大，并且还是整除，所以估计 (ed-1)//pq 和 (ed-1)//(pq-(p+q)+1) 差值不到 1 用： 
 > > k = ((e \* d-1) // n)+1  
 > > phi = (e \* d- 1) // k  
 > > 然后这里两次整除后，后面小数部分应该都省略掉了
