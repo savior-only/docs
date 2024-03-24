@@ -1,0 +1,18 @@
+{
+  "version": "2.0",
+  "clipId": "1711241218",
+  "format": "md",
+  "title": "docker 快速入门",
+  "link": "https://mp.weixin.qq.com/s/-Yq11WO-Lgj8ItI5d9-1Xw",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-24 08:46:58",
+  "mainPath": "docker-快速入门.md",
+  "paths": [
+    "docker-快速入门.index.json",
+    "assets/1711241218-a84ba5fdef1f778802f915ac1d08fa4e.webp",
+    "docker-快速入门.md"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1711241459",
+  "format": "md",
+  "title": "最佳镜像搬运工 Skopeo 指南",
+  "link": "https://mp.weixin.qq.com/s/1KryUkYi8TK0oUqvo2rQ7A",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-24 08:50:59",
+  "mainPath": "最佳镜像搬运工-Skopeo-指南.md",
+  "paths": [
+    "最佳镜像搬运工-Skopeo-指南.index.json",
+    "最佳镜像搬运工-Skopeo-指南.md"
+  ]
+}

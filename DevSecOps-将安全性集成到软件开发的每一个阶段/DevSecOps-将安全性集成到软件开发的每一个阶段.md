@@ -1,7 +1,7 @@
 ---
 title: DevSecOps，将安全性集成到软件开发的每一个阶段
-url: https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2651173174&idx=4&sn=59a6915e5367619c8e5f823fc7fcaa44&chksm=bdb849658acfc073bb730d07453996afa0da2c098189eb38bdf165d48db70e6043d6ef87e7f4&mpshare=1&scene=1&srcid=0304BFOgpYpvtGeDyd1eX7FP&sharer_shareinfo=2b1d09a5b7da910f0d555c62ba22406b&sharer_shareinfo_first=2b1d09a5b7da910f0d555c62ba22406b#rd
-clipped_at: 2024-03-14 14:05:46
+url: https://mp.weixin.qq.com/s/P_XPR8k7KaqZWYLN7bFBUg
+clipped_at: 2024-03-24 08:43:01
 category: default
 tags: 
  - mp.weixin.qq.com
@@ -9,6 +9,8 @@ tags:
 
 
 # DevSecOps，将安全性集成到软件开发的每一个阶段
+
+![图片](assets/1711240981-2c0852c37a19ccc1593c841445693284.gif)
 
 作者 | Franklyne Omondi
 
@@ -134,10 +136,14 @@ DevSecOps 在确保软件开发的安全性方面发挥着巨大作用。确保�
 
 随着网络威胁的不断演变，我们必须将安全性集成到软件开发过程中。DevSecOps 是一种文化转变，它可以促进协作、分担责任和持续改进，并将安全性集成到开发过程的每一个阶段。通过采用 DevSecOps 最佳实践，组织可以更快地构建更安全的软件，降低安全漏洞所带来的风险，同时还可以改进团队协作和降低成本。
 
-作者简介：
-
-**Franklyne Omondi** 是思科的工程架构师、Medium 博客作者。他最初在肯尼亚 Safaricom PLC，目前在思科，主要专注于设计和实现安全性和隐私性。他在肯尼亚出生和长大，目前在波兰克拉科夫工作和生活。他喜欢足球和一级方程式赛车，是一个超级航空迷。
-
 **原文链接：**
 
 https://www.infoq.com/articles/devops-security-best-practices/
+
+**相关阅读：**
+
+一个简单的代码拼写错误导致 17 个生产数据库被删！微软 Azure DevOps 宕机 10 小时始末 (https://www.infoq.cn/article/9ZxYXzwUeflmIXgmWmfL )
+
+Puppet 2023 DevOps 现状报告：平台工程有助于提升开发效率 (https://www.infoq.cn/article/q6JwiNRJIZ8C0h1WCHVQ )
+
+***声明：本文为 InfoQ 翻译，未经许可禁止转载。***

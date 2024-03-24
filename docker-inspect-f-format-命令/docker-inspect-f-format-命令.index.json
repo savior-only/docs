@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "clipId": "1711241149",
+  "format": "md",
+  "title": "docker inspect -f(--format) 命令",
+  "link": "https://mp.weixin.qq.com/s/Ld-l8RrYT48a0zDkw9EB2Q",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-24 08:45:49",
+  "mainPath": "docker-inspect-f-format-命令.md",
+  "paths": [
+    "docker-inspect-f-format-命令.index.json",
+    "assets/1711241149-a7d538ac2292f8d6c3cab7f639bfa897.png",
+    "assets/1711241149-fe1e96645f65e344e980b43a82d0a4cd.png",
+    "docker-inspect-f-format-命令.md"
+  ]
+}

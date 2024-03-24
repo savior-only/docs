@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "clipId": "1711240495",
+  "format": "md",
+  "title": "注意力机制介绍",
+  "link": "https://www.less-bug.com/posts/introduction-to-attention-mechanism/",
+  "category": "default",
+  "tags": [
+    "www.less-bug.com"
+  ],
+  "created_at": "2024-03-24 08:34:55",
+  "mainPath": "注意力机制介绍.md",
+  "paths": [
+    "注意力机制介绍.index.json",
+    "assets/1711240495-ee0963361ed730af0d61944753864ae7.svg",
+    "assets/1711240495-2b29b3a6feb46c5f1a427c34c61df8e8.svg",
+    "注意力机制介绍.md"
+  ]
+}

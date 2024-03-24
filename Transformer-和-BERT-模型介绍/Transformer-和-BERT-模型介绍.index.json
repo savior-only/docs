@@ -1,0 +1,21 @@
+{
+  "version": "2.0",
+  "clipId": "1711240508",
+  "format": "md",
+  "title": "Transformer 和 BERT 模型介绍",
+  "link": "https://www.less-bug.com/posts/introduction-to-transformer-and-bert-models/",
+  "category": "default",
+  "tags": [
+    "www.less-bug.com"
+  ],
+  "created_at": "2024-03-24 08:35:08",
+  "mainPath": "Transformer-和-BERT-模型介绍.md",
+  "paths": [
+    "Transformer-和-BERT-模型介绍.index.json",
+    "assets/1711240508-85737fe188331941340ed7d674d79e7e.png",
+    "assets/1711240508-1be3c83f1fc53b3e5b9d62e2cbd76b38.png",
+    "assets/1711240508-13fe7349a7f32abf0ed21c0470d2f43e.png",
+    "assets/1711240508-d07c80f877d7de06ca1b4d6ba92dfc76.png",
+    "Transformer-和-BERT-模型介绍.md"
+  ]
+}

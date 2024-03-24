@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1711240470",
+  "format": "md",
+  "title": "搭建 Miniconda 管理的 PyG 和 DGL 开发环境",
+  "link": "https://www.less-bug.com/posts/build-pyg-and-dgl-development-environments-managed-by-miniconda/",
+  "category": "default",
+  "tags": [
+    "www.less-bug.com"
+  ],
+  "created_at": "2024-03-24 08:34:30",
+  "mainPath": "搭建-Miniconda-管理的-PyG-和-DGL-开发环境.md",
+  "paths": [
+    "搭建-Miniconda-管理的-PyG-和-DGL-开发环境.index.json",
+    "搭建-Miniconda-管理的-PyG-和-DGL-开发环境.md"
+  ]
+}

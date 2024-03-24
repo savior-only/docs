@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1711241444",
+  "format": "md",
+  "title": "构建镜像开源工具 buildah",
+  "link": "https://mp.weixin.qq.com/s/mSGn3cG4Id57gU4N_thdug",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-24 08:50:44",
+  "mainPath": "构建镜像开源工具-buildah.md",
+  "paths": [
+    "构建镜像开源工具-buildah.index.json",
+    "构建镜像开源工具-buildah.md"
+  ]
+}

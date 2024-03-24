@@ -1,17 +1,18 @@
 {
   "version": "2.0",
-  "clipId": "1710396346",
+  "clipId": "1711240981",
   "format": "md",
   "title": "DevSecOps，将安全性集成到软件开发的每一个阶段",
-  "link": "https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2651173174&idx=4&sn=59a6915e5367619c8e5f823fc7fcaa44&chksm=bdb849658acfc073bb730d07453996afa0da2c098189eb38bdf165d48db70e6043d6ef87e7f4&mpshare=1&scene=1&srcid=0304BFOgpYpvtGeDyd1eX7FP&sharer_shareinfo=2b1d09a5b7da910f0d555c62ba22406b&sharer_shareinfo_first=2b1d09a5b7da910f0d555c62ba22406b#rd",
+  "link": "https://mp.weixin.qq.com/s/P_XPR8k7KaqZWYLN7bFBUg",
   "category": "default",
   "tags": [
     "mp.weixin.qq.com"
   ],
-  "created_at": "2024-03-14 14:05:46",
+  "created_at": "2024-03-24 08:43:01",
   "mainPath": "DevSecOps-将安全性集成到软件开发的每一个阶段.md",
   "paths": [
     "DevSecOps-将安全性集成到软件开发的每一个阶段.index.json",
+    "assets/1711240981-2c0852c37a19ccc1593c841445693284.gif",
     "DevSecOps-将安全性集成到软件开发的每一个阶段.md"
   ]
 }

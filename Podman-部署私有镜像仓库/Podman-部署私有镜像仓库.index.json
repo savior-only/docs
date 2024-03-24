@@ -1,0 +1,18 @@
+{
+  "version": "2.0",
+  "clipId": "1711241467",
+  "format": "md",
+  "title": "Podman 部署私有镜像仓库",
+  "link": "https://mp.weixin.qq.com/s/KL5Nu0GexApZ2YCjZiBEfQ",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-24 08:51:07",
+  "mainPath": "Podman-部署私有镜像仓库.md",
+  "paths": [
+    "Podman-部署私有镜像仓库.index.json",
+    "assets/1711241467-bf25e641b775e0f86c6b1c91f7390175.png",
+    "Podman-部署私有镜像仓库.md"
+  ]
+}

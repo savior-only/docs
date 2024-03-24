@@ -1,0 +1,28 @@
+{
+  "version": "2.0",
+  "clipId": "1711240483",
+  "format": "md",
+  "title": "图神经网络介绍",
+  "link": "https://www.less-bug.com/posts/what-is-gnn/",
+  "category": "default",
+  "tags": [
+    "www.less-bug.com"
+  ],
+  "created_at": "2024-03-24 08:34:43",
+  "mainPath": "图神经网络介绍.md",
+  "paths": [
+    "图神经网络介绍.index.json",
+    "assets/1711240483-ecb2703bf097b78a0d3143c0ecc11c61.png",
+    "assets/1711240483-854b77ee7241bb63e13eb142a25d8878.png",
+    "assets/1711240483-7e02cca8e50b30ece7e9ce8294c11e95.png",
+    "assets/1711240483-0e52039ed1132eb4a59303a7f97ac381.png",
+    "assets/1711240483-5a631aa8094491e609e62655e8bf17b0.png",
+    "assets/1711240483-e67fbdf77fd0afe6390d48892f25e23e.png",
+    "assets/1711240483-a6520c56be241908335d3a08a24576c5.png",
+    "assets/1711240483-400ef62ac26148c8fd22b76ab14b1829.png",
+    "assets/1711240483-3cd319212772511c03c9e3b4bf0d0825.png",
+    "assets/1711240483-5b41315769ddd59f10cf9e56adb4acd3.png",
+    "assets/1711240483-e6eae76725c9a5a3397bc2c12e60cd1b.png",
+    "图神经网络介绍.md"
+  ]
+}
