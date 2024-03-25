@@ -1,5 +1,5 @@
 ---
-title: 先知安全沙龙(成都站) - Beyond Control-Linux内核漏洞利用浅谈 - 先知社区
+title: 先知安全沙龙 (成都站) - Beyond Control-Linux 内核漏洞利用浅谈 - 先知社区
 url: https://xz.aliyun.com/t/14186?time__1311=mqmx9DBQdWwxlxGgx%2BxCqp4I2QAeeq%3Dex
 clipped_at: 2024-03-25 20:19:49
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 先知安全沙龙(成都站) - Beyond Control-Linux内核漏洞利用浅谈 - 先知社区
+# 先知安全沙龙 (成都站) - Beyond Control-Linux 内核漏洞利用浅谈 - 先知社区
 
 [![](assets/1711369189-088aa64d260a290f79027a9852663d3d.jpeg)](https://xzfile.aliyuncs.com/media/upload/picture/20240325145645-d81a7fca-ea74-1.jpeg)
 

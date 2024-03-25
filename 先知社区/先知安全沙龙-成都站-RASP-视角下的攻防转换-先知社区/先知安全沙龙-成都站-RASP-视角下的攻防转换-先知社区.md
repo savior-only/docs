@@ -1,5 +1,5 @@
 ---
-title: 先知安全沙龙(成都站) - RASP 视角下的攻防转换 - 先知社区
+title: 先知安全沙龙 (成都站) - RASP 视角下的攻防转换 - 先知社区
 url: https://xz.aliyun.com/t/14187?time__1311=mqmx9DBQdWqCqGNDQiiQU8PQwOWo88b84D
 clipped_at: 2024-03-25 20:19:36
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 先知安全沙龙(成都站) - RASP 视角下的攻防转换 - 先知社区
+# 先知安全沙龙 (成都站) - RASP 视角下的攻防转换 - 先知社区
 
 [![](assets/1711369176-6a1ddba0d1303bc9a95f4bdd9afc8644.jpeg)](https://xzfile.aliyuncs.com/media/upload/picture/20240325150645-3d71745e-ea76-1.jpeg)
 

@@ -1,5 +1,5 @@
 ---
-title: 先知安全沙龙(成都站) - Magic Webshell-Java文件上传流量对抗 - 先知社区
+title: 先知安全沙龙 (成都站) - Magic Webshell-Java 文件上传流量对抗 - 先知社区
 url: https://xz.aliyun.com/t/14185?u_atoken=996f7e9fd7ca32fe32d0081857df410c&u_asession=01CgelqsBMuTNNGS951nuWEgDfsIR7F8dD099NDDctjsJB8qWKvG-8jZ6L7aTuOqqrdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05umVmUAZnQ2usbn5D6zaqvQaGFv6prP5q3VE0nUmdR7ycBDlcXDd5JMQgqxRl8AgM8ASyl-YYjfIF32bsmvYrhrkKUEQo7WTjXLQ2i5YQaqwIEgwMHT410cAKDkBHYTmtKrURWfwRCupX-FYnLqLaqftqqPYcXxzCAxvmLCJ96S9g2QMxYs6lyXb1lFWKql56OxYIRTCA48VxaDB5Ijbcav_ZCBeWs7nYA9h_qpfCJvWQW-1ZN_Nt9aTE9cs_fddd1H1o9bAqYu8leK5XJevuC2XZPAlA48v9RJ13hkDKt916gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=eilGWQJmGbGpu9f1A9PaTdzKfjc%3D
 clipped_at: 2024-03-25 20:23:14
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 先知安全沙龙(成都站) - Magic Webshell-Java文件上传流量对抗 - 先知社区
+# 先知安全沙龙 (成都站) - Magic Webshell-Java 文件上传流量对抗 - 先知社区
 
 [![](assets/1711369394-2520cbdbd75cfdfb60f28d133a9e9748.jpeg)](https://xzfile.aliyuncs.com/media/upload/picture/20240325144611-5df6b5f2-ea73-1.jpeg)
 

@@ -1,5 +1,5 @@
 ---
-title: 先知安全沙龙(成都站) - 浅析AD DS渗透中的防御规避 - 先知社区
+title: 先知安全沙龙 (成都站) - 浅析 AD DS 渗透中的防御规避 - 先知社区
 url: https://xz.aliyun.com/t/14184?u_atoken=bba1921f506b0ea32a4417ed40ac0ccd&u_asession=01mueBLKii63vcciIdMpffw9XtrcmUU62zl0YVvPUcPP-W_oi_p5vNBO5hc-MMvX1XdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05JzbNzVrbJhgHSVV165kS-eDhjObw10oqY64-NScxCnKNEm2TYLhlx8MaB9O9S82_f2GqZa0PM1lyCm6XGiKBreCNMHwbbHfRxXh1RHGk3fb0AkzqdHBAAc0-LhCocu7S5hsGoHZboXDn8_5-58WI3HbYJuspE4-wAxLplo1rN3dg2QMxYs6lyXb1lFWKql56PRcbS2OVQ8WGVg7nh3ubf__ZCBeWs7nYA9h_qpfCJvXqURm6cUdPPX1piUx8JDc-Yp5TWQBlRgnkOZ3z-GpayYLlsfaZjlLTvECjw0UjlBd6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=LoKkN8noA3e%2BUbUJEdB1vyyK%2B2c%3D
 clipped_at: 2024-03-25 20:26:54
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 先知安全沙龙(成都站) - 浅析AD DS渗透中的防御规避 - 先知社区
+# 先知安全沙龙 (成都站) - 浅析 AD DS 渗透中的防御规避 - 先知社区
 
 [![](assets/1711369614-ef9536d1ac65ac38ca7d147be7879ffd.jpeg)](https://xzfile.aliyuncs.com/media/upload/picture/20240325143225-71b841e8-ea71-1.jpeg)
 

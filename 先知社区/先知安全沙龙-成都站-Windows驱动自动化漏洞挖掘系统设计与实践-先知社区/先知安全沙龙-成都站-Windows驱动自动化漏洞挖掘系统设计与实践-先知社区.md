@@ -1,5 +1,5 @@
 ---
-title: 先知安全沙龙(成都站) - Windows驱动自动化漏洞挖掘系统设计与实践 - 先知社区
+title: 先知安全沙龙 (成都站) - Windows 驱动自动化漏洞挖掘系统设计与实践 - 先知社区
 url: https://xz.aliyun.com/t/14183?u_atoken=db311965606fe44f77a1c34591369e2c&u_asession=01P_JA-7dADvQsUp-uq9cdM27OEkJ7Ns6pDzvG51h9Uzs-Kt7wJyQA2s-C52dwLsNMdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=058vBO4-e3H1UrWkzu7GyliMIFLkSu9Sf1vi2o5LVUvNEDVlZ_E1389upd-lAf0J-U_6eJHeVjOsUwuaoyrfzZxzJEowVjJuBsK9ce4AFhN-r0UpgfdY-6HrJ-khh6OfQaq4jlJsu2wX5hdfKtg0aJ7LEIDFpryD6wIO2wUcocbWpg2QMxYs6lyXb1lFWKql566isyA8WF8D8BjYlsiSiRz0OBl5PsGB28xXsz0OmiOBW8lmq4o_QL2BxJwGv-E1F3obPcRjt1p8w8y0POjqvSrqN5W3g58dALT8dQf5BHVpZ6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=HTDFKOzY9FB%2FOzrMWSIrPBwq0fk%3D
 clipped_at: 2024-03-25 20:26:21
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 先知安全沙龙(成都站) - Windows驱动自动化漏洞挖掘系统设计与实践 - 先知社区
+# 先知安全沙龙 (成都站) - Windows 驱动自动化漏洞挖掘系统设计与实践 - 先知社区
 
 [![](assets/1711369581-1c975341a64974f1408dc0d4f36efbe4.jpeg)](https://xzfile.aliyuncs.com/media/upload/picture/20240325142025-c463601e-ea6f-1.jpeg)
 
