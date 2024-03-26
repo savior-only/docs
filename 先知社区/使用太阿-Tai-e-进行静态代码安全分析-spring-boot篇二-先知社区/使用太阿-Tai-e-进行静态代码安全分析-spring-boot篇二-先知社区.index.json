@@ -1,24 +1,26 @@
 {
-	"version": "2.0",
-	"clipId": "1710046292",
-	"format": "md",
-	"title": "使用太阿（Tai-e）进行静态代码安全分析（spring-boot 篇二） - 先知社区",
-	"link": "https://xz.aliyun.com/t/14058?time__1311=mqmx9DBG0QD%3D%3D405DIYYK0%3D9gjOYeTGDcYD",
-	"category": "default",
-	"tags": ["xz.aliyun.com"],
-	"created_at": "2024-03-10 12:51:32",
-	"mainPath": "使用太阿-Tai-e-进行静态代码安全分析-spring-boot 篇二 - 先知社区.md",
-	"paths": [
-		"使用太阿-Tai-e-进行静态代码安全分析-spring-boot 篇二 - 先知社区.index.json",
-		"assets/1710046292-5087d3efed3d7333a09851e55547c149.png",
-		"assets/1710046292-84abee1d35c4caa1e42f7837cdbff754.png",
-		"assets/1710046292-ef1bf3dcced7dad7ef559c2e1eafd8c8.png",
-		"assets/1710046292-53be0bcb2d37c6a87d6d6ef2fd06e9fd.png",
-		"assets/1710046292-86fac51d484966e4be39bcf8f3475899.png",
-		"assets/1710046292-2748935ead70ad29f0c035913a8f2448.png",
-		"assets/1710046292-774d877936a8a8b29bb540a49d71ef6d.png",
-		"assets/1710046292-9f8c8ecf6083bbde59c7fae88d76cf29.png",
-		"assets/1710046292-a0e93d43de3cc2d5964fb094e2d1e4c6.png",
-		"使用太阿-Tai-e-进行静态代码安全分析-spring-boot 篇二 - 先知社区.md"
-	]
+  "version": "2.0",
+  "clipId": "1710046292",
+  "format": "md",
+  "title": "使用太阿（Tai-e）进行静态代码安全分析（spring-boot 篇二） - 先知社区",
+  "link": "https://xz.aliyun.com/t/14058?time__1311=mqmx9DBG0QD%3D%3D405DIYYK0%3D9gjOYeTGDcYD",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+  "created_at": "2024-03-10 12:51:32",
+  "mainPath": "使用太阿-Tai-e-进行静态代码安全分析-spring-boot 篇二 - 先知社区.md",
+  "paths": [
+    "使用太阿-Tai-e-进行静态代码安全分析-spring-boot 篇二 - 先知社区.index.json",
+    "assets/1710046292-5087d3efed3d7333a09851e55547c149.png",
+    "assets/1710046292-84abee1d35c4caa1e42f7837cdbff754.png",
+    "assets/1710046292-ef1bf3dcced7dad7ef559c2e1eafd8c8.png",
+    "assets/1710046292-53be0bcb2d37c6a87d6d6ef2fd06e9fd.png",
+    "assets/1710046292-86fac51d484966e4be39bcf8f3475899.png",
+    "assets/1710046292-2748935ead70ad29f0c035913a8f2448.png",
+    "assets/1710046292-774d877936a8a8b29bb540a49d71ef6d.png",
+    "assets/1710046292-9f8c8ecf6083bbde59c7fae88d76cf29.png",
+    "assets/1710046292-a0e93d43de3cc2d5964fb094e2d1e4c6.png",
+    "使用太阿-Tai-e-进行静态代码安全分析-spring-boot 篇二 - 先知社区.md"
+  ]
 }

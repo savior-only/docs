@@ -1,21 +1,23 @@
 {
-	"version": "2.0",
-	"clipId": "1710900839",
-	"format": "md",
-	"title": "供应链投毒预警 | 恶意 NPM 包利用 Windows 反向 shell 后门攻击开发者 - 先知社区",
-	"link": "https://xz.aliyun.com/t/13955",
-	"category": "default",
-	"tags": ["xz.aliyun.com"],
-	"created_at": "2024-03-20 10:13:59",
-	"mainPath": "供应链投毒预警 - 恶意-NPM-包利用-Windows-反向-shell-后门攻击开发者 - 先知社区.md",
-	"paths": [
-		"供应链投毒预警 - 恶意-NPM-包利用-Windows-反向-shell-后门攻击开发者 - 先知社区.index.json",
-		"assets/1710900839-af9656dca1b5808b3e92d70b91d03885.png",
-		"assets/1710900839-7e1e04218b3ac2a66fd96aa1e1c47523.png",
-		"assets/1710900839-53df81f5bb5191ea6caf78473914ce19.png",
-		"assets/1710900839-9d31820dda91a8168ccad93dc859b08f.png",
-		"assets/1710900839-1b6f5c621fd37c42795f4163432b500f.png",
-		"assets/1710900839-297360ee6141176c978e5c42a14f9df6.png",
-		"供应链投毒预警 - 恶意-NPM-包利用-Windows-反向-shell-后门攻击开发者 - 先知社区.md"
-	]
+  "version": "2.0",
+  "clipId": "1710900839",
+  "format": "md",
+  "title": "供应链投毒预警 | 恶意 NPM 包利用 Windows 反向 shell 后门攻击开发者 - 先知社区",
+  "link": "https://xz.aliyun.com/t/13955",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+  "created_at": "2024-03-20 10:13:59",
+  "mainPath": "供应链投毒预警 - 恶意-NPM-包利用-Windows-反向-shell-后门攻击开发者 - 先知社区.md",
+  "paths": [
+    "供应链投毒预警 - 恶意-NPM-包利用-Windows-反向-shell-后门攻击开发者 - 先知社区.index.json",
+    "assets/1710900839-af9656dca1b5808b3e92d70b91d03885.png",
+    "assets/1710900839-7e1e04218b3ac2a66fd96aa1e1c47523.png",
+    "assets/1710900839-53df81f5bb5191ea6caf78473914ce19.png",
+    "assets/1710900839-9d31820dda91a8168ccad93dc859b08f.png",
+    "assets/1710900839-1b6f5c621fd37c42795f4163432b500f.png",
+    "assets/1710900839-297360ee6141176c978e5c42a14f9df6.png",
+    "供应链投毒预警 - 恶意-NPM-包利用-Windows-反向-shell-后门攻击开发者 - 先知社区.md"
+  ]
 }

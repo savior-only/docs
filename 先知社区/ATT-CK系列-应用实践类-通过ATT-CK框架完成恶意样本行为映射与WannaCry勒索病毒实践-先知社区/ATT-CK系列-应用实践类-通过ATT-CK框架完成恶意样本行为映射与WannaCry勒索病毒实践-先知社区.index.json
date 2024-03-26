@@ -1,0 +1,28 @@
+{
+  "version": "2.0",
+  "clipId": "1711465825",
+  "format": "md",
+  "title": "[ATT&CK系列-应用实践类]通过ATT&CK框架完成恶意样本行为映射与WannaCry勒索病毒实践 - 先知社区",
+  "link": "https://xz.aliyun.com/t/14175?u_atoken=dc1c4fa27741eeba762421d41f452718&u_asession=01Fwi92LJWyxElnDXqeAX9JVFZn5KCmvFmYvWhaZTMXIfE2SKR5stPcSLfLAnU64h8dlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05GGuMYhypPJMKAXWBsvDSelhn8GQFIdcp13uVMnbe0oTS5vcPLgOpv7JRE6870RPoKvZGZeihSakKMlcEoeqAFK2CXJId2NeiLCWMh-UUw1kweH60wCaH-F8Q19H2m0KNYobOTs7ccsRNI4gLj8FmFf2jj3h4GlH5piN52HcFOu1g2QMxYs6lyXb1lFWKql56ML6O8_qk_g3fk8XRALXde_OJsOrP8ZAeVGqZGCqKRrvSKFCPTEUJr2u1RFS3kRCd5C2KqjbFHEqGEvKa8O2RPvocmyDux7x-QPxX7oaU2hB6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=DhAgd4GCHPsHAQHn9uXKNobzYQU%3D&time__1311=eqfxuDBDgDyDnDmx7w405DISG%3DKtoxRcG%2BxmD&alichlgref=https%3A%2F%2Fxz.aliyun.com%2Ft%2F14175",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+  "created_at": "2024-03-26 23:10:25",
+  "mainPath": "ATT-CK系列-应用实践类-通过ATT-CK框架完成恶意样本行为映射与WannaCry勒索病毒实践-先知社区.md",
+  "paths": [
+    "ATT-CK系列-应用实践类-通过ATT-CK框架完成恶意样本行为映射与WannaCry勒索病毒实践-先知社区.index.json",
+    "assets/1711465825-1106880cf61097e258e4e0078d6120e2.png",
+    "assets/1711465825-54df0ce94a606f2abcec1a416c03c658.png",
+    "assets/1711465825-23bac446856880819c739001acafb1a1.png",
+    "assets/1711465825-78b074221fa574c1b6baadca5a050a09.png",
+    "assets/1711465825-a51579e93efbde24f766c900f6370a87.png",
+    "assets/1711465825-f27fd35283d873b71a2344ece4613c3b.png",
+    "assets/1711465825-172b8b82143fab812916fed348cfe2f1.png",
+    "assets/1711465825-e1e4ab898a4eeb4174c79668f07fb4e2.png",
+    "assets/1711465825-127308fa14804bd1a5a9ef321a92a3d1.png",
+    "assets/1711465825-192c590a9a2709391ae0446284458afa.png",
+    "assets/1711465825-c1a690c3008373b105f447e452f0cfec.gif",
+    "ATT-CK系列-应用实践类-通过ATT-CK框架完成恶意样本行为映射与WannaCry勒索病毒实践-先知社区.md"
+  ]
+}

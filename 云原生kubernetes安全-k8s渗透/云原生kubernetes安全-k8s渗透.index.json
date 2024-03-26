@@ -1,0 +1,39 @@
+{
+  "version": "2.0",
+  "clipId": "1711471683",
+  "format": "md",
+  "title": "云原生kubernetes安全[k8s渗透]",
+  "link": "https://blog.csdn.net/qq_34101364/article/details/122506768",
+  "category": "default",
+  "tags": [
+    "blog.csdn.net"
+  ],
+  "created_at": "2024-03-27 00:48:03",
+  "mainPath": "云原生kubernetes安全-k8s渗透.md",
+  "paths": [
+    "云原生kubernetes安全-k8s渗透.index.json",
+    "assets/1711471683-908f622be546d09f2f06e69ff0b87dbd.png",
+    "assets/1711471683-30355265f73279f0654940f61c00e457.png",
+    "assets/1711471683-99d9a2179fddd1289ac1166a6286a2b9.png",
+    "assets/1711471683-3ad2239a9eb0853cfa2554beb3a85b63.png",
+    "assets/1711471683-7cfa9704eada33ccb8c5334db092821e.png",
+    "assets/1711471683-05da9ac8ac1c155c57d318ab017bf773.png",
+    "assets/1711471683-00203372d4aaf37e72b47a41195126e1.png",
+    "assets/1711471683-cbd3a0df0783add5259749a344bccbad.png",
+    "assets/1711471683-ffdf0a94686869de5b854689a517ba25.png",
+    "assets/1711471683-829224930f3f6954c12f7a5f15370e5a.png",
+    "assets/1711471683-39d7ad81e6b45ad6212ce2a173a1c3f2.png",
+    "assets/1711471683-1cc27b864cf8a68e7f87bebd9cc9daf0.png",
+    "assets/1711471683-12c495db7adac137d271283af6b0e705.png",
+    "assets/1711471683-9eb2f413e5ab5b578a608a1bff98227d.png",
+    "assets/1711471683-e999a96b52942c5eefe270859babedbb.png",
+    "assets/1711471683-fa97de1688faad2e0aacef9995fd444b.png",
+    "assets/1711471683-43d87e483b817067599759c0ad74f068.png",
+    "assets/1711471683-1d0a9dcad7e09993f79e05743f1f2267.png",
+    "assets/1711471683-3efe2654d7c65d4de2e459499dea9006.png",
+    "assets/1711471683-b6e9c06969140bf7ef680c4609b62043.png",
+    "assets/1711471683-d022b1700ac530ef3e2b085280db9fda.png",
+    "assets/1711471683-e7d75434dfd91df93a7f8f9517694848.png",
+    "云原生kubernetes安全-k8s渗透.md"
+  ]
+}

@@ -9,7 +9,8 @@
 
 ## 为什么类不能过长？
 
-![如何重构千行“又臭又长”的类，IntelliJ IDEA 几分钟搞定！_IntelliJ IDEA ](assets/1703642470-e9e22d1b69bca0a6fff85075a4fce3a7.jpeg)
+
+
 
 ### 类过长——读不通，扩展不通
 
@@ -52,7 +53,8 @@
 
 ## 我已经写了几千行了，怎么办？
 
-![如何重构千行“又臭又长”的类，IntelliJ IDEA 几分钟搞定！_IntelliJ IDEA _03](assets/1703642470-b067c8e0d29553a2573dc956b7dccee7.jpeg)
+
+
 
 ### 重构——抽取冗余代码
 
@@ -151,10 +153,4 @@ Tom.用扫把扫地 () ×
 
 ![如何重构千行“又臭又长”的类，IntelliJ IDEA 几分钟搞定！_IntelliJ IDEA _13](assets/1703642470-232dbddbbeccbf3846ca82fe10c3af6c.jpeg)
 
-## END
 
-![如何重构千行“又臭又长”的类，IntelliJ IDEA 几分钟搞定！_IntelliJ IDEA _14](assets/1703642470-76f6e98006d95cf559f1bae544d92686.jpeg)
-
-上一篇：[如何优雅的实现 try/catch 异常块？](https://blog.51cto.com/u_12302929/3000377)
-
-下一篇：[图文并茂，详细讲解 UML 类图符号、各种关系说明以及举例](https://blog.51cto.com/u_12302929/3000547)

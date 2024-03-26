@@ -1,27 +1,29 @@
 {
-	"version": "2.0",
-	"clipId": "1710900778",
-	"format": "md",
-	"title": "java 原生反序列化 OverlongEncoding 分析及实战 - 先知社区",
-	"link": "https://xz.aliyun.com/t/13932",
-	"category": "default",
-	"tags": ["xz.aliyun.com"],
-	"created_at": "2024-03-20 10:12:58",
-	"mainPath": "java-原生反序列化-OverlongEncoding-分析及实战 - 先知社区.md",
-	"paths": [
-		"java-原生反序列化-OverlongEncoding-分析及实战 - 先知社区.index.json",
-		"assets/1710900778-713747a374c261c752042fd84f2e29b2.png",
-		"assets/1710900778-f09c6126b9cca381abb55f47bc90f285.png",
-		"assets/1710900778-d31c1ae925139a9ed80a16837a8aa82d.png",
-		"assets/1710900778-b3cfb5b97bcdad5f9a1f493fdce6f6fc.png",
-		"assets/1710900778-45784add94e9197ffac5a57db0e383af.png",
-		"assets/1710900778-6bc8a964dc50e701cb12a1c349c78371.png",
-		"assets/1710900778-7154f0795935dd5587de5620f062573e.png",
-		"assets/1710900778-94da0d2ac3e10fb72428a2af564b4d40.png",
-		"assets/1710900778-8b63ecfad96006206dc1bb9e6a86a296.png",
-		"assets/1710900778-bb7e890a8b7d044f68e42384a4614bc6.png",
-		"assets/1710900778-89bf064cf2aad930dbf21d3a32885fa0.png",
-		"assets/1710900778-11b761736f973ed94c048eded67b185d.png",
-		"java-原生反序列化-OverlongEncoding-分析及实战 - 先知社区.md"
-	]
+  "version": "2.0",
+  "clipId": "1710900778",
+  "format": "md",
+  "title": "java 原生反序列化 OverlongEncoding 分析及实战 - 先知社区",
+  "link": "https://xz.aliyun.com/t/13932",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+  "created_at": "2024-03-20 10:12:58",
+  "mainPath": "java-原生反序列化-OverlongEncoding-分析及实战 - 先知社区.md",
+  "paths": [
+    "java-原生反序列化-OverlongEncoding-分析及实战 - 先知社区.index.json",
+    "assets/1710900778-713747a374c261c752042fd84f2e29b2.png",
+    "assets/1710900778-f09c6126b9cca381abb55f47bc90f285.png",
+    "assets/1710900778-d31c1ae925139a9ed80a16837a8aa82d.png",
+    "assets/1710900778-b3cfb5b97bcdad5f9a1f493fdce6f6fc.png",
+    "assets/1710900778-45784add94e9197ffac5a57db0e383af.png",
+    "assets/1710900778-6bc8a964dc50e701cb12a1c349c78371.png",
+    "assets/1710900778-7154f0795935dd5587de5620f062573e.png",
+    "assets/1710900778-94da0d2ac3e10fb72428a2af564b4d40.png",
+    "assets/1710900778-8b63ecfad96006206dc1bb9e6a86a296.png",
+    "assets/1710900778-bb7e890a8b7d044f68e42384a4614bc6.png",
+    "assets/1710900778-89bf064cf2aad930dbf21d3a32885fa0.png",
+    "assets/1710900778-11b761736f973ed94c048eded67b185d.png",
+    "java-原生反序列化-OverlongEncoding-分析及实战 - 先知社区.md"
+  ]
 }

@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "clipId": "1711471366",
+  "format": "md",
+  "title": "【云攻防系列】从攻击者视角聊聊K8S集群安全（上）",
+  "link": "https://mp.weixin.qq.com/s/yQoqozJgP8F-ad24xgzIPw",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-27 00:42:46",
+  "mainPath": "云攻防系列-从攻击者视角聊聊K8S集群安全-上.md",
+  "paths": [
+    "云攻防系列-从攻击者视角聊聊K8S集群安全-上.index.json",
+    "assets/1711471366-1583a0a3758b4a3b297a7aacfb3f88e3.webp",
+    "assets/1711471366-510e790511a4613809f9ed4256af9633.gif",
+    "assets/1711471366-85051b8c0282dd1d7fcb958c56ac10ef.webp",
+    "云攻防系列-从攻击者视角聊聊K8S集群安全-上.md"
+  ]
+}

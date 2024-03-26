@@ -1,0 +1,42 @@
+{
+  "version": "2.0",
+  "clipId": "1711471298",
+  "format": "md",
+  "title": "云安全之K8s攻击实践",
+  "link": "https://mp.weixin.qq.com/s/7fEXJCOQwCQxR4C1XGHZxA",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-27 00:41:38",
+  "mainPath": "云安全之K8s攻击实践.md",
+  "paths": [
+    "云安全之K8s攻击实践.index.json",
+    "assets/1711471298-81478b3231e38c79aa68a78e48b936a7.webp",
+    "assets/1711471298-a3332d1d19a14a140ff53aeb4d10429c.webp",
+    "assets/1711471298-7a89c6d4fa540d2b86c953487957c2fa.webp",
+    "assets/1711471298-c2ddc1ccfd93676c0b6d0460b31dc5a8.webp",
+    "assets/1711471298-eb25bc45890523ac0759cdf69d2a30a2.webp",
+    "assets/1711471298-dbc01c80e7bb08f796aaa3007b6f574a.webp",
+    "assets/1711471298-c9585161fd8f4788c1e33abd5d53a4fd.webp",
+    "assets/1711471298-259853e7fe8df85f0745c211062ef6e5.webp",
+    "assets/1711471298-92dde15ae16c6a11ae1cfc3eab9a0f25.webp",
+    "assets/1711471298-b7452eafdae3a9cc5b85be5aaebccf9f.webp",
+    "assets/1711471298-1ade4760f6e5dbd042448c2f6b10cfa2.webp",
+    "assets/1711471298-836d84c21e2ce619aab315c0528cbe49.webp",
+    "assets/1711471298-f2c4186a39daad68781aac2a024778c5.webp",
+    "assets/1711471298-4e21d2717a50d0baa65d2ce6f46111c3.webp",
+    "assets/1711471298-6daee28e72749899f50628d1868a5746.webp",
+    "assets/1711471298-250cc2368743a02742604e12c25e4d9d.webp",
+    "assets/1711471298-c602a5479e041003e1ad3b49313f176e.webp",
+    "assets/1711471298-6a4f79814ef2ce1e13b07538411b550c.webp",
+    "assets/1711471298-39e5602f258d5fcc5a3b4cb578b6b33a.webp",
+    "assets/1711471298-51d7f0f1deb0a983e05814bafc01b682.webp",
+    "assets/1711471298-db8521827e0c5b3f659567bac8945efd.webp",
+    "assets/1711471298-c7ca7c386a22ef04d5e79a048eafe827.webp",
+    "assets/1711471298-1852b869f6e9279f1b78d450ea7e13f2.webp",
+    "assets/1711471298-ba8c59800dd3484c5e9bc9737d545571.webp",
+    "assets/1711471298-20ceb1e5d0e76ba4b057fee8e6ee6938.webp",
+    "云安全之K8s攻击实践.md"
+  ]
+}
