@@ -1,0 +1,34 @@
+{
+  "version": "2.0",
+  "clipId": "1711555926",
+  "format": "md",
+  "title": "发现Webpack中泄露的api - 先知社区",
+  "link": "https://xz.aliyun.com/t/9453?u_atoken=668203fba996027bb8bac0fc4e40b89d&u_asession=01OlkognruehaqAxjW_aXsW9fv27XPryvpVzBEnDNn7W-wY2j4WkMWQ2q2t14RTGKmdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05vF4wabVJwBU0xI2oZn8lp5XsL2wKQPoHN9nPNcip30xqsVeFNP3NLYSzHm-HEJQgRzmIIWwnDOIJkYLaeU0q0M6efCMLXYxQh8zv6WRavWdft0919QotcODObTBA--kiuCsfIGcB0s7ojuJ_WHxuIzadoMAwbb54wS56pxT54b9g2QMxYs6lyXb1lFWKql563U2zjz47JbXTLEg-K5HOVkZNQ-PZrScrF4S1G-JLOObHf2iHrZUfuA9hHOrh0zge5U6TlJMQA6vvsqGcHyfTNDx5zLuqaM4EdBOdlMd925p6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=im5r1kPoTmbYWEGZoAL%2FomQZ9ww%3D",
+  "category": "default",
+  "tags": [
+    "xz.aliyun.com"
+  ],
+  "created_at": "2024-03-28 00:12:06",
+  "mainPath": "发现Webpack中泄露的api-先知社区.md",
+  "paths": [
+    "发现Webpack中泄露的api-先知社区.index.json",
+    "assets/1711555926-4464dd66f38a4fa4532f32302a8a0e6f.png",
+    "assets/1711555926-c9b6f816be95a630e370fc34bafb1ddf.png",
+    "assets/1711555926-5a6f8ac768f5be23b6026e147fb3470a.png",
+    "assets/1711555926-9dc7f647adb9a68b63b98acc690e6247.png",
+    "assets/1711555926-28e1b5db9a3cb9211b9d9fee5c6bc23a.png",
+    "assets/1711555926-220e4a3c9aabcd174197c2798be71376.png",
+    "assets/1711555926-3629a5370eb3637a6e24a57885b080e6.png",
+    "assets/1711555926-cd914c86d0dad17536bd0135fffc35b5.png",
+    "assets/1711555926-ef7420e09084515724e352359129bd24.png",
+    "assets/1711555926-a6cb4d552524416c2b47c33c8a41d040.png",
+    "assets/1711555926-e9964a24fcb06fca5bf017ab0b154af6.png",
+    "assets/1711555926-04316daf91ddf1de5756aaa20516bc45.png",
+    "assets/1711555926-042cfabf566f9c39da95666ec7b38792.png",
+    "assets/1711555926-d37b97fc9bab649f184841dbc1ec763a.png",
+    "assets/1711555926-9506591d60e571f43762eaadd0feff8a.png",
+    "assets/1711555926-896b00614535868444ff3713be7d87f2.png",
+    "assets/1711555926-50775c9e2929087b725ee53dace7b561.png",
+    "发现Webpack中泄露的api-先知社区.md"
+  ]
+}
