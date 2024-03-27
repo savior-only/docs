@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711465778",
   "format": "md",
-  "title": "[ATT&CK系列-学习理解类]ATT&CK威胁框架各战术、技术详解(一) <侦察战术> - 先知社区",
+  "title": "[ATT&CK 系列 - 学习理解类]ATT&CK 威胁框架各战术、技术详解 (一) <侦察战术> - 先知社区",
   "link": "https://xz.aliyun.com/t/14179?u_atoken=5c5c62ff34f022c30249429e62178bb9&u_asession=01soMXlkMoCT_GSelz9n2el7jUa0n6Nbw44SuFdh3I3Ei9sAkp059KJxtwRQRc0MtudlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05WiQESu_mR5pRz-DpVzR4wpDH5NwVrD80yu1O0yaK62NxETZI6keQYDMhlYwoN4WN3p5tzWKYziSeifmrEzv1mnRq6wq6piUAx-2jHOAEROtSDz4srLHxlCDxeUSejvORRi4uXVIik2EmwhqVkWfqLAWFJiyournxFbpJ6axR3Adg2QMxYs6lyXb1lFWKql56Y0oJsdwDHlZ24meF9LuweeWNCpT00GYg1UEiyH6lWbPq2khA6Tu2Vp6Uwl1i2rLsFS7THGRRlfjiDSKJpWIJ_C48H0dVEhp4aGh9HDs_jIZ6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=wicsWKi6IAYG8m1QhXRHE%2FrFB0U%3D",
   "category": "default",
   "tags": [
     "xz.aliyun.com"
   ],
   "created_at": "2024-03-26 23:09:38",
-  "mainPath": "ATT-CK系列-学习理解类-ATT-CK威胁框架各战术、技术详解-一-侦察战术-先知社区.md",
+  "mainPath": "ATT-CK 系列 - 学习理解类-ATT-CK 威胁框架各战术、技术详解 - 一-侦察战术 - 先知社区.md",
   "paths": [
-    "ATT-CK系列-学习理解类-ATT-CK威胁框架各战术、技术详解-一-侦察战术-先知社区.index.json",
+    "ATT-CK 系列 - 学习理解类-ATT-CK 威胁框架各战术、技术详解 - 一-侦察战术 - 先知社区.index.json",
     "assets/1711465778-9402e2a0d77ac756cfdf5cec08a16550.png",
     "assets/1711465778-995db0fa3b05f268b1e08d9446e84973.png",
     "assets/1711465778-209939882273e298adf4f25a8e00f0eb.png",
@@ -55,6 +55,6 @@
     "assets/1711465778-262ac584b58e2f18b48e99102954ffed.png",
     "assets/1711465778-49035609aa2692cdd8b8635054cf4dd5.png",
     "assets/1711465778-a241bd53c3da397bf70417608b27bd9b.png",
-    "ATT-CK系列-学习理解类-ATT-CK威胁框架各战术、技术详解-一-侦察战术-先知社区.md"
+    "ATT-CK 系列 - 学习理解类-ATT-CK 威胁框架各战术、技术详解 - 一-侦察战术 - 先知社区.md"
   ]
 }

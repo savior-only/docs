@@ -1,5 +1,5 @@
 ---
-title: 简述NoSQL注入
+title: 简述 NoSQL 注入
 url: https://xz.aliyun.com/t/14163?time__1311=mqmx9DBQw6DsD7CG7DyQvD8QG8BIQGOIBeD#toc-0
 clipped_at: 2024-03-26 23:11:44
 category: default
@@ -7,11 +7,11 @@ tags:
  - xz.aliyun.com
 ---
 
-简述NoSQL注入
+简述 NoSQL 注入
 
 - - -
 
-# 简述NoSQL注入
+# 简述 NoSQL 注入
 
 ## 简介
 
@@ -19,9 +19,9 @@ tags:
 
 ​ 主要从如下四个方面进行说明
 
--   `php array injection attack`(php数据注入攻击)
+-   `php array injection attack`(php 数据注入攻击)
 -   `MongoDB OR injection` (mongo or 注入)
--   `arbitrary JavaScript injection`(任意js文件执行)
+-   `arbitrary JavaScript injection`(任意 js 文件执行)
 -   `more`
 
 ## 注入姿势
@@ -70,7 +70,7 @@ db.users.find({"username":{"$ne":1}, "password":{"$ne":1}});
 
 -   这样我们就可以绕过登录限制，达到未授权访问后端
 
-语义为 `username`不等于1，并且`password`不等于1的用户，转换成我们熟悉的`SQL`语句如下
+语义为 `username`不等于 1，并且`password`不等于 1 的用户，转换成我们熟悉的`SQL`语句如下
 
 ```plain
 select * from users where username <> 1 and password <> 1
@@ -215,11 +215,11 @@ return 1;db.stores.mapReduce(function() { { emit(1,1
 -   这里我们将代码分为三部分进行分析
 
 ```plain
-# 闭合前部js代码
+# 闭合前部 js 代码
 a);}},function(kv) { return 1; }, { out: 'x' });
 # 真正的注入语句
 db.injection.insert({success:1});
-# 闭合后部js代码
+# 闭合后部 js 代码
 return 1;db.stores.mapReduce(function() { { emit(1,1
 ```
 
@@ -386,7 +386,7 @@ $doc_succeed->loadHTMLFile("succeed.html");
 
 [![](assets/1711465904-58b2c5f116eebd5736bbdf388aa914eb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240323182038-fed6b268-e8fe-1.png)
 
-### NoSQL注入污染数据库
+### NoSQL 注入污染数据库
 
 ​ 开发的伪代码类似如下：
 
@@ -430,8 +430,8 @@ db.user.update(user_data[id], user_data)
 
 #### 动态&&静态安全扫描
 
--   动态代码扫描Dynamic Application Security Testing (DAST)
--   静态代码分析(static code analysis)
+-   动态代码扫描 Dynamic Application Security Testing (DAST)
+-   静态代码分析 (static code analysis)
 
 #### 控制`rest api`接口请求
 
@@ -456,7 +456,7 @@ db.user.update(user_data[id], user_data)
 
 ## 写在最后
 
-### fuzz字典
+### fuzz 字典
 
 [https://github.com/cr0hn/nosqlinjection\_wordlists/blob/master/mongodb\_nosqli.txt](https://github.com/cr0hn/nosqlinjection_wordlists/blob/master/mongodb_nosqli.txt)
 

@@ -1,5 +1,5 @@
 ---
-title: 内网渗透瑞士军刀-impacket工具解析（四）
+title: 内网渗透瑞士军刀-impacket 工具解析（四）
 url: https://mp.weixin.qq.com/s/SXmRkR0PNmW0QkjCuZN-cA
 clipped_at: 2024-03-27 00:32:50
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 内网渗透瑞士军刀-impacket工具解析（四）
+# 内网渗透瑞士军刀-impacket 工具解析（四）
 
   
 
@@ -20,13 +20,13 @@ tags:
 
 preface
 
-前两篇我们介绍了impacket中对DCERPC协议的内容，今天我们对Windows网络中另一个应用层协议的内容进行介绍，在Windows网络中最常用的协议就是SMB协议了，SMB (Server Message Block) 是一种用于在计算机网络上共享文件、打印机和其他资源的协议。
+前两篇我们介绍了 impacket 中对 DCERPC 协议的内容，今天我们对 Windows 网络中另一个应用层协议的内容进行介绍，在 Windows 网络中最常用的协议就是 SMB 协议了，SMB (Server Message Block) 是一种用于在计算机网络上共享文件、打印机和其他资源的协议。
 
-在impacket中基于SMB协议主要实现远程文件访问及DCERPC调用两大作用，在SMBv1实现了标准的SMB认证，SMBv1和SMBv2中都实现了NTLM和Kerberos的拓展认证方式。
+在 impacket 中基于 SMB 协议主要实现远程文件访问及 DCERPC 调用两大作用，在 SMBv1 实现了标准的 SMB 认证，SMBv1 和 SMBv2 中都实现了 NTLM 和 Kerberos 的拓展认证方式。
 
 SMB 协议在不同的 Windows 版本中有不同的实现，如 SMBv1、SMBv2、SMBv3 等。较新的 SMB 版本提供了更高的性能、更好的安全性和更多的功能，并且能够与其他协议（如 HTTP）进行集成，以提供更强大的功能和更灵活的部署选项。
 
-在impacket中，smb协议的底层实现主要有以下几个文件组成
+在 impacket 中，smb 协议的底层实现主要有以下几个文件组成
 
 smb.py
 
@@ -38,11 +38,11 @@ smbconnection.py
 
 nmb.py
 
-其中smb.py和smb3.py分别是SMBv1和SMBv2/v3的核心实现，SMBv1协议中，数据结构、常量和方法全都包含在smb.py一个文件当中，而SMBv2中将常量和数据结构的定义放在了smb3structs.py文件里面。
+其中 smb.py 和 smb3.py 分别是 SMBv1 和 SMBv2/v3 的核心实现，SMBv1 协议中，数据结构、常量和方法全都包含在 smb.py 一个文件当中，而 SMBv2 中将常量和数据结构的定义放在了 smb3structs.py 文件里面。
 
   
 
-**SMB与NetBIOS**  
+**SMB 与 NetBIOS**  
 
   
 
@@ -62,11 +62,11 @@ nmb.py
 
   
 
-        我们可以从smb和smb3的实现里看到，两个版本的底层传输都不是基于TCP，而是基于NetBIOS传输服务。
+        我们可以从 smb 和 smb3 的实现里看到，两个版本的底层传输都不是基于 TCP，而是基于 NetBIOS 传输服务。
 
   
 
-        smb中，数据包通过sendSMB发送
+        smb 中，数据包通过 sendSMB 发送
 
   
 
@@ -74,7 +74,7 @@ nmb.py
 
   
 
-        在该方法中调用的是\_sess.send\_packet，而\_sess就是一个NetBIOS会话实例
+        在该方法中调用的是\_sess.send\_packet，而\_sess 就是一个 NetBIOS 会话实例
 
   
 
@@ -82,7 +82,7 @@ nmb.py
 
   
 
-        smb3中，虽然sendSMB内部实现以及会话变量命名有所不同，但是本质上也是将NetBIOS会话服务作为底层的传输协议。
+        smb3 中，虽然 sendSMB 内部实现以及会话变量命名有所不同，但是本质上也是将 NetBIOS 会话服务作为底层的传输协议。
 
   
 
@@ -94,7 +94,7 @@ nmb.py
 
   
 
-SmbConnection 和 SmbSession 是与 SMB (Server Message Block) 协议相关的概念，在impacket中，
+SmbConnection 和 SmbSession 是与 SMB (Server Message Block) 协议相关的概念，在 impacket 中，
 
 SmbConnection 是表示客户端与 SMB 服务器之间的连接的对象或类。它提供了建立和管理 SMB 连接的功能。通过 SmbConnection，可以指定服务器的地址和端口，建立 TCP 连接，并进行 SMB 会话的设置和管理。这个对象或类通常提供了一组方法来发送 SMB 请求、处理响应和管理连接的生命周期。
 
@@ -104,7 +104,7 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
   
 
-在 impacket 中，使用 SMBConnection 类来表示 SMB 连接，使用Session成员变量来表示 SMB 会话。
+在 impacket 中，使用 SMBConnection 类来表示 SMB 连接，使用 Session 成员变量来表示 SMB 会话。
 
   
 
@@ -116,11 +116,11 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
 **Smbconnection**  
 
-        通常情况下，使用impacket进行smb连接并不会直接使用smb和smb3这两个包文件里面的类，而是会用到smbconnection.py中的SMBConnection类，这个类的主要作用是对SMBv1/SMBv2/v3三个版本进行了一个包装，并且在类里面实现了自动协商以及一些常用的功能。
+        通常情况下，使用 impacket 进行 smb 连接并不会直接使用 smb 和 smb3 这两个包文件里面的类，而是会用到 smbconnection.py 中的 SMBConnection 类，这个类的主要作用是对 SMBv1/SMBv2/v3 三个版本进行了一个包装，并且在类里面实现了自动协商以及一些常用的功能。
 
-**初始化SMB连接**  
+**初始化 SMB 连接**  
 
-        由于impacket中都是使用smbconnection.py中的SMBConnection类来进行初始化连接，所以我们可以以这个类为起点进行分析，首先是初始化函数，
+        由于 impacket 中都是使用 smbconnection.py 中的 SMBConnection 类来进行初始化连接，所以我们可以以这个类为起点进行分析，首先是初始化函数，
 
   
 
@@ -128,7 +128,7 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
   
 
-        初始化函数中参数中和目标相关的有两个remoteName和remoteHost，并且这里如果没有填写remoteName就会报错。
+        初始化函数中参数中和目标相关的有两个 remoteName 和 remoteHost，并且这里如果没有填写 remoteName 就会报错。
 
   
 
@@ -140,11 +140,11 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
   
 
-        可能我们会有疑问，只要知道目标的ip地址不就可以连接了吗，为什么还有填写目标名称，这里其实是对NetBIOS协议的兼容，因为NetBIOS网络中计算机之间使用计算机名通过NetBIOS Name Service (NBNS)协议就可以解析到IP，进行通信。
+        可能我们会有疑问，只要知道目标的 ip 地址不就可以连接了吗，为什么还有填写目标名称，这里其实是对 NetBIOS 协议的兼容，因为 NetBIOS 网络中计算机之间使用计算机名通过 NetBIOS Name Service (NBNS) 协议就可以解析到 IP，进行通信。
 
-**SMB版本与协商**  
+**SMB 版本与协商**  
 
-初始化函数中还实现了smb协商，在 SMB协议中，SMB 版本的协商是客户端和服务器之间确定使用的 SMB 版本的过程。协商发生在建立 SMB 连接的初始阶段，确保客户端和服务器使用兼容的 SMB 版本进行通信。
+初始化函数中还实现了 smb 协商，在 SMB 协议中，SMB 版本的协商是客户端和服务器之间确定使用的 SMB 版本的过程。协商发生在建立 SMB 连接的初始阶段，确保客户端和服务器使用兼容的 SMB 版本进行通信。
 
   
 
@@ -177,7 +177,7 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
   
 
-从代码中可以看到，默认情况下手动协商是False，所以会进行调用negotiateSession方法进行自动协商，在negotiateSession又会调用negotiateSessionWildcard，这里是真正的协商函数。
+从代码中可以看到，默认情况下手动协商是 False，所以会进行调用 negotiateSession 方法进行自动协商，在 negotiateSession 又会调用 negotiateSessionWildcard，这里是真正的协商函数。
 
   
 
@@ -185,7 +185,7 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
   
 
-在这里首先会建立一个NetBIOS连接，然后通过NetBIOS会话发送一个SMBv1的协商包，再返回negotiateSession函数
+在这里首先会建立一个 NetBIOS 连接，然后通过 NetBIOS 会话发送一个 SMBv1 的协商包，再返回 negotiateSession 函数
 
   
 
@@ -193,23 +193,23 @@ SmbSession 是表示客户端与 SMB 服务器之间的会话的对象或类。�
 
   
 
-根据返回包的第一个字节来判断服务端返回的smb版本并且调用对应版本的类来初始化对应版本的Smb连接。
+根据返回包的第一个字节来判断服务端返回的 smb 版本并且调用对应版本的类来初始化对应版本的 Smb 连接。
 
   
 
-**SMB认证**  
+**SMB 认证**  
 
   
 
-  在上一步中通过我们可以知道在impacket中，通过指定服务器名称和IP后与服务端建立NetBIOS连接之后，通过协商确定使用的SMB协议版本，此时已经建立了SMBConnection，但是还没有建立SMBSession，需要通过认证来建立一个Session，SMB服务支持NTLM和Kerberos两种认证方式。
+  在上一步中通过我们可以知道在 impacket 中，通过指定服务器名称和 IP 后与服务端建立 NetBIOS 连接之后，通过协商确定使用的 SMB 协议版本，此时已经建立了 SMBConnection，但是还没有建立 SMBSession，需要通过认证来建立一个 Session，SMB 服务支持 NTLM 和 Kerberos 两种认证方式。
 
   
 
 **01**
 
-**NTLM认证**
+**NTLM 认证**
 
-smb与smb3中NTLM登录函数名称都是login，不同的是smb中多了一个NTLMFallback参数，当这个参数为True时，使用SMBv1登录时首先会尝试NTLMv2认证，如果失败会再尝试回滚到NTLMv1再次发起认证，SMBv2和smbv3都不支持NTLMv1.
+smb 与 smb3 中 NTLM 登录函数名称都是 login，不同的是 smb 中多了一个 NTLMFallback 参数，当这个参数为 True 时，使用 SMBv1 登录时首先会尝试 NTLMv2 认证，如果失败会再尝试回滚到 NTLMv1 再次发起认证，SMBv2 和 smbv3 都不支持 NTLMv1.
 
   
 
@@ -217,7 +217,7 @@ smb与smb3中NTLM登录函数名称都是login，不同的是smb中多了一个N
 
   
 
-  在比较老的SMBv1协议中，ntlm登录使用的是“标准登录”，在这种登录方式中，ntlm challenge通过协商时的响应包传递给客户端，客户端再生成ntlm response，再在SessionSetup过程中将ntlm response直接放在SMB的AnsiPwd和UnicodePwd字段中。
+  在比较老的 SMBv1 协议中，ntlm 登录使用的是“标准登录”，在这种登录方式中，ntlm challenge 通过协商时的响应包传递给客户端，客户端再生成 ntlm response，再在 SessionSetup 过程中将 ntlm response 直接放在 SMB 的 AnsiPwd 和 UnicodePwd 字段中。
 
   
 
@@ -225,7 +225,7 @@ smb与smb3中NTLM登录函数名称都是login，不同的是smb中多了一个N
 
   
 
-这种方式的缺点就是难以对认证方式进行拓展，所以在后来的smb和SMBv2及smbv3中都使用了SPNEGO，通过SPNEGO结构将不同类型的认证数据进行包装，从而实现灵活的拓展。在这种情况下认证数据都放在SessionSetup数据包的SecurityBuffer字段中。
+这种方式的缺点就是难以对认证方式进行拓展，所以在后来的 smb 和 SMBv2 及 smbv3 中都使用了 SPNEGO，通过 SPNEGO 结构将不同类型的认证数据进行包装，从而实现灵活的拓展。在这种情况下认证数据都放在 SessionSetup 数据包的 SecurityBuffer 字段中。
 
   
 
@@ -237,9 +237,9 @@ smb与smb3中NTLM登录函数名称都是login，不同的是smb中多了一个N
 
 **02**
 
-**Kerberos认证**  
+**Kerberos 认证**  
 
-smb和smb3中Kerberos登录的实现方式基本都相同，从参数可以看到用户可以提供密码、hash、TGT、TGS作为认证凭据，这一点和kerberos协议中实现的getKerberosTGT类似。
+smb 和 smb3 中 Kerberos 登录的实现方式基本都相同，从参数可以看到用户可以提供密码、hash、TGT、TGS 作为认证凭据，这一点和 kerberos 协议中实现的 getKerberosTGT 类似。
 
   
 
@@ -247,7 +247,7 @@ smb和smb3中Kerberos登录的实现方式基本都相同，从参数可以看�
 
   
 
-在没有提供TGT及TGS的情况下首先会使用getKerberosTGT来获取一个TGT、再利用TGT获取目标服务的CIFS票据，这里使用的SPN是目标服务器的机器名，如果是IP的话，KDC就会找不到这个SPN。
+在没有提供 TGT 及 TGS 的情况下首先会使用 getKerberosTGT 来获取一个 TGT、再利用 TGT 获取目标服务的 CIFS 票据，这里使用的 SPN 是目标服务器的机器名，如果是 IP 的话，KDC 就会找不到这个 SPN。
 
   
 
@@ -255,7 +255,7 @@ smb和smb3中Kerberos登录的实现方式基本都相同，从参数可以看�
 
   
 
-获取到TGS之后并不是直接将TGS的票据发送到目标服务，而是先构造一个AP\_REQ，再使用SPNEGO进行包装
+获取到 TGS 之后并不是直接将 TGS 的票据发送到目标服务，而是先构造一个 AP\_REQ，再使用 SPNEGO 进行包装
 
   
 
@@ -273,7 +273,7 @@ smb和smb3中Kerberos登录的实现方式基本都相同，从参数可以看�
 
 **加密与签名**
 
-SMBv1及SMBv2都只支持签名、smbv3则支持数据包加密，我们可以看一下签名和加密对应的方法。SMBv1位于SMB.signSMB方法，这个方法使用的签名方式是md5，密钥是signingSessionKey
+SMBv1 及 SMBv2 都只支持签名、smbv3 则支持数据包加密，我们可以看一下签名和加密对应的方法。SMBv1 位于 SMB.signSMB 方法，这个方法使用的签名方式是 md5，密钥是 signingSessionKey
 
   
 
@@ -289,7 +289,7 @@ SMBv1及SMBv2都只支持签名、smbv3则支持数据包加密，我们可以�
 
   
 
-可以发现实际使用的是内部变量SigningSessionKey，通过查找这个变量的初始化位置，发现在ntlm登录和kerberos登录处对该变量进行了初始化
+可以发现实际使用的是内部变量 SigningSessionKey，通过查找这个变量的初始化位置，发现在 ntlm 登录和 kerberos 登录处对该变量进行了初始化
 
   
 
@@ -301,11 +301,11 @@ SMBv1及SMBv2都只支持签名、smbv3则支持数据包加密，我们可以�
 
   
 
-在ntlm认证会话中，使用的签名密钥是生成Type3消息返回的exportedSessionKey，而在Kerberos登录会话中则是使用TGS\_REP中的sessionkey。
+在 ntlm 认证会话中，使用的签名密钥是生成 Type3 消息返回的 exportedSessionKey，而在 Kerberos 登录会话中则是使用 TGS\_REP 中的 sessionkey。
 
   
 
-在smb3中，签名还是使用sessionKey，但是签名算法有所不同
+在 smb3 中，签名还是使用 sessionKey，但是签名算法有所不同
 
   
 
@@ -313,11 +313,11 @@ SMBv1及SMBv2都只支持签名、smbv3则支持数据包加密，我们可以�
 
   
 
-SMBv2使用的是hmac，sha256算法生成的hash前16字节，而smbv3则使用的是AES-GMAC算法。
+SMBv2 使用的是 hmac，sha256 算法生成的 hash 前 16 字节，而 smbv3 则使用的是 AES-GMAC 算法。
 
   
 
-加密的逻辑在SMB3.sendSMB方法中，加密方式为AES128\_CCM
+加密的逻辑在 SMB3.sendSMB 方法中，加密方式为 AES128\_CCM
 
   
 
@@ -329,7 +329,7 @@ SMBv2使用的是hmac，sha256算法生成的hash前16字节，而smbv3则使用
 
   
 
-ntlm登录初始化加密密钥
+ntlm 登录初始化加密密钥
 
   
 
@@ -337,7 +337,7 @@ ntlm登录初始化加密密钥
 
   
 
-Kerberos登录初始化加密密钥
+Kerberos 登录初始化加密密钥
 
   
 
@@ -347,7 +347,7 @@ Kerberos登录初始化加密密钥
 
   
 
-**TreeConnect与共享**  
+**TreeConnect 与共享**  
 
   
 
@@ -376,7 +376,7 @@ Tree Connect 是 SMB 协议中的一个重要步骤，它允许客户端与服�
 
   
 
-从SMBConnection.connectTree方法来看，smb和smb3调用的方法都是connect\_tree
+从 SMBConnection.connectTree 方法来看，smb 和 smb3 调用的方法都是 connect\_tree
 
   
 
@@ -384,7 +384,7 @@ Tree Connect 是 SMB 协议中的一个重要步骤，它允许客户端与服�
 
   
 
-实际上在smb.py中方法使用的都是下划线命名，而在smb3中方法使用的是驼峰命名法，为了向前兼容，在smb3中都给方法加了一个别名
+实际上在 smb.py 中方法使用的都是下划线命名，而在 smb3 中方法使用的是驼峰命名法，为了向前兼容，在 smb3 中都给方法加了一个别名
 
   
 
@@ -392,7 +392,7 @@ Tree Connect 是 SMB 协议中的一个重要步骤，它允许客户端与服�
 
   
 
-connectTree方法底层实际上是发送SMB2\_TREE\_CONNECT的数据包，该数据包的ShareName方法接受的是UNC路径，我们可以看到这里对共享名称进行了转换。
+connectTree 方法底层实际上是发送 SMB2\_TREE\_CONNECT 的数据包，该数据包的 ShareName 方法接受的是 UNC 路径，我们可以看到这里对共享名称进行了转换。
 
   
 
@@ -406,7 +406,7 @@ connectTree方法底层实际上是发送SMB2\_TREE\_CONNECT的数据包，该�
 
   
 
-我们可以从一个简单的文件读取函数来了解smb文件读取的过程，SMBConnection.getFile方法可以实现从smb服务端来读取文件，这里个方法涉及多个SMB数据包交换，首先看参数，参数中包含
+我们可以从一个简单的文件读取函数来了解 smb 文件读取的过程，SMBConnection.getFile 方法可以实现从 smb 服务端来读取文件，这里个方法涉及多个 SMB 数据包交换，首先看参数，参数中包含
 
 shareName 共享名称、path 文件路径、callback 文件内容回调函数、mode 文件访问模式、offset 偏移、password 未使用的参数、shareAccessMode 共享访问模式。
 
@@ -416,7 +416,7 @@ shareName 共享名称、path 文件路径、callback 文件内容回调函数�
 
   
 
-首先通过connectTree来连接共享，比如需要读取C盘，那么shareName默认就是C#
+首先通过 connectTree 来连接共享，比如需要读取 C 盘，那么 shareName 默认就是 C#
 
   
 
@@ -424,7 +424,7 @@ shareName 共享名称、path 文件路径、callback 文件内容回调函数�
 
   
 
-连接到共享之后调用create函数，create函数底层发送的是SMB2\_CREATE数据包，SMB2\_CREATE不仅是用于创建文件，也可以用于访问文件。
+连接到共享之后调用 create 函数，create 函数底层发送的是 SMB2\_CREATE 数据包，SMB2\_CREATE 不仅是用于创建文件，也可以用于访问文件。
 
   
 
@@ -440,7 +440,7 @@ shareName 共享名称、path 文件路径、callback 文件内容回调函数�
 
   
 
-在获取了fileId之后的操作是通过SMB2\_QUERY\_INFO命令来获取文件的大小，根据协商确定的最大传输大小来确定是否进行分片传输。
+在获取了 fileId 之后的操作是通过 SMB2\_QUERY\_INFO 命令来获取文件的大小，根据协商确定的最大传输大小来确定是否进行分片传输。
 
   
 
@@ -458,15 +458,15 @@ shareName 共享名称、path 文件路径、callback 文件内容回调函数�
 
   
 
-**SMB与RPC传输**  
+**SMB 与 RPC 传输**  
 
   
 
-Windows操作系统中，我们执行net share命令查看系统共享，可以发现除了文件夹和磁盘共享外，还存在一个存在一个没有对应文件的特殊共享叫做IPC$，这个共享就是用于进行进程间通信（Inter-Process Communication，IPC）。IPC$ 共享允许客户端与服务器之间进行命名管道和RPC（Remote Procedure Call）通信。通过 IPC$ 共享，客户端可以与服务器上的特定进程进行通信，实现例如访问服务、访问注册表或调用远程方法等功能。需要注意的是，IPC$ 共享是 SMB 协议的一部分，而不是文件系统的一部分,它提供了一种机制，使客户端能够与服务器上的进程进行通信，而不是直接访问文件或目录。
+Windows 操作系统中，我们执行 net share 命令查看系统共享，可以发现除了文件夹和磁盘共享外，还存在一个存在一个没有对应文件的特殊共享叫做 IPC$，这个共享就是用于进行进程间通信（Inter-Process Communication，IPC）。IPC$ 共享允许客户端与服务器之间进行命名管道和 RPC（Remote Procedure Call）通信。通过 IPC$ 共享，客户端可以与服务器上的特定进程进行通信，实现例如访问服务、访问注册表或调用远程方法等功能。需要注意的是，IPC$ 共享是 SMB 协议的一部分，而不是文件系统的一部分，它提供了一种机制，使客户端能够与服务器上的进程进行通信，而不是直接访问文件或目录。
 
   
 
-impacket中RPC的SMB传输方式就利用到了这种机制，我们在来回顾RPC的SMB传输实现。
+impacket 中 RPC 的 SMB 传输方式就利用到了这种机制，我们在来回顾 RPC 的 SMB 传输实现。
 
   
 
@@ -474,7 +474,7 @@ impacket中RPC的SMB传输方式就利用到了这种机制，我们在来回顾
 
   
 
-在认证之后建立SMB会话之后实现连接到IPC$共享，再调用openFile打开了文件，这里的filename参数实际就是初始化传输时的命名管道。
+在认证之后建立 SMB 会话之后实现连接到 IPC$共享，再调用 openFile 打开了文件，这里的 filename 参数实际就是初始化传输时的命名管道。
 
   
 
@@ -482,7 +482,7 @@ impacket中RPC的SMB传输方式就利用到了这种机制，我们在来回顾
 
   
 
-openFile与文件读取相同，也是使用create，只不过设置的默认参数不同。
+openFile 与文件读取相同，也是使用 create，只不过设置的默认参数不同。
 
   
 
@@ -490,7 +490,7 @@ openFile与文件读取相同，也是使用create，只不过设置的默认参
 
   
 
-打开对应的命名管道之后，通过对命名管道的读写就实现了RPC数据的传输。
+打开对应的命名管道之后，通过对命名管道的读写就实现了 RPC 数据的传输。
 
   
 
@@ -498,7 +498,7 @@ openFile与文件读取相同，也是使用create，只不过设置的默认参
 
   
 
-在Windows操作系统中利用RPC向外暴露了大量的应用服务，利用RPC在Windows网络中可以实现远程管理、计划任务、日志读取等应用。与此同时，安全研究员也在对Windows RPC的研究中发现了多处严重漏洞，从攻击者的视角来说，攻击者也在尝试从正常的RPC功能中挖掘针对Windows的新型攻击手法，在这一过程中产生了大量基于impacket的内网渗透工具，在后续的impacket系列文章中，我们将结合具体的攻击场景及工具源码对impacket中存在的工具进行分析讲解。
+在 Windows 操作系统中利用 RPC 向外暴露了大量的应用服务，利用 RPC 在 Windows 网络中可以实现远程管理、计划任务、日志读取等应用。与此同时，安全研究员也在对 Windows RPC 的研究中发现了多处严重漏洞，从攻击者的视角来说，攻击者也在尝试从正常的 RPC 功能中挖掘针对 Windows 的新型攻击手法，在这一过程中产生了大量基于 impacket 的内网渗透工具，在后续的 impacket 系列文章中，我们将结合具体的攻击场景及工具源码对 impacket 中存在的工具进行分析讲解。
 
   
 

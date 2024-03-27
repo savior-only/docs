@@ -1,5 +1,5 @@
 ---
-title: 奇安信攻防社区-Open_basedir绕过学习
+title: 奇安信攻防社区-Open_basedir 绕过学习
 url: https://forum.butian.net/share/2808
 clipped_at: 2024-03-28 00:01:16
 category: default
@@ -8,13 +8,13 @@ tags:
 ---
 
 
-# 奇安信攻防社区-Open_basedir绕过学习
+# 奇安信攻防社区-Open_basedir 绕过学习
 
 # introduction
 
-**Open\_basedir**是PHP设置中为了防御PHP跨目录进行文件（目录）读写的方法，所有PHP中有关文件读、写的函数都会经过open\_basedir的检查。Open\_basedir实际上是一些目录的集合，在定义了open\_basedir以后，php可以读写的文件、目录都将被限制在这些目录中。
+**Open\_basedir**是 PHP 设置中为了防御 PHP 跨目录进行文件（目录）读写的方法，所有 PHP 中有关文件读、写的函数都会经过 open\_basedir 的检查。Open\_basedir 实际上是一些目录的集合，在定义了 open\_basedir 以后，php 可以读写的文件、目录都将被限制在这些目录中。
 
-设置open\_basedir的方法，在linux下，不同的目录由“:”分割，如“/var/www/:/tmp/”；在Windows下不同目录由“;”分割，如“c:/www;c:/windows/temp”。  
+设置 open\_basedir 的方法，在 linux 下，不同的目录由“:”分割，如“/var/www/:/tmp/”；在 Windows 下不同目录由“;”分割，如“c:/www;c:/windows/temp”。  
 !\[\[basedir1.png\]\]  
 可以在**php.ini**配置文件中进行配置
 
@@ -22,11 +22,11 @@ tags:
 
 # globe://伪协议
 
-那么在使用这个协议之前那肯定得知道这个协议是什么吧，所以也是去看了一下php的doc [https://www.php.net/manual/zh/wrappers.glob.php](https://www.php.net/manual/zh/wrappers.glob.php)
+那么在使用这个协议之前那肯定得知道这个协议是什么吧，所以也是去看了一下 php 的 doc [https://www.php.net/manual/zh/wrappers.glob.php](https://www.php.net/manual/zh/wrappers.glob.php)
 
 ### Simple Globe://
 
-可以看见官方给出的demo
+可以看见官方给出的 demo
 
 ```php
 <?php  
@@ -39,12 +39,12 @@ printf("%s: %.1FK\n", $f->getFilename(), $f->getSize()/1024);
 ?>
 ```
 
-这个只做一个引入，因为单纯的使用globe伪协议是没有办法绕过的，并且不能列出前面的目录以及以外的文件，更不能读取文件内容所以单纯的使用并没有什么好玩的
+这个只做一个引入，因为单纯的使用 globe 伪协议是没有办法绕过的，并且不能列出前面的目录以及以外的文件，更不能读取文件内容所以单纯的使用并没有什么好玩的
 
 ### Diretorylterator + Globe://
 
-关于Diretorylterator这个类的一些介绍： [https://www.php.net/manual/zh/class.directoryiterator.php](https://www.php.net/manual/zh/class.directoryiterator.php)  
-php5中增加的一个类，为用户提供一个简单的查看目录的接口  
+关于 Diretorylterator 这个类的一些介绍： [https://www.php.net/manual/zh/class.directoryiterator.php](https://www.php.net/manual/zh/class.directoryiterator.php)  
+php5 中增加的一个类，为用户提供一个简单的查看目录的接口  
 demo2:
 
 ```php
@@ -59,7 +59,7 @@ foreach($result as $s){
 }
 ```
 
-这里自己打了一遍，因为不想贴别人的代码...（主要是自己打一遍比较好）,绕过条件：PHP>5.3 && Linux环境下才可
+这里自己打了一遍，因为不想贴别人的代码...（主要是自己打一遍比较好）,绕过条件：PHP>5.3 && Linux 环境下才可
 
 ### opendir()+readdir()+glob://
 
@@ -82,10 +82,10 @@ if ( $b = opendir($a) ) {
 
 ### scandir()+glob://
 
-关于这个解法我不打算去看因为这个也是好像绕不了open\_basedir的  
-引用：“这种方法也只能列出根目录和open\_basedir允许目录下的文件。“
+关于这个解法我不打算去看因为这个也是好像绕不了 open\_basedir 的  
+引用：“这种方法也只能列出根目录和 open\_basedir 允许目录下的文件。“
 
-# symlink绕过
+# symlink 绕过
 
 `symlink()`函数创建一个从指定名称连接的现存目标文件开始的符号连接。： [https://www.php.net/manual/zh/function.symlink.php](https://www.php.net/manual/zh/function.symlink.php)  
 用法：  
@@ -115,10 +115,10 @@ mkdir("SD");
 这里的原理就是通过软连接作为一个桥梁来进行绕过  
 具体的思路如下：
 
--   创建了A/B/C/D这个目录
--   创建SD软链接到目录A/B/C/D
--   然后让POC指向SD上面的目录这个时候因为返回后../../../../刚好回到open\_basedir限制的html目录下面所以这里没毛病
--   然后删除了SD软链接又创建了一个文件夹这个时候POC指向的就是:  
+-   创建了 A/B/C/D 这个目录
+-   创建 SD 软链接到目录 A/B/C/D
+-   然后让 POC 指向 SD 上面的目录这个时候因为返回后../../../../刚好回到 open\_basedir 限制的 html 目录下面所以这里没毛病
+-   然后删除了 SD 软链接又创建了一个文件夹这个时候 POC 指向的就是： 
     **var/www/html/SD/../../../../etc/passwd**从而进行绕过（这个思路确实好玩）  
     exp
 
@@ -231,16 +231,16 @@ function getRandStr($length = 6) {
 }
 ```
 
-# realpath列举目录
+# realpath 列举目录
 
-**Realpath**函数是php中将一个路径规范化成为绝对路径的方法，它可以去掉多余的../或./等跳转字符，能将相对路径转换成绝对路径。  
-but，在开启了open\_basedir以后，这个函数有个特点：当我们传入的路径是一个不存在的文件（目录）时，它将返回false；当我们传入一个不在open\_basedir里的文件（目录）时，他将抛出错误（File is not within the allowed path(s)）。  
-所以就是利用这个特性进行猜解，考虑到效率问题，所以利用了Windows下的通配符
+**Realpath**函数是 php 中将一个路径规范化成为绝对路径的方法，它可以去掉多余的../或./等跳转字符，能将相对路径转换成绝对路径。  
+but，在开启了 open\_basedir 以后，这个函数有个特点：当我们传入的路径是一个不存在的文件（目录）时，它将返回 false；当我们传入一个不在 open\_basedir 里的文件（目录）时，他将抛出错误（File is not within the allowed path(s)）。  
+所以就是利用这个特性进行猜解，考虑到效率问题，所以利用了 Windows 下的通配符
 
 ```php
 <?php
 ini_set('open_basedir', dirname(__FILE__));
-printf("<b>open_basedir: %s</b><br />", ini_get('open_basedir')); //打印了当前open限制的目录
+printf("<b>open_basedir: %s</b><br />", ini_get('open_basedir')); //打印了当前 open 限制的目录
 set_error_handler('isexists');
 $dir = 'd:/test/';
 $file = '';
@@ -260,8 +260,8 @@ function isexists($errno, $errstr)
 ?>
 ```
 
-脚本可以列出D:/test/下的文件目录，当然这个只在Windows下适用在linux下面不适用  
-这里还有一个缺点就是不能列出来首字母相同的文件，所以我打算改进一下p神的脚本
+脚本可以列出 D:/test/下的文件目录，当然这个只在 Windows 下适用在 linux 下面不适用  
+这里还有一个缺点就是不能列出来首字母相同的文件，所以我打算改进一下 p 神的脚本
 
 ```php
 <?php
@@ -306,16 +306,16 @@ function isexists($errno, $errstr)
 ?>
 ```
 
-# 利用SplFileInfo::getRealPath()列举目录
+# 利用 SplFileInfo::getRealPath() 列举目录
 
-**SplFileInfo**类是PHP5.1.2之后引入的一个类，提供一个对文件进行操作的接口。其中有一个和realpath名字很像的方法叫getRealPath。
+**SplFileInfo**类是 PHP5.1.2 之后引入的一个类，提供一个对文件进行操作的接口。其中有一个和 realpath 名字很像的方法叫 getRealPath。
 
-这个方法功能和realpath类似，都是获取绝对路径用的。我们在SplFileInfo的构造函数中传入文件相对路径，并且调用getRealPath即可获取文件的绝对路径。
+这个方法功能和 realpath 类似，都是获取绝对路径用的。我们在 SplFileInfo 的构造函数中传入文件相对路径，并且调用 getRealPath 即可获取文件的绝对路径。
 
-这个方法有个特点：**完全没有考虑open\_basedir**。在传入的路径为一个不存在的路径时，会返回false；在传入的路径为一个存在的路径时，会正常返回绝对路径。  
-所以不像realpath需要考虑是否在open\_basedir下面的条件
+这个方法有个特点：**完全没有考虑 open\_basedir**。在传入的路径为一个不存在的路径时，会返回 false；在传入的路径为一个存在的路径时，会正常返回绝对路径。  
+所以不像 realpath 需要考虑是否在 open\_basedir 下面的条件
 
-P神POC
+P 神 POC
 
 ```php
 <?php
@@ -339,11 +339,11 @@ function dump($s){
 ?>
 ```
 
-# 利用chdir与ini\_set
+# 利用 chdir 与 ini\_set
 
 首先解释一下**ini\_set**  
 [https://www.php.net/manual/zh/function.ini-set](https://www.php.net/manual/zh/function.ini-set)  
-这里先放一下demo network师傅的
+这里先放一下 demo network 师傅的
 
 ```php
 <?php
@@ -364,10 +364,10 @@ mkdir('sub');chdir('sub');ini_set('open_basedir','..');chdir('..');chdir('..');c
 [https://skysec.top/2019/04/12/%E4%BB%8EPHP%E5%BA%95%E5%B1%82%E7%9C%8Bopen-basedir-bypass/](https://skysec.top/2019/04/12/%E4%BB%8EPHP%E5%BA%95%E5%B1%82%E7%9C%8Bopen-basedir-bypass/)  
 好吧我实在是看不下去底层了...还是功底不够..还得练
 
-# GD库imageftbbox/imagefttext
+# GD 库 imageftbbox/imagefttext
 
-看了一下其实和前面的realpath一样都是通过一些报错来进行猜解  
-当文件存在，则php会抛出“File(xxxxx) is not within the allowed path(s)”错误。但当文件不存在的时候会抛出“Invalid font filename”错误。
+看了一下其实和前面的 realpath 一样都是通过一些报错来进行猜解  
+当文件存在，则 php 会抛出“File(xxxxx) is not within the allowed path(s)”错误。但当文件不存在的时候会抛出“Invalid font filename”错误。
 
 POC：
 
@@ -395,9 +395,9 @@ function isexists($errno, $errstr)
 ?>
 ```
 
-# bindtextdomain暴力执法
+# bindtextdomain 暴力执法
 
-emm原理还是一样但是鸡肋，因为Windows下面默认没有这个函数&&linux下面是不能使用通配符进行绕过所以如果上面的方法都没有用才会考虑这些猜解的问题
+emm 原理还是一样但是鸡肋，因为 Windows 下面默认没有这个函数&&linux 下面是不能使用通配符进行绕过所以如果上面的方法都没有用才会考虑这些猜解的问题
 
 ```php
 <?php

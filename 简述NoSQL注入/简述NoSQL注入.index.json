@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711465904",
   "format": "md",
-  "title": "简述NoSQL注入",
+  "title": "简述 NoSQL 注入",
   "link": "https://xz.aliyun.com/t/14163?time__1311=mqmx9DBQw6DsD7CG7DyQvD8QG8BIQGOIBeD#toc-0",
   "category": "default",
   "tags": [
     "xz.aliyun.com"
   ],
   "created_at": "2024-03-26 23:11:44",
-  "mainPath": "简述NoSQL注入.md",
+  "mainPath": "简述 NoSQL 注入.md",
   "paths": [
-    "简述NoSQL注入.index.json",
+    "简述 NoSQL 注入.index.json",
     "assets/1711465904-536fc7ff3dc7ac1b926f541227312f43.png",
     "assets/1711465904-07f1590b536431defc2f490b9027a1bd.png",
     "assets/1711465904-cfa0974c1a02dd2e6a7bf439e49cacba.png",
@@ -44,6 +44,6 @@
     "assets/1711465904-4c865830cd0754d969119b6cccaf0bcc.png",
     "assets/1711465904-a4d4e5a710c083432c85a97db2806d03.png",
     "assets/1711465904-c1a690c3008373b105f447e452f0cfec.gif",
-    "简述NoSQL注入.md"
+    "简述 NoSQL 注入.md"
   ]
 }

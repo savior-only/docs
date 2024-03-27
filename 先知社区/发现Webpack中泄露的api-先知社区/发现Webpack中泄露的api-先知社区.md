@@ -1,5 +1,5 @@
 ---
-title: 发现Webpack中泄露的api - 先知社区
+title: 发现 Webpack 中泄露的 api - 先知社区
 url: https://xz.aliyun.com/t/9453?u_atoken=668203fba996027bb8bac0fc4e40b89d&u_asession=01OlkognruehaqAxjW_aXsW9fv27XPryvpVzBEnDNn7W-wY2j4WkMWQ2q2t14RTGKmdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05vF4wabVJwBU0xI2oZn8lp5XsL2wKQPoHN9nPNcip30xqsVeFNP3NLYSzHm-HEJQgRzmIIWwnDOIJkYLaeU0q0M6efCMLXYxQh8zv6WRavWdft0919QotcODObTBA--kiuCsfIGcB0s7ojuJ_WHxuIzadoMAwbb54wS56pxT54b9g2QMxYs6lyXb1lFWKql563U2zjz47JbXTLEg-K5HOVkZNQ-PZrScrF4S1G-JLOObHf2iHrZUfuA9hHOrh0zge5U6TlJMQA6vvsqGcHyfTNDx5zLuqaM4EdBOdlMd925p6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=im5r1kPoTmbYWEGZoAL%2FomQZ9ww%3D
 clipped_at: 2024-03-28 00:12:06
 category: default
@@ -8,41 +8,41 @@ tags:
 ---
 
 
-# 发现Webpack中泄露的api - 先知社区
+# 发现 Webpack 中泄露的 api - 先知社区
 
 ## 1 - 安装 reverse-sourcemap
 
-> 需要配置好[npm环境](https://www.runoob.com/nodejs/nodejs-npm.html) （runoob教程）
+> 需要配置好[npm 环境](https://www.runoob.com/nodejs/nodejs-npm.html) （runoob 教程）
 
 使用命令（需要代理） `npm install --global reverse-sourcemap` 进行安装
 
-## 2 - 寻找xxx.js.map
+## 2 - 寻找 xxx.js.map
 
-> 如果有sourcemap的话，在js最后会有注释：
+> 如果有 sourcemap 的话，在 js 最后会有注释：
 > 
 > `//# sourceMappingURL=xxxxxxx.js.map`
 
-比如这里我要下载`MarketSearch.js.map`（`MarketSearch.js`是与站点同名的js，应该是主要的js文件）
+比如这里我要下载`MarketSearch.js.map`（`MarketSearch.js`是与站点同名的 js，应该是主要的 js 文件）
 
--   在开发者工具中搜索`.js.map` （位置1）
--   找到`MarketSearch.js.map`所在的js （位置2）
--   找到对应的链`URL`（位置3）
+-   在开发者工具中搜索`.js.map` （位置 1）
+-   找到`MarketSearch.js.map`所在的 js（位置 2）
+-   找到对应的链`URL`（位置 3）
     -   一般来说，静态文件会挂载在当前域名下，但不排除其他站点挂载的情况，所以需要找到对应的`URL`，比如这里就不同站
     -   这里`MarketSearch.js`的`URL`记为`[xxx.xxx/mulu/MarketSearch.js](http://xxx.xxx/mulu/MarketSearch.js)`
 
 [![](assets/1711555926-4464dd66f38a4fa4532f32302a8a0e6f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20210417205047-8817bf70-9f7b-1.png)
 
-## 3 - 下载xxx.js.map并获取所有webpack打包文件
+## 3 - 下载 xxx.js.map 并获取所有 webpack 打包文件
 
 使用`curl -O http://xxx.xxx/mulu/MarketSearch.js.map`
 
 或者直接访问`http://xxx.xxx/mulu/MarketSearch.js.map` 下载`MarketSearch.js.map`
 
-使用命令`reverse-sourcemap --output-dir ./MarketSearch MarketSearch.js.map`即可获取所有webpack打包文件
+使用命令`reverse-sourcemap --output-dir ./MarketSearch MarketSearch.js.map`即可获取所有 webpack 打包文件
 
-## 4 - 使用IDE/其他编辑器寻找接口
+## 4 - 使用 IDE/其他编辑器寻找接口
 
-我这里使用的是vs code
+我这里使用的是 vs code
 
 直接使用全局搜索 左边侧边栏的搜索图标，或者`ctrl+shift+f`
 
@@ -50,7 +50,7 @@ tags:
 
 搜索接口有两个方法：
 
-一个是借鉴先验请求的`url`，这种情况需要我们可以访问到某些接口，比如非SSO的登录
+一个是借鉴先验请求的`url`，这种情况需要我们可以访问到某些接口，比如非 SSO 的登录
 
 另一个是直接搜索，这种情况大多是我们没法访问到当前站点的接口
 
@@ -94,11 +94,11 @@ tags:
 
 [![](assets/1711555926-220e4a3c9aabcd174197c2798be71376.png)](https://xzfile.aliyuncs.com/media/upload/picture/20210417205149-ad03110e-9f7b-1.png)
 
-此外，还可以根据站点名，可调用api命名规则，js命名规则进行搜索。这个站点没有这样的接口，就不举例了。
+此外，还可以根据站点名，可调用 api 命名规则，js 命名规则进行搜索。这个站点没有这样的接口，就不举例了。
 
 ## 5 - 寻找动态定义的接口
 
-刚好这个站点存在动态定义的接口（直接明文写在js代码中的静态接口相反）：`MarketSearch/api/login` ，上面我们通过搜索，只发现了`/MarketSearch/api/user/login`接口，这里介绍一下如何寻找该接口。
+刚好这个站点存在动态定义的接口（直接明文写在 js 代码中的静态接口相反）：`MarketSearch/api/login` ，上面我们通过搜索，只发现了`/MarketSearch/api/user/login`接口，这里介绍一下如何寻找该接口。
 
 首先搜索`login`，可以看到在`index.ts`中对登录进行了定义
 
@@ -134,7 +134,7 @@ tags:
 
 大致说一下这里的逻辑：
 
--   key是键值，比如这里调用的是`api.login`，则`key === login`
+-   key 是键值，比如这里调用的是`api.login`，则`key === login`
     
 -   对于每一个`vse_share_1.Api`定义的接口
     
@@ -169,7 +169,7 @@ tags:
             
     -   `${key} === login`
         
-    -   `args === input`，即，由`ItemKey`生成的json`{username:"xxx",password:"xxx"}`
+    -   `args === input`，即，由`ItemKey`生成的 json`{username:"xxx",password:"xxx"}`
         
 
-这种情况下，通过拼接预定义参数和传入的`api`名称，动态生成`url`路径，避免了静态存储`api`路径，使得寻找`api`接口需要花费的精力大大提升。（web安全狗流泪）
+这种情况下，通过拼接预定义参数和传入的`api`名称，动态生成`url`路径，避免了静态存储`api`路径，使得寻找`api`接口需要花费的精力大大提升。（web 安全狗流泪）

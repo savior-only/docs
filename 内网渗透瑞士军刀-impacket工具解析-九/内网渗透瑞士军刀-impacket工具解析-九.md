@@ -1,5 +1,5 @@
 ---
-title: 内网渗透瑞士军刀-impacket工具解析（九）
+title: 内网渗透瑞士军刀-impacket 工具解析（九）
 url: https://mp.weixin.qq.com/s/D_kbKflnZSTJpQD8ezQszw
 clipped_at: 2024-03-27 00:35:55
 category: default
@@ -8,11 +8,11 @@ tags:
 ---
 
 
-# 内网渗透瑞士军刀-impacket工具解析（九）
+# 内网渗透瑞士军刀-impacket 工具解析（九）
 
   
 
-**DCOM介绍**  
+**DCOM 介绍**  
 
 DCOM 是 COM 的扩展，它允许应用程序使用基于 DCERPC 的 DCOM 协议与远程计算机上的 COM 对象进行通信并使用它们，就像它们在本地一样。有关每个 COM（和 DCOM）对象的身份、实现和配置的信息都存储在注册表中，并与一些重要的标识符相关联：
 
@@ -47,7 +47,7 @@ DCOM 是 COM 的扩展，它允许应用程序使用基于 DCERPC 的 DCOM 协�
     
 2.  远程计算机检查是否存在与相关 CLSID 关联的 AppID，并验证客户端的权限。
     
-3.  如果一切顺利，DCOMLaunch服务将创建所请求类的实例，最常见的是通过运行 LocalServer32 子项的可执行文件，或者通过创建 DllHost 进程来托管 InProcServer32 子项引用的 dll。
+3.  如果一切顺利，DCOMLaunch 服务将创建所请求类的实例，最常见的是通过运行 LocalServer32 子项的可执行文件，或者通过创建 DllHost 进程来托管 InProcServer32 子项引用的 dll。
     
 4.  通信是在客户端应用程序和服务器进程之间建立的。在大多数情况下，新进程是在与 DCOM 通信关联的会话中创建的。
     
@@ -56,15 +56,15 @@ DCOM 是 COM 的扩展，它允许应用程序使用基于 DCERPC 的 DCOM 协�
 
   
 
-目前可通过多种DCOM对象进行命令执行，包括MMC20.APPLICATION、SHELLWINDOWS、SHELLBROWSERWINDOW、VISIO.APPLIATION、Shell.Application、Excel.Application、PowerPoint.Application等，然而最为常用的还是MMC20.APPLICATION、SHELLWINDOWS、SHELLBROWSERWINDOW。
+目前可通过多种 DCOM 对象进行命令执行，包括 MMC20.APPLICATION、SHELLWINDOWS、SHELLBROWSERWINDOW、VISIO.APPLIATION、Shell.Application、Excel.Application、PowerPoint.Application 等，然而最为常用的还是 MMC20.APPLICATION、SHELLWINDOWS、SHELLBROWSERWINDOW。
 
   
 
-为了在之后分析dcomexec.py工具的时候对整个流程有一个清晰的认识，我们先利用DCOM对象MMC20.APPLICATION在Powershell中进行简单的演示，弹出一个计算器：
+为了在之后分析 dcomexec.py 工具的时候对整个流程有一个清晰的认识，我们先利用 DCOM 对象 MMC20.APPLICATION 在 Powershell 中进行简单的演示，弹出一个计算器：
 
   
 
-创建MMC20.Application对象的实例:
+创建 MMC20.Application 对象的实例：
 
   
 
@@ -75,7 +75,7 @@ $com =
 
   
 
-获得MMC20.Application对象的实例后，枚举这个此对象中的不同方法和属性：
+获得 MMC20.Application 对象的实例后，枚举这个此对象中的不同方法和属性：
 
   
 
@@ -111,7 +111,7 @@ $com.Document.ActiveView | Get-Member
 
   
 
-通过ExecuteShellCommand执行命令，这里启动计算器：
+通过 ExecuteShellCommand 执行命令，这里启动计算器：
 
   
 
@@ -131,11 +131,11 @@ $com.Document.ActiveView.ExecuteShellCommand('cmd.exe',$null,"/c calc.exe","Mini
 
 **工具概况**  
 
-dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用windows系统的DCOM组件进行攻击，因此使得攻击具有通用性。下面通过对工具的实时调试来简单地分析工具的原理：
+dcomexec.py 是 impacket 工具库下比较流行的工具之一，由于它利用 windows 系统的 DCOM 组件进行攻击，因此使得攻击具有通用性。下面通过对工具的实时调试来简单地分析工具的原理：
 
   
 
-工具由4个类、1个函数构成，其中DCOMEXEC是最为核心的类，也是此工具的关键所在，另外RemoteShell和RemoteShellMMC20是用来实现shell的两个类，RemoteShellMMC20类继承自RemoteShell类。AuthFileSyntaxError类用于定义当加载smbclient-style的认证文件出错时如何处理。load\_smbclient\_auth\_file函数用于加载sombclinet认证文件。
+工具由 4 个类、1 个函数构成，其中 DCOMEXEC 是最为核心的类，也是此工具的关键所在，另外 RemoteShell 和 RemoteShellMMC20 是用来实现 shell 的两个类，RemoteShellMMC20 类继承自 RemoteShell 类。AuthFileSyntaxError 类用于定义当加载 smbclient-style 的认证文件出错时如何处理。load\_smbclient\_auth\_file 函数用于加载 sombclinet 认证文件。
 
   
 
@@ -143,7 +143,7 @@ dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用w
 
   
 
-打开DCOMEXEC类，我们可以看到dcomexec.py支持通过三类对象实例化进行命令执行，分别为ShellWindows、ShellBrowserWindow、MMC20。
+打开 DCOMEXEC 类，我们可以看到 dcomexec.py 支持通过三类对象实例化进行命令执行，分别为 ShellWindows、ShellBrowserWindow、MMC20。
 
   
 
@@ -151,7 +151,7 @@ dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用w
 
   
 
-在指定命令的时候，如果不用-object参数显式指定对象使用哪个对象执行命令，那么默认会使用ShelloWindows。
+在指定命令的时候，如果不用-object 参数显式指定对象使用哪个对象执行命令，那么默认会使用 ShelloWindows。
 
   
 
@@ -159,7 +159,7 @@ dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用w
 
 **代码分析**  
 
-由于支持的三种实例化执行命令的方式原理基本一致，下面以MMC20为例实现一个交互式shell
+由于支持的三种实例化执行命令的方式原理基本一致，下面以 MMC20 为例实现一个交互式 shell
 
   
 
@@ -167,7 +167,7 @@ dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用w
 
   
 
-主程序中，通过传入用户名、密码、dc\_ip等参数，对DCOMEXE类进行实例化，然后对DCOMEXEC类中的run方法进行了调用。
+主程序中，通过传入用户名、密码、dc\_ip 等参数，对 DCOMEXE 类进行实例化，然后对 DCOMEXEC 类中的 run 方法进行了调用。
 
   
 
@@ -175,7 +175,7 @@ dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用w
 
   
 
-先在DCOMEXEC类实例化这一栏打上一个断点，使得程序在关键位置暂停
+先在 DCOMEXEC 类实例化这一栏打上一个断点，使得程序在关键位置暂停
 
   
 
@@ -183,7 +183,7 @@ dcomexec.py是impacket工具库下比较流行的工具之一，由于它利用w
 
   
 
-F7进入run方法，可以看到由SMB连接的操作，连接SMB是为了进行文件的上传、下载等行为。
+F7 进入 run 方法，可以看到由 SMB 连接的操作，连接 SMB 是为了进行文件的上传、下载等行为。
 
   
 
@@ -195,7 +195,7 @@ F7进入run方法，可以看到由SMB连接的操作，连接SMB是为了进行
 
   
 
-按F8将程序运行到126行，传入一些必要的参数，实例化DCOMConnection类，进行DCOM连接，后续的很多关键操作都会基于此而展开。
+按 F8 将程序运行到 126 行，传入一些必要的参数，实例化 DCOMConnection 类，进行 DCOM 连接，后续的很多关键操作都会基于此而展开。
 
   
 
@@ -203,7 +203,7 @@ F7进入run方法，可以看到由SMB连接的操作，连接SMB是为了进行
 
   
 
-以下是已经实例化之后的DCOMConnection，相关字段里面已经有了相应的数据。
+以下是已经实例化之后的 DCOMConnection，相关字段里面已经有了相应的数据。
 
   
 
@@ -211,7 +211,7 @@ F7进入run方法，可以看到由SMB连接的操作，连接SMB是为了进行
 
   
 
-F8继续往下运行程序到129行，实例化DISPPARAMS类，它包含传递给方法或属性的参数。之后进行了相关参数的设置。
+F8 继续往下运行程序到 129 行，实例化 DISPPARAMS 类，它包含传递给方法或属性的参数。之后进行了相关参数的设置。
 
   
 
@@ -238,7 +238,7 @@ typedef struct DISPPARAMS {
 } DISPPARAMS;
 ```
 
-查看变量窗口，\_\_dcomObject值为MMC20，可知程序逻辑会从158行进入MMC20这个分支。
+查看变量窗口，\_\_dcomObject 值为 MMC20，可知程序逻辑会从 158 行进入 MMC20 这个分支。
 
   
 
@@ -246,7 +246,7 @@ typedef struct DISPPARAMS {
 
   
 
-和猜测的一样，程序并没有运行ShellWindows和ShellBrowserWindow逻辑，而是进入了MMC20逻辑。这里来到了整个程序的关键之所在，需要特别介绍以下相关类、方法。
+和猜测的一样，程序并没有运行 ShellWindows 和 ShellBrowserWindow 逻辑，而是进入了 MMC20 逻辑。这里来到了整个程序的关键之所在，需要特别介绍以下相关类、方法。
 
   
 
@@ -254,7 +254,7 @@ typedef struct DISPPARAMS {
 
   
 
-49B2791A-B1AE-4C90-9B8E-E860BA07F889为MMC20对应的CLSID，把它作为参数传入CoCreateInstanceEx函数，用于创建MMC20类的实例。
+49B2791A-B1AE-4C90-9B8E-E860BA07F889 为 MMC20 对应的 CLSID，把它作为参数传入 CoCreateInstanceEx 函数，用于创建 MMC20 类的实例。
 
   
 
@@ -266,24 +266,24 @@ HRESULT CoCreateInstanceEx(
   要创建的对象的 CLSID。
 
   [in]      IUnknown     *punkOuter,
-  如果此参数非NULL，则表示实例正在作为聚合的一部分创建，并且punkOuter将用作新实例的控制IUnknown。目前不支持跨进程或跨计算机的聚合。在进程外实例化对象时，如果punkOuter为非NULL ，则将返回 CLASS_E_NOAGGREGATION。
+  如果此参数非 NULL，则表示实例正在作为聚合的一部分创建，并且 punkOuter 将用作新实例的控制 IUnknown。目前不支持跨进程或跨计算机的聚合。在进程外实例化对象时，如果 punkOuter 为非 NULL，则将返回 CLASS_E_NOAGGREGATION。
 
   [in]      DWORD        dwClsCtx,
-  来自CLSCTX枚举的值
+  来自 CLSCTX 枚举的值
 
   [in]      COSERVERINFO *pServerInfo,
-  有关实例化对象的计算机的信息。此参数可以为NULL ，在这种情况下，根据dwClsCtx参数的解释，该对象将在本地计算机上或在注册表中类的RemoteServerName值下指定的计算机上实例化。
+  有关实例化对象的计算机的信息。此参数可以为 NULL，在这种情况下，根据 dwClsCtx 参数的解释，该对象将在本地计算机上或在注册表中类的 RemoteServerName 值下指定的计算机上实例化。
 
   [in]      DWORD        dwCount,
-  pResults中的结构数量。该值必须大于 0。
+  pResults 中的结构数量。该值必须大于 0。
 
   [in, out] MULTI_QI     *pResults
-  MULTI_QI结构数组。每个结构都有三个成员：所请求接口的标识符 ( pIID )、返回接口指针的位置 ( pItf ) 以及QueryInterface调用的返回值( hr )。
+  MULTI_QI 结构数组。每个结构都有三个成员：所请求接口的标识符 ( pIID )、返回接口指针的位置 ( pItf ) 以及 QueryInterface 调用的返回值 ( hr )。
 
 );
 ```
 
-按F7,进入CoCreateInstanceEx函数，可以看见首先实例化了IRemoteSCMActivator类，IRemoteSCMActivator是DCOM远程协议的另一个远程激活接口。
+按 F7，进入 CoCreateInstanceEx 函数，可以看见首先实例化了 IRemoteSCMActivator 类，IRemoteSCMActivator 是 DCOM 远程协议的另一个远程激活接口。
 
   
 
@@ -291,7 +291,7 @@ HRESULT CoCreateInstanceEx(
 
   
 
-跟进IRemoteSCMActivator类，它支持两个函数RemoteGetClassObject和RemoteCreateInstance。RemoteGetClassObject函数作用是客户端使用它来创建类工厂对象的对象引用；RemoteCreateInstance函数作用是客户端使用它来创建实际对象的对象引用。同时，这样的实现和微软官方dcom文档也不谋而合。
+跟进 IRemoteSCMActivator 类，它支持两个函数 RemoteGetClassObject 和 RemoteCreateInstance。RemoteGetClassObject 函数作用是客户端使用它来创建类工厂对象的对象引用；RemoteCreateInstance 函数作用是客户端使用它来创建实际对象的对象引用。同时，这样的实现和微软官方 dcom 文档也不谋而合。
 
   
 
@@ -303,7 +303,7 @@ HRESULT CoCreateInstanceEx(
 
   
 
-按shift+F8将程序返回到主程序，按F8继续运行程序到下一行，这一行将创建的MMC实例对象作为参数传入IDispatch，对IDispatch类进行了实例化。
+按 shift+F8 将程序返回到主程序，按 F8 继续运行程序到下一行，这一行将创建的 MMC 实例对象作为参数传入 IDispatch，对 IDispatch 类进行了实例化。
 
   
 
@@ -311,7 +311,7 @@ HRESULT CoCreateInstanceEx(
 
   
 
-查阅微软官方文档可知，IDispatch接口向编程工具和其他支持自动化的应用程序公开对象、方法和属性。COM 组件实现IDispatch接口以允许自动化客户端进行访问。IDispatch接口支持以下4个方法，其中GetIDsOfNames和Invoke将是最为重要的方法，在接下来程序逻辑中将会多次用到。
+查阅微软官方文档可知，IDispatch 接口向编程工具和其他支持自动化的应用程序公开对象、方法和属性。COM 组件实现 IDispatch 接口以允许自动化客户端进行访问。IDispatch 接口支持以下 4 个方法，其中 GetIDsOfNames 和 Invoke 将是最为重要的方法，在接下来程序逻辑中将会多次用到。
 
 ```plain
 IDispatch::GetIDsOfNames
@@ -329,7 +329,7 @@ IDispatch::Invoke
 
   
 
-跟进IDispatch类，代码中确实实现了这四个方法
+跟进 IDispatch 类，代码中确实实现了这四个方法
 
   
 
@@ -337,7 +337,7 @@ IDispatch::Invoke
 
   
 
-F8继续运行程序，GetIDsOfNames函数将document映射成整数，随后将得到的整数传入Invoke函数，实现对document进行调用
+F8 继续运行程序，GetIDsOfNames 函数将 document 映射成整数，随后将得到的整数传入 Invoke 函数，实现对 document 进行调用
 
   
 
@@ -345,7 +345,7 @@ F8继续运行程序，GetIDsOfNames函数将document映射成整数，随后将
 
   
 
-F8程序运行到168行，实例化IDispatch类，根据给定的接口类型和响应数据，构建一个相应的接口实例并返回。
+F8 程序运行到 168 行，实例化 IDispatch 类，根据给定的接口类型和响应数据，构建一个相应的接口实例并返回。
 
   
 
@@ -353,7 +353,7 @@ F8程序运行到168行，实例化IDispatch类，根据给定的接口类型和
 
   
 
-跟进getInterface方法，最后返回了一个接口
+跟进 getInterface 方法，最后返回了一个接口
 
   
 
@@ -361,7 +361,7 @@ F8程序运行到168行，实例化IDispatch类，根据给定的接口类型和
 
   
 
-回到主程序，按F8继续往下运行程序，由于\_\_dcomObject的值仍然为MMC20，所以会进入以下逻辑。
+回到主程序，按 F8 继续往下运行程序，由于\_\_dcomObject 的值仍然为 MMC20，所以会进入以下逻辑。
 
   
 
@@ -369,7 +369,7 @@ F8程序运行到168行，实例化IDispatch类，根据给定的接口类型和
 
   
 
-接下来和上面的原理基本一样，调用ActiveView属性，返回对应接口iActiveView；返回ShellExecute对应的DISPID，最后将相关参数传入类RemoteShellMMC20进行实例化，一直运行程序，最终实现了一个交互式shell。
+接下来和上面的原理基本一样，调用 ActiveView 属性，返回对应接口 iActiveView；返回 ShellExecute 对应的 DISPID，最后将相关参数传入类 RemoteShellMMC20 进行实例化，一直运行程序，最终实现了一个交互式 shell。
 
   
 
@@ -377,21 +377,21 @@ F8程序运行到168行，实例化IDispatch类，根据给定的接口类型和
 
   
 
-以上就是对dcomexec.py中的关键技术进行的简单分析，演示的是通过MMC20进行的命令执行，另外两种方式和MMC20实现方式基本一致。
+以上就是对 dcomexec.py 中的关键技术进行的简单分析，演示的是通过 MMC20 进行的命令执行，另外两种方式和 MMC20 实现方式基本一致。
 
   
 
 **检测防御**  
 
-关于利用DCOM对象进行命令执行，它不是漏洞利用，而是对正常功能的滥用。如果要防御攻击者利用DCOM对象进行攻击，可参考以下几点：
+关于利用 DCOM 对象进行命令执行，它不是漏洞利用，而是对正常功能的滥用。如果要防御攻击者利用 DCOM 对象进行攻击，可参考以下几点：
 
   
 
--   想使用这些DCOM方法（通常）需要远程主机的特权访问。请保护具备高级权限的域账户，避免本地主机账户复用密码凭据。  
+-   想使用这些 DCOM 方法（通常）需要远程主机的特权访问。请保护具备高级权限的域账户，避免本地主机账户复用密码凭据。  
     
--   启用基于主机的防火墙可以阻止RPC/DCOM交互及实例化操作；
+-   启用基于主机的防火墙可以阻止 RPC/DCOM 交互及实例化操作；
     
--   禁用内置帐户Administrator对COM的远程启动和远程激活权限。
+-   禁用内置帐户 Administrator 对 COM 的远程启动和远程激活权限。
     
 
   

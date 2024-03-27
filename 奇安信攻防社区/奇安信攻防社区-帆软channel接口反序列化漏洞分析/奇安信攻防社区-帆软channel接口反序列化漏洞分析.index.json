@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711465689",
   "format": "md",
-  "title": "奇安信攻防社区-帆软channel接口反序列化漏洞分析",
+  "title": "奇安信攻防社区 - 帆软 channel 接口反序列化漏洞分析",
   "link": "https://forum.butian.net/share/2806",
   "category": "default",
   "tags": [
     "forum.butian.net"
   ],
   "created_at": "2024-03-26 23:08:09",
-  "mainPath": "奇安信攻防社区-帆软channel接口反序列化漏洞分析.md",
+  "mainPath": "奇安信攻防社区 - 帆软 channel 接口反序列化漏洞分析.md",
   "paths": [
-    "奇安信攻防社区-帆软channel接口反序列化漏洞分析.index.json",
+    "奇安信攻防社区 - 帆软 channel 接口反序列化漏洞分析.index.json",
     "assets/1711465689-0ada5985756a43e18b7d842962e331ec.png",
     "assets/1711465689-7ae452b366ca48c121b07bc04cdf546f.png",
     "assets/1711465689-15d85bf8a305850ca61a1eb58225bd65.png",
@@ -50,6 +50,6 @@
     "assets/1711465689-26162beb9b96ce4518d6999a31f5f4e6.png",
     "assets/1711465689-7e2425e5dbf16f1fd60a54e9c70dc025.png",
     "assets/1711465689-6c3e96b1d818ac11cf30a3129a15ddf5.png",
-    "奇安信攻防社区-帆软channel接口反序列化漏洞分析.md"
+    "奇安信攻防社区 - 帆软 channel 接口反序列化漏洞分析.md"
   ]
 }

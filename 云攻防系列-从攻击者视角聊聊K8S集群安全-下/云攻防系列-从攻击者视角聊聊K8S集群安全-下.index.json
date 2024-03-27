@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711471387",
   "format": "md",
-  "title": "【云攻防系列】从攻击者视角聊聊K8S集群安全（下）",
+  "title": "【云攻防系列】从攻击者视角聊聊 K8S 集群安全（下）",
   "link": "https://mp.weixin.qq.com/s/QEuQa0KVwykrMzOPdgEHMQ",
   "category": "default",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-27 00:43:07",
-  "mainPath": "云攻防系列-从攻击者视角聊聊K8S集群安全-下.md",
+  "mainPath": "云攻防系列 - 从攻击者视角聊聊 K8S 集群安全 - 下.md",
   "paths": [
-    "云攻防系列-从攻击者视角聊聊K8S集群安全-下.index.json",
+    "云攻防系列 - 从攻击者视角聊聊 K8S 集群安全 - 下.index.json",
     "assets/1711471387-c7a6fd2cfb03400125eba87c60590870.webp",
     "assets/1711471387-73cb283162140c1ae61786e121af28db.gif",
     "assets/1711471387-3e7c2353c944831db500c49d2b849c27.webp",
@@ -20,6 +20,6 @@
     "assets/1711471387-5197561da7eef7d807360a6776a3bb00.webp",
     "assets/1711471387-01200f4b9079daee258d59e8914c3c25.webp",
     "assets/1711471387-0243477bc2cb698b342a3d246551ec2f.webp",
-    "云攻防系列-从攻击者视角聊聊K8S集群安全-下.md"
+    "云攻防系列 - 从攻击者视角聊聊 K8S 集群安全 - 下.md"
   ]
 }

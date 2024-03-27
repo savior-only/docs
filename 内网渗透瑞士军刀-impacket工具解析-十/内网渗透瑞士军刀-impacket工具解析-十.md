@@ -1,5 +1,5 @@
 ---
-title: 内网渗透瑞士军刀-impacket工具解析（十）
+title: 内网渗透瑞士军刀-impacket 工具解析（十）
 url: https://mp.weixin.qq.com/s/kOuWn4Yg4Xa6hMF5WXkapQ
 clipped_at: 2024-03-27 00:36:21
 category: default
@@ -8,17 +8,17 @@ tags:
 ---
 
 
-# 内网渗透瑞士军刀-impacket工具解析（十）
+# 内网渗透瑞士军刀-impacket 工具解析（十）
 
   
 
-**PAC和MS14-068**  
+**PAC 和 MS14-068**  
 
- 在kerberos协议中，域中不同权限的用户能够访问的资源是不同的，因此微软使用PAC (Privilege Attribute Certificate，特权属性证书)用于辨别用户身份和权限，其中所包含的是各种授权信息、附加凭据信息、配置文件和策略信息等。例如用户所属的用户组， 用户所具有的权限等。
+ 在 kerberos 协议中，域中不同权限的用户能够访问的资源是不同的，因此微软使用 PAC (Privilege Attribute Certificate，特权属性证书) 用于辨别用户身份和权限，其中所包含的是各种授权信息、附加凭据信息、配置文件和策略信息等。例如用户所属的用户组，用户所具有的权限等。
 
   
 
-       在一个正常的Kerberos认证流程中，KDC返回的TGT和ST中都是带有PAC的。这样在以后对资源的访问中， 服务端再接收到客户请求的时候不再需要借助KDC的帮助提供完整的授权信息来完成对用户权限的判断， 而只需要根据请求中所包含的PAC信息直接与本地资源的ACL比较即可。PAC中包含了用户的SID、用户所在的组等，下图为PAC的KERB\_VALIDATION\_INFO结构，在下图结构中可以看到有这两个字段，通过对Userid和groupid的值对用户权限进行区分。
+       在一个正常的 Kerberos 认证流程中，KDC 返回的 TGT 和 ST 中都是带有 PAC 的。这样在以后对资源的访问中，服务端再接收到客户请求的时候不再需要借助 KDC 的帮助提供完整的授权信息来完成对用户权限的判断，而只需要根据请求中所包含的 PAC 信息直接与本地资源的 ACL 比较即可。PAC 中包含了用户的 SID、用户所在的组等，下图为 PAC 的 KERB\_VALIDATION\_INFO 结构，在下图结构中可以看到有这两个字段，通过对 Userid 和 groupid 的值对用户权限进行区分。
 
   
 
@@ -26,7 +26,7 @@ tags:
 
   
 
-在进行kerberos认证时，用户向KDC发起AS\_REQ，请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据，TGT里面包含PAC，而PAC尾部会有两个数字签名， 分别由 KDC 密码和 server 密码加密，防止数字签名内容被篡改。
+在进行 kerberos 认证时，用户向 KDC 发起 AS\_REQ，请求凭据是用户 hash 加密的时间戳，KDC 使用用户 hash 进行解密，如果结果正确返回用 krbtgt hash 加密的 TGT 票据，TGT 里面包含 PAC，而 PAC 尾部会有两个数字签名，分别由 KDC 密码和 server 密码加密，防止数字签名内容被篡改。
 
   
 
@@ -34,11 +34,11 @@ tags:
 
   
 
-在 MS14068中，KDC没有正确检查PAC中的有效签名，签名原本的设计是要用到HMAC系列的checksum算法，需要用到server端密码和KDC的密码进行签名，攻击者并没有krbtgt的hash以及服务的hash，所以正常情况下无法伪造PAC，但是微软在实现上却允许任意签名算法，所以客户端可以指定任意签名算法，KDC 就会使用客户端指定的算法进行签名验证。例如只需要把 PAC 进行md5，就生成新的校验和。这也就意味着可以随意更改PAC的内容，完了之后再用md5 生成一个服务检验和以及KDC校验和。在MS14-068修补程序之后，Microsoft添加了一个附加的验证步骤，以确保校验和类型为KRB\_CHECKSUM\_HMAC\_MD5。
+在 MS14068 中，KDC 没有正确检查 PAC 中的有效签名，签名原本的设计是要用到 HMAC 系列的 checksum 算法，需要用到 server 端密码和 KDC 的密码进行签名，攻击者并没有 krbtgt 的 hash 以及服务的 hash，所以正常情况下无法伪造 PAC，但是微软在实现上却允许任意签名算法，所以客户端可以指定任意签名算法，KDC 就会使用客户端指定的算法进行签名验证。例如只需要把 PAC 进行 md5，就生成新的校验和。这也就意味着可以随意更改 PAC 的内容，完了之后再用 md5 生成一个服务检验和以及 KDC 校验和。在 MS14-068 修补程序之后，Microsoft 添加了一个附加的验证步骤，以确保校验和类型为 KRB\_CHECKSUM\_HMAC\_MD5。
 
   
 
-GroupId是用户所在的组，在伪造PAC的实话将高权限组(比如域管组)的sid加进GroupId，当包含伪造PAC的TGS被服务向KDC询问此用户是否有访问服务权限的时候，KDC解密PAC并提取里面用户的SID以及所在的组(GroupId)，因为我们将域管组的GroupId添加进去了，所以KDC把这个用户当做域管组里面的成员。从而达到提升为域管的效果。
+GroupId 是用户所在的组，在伪造 PAC 的实话将高权限组 (比如域管组) 的 sid 加进 GroupId，当包含伪造 PAC 的 TGS 被服务向 KDC 询问此用户是否有访问服务权限的时候，KDC 解密 PAC 并提取里面用户的 SID 以及所在的组 (GroupId)，因为我们将域管组的 GroupId 添加进去了，所以 KDC 把这个用户当做域管组里面的成员。从而达到提升为域管的效果。
 
   
 
@@ -46,11 +46,11 @@ GroupId是用户所在的组，在伪造PAC的实话将高权限组(比如域管
 
 **Pykek**  
 
-对于MS14-068漏洞最经典的攻击脚本是Pykek工具，此工具代码和功能较为简单，仅实现将伪造的PAC注入到TGT中，利用者还需要使用其他工具将伪造的 TGT 导入用户会话并连接到域控制器的 admin$ 共享，实现权限提升。
+对于 MS14-068 漏洞最经典的攻击脚本是 Pykek 工具，此工具代码和功能较为简单，仅实现将伪造的 PAC 注入到 TGT 中，利用者还需要使用其他工具将伪造的 TGT 导入用户会话并连接到域控制器的 admin$ 共享，实现权限提升。
 
   
 
-在使用pykek工具之前，进行攻击前需知道用户名、密码、SID、域控主机地址来伪造TGT，其中可以通过whoami /user和wmic命令获取sid。
+在使用 pykek 工具之前，进行攻击前需知道用户名、密码、SID、域控主机地址来伪造 TGT，其中可以通过 whoami /user 和 wmic 命令获取 sid。
 
   
 
@@ -64,7 +64,7 @@ Wmic useraccount get name,sid
 
   
 
-在pykek的文件夹下生成了ccache票据，需借助mimikatz将票据写入内存中，创建缓存证书。之后系统会从使用此TGT发送给KDC申请ServiceTicket。
+在 pykek 的文件夹下生成了 ccache 票据，需借助 mimikatz 将票据写入内存中，创建缓存证书。之后系统会从使用此 TGT 发送给 KDC 申请 ServiceTicket。
 
   
 
@@ -72,7 +72,7 @@ Wmic useraccount get name,sid
 
 **goldenpac**
 
-而impacket工具包中的goldenpac.py脚本是针对MS14-068漏洞进行了更加方便的实现，其添加了请求TGS和PSEXEC相关代码，在PAC伪造成功后直接请求TGS票据，并开启一个交互式shell。同时相对于Pykek，goldenpac还添加了getUserSID函数，省略了输入SID的流程。
+而 impacket 工具包中的 goldenpac.py 脚本是针对 MS14-068 漏洞进行了更加方便的实现，其添加了请求 TGS 和 PSEXEC 相关代码，在 PAC 伪造成功后直接请求 TGS 票据，并开启一个交互式 shell。同时相对于 Pykek，goldenpac 还添加了 getUserSID 函数，省略了输入 SID 的流程。
 
   
 
@@ -80,11 +80,11 @@ Wmic useraccount get name,sid
 
   
 
-从代码上来看，goldenpac脚本主要分为两个部分，即ms14-068 exp实现和psexec实现。
+从代码上来看，goldenpac 脚本主要分为两个部分，即 ms14-068 exp 实现和 psexec 实现。
 
   
 
-其中PSEXEC部分我们已经在之前的文章中进行了详细的分析，这里不再赘述，直接看MS14-068的功能实现部分。
+其中 PSEXEC 部分我们已经在之前的文章中进行了详细的分析，这里不再赘述，直接看 MS14-068 的功能实现部分。
 
   
 
@@ -94,7 +94,7 @@ Wmic useraccount get name,sid
 
 **AS-REQ**  
 
-GoldenPac代码中实现了kerberos认证的全部过程，在构建AS-REQ请求中，调用了getKerberosTGT函数来请求TGT，通过普通域用户的用户名和HASH加密时间戳，完成AS\_REQ请求的构建并发送，通过身份认证过程。在源码中可以明显看到把requestPAC设置为False，这代表了要将include\_pac的值设置为false，这样在向KDC申请的TGT票据就不会带有PAC。
+GoldenPac 代码中实现了 kerberos 认证的全部过程，在构建 AS-REQ 请求中，调用了 getKerberosTGT 函数来请求 TGT，通过普通域用户的用户名和 HASH 加密时间戳，完成 AS\_REQ 请求的构建并发送，通过身份认证过程。在源码中可以明显看到把 requestPAC 设置为 False，这代表了要将 include\_pac 的值设置为 false，这样在向 KDC 申请的 TGT 票据就不会带有 PAC。
 
   
 
@@ -102,7 +102,7 @@ GoldenPac代码中实现了kerberos认证的全部过程，在构建AS-REQ请求
 
   
 
-如果指定为True，由于不知道krbtgt的Hash，所以客户端无法解密提取PAC进行篡改。
+如果指定为 True，由于不知道 krbtgt 的 Hash，所以客户端无法解密提取 PAC 进行篡改。
 
   
 
@@ -110,7 +110,7 @@ GoldenPac代码中实现了kerberos认证的全部过程，在构建AS-REQ请求
 
   
 
-通过分析AS-REQ 数据包也可以看到 include-pac:False  字段。
+通过分析 AS-REQ 数据包也可以看到 include-pac:False  字段。
 
   
 
@@ -120,7 +120,7 @@ GoldenPac代码中实现了kerberos认证的全部过程，在构建AS-REQ请求
 
 **AS-REP**  
 
-KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含请求用户hash加密的session\_key和TGT票据，TGT不包含PAC部分，即cipher字段。
+KDC 收到 AS\_REQ 请求之后并做出 AS-REP 响应，在返回的内容中包含请求用户 hash 加密的 session\_key 和 TGT 票据，TGT 不包含 PAC 部分，即 cipher 字段。
 
   
 
@@ -128,7 +128,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-在TGT中提取ticket部分，ticket被KDC进行加密，作为域内普通用户是无法解密的。
+在 TGT 中提取 ticket 部分，ticket 被 KDC 进行加密，作为域内普通用户是无法解密的。
 
   
 
@@ -136,7 +136,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-在以下代码中，通过用户密码hash作为解密key，并使用key去解密密文返回的请求，解密后获取时间戳和session\_key等信息，用于之后TGS通信中。
+在以下代码中，通过用户密码 hash 作为解密 key，并使用 key 去解密密文返回的请求，解密后获取时间戳和 session\_key 等信息，用于之后 TGS 通信中。
 
   
 
@@ -146,7 +146,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
 **TGS-REQ**  
 
-在处理完TGT之后，在TGS-REQ阶段中通过伪造PAC进行权限提升，Goldenpac使用了getGoldenPAC函数和getKerberosTGS函数来构造PAC和请求TGS。
+在处理完 TGT 之后，在 TGS-REQ 阶段中通过伪造 PAC 进行权限提升，Goldenpac 使用了 getGoldenPAC 函数和 getKerberosTGS 函数来构造 PAC 和请求 TGS。
 
   
 
@@ -158,7 +158,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-首先要解决的就是伪造校验和问题，前面说到在攻击实现的时候允许所有的checksum算法包括MD5，所以这里构造PAC中的两个尾部签名，即服务器检验serverChecksum和私有服务器检验privSvrChecksum，在如下PAC构造代码中可以发现，签名类型SignatureType被设置为RSA\_MD5，签名Signature在初始化后进行了组合操作。
+首先要解决的就是伪造校验和问题，前面说到在攻击实现的时候允许所有的 checksum 算法包括 MD5，所以这里构造 PAC 中的两个尾部签名，即服务器检验 serverChecksum 和私有服务器检验 privSvrChecksum，在如下 PAC 构造代码中可以发现，签名类型 SignatureType 被设置为 RSA\_MD5，签名 Signature 在初始化后进行了组合操作。
 
   
 
@@ -166,11 +166,11 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-在前面我们看到，在构建PAC时，GoldenPac无需输入user SID，这是为GoldenPac通过调用getusersid函数，通过 MS-SAMR 协议获取指定用户名的 SID，MS-SAMR用于管理Windows用户和组的安全标识符等信息。
+在前面我们看到，在构建 PAC 时，GoldenPac 无需输入 user SID，这是为 GoldenPac 通过调用 getusersid 函数，通过 MS-SAMR 协议获取指定用户名的 SID，MS-SAMR 用于管理 Windows 用户和组的安全标识符等信息。
 
   
 
-首先，构造了一个RPC绑定字符串stringBinding，使用ncacn\_np协议（Named Pipe）连接到指定主机的SAMR管道。然后，创建了一个RPC传输对象，并通过set\_credentials方法设置身份验证所需的凭据（用户名、密码、域名、LM哈希、NT哈希）。之后便通过RPC服务连接到SAMR服务器，查找指定用户名的SID。
+首先，构造了一个 RPC 绑定字符串 stringBinding，使用 ncacn\_np 协议（Named Pipe）连接到指定主机的 SAMR 管道。然后，创建了一个 RPC 传输对象，并通过 set\_credentials 方法设置身份验证所需的凭据（用户名、密码、域名、LM 哈希、NT 哈希）。之后便通过 RPC 服务连接到 SAMR 服务器，查找指定用户名的 SID。
 
   
 
@@ -178,7 +178,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-在sid中，最后的数字则代表了不同权限的用户组。其中513、512、520、518、519分别为不同的组的sid号，通过这种方式构造了包含高权限组SID的PAC。
+在 sid 中，最后的数字则代表了不同权限的用户组。其中 513、512、520、518、519 分别为不同的组的 sid 号，通过这种方式构造了包含高权限组 SID 的 PAC。
 
   
 
@@ -196,7 +196,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-构造了高权限的pac，同时可以通过检验和校验，但是PAC时包含在TGT中，没有krbtgt hash无法将伪造的pac传输给KDC。这里代码中将PAC放在enc-authorization-data里面，enc-authorization-data的结构如下：
+构造了高权限的 pac，同时可以通过检验和校验，但是 PAC 时包含在 TGT 中，没有 krbtgt hash 无法将伪造的 pac 传输给 KDC。这里代码中将 PAC 放在 enc-authorization-data 里面，enc-authorization-data 的结构如下：
 
   
 
@@ -207,7 +207,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
  }
 ```
 
-代码中可以看到，将 'enc-authorization-data' 设置为 noValue 。接着，设置了加密类型 ( etype ) 和相应的加密数据 ( cipher )，而 encryptedEncodedIfRelevant 中则是已经加密并编码的PAC，通过这种方式将PAC传输给KDC。
+代码中可以看到，将 'enc-authorization-data' 设置为 noValue。接着，设置了加密类型 ( etype ) 和相应的加密数据 ( cipher )，而 encryptedEncodedIfRelevant 中则是已经加密并编码的 PAC，通过这种方式将 PAC 传输给 KDC。
 
   
 
@@ -217,7 +217,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
 **TGS\_REP**  
 
-当 KDC对krbtgt 服务的TGS-REQ后。对攻击者伪造的PAC进行权限验证，通过之后返回高权限的、使用MD5校验的TGS，因为服务为krbtgt，因此可以作为一个新的TGT使用去请求任何服务，在下面的代码中可以看到，获得krbtgt服务的TGS后再次调用了 getKerberosTGS 函数来获取CIFS服务的TGS票据，
+当 KDC 对 krbtgt 服务的 TGS-REQ 后。对攻击者伪造的 PAC 进行权限验证，通过之后返回高权限的、使用 MD5 校验的 TGS，因为服务为 krbtgt，因此可以作为一个新的 TGT 使用去请求任何服务，在下面的代码中可以看到，获得 krbtgt 服务的 TGS 后再次调用了 getKerberosTGS 函数来获取 CIFS 服务的 TGS 票据，
 
   
 
@@ -225,7 +225,7 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
   
 
-在下面的代码中，通过 SMBConnection 对象创建一个SMB连接，并使用Kerberos票据进行身份验证，同时使用PSEXEC代码执行命令或创建一个交互式shell，极大的简化了攻击流程。
+在下面的代码中，通过 SMBConnection 对象创建一个 SMB 连接，并使用 Kerberos 票据进行身份验证，同时使用 PSEXEC 代码执行命令或创建一个交互式 shell，极大的简化了攻击流程。
 
   
 
@@ -235,11 +235,11 @@ KDC收到AS\_REQ请求之后并做出AS-REP响应，在返回的内容中包含�
 
 **检测防御**  
 
-关于利用GoldenPac进行权限提升，由于利用了典型的MS14-068漏洞，微软也对漏洞发布了对应的补丁，如果要防御攻击可参考以下几点：
+关于利用 GoldenPac 进行权限提升，由于利用了典型的 MS14-068 漏洞，微软也对漏洞发布了对应的补丁，如果要防御攻击可参考以下几点：
 
-1.安装KB3011780补丁
+1.安装 KB3011780 补丁
 
-2.监测include-pac字段为False的特征，如果出现了False则可能出现了异常
+2.监测 include-pac 字段为 False 的特征，如果出现了 False 则可能出现了异常
 
   
 

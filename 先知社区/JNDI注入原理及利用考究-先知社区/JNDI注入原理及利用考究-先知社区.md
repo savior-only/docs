@@ -1,5 +1,5 @@
 ---
-title: JNDI注入原理及利用考究 - 先知社区
+title: JNDI 注入原理及利用考究 - 先知社区
 url: https://xz.aliyun.com/t/12277?time__1311=mqmhD5YIOhOD%2FD0lbGkboi%3DOG%3D2WniqvD&alichlgref=https%3A%2F%2Fwww.google.com%2F
 clipped_at: 2024-03-28 00:13:58
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# JNDI注入原理及利用考究 - 先知社区
+# JNDI 注入原理及利用考究 - 先知社区
 
 ## 一、前言
 
@@ -16,7 +16,7 @@ tags:
 
 ## 二、JNDI 简介
 
-JNDI(Java Naming and Directory Interface)是一个应用程序设计的 API，一种标准的 Java 命名系统接口。JNDI 提供统一的客户端 API，通过不同的访问提供者接口JNDI服务供应接口(SPI)的实现，由管理者将 JNDI API 映射为特定的命名服务和目录系统，使得 Java 应用程序可以和这些命名服务和目录服务之间进行交互。
+JNDI(Java Naming and Directory Interface) 是一个应用程序设计的 API，一种标准的 Java 命名系统接口。JNDI 提供统一的客户端 API，通过不同的访问提供者接口 JNDI 服务供应接口 (SPI) 的实现，由管理者将 JNDI API 映射为特定的命名服务和目录系统，使得 Java 应用程序可以和这些命名服务和目录服务之间进行交互。
 
 上面较官方说法，通俗的说就是若程序定义了 JDNI 中的接口，则就可以通过该接口 API 访问系统的 `命令服务`和`目录服务`,如下图。
 
@@ -31,7 +31,7 @@ JNDI(Java Naming and Directory Interface)是一个应用程序设计的 API，�
 | DNS | 域名服务 |
 | CORBA | 公共对象请求代理体系结构 |
 
-## 三、JNDI注入
+## 三、JNDI 注入
 
 JNDI 注入，即当开发者在定义 `JNDI` 接口初始化时，`lookup()` 方法的参数可控，攻击者就可以将恶意的 `url` 传入参数远程加载恶意载荷，造成注入攻击。
 
@@ -62,8 +62,8 @@ JNDI 注入对 JAVA 版本有相应的限制，具体可利用版本如下：
 
 | 协议  | JDK6 | JDK7 | JDK8 | JDK11 |
 | --- | --- | --- | --- | --- |
-| LADP | 6u211以下 | 7u201以下 | 8u191以下 | 11.0.1以下 |
-| RMI | 6u132以下 | 7u122以下 | 8u113以下 | 无   |
+| LADP | 6u211 以下 | 7u201 以下 | 8u191 以下 | 11.0.1 以下 |
+| RMI | 6u132 以下 | 7u122 以下 | 8u113 以下 | 无   |
 
 ## 四、JNDI 注入复现
 
@@ -126,7 +126,7 @@ public class RMIClient {
 
 HTTP 端恶意载荷（Calculator.java）代码
 
-笔者使用的是 ubuntu 的环境，执行弹出计算器的命令为 `gnome-calculator`,若为Windwos 修改为 `calc` 即可
+笔者使用的是 ubuntu 的环境，执行弹出计算器的命令为 `gnome-calculator`,若为 Windwos 修改为 `calc` 即可
 
 ```plain
 public class Calculator {
@@ -146,7 +146,7 @@ javac Calculator.java
 
 [![](assets/1711556038-dfabad1f5a3b489a6f6ed1af421237ac.png)](https://xzfile.aliyuncs.com/media/upload/picture/20230308194457-a6920942-bda6-1.png)
 
-2、在 Calculator.class 目录下利用 Python 起一个临时的 WEB 服务放置恶意载荷,这里的端口必须要与 RMIServer.java 的 Reference 里面的链接端口一致  
+2、在 Calculator.class 目录下利用 Python 起一个临时的 WEB 服务放置恶意载荷，这里的端口必须要与 RMIServer.java 的 Reference 里面的链接端口一致  
 [![](assets/1711556038-71c193358994a2283dddafab1f9b3442.png)](https://xzfile.aliyuncs.com/media/upload/picture/20230308194511-aef8cb66-bda6-1.png)
 
 python3 -m http.server 8081  
@@ -270,7 +270,7 @@ public class LDAPServer {
 }
 ```
 
-3、客户端（LDAPClient.java）代码， 也是受害端
+3、客户端（LDAPClient.java）代码，也是受害端
 
 ```plain
 package jndi_ldap_injection;
@@ -304,7 +304,7 @@ public class Calculator {
 1、将 HTTP 端恶意载荷 Calculator.java，编译成 Calculator.class 文件  
 [![](assets/1711556038-bac920ff715a15bb1df1f2fbd0417b53.png)](https://xzfile.aliyuncs.com/media/upload/picture/20230308194745-0a67f242-bda7-1.png)
 
-2、在 Calculator.class 目录下利用 Python 起一个临时的 WEB 服务放置恶意载荷,这里的端口必须要与 LDAPServer.java 的 Reference 里面的链接端口一致  
+2、在 Calculator.class 目录下利用 Python 起一个临时的 WEB 服务放置恶意载荷，这里的端口必须要与 LDAPServer.java 的 Reference 里面的链接端口一致  
 [![](assets/1711556038-fea88966618d3035794078756c965270.png)](https://xzfile.aliyuncs.com/media/upload/picture/20230308194800-13b89bf8-bda7-1.png)
 
 python3 -m http.server 8081  
@@ -317,9 +317,9 @@ python3 -m http.server 8081
 再点击运行客户端，实现弹窗  
 [![](assets/1711556038-ddb8296199b08dd7bc899d3ab5f3d414.png)](https://xzfile.aliyuncs.com/media/upload/picture/20230308194909-3cb86e52-bda7-1.png)
 
-### DNS协议
+### DNS 协议
 
-通过上面我们可知 `JNDI` 注入可以利用 `RMI` 协议和`LDAP` 协议搭建服务然后执行命令，但有个不好的点就是会暴露自己的服务器 `IP` 。在没有确定存在漏洞前，直接在直接服务器上使用 `RMI` 或者 `LDAP` 去执行命令，通过日志可分析得到攻击者的服务器 `IP`，这样在没有获取成果的前提下还暴露了自己的服务器 `IP`，得不偿失。 我们可以使用`DNS` 协议进行探测，通过 `DNS` 协议去探测是否真的存在漏洞，再去利用 `RMI` 或者 `LDAP` 去执行命令，避免过早暴露服务器 `IP`，这也是平常大多数人习惯使用 `DNSLog` 探测的原因之一，同样的 `ldap` 和 `rmi` 也可以使用 `DNSLog` 平台去探测。
+通过上面我们可知 `JNDI` 注入可以利用 `RMI` 协议和`LDAP` 协议搭建服务然后执行命令，但有个不好的点就是会暴露自己的服务器 `IP` 。在没有确定存在漏洞前，直接在直接服务器上使用 `RMI` 或者 `LDAP` 去执行命令，通过日志可分析得到攻击者的服务器 `IP`，这样在没有获取成果的前提下还暴露了自己的服务器 `IP`，得不偿失。我们可以使用`DNS` 协议进行探测，通过 `DNS` 协议去探测是否真的存在漏洞，再去利用 `RMI` 或者 `LDAP` 去执行命令，避免过早暴露服务器 `IP`，这也是平常大多数人习惯使用 `DNSLog` 探测的原因之一，同样的 `ldap` 和 `rmi` 也可以使用 `DNSLog` 平台去探测。
 
 #### 环境搭建
 
@@ -353,7 +353,7 @@ public class LDAPClient {
 
 ## 五、扩展
 
-### InitialContext类
+### InitialContext 类
 
 由 `JNDI+RMI` 漏洞代码进行分析
 
@@ -374,14 +374,14 @@ public class RMIClient {
 `InitialContext` 类用于读取 JNDI 的一些配置信息，内含对象和其在 JNDI 中的注册名称的映射信息
 
 ```plain
-InitialContext initialContext = new InitialContext(); // 初始化上下文,获取初始目录环境的一个引用
+InitialContext initialContext = new InitialContext(); // 初始化上下文，获取初始目录环境的一个引用
 ```
 
 `lookup(String name)` 获取 name 的数据，这里的 uri 被定义为 `rmi://127.0.0.1:7778/RCE` 所以会通过 `rmi` 协议访问 `127.0.0.1:7778/RCE`
 
 ```plain
 String uri = "rmi://127.0.0.1:7778/RCE";
-initialContext.lookup(uri); //利用lookup() 函数获取指定的远程对象
+initialContext.lookup(uri); //利用 lookup() 函数获取指定的远程对象
 ```
 
 由于 `lookup()` 参数可控，导致漏洞的出现，跟进代码如下  

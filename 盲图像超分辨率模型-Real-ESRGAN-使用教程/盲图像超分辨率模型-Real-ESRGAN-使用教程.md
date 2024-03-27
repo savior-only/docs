@@ -22,7 +22,7 @@ Real-ESRGAN 目前提供了五种模型，分别是 realesrgan-x4plus（默认�
 
 ![](assets/1711556270-dd354009e15bde7f4890276c0fa71246.webp)
 
-原图（图片来自网络） 456x600
+原图（图片来自网络）456x600
 
 ![](assets/1711556270-3a248a7aa1697a58440d2fbbc078fce6.webp)
 
@@ -34,7 +34,7 @@ Real-ESRGAN 目前提供了五种模型，分别是 realesrgan-x4plus（默认�
 
 ![](assets/1711556270-c4318fdca322b00c918009e51ad3bbda.webp)
 
-原图（图片来自网络） 604x473
+原图（图片来自网络）604x473
 
 ![](assets/1711556270-2f64eab2240efbf6dfb8ab57f2abd54d.webp)
 
@@ -80,7 +80,7 @@ Real-ESRGAN 目前提供了五种模型，分别是 realesrgan-x4plus（默认�
 
 ![](assets/1711556270-3ef4dee9a3e5548441b0482058acbc70.webp)
 
-原图（图片来自网络） 719x720
+原图（图片来自网络）719x720
 
 ![](assets/1711556270-6f5cacd0abc76ab9f18e5d61c3828cf3.webp)
 
@@ -95,7 +95,7 @@ Real-ESRGAN 目前提供了五种模型，分别是 realesrgan-x4plus（默认�
 目前你可以通过以下三种方式运行 Real-ESRGAN。
 
 1.  Real-ESRGAN 的 **[Colab Demo](https://link.zhihu.com/?target=https%3A//colab.research.google.com/drive/1k2Zod6kSHEvraybHl50Lys0LerhyTMCo%3Fusp%3Dsharing)**（仅支持 realesrgan-x4plus 模式），Real-ESRGAN 动漫视频的 **[Colab Demo](https://link.zhihu.com/?target=https%3A//colab.research.google.com/drive/1yNl9ORUxxlL4N0keJa2SEPB61imPQd1B%3Fusp%3Dsharing)**（仅支持 realesr-animevideov3 模式）。
-2.  **支持 Intel / AMD / Nvidia 显卡**的**绿色版** **exe** **文件**： [Windows 版](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip) / [Linux 版](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-ubuntu.zip) / [macOS 版](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-macos.zip)，详情请移步[这里](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/blob/master/README_CN.md%23%25E4%25BE%25BF%25E6%2590%25BA%25E7%2589%2588%25EF%25BC%2588%25E7%25BB%25BF%25E8%2589%25B2%25E7%2589%2588%25EF%25BC%2589%25E5%258F%25AF%25E6%2589%25A7%25E8%25A1%258C%25E6%2596%2587%25E4%25BB%25B6)。NCNN的实现在 [Real-ESRGAN-ncnn-vulkan](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN-ncnn-vulkan)。
+2.  **支持 Intel / AMD / Nvidia 显卡**的**绿色版** **exe** **文件**： [Windows 版](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip) / [Linux 版](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-ubuntu.zip) / [macOS 版](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-macos.zip)，详情请移步[这里](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN/blob/master/README_CN.md%23%25E4%25BE%25BF%25E6%2590%25BA%25E7%2589%2588%25EF%25BC%2588%25E7%25BB%25BF%25E8%2589%25B2%25E7%2589%2588%25EF%25BC%2589%25E5%258F%25AF%25E6%2589%25A7%25E8%25A1%258C%25E6%2596%2587%25E4%25BB%25B6)。NCNN 的实现在 [Real-ESRGAN-ncnn-vulkan](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN-ncnn-vulkan)。
 3.  通过**搭建** **Python** **环境运行**，详情请移步[这里](https://link.zhihu.com/?target=https%3A//github.com/xinntao/Real-ESRGAN)。
 
 由于这些 exe 文件会把图像分成几个板块，然后分别进行处理，再合成导出，输出的图像可能会有一点割裂感（而且可能跟 PyTorch 的输出不太一样），所以本人不建议使用本地可执行文件直接运行 Real-ESRGAN。
@@ -140,7 +140,7 @@ Real-ESRGAN 目前提供了五种模型，分别是 realesrgan-x4plus（默认�
 
 08\. **点击**「**5\. Download Results**」的**运行按钮**运行该单元格，运行完成会开始自动下载处理好的图片，该单元格下方会显示下载进度，完成后图片就以压缩包的形式下载到本地了。
 
-如果还有图片需要处理直接重复 **06.-08.** 即可，也就是单元格 「**2\. Upload Images（上传图片）**、**3\. Inference（执行命令）**、**5\. Download Results（下载文件）**」。
+如果还有图片需要处理直接重复 **06.-08.** 即可，也就是单元格「**2\. Upload Images（上传图片）**、**3\. Inference（执行命令）**、**5\. Download Results（下载文件）**」。
 
   
 

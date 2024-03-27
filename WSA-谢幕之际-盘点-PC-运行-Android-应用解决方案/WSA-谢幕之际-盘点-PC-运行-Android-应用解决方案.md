@@ -33,7 +33,7 @@ Windows Subsystem for Android (WSA) 曾经是 Windows 11 最受瞩目的新功�
 
 ![](assets/1711466191-6d183b2b7932472e405ae776b32f1f3b.png)
 
-下面要做的是这里找到Android Studio 的模拟器安装目录，如果你和我一样使用 Jetbrains Toolbox 这个工具来管理和安装的话，那么模拟器对应的目录就在  `C:\Users\yourname\AppData\Local\Android\Sdk\emulator`
+下面要做的是这里找到 Android Studio 的模拟器安装目录，如果你和我一样使用 Jetbrains Toolbox 这个工具来管理和安装的话，那么模拟器对应的目录就在  `C:\Users\yourname\AppData\Local\Android\Sdk\emulator`
 
 用文件资源管理器打开以上的目录，然后右键在当下目录打开终端，输入如下命令来检查可用的模拟器版本：
 
@@ -62,7 +62,7 @@ Windows Subsystem for Android (WSA) 曾经是 Windows 11 最受瞩目的新功�
 ## **民间版 WSA 增强补丁：WSABuilds**
 
 -   优点：继承自 WSA 的定制化解决方案；体验上接近 WSA；支持 Google apps；不受限 Windows 系统版本。
--   缺点：受限于 WSA 停服， WSA 的 Android 版本不再更新；存在 Windows 更新导致完全不可用；应用安装不便。
+-   缺点：受限于 WSA 停服，WSA 的 Android 版本不再更新；存在 Windows 更新导致完全不可用；应用安装不便。
 
 虽然 WSA 停止支持了，但并不意味着立刻不能用，只是微软不再官方提供安装渠道，现有安装也不会再收到更新。如果不是特别介意这一点，至少短期内还是可以使用一些民间版本作为更好方案出现之前的过渡。
 

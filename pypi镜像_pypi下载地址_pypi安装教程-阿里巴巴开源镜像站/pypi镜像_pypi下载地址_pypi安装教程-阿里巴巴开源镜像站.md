@@ -1,5 +1,5 @@
 ---
-title: pypi镜像_pypi下载地址_pypi安装教程-阿里巴巴开源镜像站
+title: pypi 镜像_pypi 下载地址_pypi 安装教程 - 阿里巴巴开源镜像站
 url: https://developer.aliyun.com/mirror/pypi?spm=a2c6h.13651102.0.0.3e221b11zVEiHf
 clipped_at: 2024-03-28 00:19:21
 category: default
@@ -8,31 +8,31 @@ tags:
 ---
 
 
-# pypi镜像_pypi下载地址_pypi安装教程-阿里巴巴开源镜像站
+# pypi 镜像_pypi 下载地址_pypi 安装教程 - 阿里巴巴开源镜像站
 
 # PyPI 镜像 动手试一下
 
 免费试用
 
-云服务器 ECS，每月免费额度280元 3个月
+云服务器 ECS，每月免费额度 280 元 3 个月
 
 推荐场景：
 
-[部署并使用Docker](https://developer.aliyun.com/adc/scenario/b41bf5d4668e4ec28c28c42ac0cdd886)[快速搭建云上博客](https://developer.aliyun.com/adc/scenario/fdecd528be6145dcbe747f0206e361f3)[搭建微信小程序](https://developer.aliyun.com/adc/scenario/aa0f837b017d44b093cdb6bd456bd0e7)
+[部署并使用 Docker](https://developer.aliyun.com/adc/scenario/b41bf5d4668e4ec28c28c42ac0cdd886)[快速搭建云上博客](https://developer.aliyun.com/adc/scenario/fdecd528be6145dcbe747f0206e361f3)[搭建微信小程序](https://developer.aliyun.com/adc/scenario/aa0f837b017d44b093cdb6bd456bd0e7)
 
 立即试用
 
-云服务器ECS，u1 2核4GB 1个月
+云服务器 ECS，u1 2 核 4GB 1 个月
 
 推荐场景：
 
-[搭建2048小游戏](https://developer.aliyun.com/adc/scenario/fc3eb512337041779b1cd4d823ab7b1d?spm=a2c6h.14164896.0.0.4d8a47c56sSFDx&scm=20140722.S_community@@%E5%AE%9E%E9%AA%8C@@fc3eb512337041779._.ID_fc3eb512337041779b1cd4d823ab7b1d-RL_2048%E5%B0%8F%E6%B8%B8%E6%88%8F-LOC_search~UND~community~UND~item-OR_ser-V_3-P0_0)[搭建turtle画布](https://developer.aliyun.com/adc/scenario/exp/ebebe473948741008541a1fb79856b72)[搭建wiki知识库](https://developer.aliyun.com/adc/scenario/exp/28a41d19c3ce4f01b012d14103784870)
+[搭建 2048 小游戏](https://developer.aliyun.com/adc/scenario/fc3eb512337041779b1cd4d823ab7b1d?spm=a2c6h.14164896.0.0.4d8a47c56sSFDx&scm=20140722.S_community@@%E5%AE%9E%E9%AA%8C@@fc3eb512337041779._.ID_fc3eb512337041779b1cd4d823ab7b1d-RL_2048%E5%B0%8F%E6%B8%B8%E6%88%8F-LOC_search~UND~community~UND~item-OR_ser-V_3-P0_0)[搭建 turtle 画布](https://developer.aliyun.com/adc/scenario/exp/ebebe473948741008541a1fb79856b72)[搭建 wiki 知识库](https://developer.aliyun.com/adc/scenario/exp/28a41d19c3ce4f01b012d14103784870)
 
 立即试用
 
 ## 简介
 
-PyPI(Python Package Index)是Python编程语言的软件存储库。开发者可以通过PyPI查找和安装由Python社区开发和共享的软件，也可以将自己开发的库上传至PyPI。
+PyPI(Python Package Index) 是 Python 编程语言的软件存储库。开发者可以通过 PyPI 查找和安装由 Python 社区开发和共享的软件，也可以将自己开发的库上传至 PyPI。
 
 下载地址：[https://mirrors.aliyun.com/pypi/](https://mirrors.aliyun.com/pypi/)
 
@@ -44,7 +44,7 @@ a. 找到下列文件
 ~/.pip/pip.conf
 ```
 
-b. 在上述文件中添加或修改:
+b. 在上述文件中添加或修改：
 
 ```plain
 [global]
@@ -54,7 +54,7 @@ index-url = http://mirrors.aliyun.com/pypi/simple/
 trusted-host=mirrors.aliyun.com
 ```
 
-## ECS内网配置方法
+## ECS 内网配置方法
 
 a. 找到下列文件
 
@@ -62,7 +62,7 @@ a. 找到下列文件
 ~/.pip/pip.conf
 ```
 
-b. 在上述文件中添加或修改:
+b. 在上述文件中添加或修改：
 
 ```plain
 [global]
@@ -80,13 +80,13 @@ trusted-host=mirrors.cloud.aliyuncs.com
 
 ### 背景
 
-Python库的官方仓库pypi允许开发者自由上传软件包，这会导致某些攻击者利用这点构造恶意包进行供应链攻击，在用户安装包或者引入包时触发恶意行为。目前国内镜像源与官方镜像源往往并不是完全一致，国内源普遍采用的是增量更新机制，也就是官方删除的恶意包国内不会同步删除。而这一部分恶意包可能会在很长一段时间内对国内用户造成影响。
+Python 库的官方仓库 pypi 允许开发者自由上传软件包，这会导致某些攻击者利用这点构造恶意包进行供应链攻击，在用户安装包或者引入包时触发恶意行为。目前国内镜像源与官方镜像源往往并不是完全一致，国内源普遍采用的是增量更新机制，也就是官方删除的恶意包国内不会同步删除。而这一部分恶意包可能会在很长一段时间内对国内用户造成影响。
 
-阿里云安全-薪火实验室结合自建检测引擎-伏魔引擎长期对供应链恶意样本进行监控和预警，保护阿里pypi源安全。
+阿里云安全 - 薪火实验室结合自建检测引擎 - 伏魔引擎长期对供应链恶意样本进行监控和预警，保护阿里 pypi 源安全。
 
 ### 删除包列表
 
-以下具有安全威胁的软件包阿里pypi源已对应删除，开发者可通过 pip list 命令对于机器上已经安装的pypi包进行自查，如发现安装有以下具有安全风险的包，建议尽快删除修复。
+以下具有安全威胁的软件包阿里 pypi 源已对应删除，开发者可通过 pip list 命令对于机器上已经安装的 pypi 包进行自查，如发现安装有以下具有安全风险的包，建议尽快删除修复。
 
 | 恶意包 | 备注  |
 | --- | --- |
@@ -97,19 +97,19 @@ Python库的官方仓库pypi允许开发者自由上传软件包，这会导致�
 | mllearnlib | 恶意后门 |
 | mplatlib | 恶意后门 |
 | learninglib | 恶意后门 |
-| importantpackage | 反弹shell |
-| important-package | 反弹shell |
-| pptest | 反弹shell |
-| ipboards | 反弹shell |
-| owlmoon | 反弹shell |
-| discordsafety | 反弹shell |
-| trrfab | 反弹shell |
-| 10cent10 | 反弹shell |
-| 10cent11 | 反弹shell |
-| yandex-yt | 反弹shell |
-| yiffparty | 反弹shell |
-| giganigga | 反弹shell |
-| trrfab | 反弹shell |
+| importantpackage | 反弹 shell |
+| important-package | 反弹 shell |
+| pptest | 反弹 shell |
+| ipboards | 反弹 shell |
+| owlmoon | 反弹 shell |
+| discordsafety | 反弹 shell |
+| trrfab | 反弹 shell |
+| 10cent10 | 反弹 shell |
+| 10cent11 | 反弹 shell |
+| yandex-yt | 反弹 shell |
+| yiffparty | 反弹 shell |
+| giganigga | 反弹 shell |
+| trrfab | 反弹 shell |
 | rbperf | 恶意后门 |
 | osxframeworks | 恶意后门 |
 | caldavtester | 恶意后门 |
@@ -704,13 +704,13 @@ Python库的官方仓库pypi允许开发者自由上传软件包，这会导致�
 
 > 恶意后门：恶意程序可以在用户不知情的情况下直接安装启动运行，后台开启特殊接口，方便黑客再次进入受害者计算机，通常会添加非法的启动项，服务等用于长期驻留
 > 
-> 反弹shell：黑客在获取执行权限后，可以通过在受害者机器上建立shell会话连接至黑客计算机，黑客可以通过shell会话直接下发命令控制受害者计算机。
+> 反弹 shell：黑客在获取执行权限后，可以通过在受害者机器上建立 shell 会话连接至黑客计算机，黑客可以通过 shell 会话直接下发命令控制受害者计算机。
 > 
 > 获取敏感信息：非法窃取受害者计算机相关敏感信息，比如系统、软件账号密码、配置，系统截屏，私密文件内容，钱包信息等，并将这些信息通过各种手段泄露给黑客服务器。
 > 
 > 远程命令执行：恶意程序启动会获取黑客服务器信息，并根据远程数据，执行可被黑客控制的远程代码，用于控制受害者机器，执行黑客下发的指令等。
 > 
-> 挖矿木马：木马在用户不知情的情况下，使用计算机算力对各类数字货币进行挖矿获利，占用机器大量CPU、GPU资源，严重影响其他应用执行。
+> 挖矿木马：木马在用户不知情的情况下，使用计算机算力对各类数字货币进行挖矿获利，占用机器大量 CPU、GPU 资源，严重影响其他应用执行。
 > 
 > 篡改剪贴板加密货币地址：恶意程序会监视机器剪贴板，一旦发现用户复制加密货币钱包地址，便将剪贴板中地址替换成黑客指定的钱包地址，用户便可能在不知情中向攻击者转账数字货币。
 

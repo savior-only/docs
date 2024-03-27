@@ -1,5 +1,5 @@
 ---
-title: 深入学习Java代码审计技巧—详细剖析某erp漏洞
+title: 深入学习 Java 代码审计技巧—详细剖析某 erp 漏洞
 url: https://xz.aliyun.com/t/13525?time__1311=mqmxnQiQi%3D0Qe0KDsD7mo0%3Do94bN3%3D4D&alichlgref=https%3A%2F%2Fwww.google.com%2F
 clipped_at: 2024-03-28 00:14:15
 category: default
@@ -7,21 +7,21 @@ tags:
  - xz.aliyun.com
 ---
 
-# 深入学习Java代码审计技巧—详细剖析某erp漏洞
+# 深入学习 Java 代码审计技巧—详细剖析某 erp 漏洞
 
 ## 简介
 
-对于Java代码审计，主要的审计步骤如下：
+对于 Java 代码审计，主要的审计步骤如下：
 
 -   确定项目技术框架、项目结构
 -   环境搭建
--   配置文件的分析：如pom.xml、web.xml等，特别是pom.xml，可以从组件中寻找漏洞
--   Filter分析：Filter是重要的组成部分，提前分析有利于把握项目对请求的过滤，在后续漏洞利用时能够综合分析
--   路由分析：部分项目请求路径与对用的controller方法不对应，提前通过抓包调试分析，了解前端请求到后端方法的对应关系，便于在后续分析中更快定位代码
+-   配置文件的分析：如 pom.xml、web.xml 等，特别是 pom.xml，可以从组件中寻找漏洞
+-   Filter 分析：Filter 是重要的组成部分，提前分析有利于把握项目对请求的过滤，在后续漏洞利用时能够综合分析
+-   路由分析：部分项目请求路径与对用的 controller 方法不对应，提前通过抓包调试分析，了解前端请求到后端方法的对应关系，便于在后续分析中更快定位代码
 -   漏洞探测
-    -   探测之前可借用工具辅助分析，如codeql、fortify、Yakit、BP等
-    -   SQL注入分析、RCE分析可先从代码入手，通过关键API及特征关键字来进行逆向数据流分析，从sink到source，判断参数是否可控
-    -   XSS、文件上传等漏洞适合正向数据流分析，由于存储型XSS数据流断裂，从代码层面不好将两条数据流联系起来，可以通过前端界面的测试，找到插入口和显示处性质一样的点，在通过后端代码分析，构造出可利用的payload
+    -   探测之前可借用工具辅助分析，如 codeql、fortify、Yakit、BP 等
+    -   SQL 注入分析、RCE 分析可先从代码入手，通过关键 API 及特征关键字来进行逆向数据流分析，从 sink 到 source，判断参数是否可控
+    -   XSS、文件上传等漏洞适合正向数据流分析，由于存储型 XSS 数据流断裂，从代码层面不好将两条数据流联系起来，可以通过前端界面的测试，找到插入口和显示处性质一样的点，在通过后端代码分析，构造出可利用的 payload
     -   逻辑漏洞这类也是从前端入手比较好处理，后端代码庞大难以定位
 
 个人观点，仅供参考
@@ -34,7 +34,7 @@ tags:
 
 -   src/main/java：存放java核心代码，里面包含controller、service、filter、dao等，还包括主函数ErpApplication
 -   src/main/resources：包含mybatis配置文件，properties等
--   erp\_web：里面存放的是该网站的html、css及js文件
+-   erp\_web：里面存放的是该网站的 html、css 及 js 文件
 -   docs：包含数据库文件及文档文件等
 -   test：项目的测试目录
 -   pom.xml：项目的依赖配置
@@ -52,17 +52,17 @@ source D:/audit-code/java/jshERP-2.3/docs/jsh_erp.sql
 
 **项目启动**：
 
-application.properties文件中配置数据库连接信息及server和port，启动主类ErpApplication.java即可
+application.properties 文件中配置数据库连接信息及 server 和 port，启动主类 ErpApplication.java 即可
 
 ## 配置文件分析
 
 在对项目开始审计之前，需要先了解其配置文件
 
--   application.properties：Spring的全局配置文件，里面包含server的ip及port，同时还有数据库连接信息，在环境搭建时可修改
+-   application.properties：Spring 的全局配置文件，里面包含 server 的 ip 及 port，同时还有数据库连接信息，在环境搭建时可修改
     
 -   pom.xml：项目的组件依赖，审计开始前先了解依赖的组件并判断是否存在对应组件版本的漏洞，这也可以是漏洞挖掘的第一步
     
-    **依赖fastjson**
+    **依赖 fastjson**
     
     ```plain
     <dependency>
@@ -72,12 +72,12 @@ application.properties文件中配置数据库连接信息及server和port，启
     </dependency>
     ```
     
-    1.2.55版本存在反序列化漏洞，现在需要寻找利用点，全局搜索`parseObject`方法
+    1.2.55 版本存在反序列化漏洞，现在需要寻找利用点，全局搜索`parseObject`方法
     
 
 [![](assets/1711556055-a14ba8e7189be3c53413cdcecac8afc6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201232832-8ed53be8-c116-1.png)
 
-猜测search可能可控，进入分析
+猜测 search 可能可控，进入分析
 
 ```plain
 public static String getInfo(String search, String key){
@@ -94,7 +94,7 @@ public static String getInfo(String search, String key){
   }
 ```
 
-查看getInfo函数的调用处，比较多，一个一个筛选，这里选择UserComponent.java中的getUserList方法进行分析
+查看 getInfo 函数的调用处，比较多，一个一个筛选，这里选择 UserComponent.java 中的 getUserList 方法进行分析
 
 ```plain
 private List<?> getUserList(Map<String, String> map)throws Exception {
@@ -108,7 +108,7 @@ private List<?> getUserList(Map<String, String> map)throws Exception {
   }
 ```
 
-逐层向上调用分析，可以得知在ResourceController.java中调用select，即search参数可控
+逐层向上调用分析，可以得知在 ResourceController.java 中调用 select，即 search 参数可控
 
 ```plain
 @GetMapping(value = "/{apiName}/list")
@@ -143,11 +143,11 @@ private List<?> getUserList(Map<String, String> map)throws Exception {
   }
 ```
 
-根据路由分析，这里的apiName为user，这样能够寻找到UserComponent里的select方法
+根据路由分析，这里的 apiName 为 user，这样能够寻找到 UserComponent 里的 select 方法
 
 **测试**
 
-抓包设置payload
+抓包设置 payload
 
 ```plain
 {"@type":"java.net.Inet4Address","val":"xxxxxx"}
@@ -155,11 +155,11 @@ private List<?> getUserList(Map<String, String> map)throws Exception {
 
 [![](assets/1711556055-af4d946c7309ccbef722c8ef5ae405c9.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201232916-a8cd8460-c116-1.png)
 
-收到DNS请求，证明漏洞存在
+收到 DNS 请求，证明漏洞存在
 
 [![](assets/1711556055-8e4bfe0e560074abe93aaab13bb9db21.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201232940-b756f214-c116-1.png)
 
-接下来可以进行LDAP注入，但是需要确定AutoType是否开启
+接下来可以进行 LDAP 注入，但是需要确定 AutoType 是否开启
 
 可以通过以下代码开启
 
@@ -167,7 +167,7 @@ private List<?> getUserList(Map<String, String> map)throws Exception {
 ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
 ```
 
-但是在实际测试的过程中，没有开启可以通过mysql服务来打
+但是在实际测试的过程中，没有开启可以通过 mysql 服务来打
 
 payload：
 
@@ -189,11 +189,11 @@ payload：
   }
 ```
 
-参考：[蓝帽杯2022决赛 - 赌怪 writeup - KingBridge - 博客园 (cnblogs.com)](https://www.cnblogs.com/kingbridge/articles/16720318.html)
+参考：[蓝帽杯 2022 决赛 - 赌怪 writeup - KingBridge - 博客园 (cnblogs.com)](https://www.cnblogs.com/kingbridge/articles/16720318.html)
 
-这里就不继续测试，大致原理是这样，如果不懂fastjson，请参考[Java安全之FastJson漏洞分析与利用 | DiliLearngent's Blog](https://dililearngent.github.io/2023/02/10/fastjson-security/)
+这里就不继续测试，大致原理是这样，如果不懂 fastjson，请参考[Java 安全之 FastJson 漏洞分析与利用 | DiliLearngent's Blog](https://dililearngent.github.io/2023/02/10/fastjson-security/)
 
-**依赖log4j**
+**依赖 log4j**
 
 ```plain
 <dependency>
@@ -204,13 +204,13 @@ payload：
   </dependency>
 ```
 
-无相关漏洞，可以通过官方文档或者maven仓库中查看：[Maven Repository: org.apache.logging.log4j » log4j-to-slf4j (mvnrepository.com)](https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-to-slf4j)
+无相关漏洞，可以通过官方文档或者 maven 仓库中查看：[Maven Repository: org.apache.logging.log4j » log4j-to-slf4j (mvnrepository.com)](https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-to-slf4j)
 
 -   还有一些配置文件这里没有涉及到就不提了
 
-## Filter分析
+## Filter 分析
 
-在项目中只存在一个Filter类，即LogCostFilter，观察其doFilter方法
+在项目中只存在一个 Filter 类，即 LogCostFilter，观察其 doFilter 方法
 
 ```plain
 @Override
@@ -230,7 +230,7 @@ public void doFilter(ServletRequest request, ServletResponse response,
         chain.doFilter(request, response);
         return;
     }
-    // 使用ignoredList中内容进行认证
+    // 使用 ignoredList 中内容进行认证
     if (verify(ignoredList, requestUrl)) {
         chain.doFilter(servletRequest, response);
         return;
@@ -248,9 +248,9 @@ public void doFilter(ServletRequest request, ServletResponse response,
 }
 ```
 
-根据对init方法的分析可知，ignoredUrls为\[.css，.js，.jpg，.png，.gif，.ico\]，allowUrls为\[/user/login，/user/registerUser，/v2/api-docs\]
+根据对 init 方法的分析可知，ignoredUrls 为\[.css，.js，.jpg，.png，.gif，.ico\]，allowUrls 为\[/user/login，/user/registerUser，/v2/api-docs\]
 
-先看verify方法
+先看 verify 方法
 
 ```plain
 private static String regexPrefix = "^.*";
@@ -268,13 +268,13 @@ private static boolean verify(List<String> ignoredList, String url) {
 }
 ```
 
-将ignoredUrls中的逐个元素拼接成正则表达式后与当前url进行匹配，匹配成功即返回true，例如第一个元素形成的正则表达式为`^.*.css.*$`，即只要包含ignoredUrls中的任意一个元素即可在不登录的情况下访问
+将 ignoredUrls 中的逐个元素拼接成正则表达式后与当前 url 进行匹配，匹配成功即返回 true，例如第一个元素形成的正则表达式为`^.*.css.*$`，即只要包含 ignoredUrls 中的任意一个元素即可在不登录的情况下访问
 
-在白名单过滤中，只要请求url中以/user/login、/user/registerUser、/v2/api-docs开头即不需要登陆即可访问
+在白名单过滤中，只要请求 url 中以/user/login、/user/registerUser、/v2/api-docs 开头即不需要登陆即可访问
 
 ## 路由分析
 
-大部分请求路径都包含在Controller文件夹中，这里有一个特殊的类，即ResourceController.java，它的请求路径中包含{apiName}，代码中使用CommonQueryManager.java类对其进行处理，以select方法为例：
+大部分请求路径都包含在 Controller 文件夹中，这里有一个特殊的类，即 ResourceController.java，它的请求路径中包含{apiName}，代码中使用 CommonQueryManager.java 类对其进行处理，以 select 方法为例：
 
 ```plain
 public List<?> select(String apiName, Map<String, String> parameterMap)throws Exception {
@@ -288,31 +288,31 @@ public ICommonQuery getCommonQuery(String apiName) {
 }
 ```
 
-configComponentMap存放的是Component类，即如图所示：
+configComponentMap 存放的是 Component 类，即如图所示：
 
 [![](assets/1711556055-d8f15f655768e36e3abf6a5e04f1ee89.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233008-c838f500-c116-1.png)
 
-具体可通过调试得到，这样通过apiname（首字母大写）+ Component即得到处理的对应类，从该类中选择select方法
+具体可通过调试得到，这样通过 apiname（首字母大写）+ Component 即得到处理的对应类，从该类中选择 select 方法
 
-## SQL注入
+## SQL 注入
 
 ### 审计关键点
 
 -   重点关注创建查询的函数如 `createQuery()`、`createSQLQuery()`、`createNativeQuery()`。
--   定位SQL语句上下文，查看是否有参数直接拼接，是否有对模糊查询关键字的过滤。
+-   定位 SQL 语句上下文，查看是否有参数直接拼接，是否有对模糊查询关键字的过滤。
 -   是否使用预编译技术，预编译是否完整，关键函数定位`setObject()`、`setInt()`、`setString()`、`setSQLXML()`关联上下文搜索`set*`开头的函数。
--   Mybatis中搜索${}，因为对于like模糊查询、order by排序、范围查询in、动态表名/列名，没法使用预编译，只能拼接，所以还是需要手工防注入，此时可查看相关逻辑是否正确。
--   JPA搜索`JpaSort.unsafe()`，查看是否用实体之外的字段对查询结果排序，进行了SQL的拼接。以及查看`EntityManager`的使用，也可能存在拼接SQL的情况。
+-   Mybatis 中搜索${}，因为对于 like 模糊查询、order by 排序、范围查询 in、动态表名/列名，没法使用预编译，只能拼接，所以还是需要手工防注入，此时可查看相关逻辑是否正确。
+-   JPA 搜索`JpaSort.unsafe()`，查看是否用实体之外的字段对查询结果排序，进行了 SQL 的拼接。以及查看`EntityManager`的使用，也可能存在拼接 SQL 的情况。
 
-### 注入点1
+### 注入点 1
 
 #### 分析
 
-根据SQL注入代码审计经验，Mybatis框架下一般寻找mapper下的xml文件中的`${}`
+根据 SQL 注入代码审计经验，Mybatis 框架下一般寻找 mapper 下的 xml 文件中的`${}`
 
 [![](assets/1711556055-5d355c0e887b1afaeaae21d64bb5816a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233022-d09f78b8-c116-1.png)
 
-挺多，先看这两个，对应在UserMapperEx.xml文件中，查询如下
+挺多，先看这两个，对应在 UserMapperEx.xml 文件中，查询如下
 
 ```plain
 <select id="countsByUser" resultType="java.lang.Long">
@@ -332,7 +332,7 @@ configComponentMap存放的是Component类，即如图所示：
 </select>
 ```
 
-一看like，只要这里两个参数可控，另外这里要查询的是一个数字，无其他可用的返回参数，即可能存在SQL注入，优先考虑时间盲注。找到对应的Mappper，即UserMapperEx
+一看 like，只要这里两个参数可控，另外这里要查询的是一个数字，无其他可用的返回参数，即可能存在 SQL 注入，优先考虑时间盲注。找到对应的 Mappper，即 UserMapperEx
 
 ```plain
 Long countsByUser(
@@ -340,7 +340,7 @@ Long countsByUser(
     @Param("loginName") String loginName);
 ```
 
-继续网上，找调用此方法的service，Ctrl+B找到上层UserService
+继续网上，找调用此方法的 service，Ctrl+B 找到上层 UserService
 
 ```plain
 public Long countUser(String userName, String loginName)throws Exception {
@@ -355,7 +355,7 @@ public Long countUser(String userName, String loginName)throws Exception {
 }
 ```
 
-继续Ctrl+B，这里有两个调用处，由于第一个UserController中调用的countUser两个参数均为null，暂时忽略，来到UserComponent
+继续 Ctrl+B，这里有两个调用处，由于第一个 UserController 中调用的 countUser 两个参数均为 null，暂时忽略，来到 UserComponent
 
 ```plain
 @Override
@@ -368,7 +368,7 @@ public Long counts(Map<String, String> map)throws Exception {
 }
 ```
 
-还是没有到Controller层，继续Ctrl+B，来到CommonQueryManager
+还是没有到 Controller 层，继续 Ctrl+B，来到 CommonQueryManager
 
 ```plain
 /**
@@ -386,7 +386,7 @@ public Long counts(String apiName, Map<String, String> parameterMap)throws Excep
 }
 ```
 
-继续往上，终于来到ResourceController
+继续往上，终于来到 ResourceController
 
 ```plain
 @GetMapping(value = "/{apiName}/list")
@@ -422,13 +422,13 @@ public String getList(@PathVariable("apiName") String apiName,
 }
 ```
 
-这里包含一个路径变量apiName，以apiName为名找对应的处理包，对应的包中存在Component类，根据上面分析，从UserComponent中来的，对应的是user包，因此apiName为user
+这里包含一个路径变量 apiName，以 apiName 为名找对应的处理包，对应的包中存在 Component 类，根据上面分析，从 UserComponent 中来的，对应的是 user 包，因此 apiName 为 user
 
-另外根据UserComponent类中的counts方法，在map中寻找userName和loginName，因此search参数包含userName和loginName
+另外根据 UserComponent 类中的 counts 方法，在 map 中寻找 userName 和 loginName，因此 search 参数包含 userName 和 loginName
 
-正向数据链：/user/list——>ResourceController.getList——>CommonQueryManager.counts——>UserComponent.counts——>UserService.countUser——>UserMapperEx.countsByUser——>UserMapperEx.xml中id为countsByUser的查询
+正向数据链：/user/list——>ResourceController.getList——>CommonQueryManager.counts——>UserComponent.counts——>UserService.countUser——>UserMapperEx.countsByUser——>UserMapperEx.xml 中 id 为 countsByUser 的查询
 
-同样的道理，在这个getList方法中，还有一个select查询，对应的数据链：
+同样的道理，在这个 getList 方法中，还有一个 select 查询，对应的数据链：
 
 /user/list——>ResourceController.getList——>CommonQueryManager.select——>UserComponent.select——>UserComponent.getUserList——>UserService.select——>UserMapperEx.selectByConditionUser——>UserMapperEx.xml中id为selectByConditionUser的查询
 
@@ -468,37 +468,37 @@ public String getList(@PathVariable("apiName") String apiName,
 
 [![](assets/1711556055-c3fdf5c8957d6c8e15304d05c2d93658.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233059-e6756198-c116-1.png)
 
-这里的search参数包含了userName和loginName参数，后端的SQL语句如下：
+这里的 search 参数包含了 userName 和 loginName 参数，后端的 SQL 语句如下：
 
-ID：com.jsh.erp.datasource.mappers.UserMapperEx.countsByUser
+ID: com.jsh.erp.datasource.mappers.UserMapperEx.countsByUser
 
 ```plain
 SELECT count(user.id) FROM jsh_user user LEFT JOIN jsh_user_business ub ON user.id = ub.key_id LEFT JOIN jsh_orga_user_rel rel ON rel.tenant_id = 63 AND user.id = rel.user_id AND ifnull(rel.delete_flag, '0') != '1' LEFT JOIN jsh_organization org ON org.tenant_id = 63 AND rel.orga_id = org.id AND ifnull(org.org_stcd, '0') != '5' WHERE user.tenant_id = 63 AND 1 = 1 AND ifnull(user.status, '0') NOT IN ('1', '2') AND user.login_name LIKE '%jsh%'
 ```
 
-按照该SQL语句在login\_name构造布尔盲注的payload：`%'/**/And/**/SleeP(3)--`
+按照该 SQL 语句在 login\_name 构造布尔盲注的 payload：`%'/**/And/**/SleeP(3)--`
 
 [![](assets/1711556055-35a7e8ad7007c5877b79876558663e32.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233113-ee9c6600-c116-1.png)
 
-根据响应时间成功得到此处存在SQL注入
+根据响应时间成功得到此处存在 SQL 注入
 
-对应的SQL语句：
+对应的 SQL 语句：
 
 ```plain
 SELECT count(user.id) FROM jsh_user user LEFT JOIN jsh_user_business ub ON user.id = ub.key_id LEFT JOIN jsh_orga_user_rel rel ON rel.tenant_id = 63 AND user.id = rel.user_id AND ifnull(rel.delete_flag, '0') != '1' LEFT JOIN jsh_organization org ON org.tenant_id = 63 AND rel.orga_id = org.id AND ifnull(org.org_stcd, '0') != '5' WHERE user.tenant_id = 63 AND 1 = 1 AND ifnull(user.status, '0') NOT IN ('1', '2') AND user.username LIKE '%%' AND SleeP(3)
 ```
 
-接下来使用sqlmap跑就ok了，同样在userName参数也是一样的问题
+接下来使用 sqlmap 跑就 ok 了，同样在 userName 参数也是一样的问题
 
-### 注入点2
+### 注入点 2
 
 #### 分析
 
-关注一个没有like匹配的
+关注一个没有 like 匹配的
 
 [![](assets/1711556055-4d5a21f806e50d890188ba6051df3d27.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233128-f7b3d6d8-c116-1.png)
 
-关注红框这个，找到MsgMapperEx.xml文件，SQL查询如下
+关注红框这个，找到 MsgMapperEx.xml 文件，SQL 查询如下
 
 ```plain
 <select id="getMsgCountByStatus" resultType="java.lang.Long">
@@ -513,7 +513,7 @@ SELECT count(user.id) FROM jsh_user user LEFT JOIN jsh_user_business ub ON user.
 </select>
 ```
 
-这里的status参数直接经过拼接，因此可能存在SQL注入，找对应的Mapper，MsgMapperEx.java的文件中：
+这里的 status 参数直接经过拼接，因此可能存在 SQL 注入，找对应的 Mapper，MsgMapperEx.java 的文件中：
 
 ```plain
 Long getMsgCountByStatus(
@@ -521,7 +521,7 @@ Long getMsgCountByStatus(
     @Param("userId") Long userId);
 ```
 
-Ctrl+B找被调用处，应该到Service层，即MsgService.java文件中：
+Ctrl+B 找被调用处，应该到 Service 层，即 MsgService.java 文件中：
 
 ```plain
 public Long getMsgCountByStatus(String status)throws Exception {
@@ -540,7 +540,7 @@ public Long getMsgCountByStatus(String status)throws Exception {
 }
 ```
 
-继续往上到Controller层，来到MsgController.java
+继续往上到 Controller 层，来到 MsgController.java
 
 ```plain
 @GetMapping("/getMsgCountByStatus")
@@ -563,15 +563,15 @@ public BaseResponseInfo getMsgCountByStatus(@RequestParam("status") String statu
 }
 ```
 
-首先传入的status在本方法中没有进行任何过滤，同时根据前面分析，filter中也没有进行过滤，另外这里存在3种返回状态：
+首先传入的 status 在本方法中没有进行任何过滤，同时根据前面分析，filter 中也没有进行过滤，另外这里存在 3 种返回状态：
 
--   查询语句报错，返回500，即获取数据失败
--   根据SQL语句分析，查询得到的count为0，即拼接的条件为false
--   查询结果count不为0，即where的条件为true，默认没有拼接条件
+-   查询语句报错，返回 500，即获取数据失败
+-   根据 SQL 语句分析，查询得到的 count 为 0，即拼接的条件为 false
+-   查询结果 count 不为 0，即 where 的条件为 true，默认没有拼接条件
 
 根据分析，这里可以利用布尔盲注，前提需要在消息列表至少插入一条数据，当然时间注入也可以
 
-正向数据链：/msg/getMsgCountByStatus——>MsgController.getMsgCountByStatus——>MsgService.getMsgCountByStatus——>MsgMapperEx.getMsgCountByStatus——>MsgMapperEx.xml中id为getMsgCountByStatus
+正向数据链：/msg/getMsgCountByStatus——>MsgController.getMsgCountByStatus——>MsgService.getMsgCountByStatus——>MsgMapperEx.getMsgCountByStatus——>MsgMapperEx.xml 中 id 为 getMsgCountByStatus
 
 #### 测试
 
@@ -579,7 +579,7 @@ public BaseResponseInfo getMsgCountByStatus(@RequestParam("status") String statu
 
 [![](assets/1711556055-a4f5c1e5cd0094bb0bf068076db85ff6.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233149-045bf992-c117-1.png)
 
-抓包:
+抓包：
 
 [![](assets/1711556055-aff9759275e73273512c71d88c49692d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233201-0b81979a-c117-1.png)
 
@@ -589,24 +589,24 @@ public BaseResponseInfo getMsgCountByStatus(@RequestParam("status") String statu
 SELECT COUNT(id) FROM jsh_msg WHERE jsh_msg.tenant_id = 63 AND 1 = 1 AND ifnull(delete_Flag, '0') != '1' AND status = '1'
 ```
 
-拼接payload：`1'/**/and/**/1=1--`、`1'/**/and/**/1=2--`
+拼接 payload：`1'/**/and/**/1=1--`、`1'/**/and/**/1=2--`
 
 [![](assets/1711556055-53ed5b9d020cb7fc2d12c13c9ad14185.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233214-1322dffe-c117-1.png)
 
 [![](assets/1711556055-6c1c50d1ed5f8eae5d452a5293301564.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233228-1bc86566-c117-1.png)
 
-后台SQL语句：
+后台 SQL 语句：
 
 ```plain
 SELECT COUNT(id) FROM jsh_msg WHERE jsh_msg.tenant_id = 63 AND 1 = 1 AND ifnull(delete_Flag, '0') != '1' AND status = '1' AND 1 = 1
 SELECT COUNT(id) FROM jsh_msg WHERE jsh_msg.tenant_id = 63 AND 1 = 1 AND ifnull(delete_Flag, '0') != '1' AND status = '1' AND 1 = 2
 ```
 
-根据后面的条件是否成立返回的结果不一致，故存在布尔盲注，后面只需要使用sqlmap跑一遍即可
+根据后面的条件是否成立返回的结果不一致，故存在布尔盲注，后面只需要使用 sqlmap 跑一遍即可
 
 ### 其他注入点
 
-还存在很多注入点，上面只描述了时间盲注和布尔盲注两种类型，同时体现了`like ${}`和`${}`，正常`${}`比较少，一般会使用`#{}`，重点like、order by、in等关键字
+还存在很多注入点，上面只描述了时间盲注和布尔盲注两种类型，同时体现了`like ${}`和`${}`，正常`${}`比较少，一般会使用`#{}`，重点 like、order by、in 等关键字
 
 [![](assets/1711556055-1bf954c57624b2a2aa385ae7408ae41d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233243-2490012c-c117-1.png)
 
@@ -616,9 +616,9 @@ SELECT COUNT(id) FROM jsh_msg WHERE jsh_msg.tenant_id = 63 AND 1 = 1 AND ifnull(
 
 [![](assets/1711556055-f1005782efdaaf3167cd3b9a2c751684.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233321-3b460e7a-c117-1.png)
 
-还有很多，不一一列举，可以使用Yakit进行扫描
+还有很多，不一一列举，可以使用 Yakit 进行扫描
 
-## XSS漏洞
+## XSS 漏洞
 
 ### 审计关键点
 
@@ -637,27 +637,27 @@ request.getParameter
 request.setAttribute
 ```
 
-在jsp文件中，使用`<c:out>`标签是直接对代码进行输出而不当成js代码执行
+在 jsp 文件中，使用`<c:out>`标签是直接对代码进行输出而不当成 js 代码执行
 
-在使用thymeleaf 模板进行渲染时，模板自带有字符转义的功能
+在使用 thymeleaf 模板进行渲染时，模板自带有字符转义的功能
 
--   th:text 进行文本替换 不会解析html
--   th:utext 进行文本替换 会解析html
+-   th:text 进行文本替换 不会解析 html
+-   th:utext 进行文本替换 会解析 html
 
 以下例子中没有使用渲染模板，最好从前端界面入手，寻找可能的插入点，然后对后端代码进行分析
 
-### 漏洞点1
+### 漏洞点 1
 
 #### 分析
 
-存储型XSS一般分为两个部分：
+存储型 XSS 一般分为两个部分：
 
 -   将攻击向量通过某个接口存入
 -   将数据库中的攻击向量通过某个接口显示在页面中
 
 **存入点分析**：
 
-根据/supplier/update找到对应的Controller，在ResourceController.java中
+根据/supplier/update 找到对应的 Controller，在 ResourceController.java 中
 
 ```plain
 @PostMapping(value = "/{apiName}/update", produces = {"application/javascript", "application/json"})
@@ -689,7 +689,7 @@ public int update(String apiName, String beanJson, Long id, HttpServletRequest r
 }
 ```
 
-还是一样，找到SupplierComponent.java类中的update方法
+还是一样，找到 SupplierComponent.java 类中的 update 方法
 
 ```plain
 @Override
@@ -698,7 +698,7 @@ public int update(String beanJson, Long id, HttpServletRequest request)throws Ex
 }
 ```
 
-来到SupplierService.java层
+来到 SupplierService.java 层
 
 ```plain
 @Transactional(value = "transactionManager", rollbackFor = Exception.class)
@@ -724,7 +724,7 @@ public int updateSupplier(String beanJson, Long id, HttpServletRequest request)t
 }
 ```
 
-成功找到对应的Mapper，即SupplierMapper，并且操作id为updateByPrimaryKeySelective，在相应的xml文件中找到更新的sql语句
+成功找到对应的 Mapper，即 SupplierMapper，并且操作 id 为 updateByPrimaryKeySelective，在相应的 xml 文件中找到更新的 sql 语句
 
 ```plain
 <update id="updateByPrimaryKeySelective" parameterType="com.jsh.erp.datasource.entities.Supplier">
@@ -801,13 +801,13 @@ public int updateSupplier(String beanJson, Long id, HttpServletRequest request)t
 </update>
 ```
 
-这整条数据流就是将攻击向量存入数据库的过程，中间的方法为进行任何的过滤，filter层也没有对输入进行过滤。
+这整条数据流就是将攻击向量存入数据库的过程，中间的方法为进行任何的过滤，filter 层也没有对输入进行过滤。
 
-现在需要触发xss，只需要将相关参数显示在界面中即可。
+现在需要触发 xss，只需要将相关参数显示在界面中即可。
 
 **读取点分析**：
 
-读取supplier还有另一个api，根据前端观察可以知道为/supplier/list
+读取 supplier 还有另一个 api，根据前端观察可以知道为/supplier/list
 
 同样在
 
@@ -831,7 +831,7 @@ public String getList(@PathVariable("apiName") String apiName,
     }
     // 这里
     List<?> list = configResourceManager.select(apiName, parameterMap);
-    // 会将查询到的参数放在map的page参数中
+    // 会将查询到的参数放在 map 的 page 参数中
     objectMap.put("page", queryInfo);
     if (list == null) {
         queryInfo.setRows(new ArrayList<Object>());
@@ -874,11 +874,11 @@ public String getList(@PathVariable("apiName") String apiName,
 </select>
 ```
 
-这将数据库中的全部字段结果返回，最后封装在json的page参数中
+这将数据库中的全部字段结果返回，最后封装在 json 的 page 参数中
 
-现在需要寻找将这些结果渲染到前端页面的html文件，使用ajax必定会对响应的路由发起请求，搜索/supplier/list
+现在需要寻找将这些结果渲染到前端页面的 html 文件，使用 ajax 必定会对响应的路由发起请求，搜索/supplier/list
 
-在supplier.js文件中
+在 supplier.js 文件中
 
 ```plain
 function showSupplierDetails(pageNo,pageSize) {
@@ -917,9 +917,9 @@ function showSupplierDetails(pageNo,pageSize) {
 }
 ```
 
-这里对相应的url发起请求，并将其渲染至id为tableData的标签中
+这里对相应的 url 发起请求，并将其渲染至 id 为 tableData 的标签中
 
-寻找调用showSupplierDetails方法的地方，与之匹配的是同文件的initTableData方法，在该方法中，只显示了如下参数
+寻找调用 showSupplierDetails 方法的地方，与之匹配的是同文件的 initTableData 方法，在该方法中，只显示了如下参数
 
 ```plain
 columns:[[
@@ -952,9 +952,9 @@ columns:[[
 ]]
 ```
 
-因此，在插入攻击向量时，需要在显示的参数中进行选择，当然还需要考虑前端的js过滤。
+因此，在插入攻击向量时，需要在显示的参数中进行选择，当然还需要考虑前端的 js 过滤。
 
-调用initTableData方法的地方，在supplier.js中
+调用 initTableData 方法的地方，在 supplier.js 中
 
 ```plain
 //初始化界面
@@ -969,11 +969,11 @@ $(function() {
 });
 ```
 
-这个在引入js时即会调用，全局搜索引入supplier.js的地方
+这个在引入 js 时即会调用，全局搜索引入 supplier.js 的地方
 
 [![](assets/1711556055-e6415e1b618673e290d25b8af203ab21.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233356-500a2e40-c117-1.png)
 
-在customer.html文件中找到了id为tableData的table
+在 customer.html 文件中找到了 id 为 tableData 的 table
 
 ```plain
 <table id="tableData" style="top:300px;border-bottom-color:#FFFFFF"></table>
@@ -991,13 +991,13 @@ $(function() {
 
 [![](assets/1711556055-e02aa1db5670495ed23b93094531f9a1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233422-5f64d1ce-c117-1.png)
 
-后台执行的SQL语句
+后台执行的 SQL 语句
 
 ```plain
-UPDATE jsh_supplier SET supplier = '客户1', contacts = '小李', phone_num = '12345678', email = '', description = '<script>alert(\'desc\')</script>', type = '客户', enabled = 1, begin_need_get = '0', begin_need_pay = '0', all_need_get = '80', fax = '', telephone = '', address = '<script>alert(\'address\')</script>', tax_num = '', bank_name = '', account_number = '', tax_rate = '12' WHERE jsh_supplier.tenant_id = 63 AND id = 58
+UPDATE jsh_supplier SET supplier = '客户 1', contacts = '小李', phone_num = '12345678', email = '', description = '<script>alert(\'desc\')</script>', type = '客户', enabled = 1, begin_need_get = '0', begin_need_pay = '0', all_need_get = '80', fax = '', telephone = '', address = '<script>alert(\'address\')</script>', tax_num = '', bank_name = '', account_number = '', tax_rate = '12' WHERE jsh_supplier.tenant_id = 63 AND id = 58
 ```
 
-刷新界面触发XSS弹窗
+刷新界面触发 XSS 弹窗
 
 [![](assets/1711556055-322d2fc21ffd2f8d7b86af0bcfdbb80c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233435-6774066e-c117-1.png)
 
@@ -1013,15 +1013,15 @@ UPDATE jsh_supplier SET supplier = '客户1', contacts = '小李', phone_num = '
 
 ## 信息泄露
 
-### swagger-api文档信息泄露
+### swagger-api 文档信息泄露
 
 #### 关键点
 
-Swagger是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。
+Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。
 
-spring项目中的配置参考：[解决 Swagger API 未授权访问漏洞：完善分析与解决方案-阿里云开发者社区 (aliyun.com)](https://developer.aliyun.com/article/1361365)
+spring 项目中的配置参考：[解决 Swagger API 未授权访问漏洞：完善分析与解决方案 - 阿里云开发者社区 (aliyun.com)](https://developer.aliyun.com/article/1361365)
 
-相关路径，在实际测试工程中可用以下字典fuzz
+相关路径，在实际测试工程中可用以下字典 fuzz
 
 ```plain
 /api
@@ -1107,7 +1107,7 @@ spring项目中的配置参考：[解决 Swagger API 未授权访问漏洞：完
 
 #### 分析
 
-swagger配置类：Swagger2Config.java
+swagger 配置类：Swagger2Config.java
 
 ```plain
 @Configuration
@@ -1137,7 +1137,7 @@ public class Swagger2Config {
 }
 ```
 
-在该类及配置文件中未进行任何的限制及访问控制和身份验证，另外在filter中也未进行身份判断，因此导致在未登录的情况下能够请求得到api接口
+在该类及配置文件中未进行任何的限制及访问控制和身份验证，另外在 filter 中也未进行身份判断，因此导致在未登录的情况下能够请求得到 api 接口
 
 #### 测试
 
@@ -1154,11 +1154,11 @@ public class Swagger2Config {
 
 #### 分析
 
-在LogCostFilter.java中进行了简单分析，有3个条件只需要满足其中一个即可不需要登录就能够访问
+在 LogCostFilter.java 中进行了简单分析，有 3 个条件只需要满足其中一个即可不需要登录就能够访问
 
--   请求url中包含/doc.html、/register.html、/login.html
--   请求url中包含\[.css，.js，.jpg，.png，.gif，.ico\]中任意一个元素即可
--   请求url以/user/login、/user/registerUser、/v2/api-docs开头即可
+-   请求 url 中包含/doc.html、/register.html、/login.html
+-   请求 url 中包含\[.css，.js，.jpg，.png，.gif，.ico\]中任意一个元素即可
+-   请求 url 以/user/login、/user/registerUser、/v2/api-docs 开头即可
 
 因此选择上面的任意一个条件利用即可
 
@@ -1192,7 +1192,7 @@ public String resetPwd(@RequestParam("id") Long id,
 }
 ```
 
-对应userService的resetPwd方法
+对应 userService 的 resetPwd 方法
 
 ```plain
 @Transactional(value = "transactionManager", rollbackFor = Exception.class)
@@ -1201,10 +1201,10 @@ public int resetPwd(String md5Pwd, Long id) throws Exception{
     logService.insertLog("用户",
                          new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_EDIT).append(id).toString(),
                          ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-    // 根据id获取用户
+    // 根据 id 获取用户
     User u = getUser(id);
     String loginName = u.getLoginName();
-    // 判断需要重置的是否是admin用户
+    // 判断需要重置的是否是 admin 用户
     if("admin".equals(loginName)){
         logger.info("禁止重置超管密码");
     } else {
@@ -1222,7 +1222,7 @@ public int resetPwd(String md5Pwd, Long id) throws Exception{
 }
 ```
 
-这里没有将当前登陆的用户与需要修改的用户进行比对，找到对应的修改SQL语句
+这里没有将当前登陆的用户与需要修改的用户进行比对，找到对应的修改 SQL 语句
 
 ```plain
 <update id="updateByPrimaryKeySelective" parameterType="com.jsh.erp.datasource.entities.User">
@@ -1272,7 +1272,7 @@ public int resetPwd(String md5Pwd, Long id) throws Exception{
 </update>
 ```
 
-where条件中只根据id查询
+where 条件中只根据 id 查询
 
 #### 测试
 
@@ -1280,7 +1280,7 @@ where条件中只根据id查询
 
 [![](assets/1711556055-10be4837d57e0b1ccb49c1f3f3f1824d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233607-9e122b88-c117-1.png)
 
-现在登陆jsh用户，尝试重置test123用户密码
+现在登陆 jsh 用户，尝试重置 test123 用户密码
 
 [![](assets/1711556055-a20ae5e0d7e697bd31496f09917d0f9b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233617-a43350f0-c117-1.png)
 
@@ -1307,7 +1307,7 @@ Sec-Fetch-Site: same-origin
 id=63
 ```
 
-这里只传递了userId，尝试对userId进行修改再发送请求
+这里只传递了 userId，尝试对 userId 进行修改再发送请求
 
 [![](assets/1711556055-ea35e3f64048846d93b0aa01c587b8d7.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233631-ac745188-c117-1.png)
 
@@ -1315,19 +1315,19 @@ id=63
 
 [![](assets/1711556055-b7ce43a06d1014e22fdae426709a7585.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233644-b458cd20-c117-1.png)
 
-成功将test123用户的密码进行重置，sql语句如下：
+成功将 test123 用户的密码进行重置，sql 语句如下：
 
 ```plain
 UPDATE jsh_user SET password = 'e10adc3949ba59abbe56e057f20f883e' WHERE jsh_user.tenant_id = 63 AND id = 131
 ```
 
-根据前面的代码逻辑，admin账号无法重置，其他账号权限低无法重置权限高的账户，此漏洞可与前面密码泄露结合利用
+根据前面的代码逻辑，admin 账号无法重置，其他账号权限低无法重置权限高的账户，此漏洞可与前面密码泄露结合利用
 
 ### 删除用户
 
 #### 分析
 
-找到对应的controller
+找到对应的 controller
 
 ```plain
 @PostMapping("/deleteUser")
@@ -1340,7 +1340,7 @@ public Object deleteUser(@RequestParam("ids") String ids)throws Exception{
 }
 ```
 
-进入service层
+进入 service 层
 
 ```plain
 @Transactional(value = "transactionManager", rollbackFor = Exception.class)
@@ -1362,7 +1362,7 @@ public void batDeleteUser(String ids) throws Exception{
         JshException.writeFail(logger, e);
     }
     if(result<1){
-        logger.error("异常码[{}],异常提示[{}],参数,ids:[{}]",
+        logger.error("异常码[{}],异常提示[{}],参数，ids:[{}]",
                      ExceptionConstants.USER_DELETE_FAILED_CODE,ExceptionConstants.USER_DELETE_FAILED_MSG,ids);
         throw new BusinessRunTimeException(ExceptionConstants.USER_DELETE_FAILED_CODE,
                                            ExceptionConstants.USER_DELETE_FAILED_MSG);
@@ -1372,7 +1372,7 @@ public void batDeleteUser(String ids) throws Exception{
 
 完全没有根据当前用户的权限来决定是否有资格删除相关用户
 
-sql查询语句：
+sql 查询语句：
 
 ```plain
 <update id="batDeleteOrUpdateUser">
@@ -1392,7 +1392,7 @@ sql查询语句：
 
 [![](assets/1711556055-d3c30af4890289833258c8db0c6498ce.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233700-bde49176-c117-1.png)
 
-登陆jsh账户，选择一个用户进行删除
+登陆 jsh 账户，选择一个用户进行删除
 
 [![](assets/1711556055-ed41e83c7795dd5d802fc1994181bfb2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233711-c3e8c4c0-c117-1.png)
 
@@ -1419,7 +1419,7 @@ Sec-Fetch-Site: same-origin
 ids=135
 ```
 
-利用前面的未授权漏洞，修改请求，删除132账户
+利用前面的未授权漏洞，修改请求，删除 132 账户
 
 [![](assets/1711556055-c85c5fc51df1aa95c4112dda34c51c7a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233723-cb6f4174-c117-1.png)
 
@@ -1427,13 +1427,13 @@ ids=135
 
 [![](assets/1711556055-362415da21010383167c0cf78f7c0fba.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240201233734-d1b5edf8-c117-1.png)
 
-相关的sql语句
+相关的 sql 语句
 
 ```plain
 UPDATE jsh_user SET status = 1 WHERE id IN ('132')
 ```
 
-另外，在不使用未授权漏洞进行删除时，sql语句中存在对tenant\_id字段的判断，如下sql语句
+另外，在不使用未授权漏洞进行删除时，sql 语句中存在对 tenant\_id 字段的判断，如下 sql 语句
 
 ```plain
 UPDATE jsh_user SET status = 1 WHERE jsh_user.tenant_id = 63 AND id IN ('132')
@@ -1441,4 +1441,4 @@ UPDATE jsh_user SET status = 1 WHERE jsh_user.tenant_id = 63 AND id IN ('132')
 
 ## 总结
 
-后续通过学习codeql来提高审计效率，漏洞寻找过程并不困难，写出来需要花费时间，文章写的匆忙，代码中关键处含有注释，若有错误，请批评指正！
+后续通过学习 codeql 来提高审计效率，漏洞寻找过程并不困难，写出来需要花费时间，文章写的匆忙，代码中关键处含有注释，若有错误，请批评指正！

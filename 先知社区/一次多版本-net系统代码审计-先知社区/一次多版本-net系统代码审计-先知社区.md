@@ -1,5 +1,5 @@
 ---
-title: 一次多版本.net系统代码审计 - 先知社区
+title: 一次多版本.net 系统代码审计 - 先知社区
 url: https://xz.aliyun.com/t/14180?u_atoken=aa7638b7d038ebb9a3993df843be2e70&u_asession=01wvDka-YZJppSXloc22pi2-dowy_ZLR4MQXtgs4qZozuKO9lilF5zEnn9dQN7dpmRdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05ScOxeMVmtp-_FXITMQWVuD5o9qyNVs1OAdo7CDak0ajCjfR_-5QX3jTjXhABGJYWPhLOPgHX5xNpm0exTkPBBGzjBGGGUdVbfH2LajnJcpvrTNmwPLL0LO-0YmiCOo7PUgzQ2rmQfaI3kCUH6nrGmBqIiuJCt981IQKnRLUbbgtg2QMxYs6lyXb1lFWKql56wgPqJ-gMVBgy9bydU-CSmjCu9Fzs324A7LFHzI_zGAFRURv06LITWmoubVGPSQpCrgzhUnCUO8kFq22j9o5BxDVZB4MuZHT0qqFIV4ngWlF6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=3Z3vrpee5RJn39MZ6P2ZSitauAU%3D
 clipped_at: 2024-03-26 23:09:13
 category: default
@@ -8,11 +8,11 @@ tags:
 ---
 
 
-# 一次多版本.net系统代码审计 - 先知社区
+# 一次多版本.net 系统代码审计 - 先知社区
 
 # 前言
 
-做项目喜闻乐见的获取了bin.rar，当时快速过了config交了数据库权限，然后看代码发现mobileController下方法未授权，交了一些信息泄露，大部分是人员手机相关。项目结束后想交cnvd，写了个nuclei跑了一下结果没几个，当时大为不解，但是感谢他们部署系统的好习惯，顺手测了另两个站的bin.rar，嘿嘿。dnspy导出到vs里，记录一下发现的漏洞。
+做项目喜闻乐见的获取了 bin.rar，当时快速过了 config 交了数据库权限，然后看代码发现 mobileController 下方法未授权，交了一些信息泄露，大部分是人员手机相关。项目结束后想交 cnvd，写了个 nuclei 跑了一下结果没几个，当时大为不解，但是感谢他们部署系统的好习惯，顺手测了另两个站的 bin.rar，嘿嘿。dnspy 导出到 vs 里，记录一下发现的漏洞。
 
 > 最后发现最开始漏洞少的原因：1.系统版本不同，第一个源码应该是较老的版本，后面系统重构。2.供应商对每个企业多多少少做了功能的个性化开发，导致出现某个企业特有的漏洞。
 
@@ -20,9 +20,9 @@ tags:
 
 ## 未授权
 
-别问我什么rce、sql、反序列化，问就是未授权
+别问我什么 rce、sql、反序列化，问就是未授权
 
-老版本mobileController下未授权，可利用接口很多，不一一列举，但是大部分需要别的参数。不过有数据能交就行。  
+老版本 mobileController 下未授权，可利用接口很多，不一一列举，但是大部分需要别的参数。不过有数据能交就行。  
 [![](assets/1711465753-013f0373d748d08c2e748bcc2e4b2e8e.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312153321-cd6bed66-e042-1.png)
 
 [![](assets/1711465753-dce459f45f3a45982a403848c9afd735.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312153622-39906616-e043-1.png)
@@ -31,10 +31,10 @@ tags:
 
 ## 文件上传
 
-搜索saveas  
+搜索 saveas  
 **老版本下两个**
 
--   一个直接的图片上传getshell
+-   一个直接的图片上传 getshell
 -   一个参数全部可控  
     [![](assets/1711465753-4575d536999a9d85fec7d76cf90595eb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312154851-f798d1ec-e044-1.png)  
     附件目录下不能解析，穿一下目录，传到根目录
@@ -44,8 +44,8 @@ tags:
 [![](assets/1711465753-b44cdf98a81e1ef9ad82066d75dbb2f0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312155320-97fd900a-e045-1.png)
 
 **中版本无**  
-中版本开始权限使用AllowAnonymous  
-ImgFile默认没开  
+中版本开始权限使用 AllowAnonymous  
+ImgFile 默认没开  
 [![](assets/1711465753-bab5ccdda19514eff23e47a9d24260f7.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312155901-63426380-e046-1.png)
 
 [![](assets/1711465753-da3344f6e8f0537cff6d2c862c578b62.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312155937-78aed352-e046-1.png)
@@ -78,4 +78,4 @@ ImgFile默认没开
 
 [![](assets/1711465753-55f04b24da9ada76245164f73adad28c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240312161627-d31f42a2-e048-1.png)
 
-给个名字，还你个cookie，很棒
+给个名字，还你个 cookie，很棒

@@ -1,5 +1,5 @@
 ---
-title: macOS 安装Anaconda和Miniconda
+title: macOS 安装 Anaconda 和 Miniconda
 url: https://zhuanlan.zhihu.com/p/136380298
 clipped_at: 2024-03-28 00:19:41
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# macOS 安装Anaconda和Miniconda
+# macOS 安装 Anaconda 和 Miniconda
 
 ## Homebrew 安装
 
@@ -16,7 +16,7 @@ tags:
 brew cask install miniconda
 ```
 
-## PKG下载包安装
+## PKG 下载包安装
 
 ### 清华大学开元软件镜像站：
 
@@ -29,7 +29,7 @@ Miniconda：
 [https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/?C=M&O=D](https://link.zhihu.com/?target=https%3A//mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/%3FC%3DM%26O%3DD)
 
 ```text
-pkg 包清理工具uninstallpkg
+pkg 包清理工具 uninstallpkg
 https://www.corecode.io/uninstallpkg/
 ```
 
@@ -83,13 +83,13 @@ cd /opt/miniconda3/condabin
 # ./conda init bash 
 ```
 
-### 测试安装,创建虚拟环境
+### 测试安装，创建虚拟环境
 
 ```text
 conda create -n tf2 python=3.7
 ```
 
-## 常用conda命令
+## 常用 conda 命令
 
 ```text
 # 创建虚拟环境

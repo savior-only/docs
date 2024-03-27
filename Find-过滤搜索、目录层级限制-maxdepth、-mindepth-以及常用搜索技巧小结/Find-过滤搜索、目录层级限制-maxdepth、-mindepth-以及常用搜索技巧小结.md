@@ -1,5 +1,5 @@
 ---
-title: Find 过滤搜索、目录层级限制(-maxdepth、-mindepth)以及常用搜索技巧小结
+title: Find 过滤搜索、目录层级限制 (-maxdepth、-mindepth) 以及常用搜索技巧小结
 url: https://www.cnblogs.com/kevingrace/p/11907695.html
 clipped_at: 2024-03-28 00:24:42
 category: default
@@ -8,10 +8,10 @@ tags:
 ---
 
 
-# Find 过滤搜索、目录层级限制(-maxdepth、-mindepth)以及常用搜索技巧小结
+# Find 过滤搜索、目录层级限制 (-maxdepth、-mindepth) 以及常用搜索技巧小结
 
-**1）find过滤目录**  
-使用find命令在linux系统中查找文件时，有时需要忽略某些目录，可以使用"\-path 过滤的目录路径 -prune -o"参数来进行过滤。不过必须注意：要忽略的路径参数要紧跟着搜索的路径之后，否则该参数无法起作用。
+**1）find 过滤目录**  
+使用 find 命令在 linux 系统中查找文件时，有时需要忽略某些目录，可以使用"\-path 过滤的目录路径 -prune -o"参数来进行过滤。不过必须注意：要忽略的路径参数要紧跟着搜索的路径之后，否则该参数无法起作用。
 
 ```bash
 首先拿一个例子来说明下：
@@ -120,7 +120,7 @@ find: warning: -path /opt/kevin/test2/ will not match anything because it ends w
 ./test1/list
 ```
 
-**2）find过滤文件**  
+**2）find 过滤文件**  
 先查看对应文件，然后使用"grep -v"进行过滤
 
 ```bash
@@ -168,9 +168,9 @@ drwxr-xr-x 2 root root 18 Nov 21 18:24 test3
 ./haha1
 ```
 
-**3）find命令中的-maxdepth和-mindepth：控制搜索深度的选项**  
-\-maxdepth ：指定遍历搜索的最大深度。最大目录层级  
-\-mindepth： 指定开始遍历搜索的最小深度。最小目录层级
+**3）find 命令中的-maxdepth 和-mindepth：控制搜索深度的选项**  
+\-maxdepth：指定遍历搜索的最大深度。最大目录层级  
+\-mindepth：指定开始遍历搜索的最小深度。最小目录层级
 
 ```bash
 -maxdepth 0：最大目录层级为0，表示只针对当前目录本身(比如/opt/kevin)进行搜索操作或du -sh 统计操作。
@@ -456,7 +456,7 @@ find命令将在除这个目录以外的目录下查找txt后缀文件并打印�
 # find . -path ./.git -prune -o -print -a \( -type f -o -type l -o -type d \) | grep '.git'
 ```
 
-**########## find文件搜索条件 ############**  
+**########## find 文件搜索条件 ############**  
 \-name、-iname、通配符\*？、-size、-user、-group、-amin、-cmin、-mmin、-a、-o、-exec/-ok、-inum
 
 ```bash

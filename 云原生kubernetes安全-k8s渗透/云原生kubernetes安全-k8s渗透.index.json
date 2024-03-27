@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711471683",
   "format": "md",
-  "title": "云原生kubernetes安全[k8s渗透]",
+  "title": "云原生 kubernetes 安全 [k8s 渗透]",
   "link": "https://blog.csdn.net/qq_34101364/article/details/122506768",
   "category": "default",
   "tags": [
     "blog.csdn.net"
   ],
   "created_at": "2024-03-27 00:48:03",
-  "mainPath": "云原生kubernetes安全-k8s渗透.md",
+  "mainPath": "云原生 kubernetes 安全-k8s 渗透.md",
   "paths": [
-    "云原生kubernetes安全-k8s渗透.index.json",
+    "云原生 kubernetes 安全-k8s 渗透.index.json",
     "assets/1711471683-908f622be546d09f2f06e69ff0b87dbd.png",
     "assets/1711471683-30355265f73279f0654940f61c00e457.png",
     "assets/1711471683-99d9a2179fddd1289ac1166a6286a2b9.png",
@@ -34,6 +34,6 @@
     "assets/1711471683-b6e9c06969140bf7ef680c4609b62043.png",
     "assets/1711471683-d022b1700ac530ef3e2b085280db9fda.png",
     "assets/1711471683-e7d75434dfd91df93a7f8f9517694848.png",
-    "云原生kubernetes安全-k8s渗透.md"
+    "云原生 kubernetes 安全-k8s 渗透.md"
   ]
 }

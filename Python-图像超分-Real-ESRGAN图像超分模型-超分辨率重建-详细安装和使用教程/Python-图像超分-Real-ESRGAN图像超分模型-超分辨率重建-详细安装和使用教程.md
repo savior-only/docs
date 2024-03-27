@@ -1,5 +1,5 @@
 ---
-title: 【Python&图像超分】Real-ESRGAN图像超分模型（超分辨率重建）详细安装和使用教程
+title: 【Python&图像超分】Real-ESRGAN 图像超分模型（超分辨率重建）详细安装和使用教程
 url: https://www.cnblogs.com/RSran/p/17832024.html
 clipped_at: 2024-03-28 00:18:41
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 【Python&图像超分】Real-ESRGAN图像超分模型（超分辨率重建）详细安装和使用教程
+# 【Python&图像超分】Real-ESRGAN 图像超分模型（超分辨率重建）详细安装和使用教程
 
 ​
 
@@ -16,13 +16,13 @@ tags:
 
         **图像超分是一种图像处理技术，旨在提高图像的分辨率，使其具有更高的清晰度和细节。这一技术通常用于图像重建、图像恢复、图像增强等领域，可以帮助我们更好地理解和利用图像信息。图像超分技术可以通过多种方法实现，包括插值算法、深度学习等。其中，深度学习的方法在近年来得到了广泛的关注和应用。基于深度学习的图像超分技术，可以利用深度神经网络学习图像的高频部分，从而提高了图像的分辨率和清晰度。**
 
-        **目前应用较多的应用场景是图像及视频分辨率提高，比如可以提高以往影视作品或图像的分辨率，提高视觉感官效果；或是解决视频经有损压缩后导致视频效果退化问题。****今天给大家介绍一下腾讯ARC实验室发布的一个图像超分辨率模型Real-ESRGAN：[项目开源地址](https://github.com/xinntao/Real-ESRGAN/blob/master/ "项目开源地址")，[论文地址](https://arxiv.org/abs/2107.10833 "论文地址")。**
+        **目前应用较多的应用场景是图像及视频分辨率提高，比如可以提高以往影视作品或图像的分辨率，提高视觉感官效果；或是解决视频经有损压缩后导致视频效果退化问题。****今天给大家介绍一下腾讯 ARC 实验室发布的一个图像超分辨率模型 Real-ESRGAN：[项目开源地址](https://github.com/xinntao/Real-ESRGAN/blob/master/ "项目开源地址")，[论文地址](https://arxiv.org/abs/2107.10833 "论文地址")。**
 
 ### 1.1 项目效果展示
 
 [![](assets/1711556321-d2abec6d86fd66d0576b7d5fefe0883c.png)](https://img2023.cnblogs.com/blog/3204676/202311/3204676-20231114165314192-1938994803.png)​
 
-## **2 Python代码使用教程**
+## **2 Python 代码使用教程**
 
 ### 2.1 依赖库安装
 
@@ -49,9 +49,9 @@ cke_widget_element highlighter-  mipsasm
 
 ```plain
 # 安装 basicsr - https://github.com/xinntao/BasicSR
-# 我们使用BasicSR来训练以及推断
+# 我们使用 BasicSR 来训练以及推断
 pip install basicsr
-# facexlib和gfpgan是用来增强人脸的
+# facexlib 和 gfpgan 是用来增强人脸的
 pip install facexlib
 pip install gfpgan
 pip install -r requirements.txt
@@ -60,7 +60,7 @@ python setup.py develop
 
 ### **2.2 模型介绍**
 
-        **[模型下载链接](https://pan.baidu.com/s/1e5zPB3I5JP1Ob6YFMDzsgA?pwd=cqnh "模型下载链接")，里面有7个，有些我不知道是干啥用的，所以就没说。**
+        **[模型下载链接](https://pan.baidu.com/s/1e5zPB3I5JP1Ob6YFMDzsgA?pwd=cqnh "模型下载链接")，里面有 7 个，有些我不知道是干啥用的，所以就没说。**
 
 -   realesrgan-x4plus（默认）
 -   reaesrnet-x4plus
@@ -69,9 +69,9 @@ python setup.py develop
 
 ### **2.3 代码使用**
 
-        将下载好的模型，放在项目文件中的weights文件夹中，然后打开inference\_realesrgan.py和inference\_realesrgan\_video.py这两个文件就运行就行了，一个是图片超分，一个是视频超分。我这里将代码已经全部注释了，自己可以看看很好理解。
+        将下载好的模型，放在项目文件中的 weights 文件夹中，然后打开 inference\_realesrgan.py 和 inference\_realesrgan\_video.py 这两个文件就运行就行了，一个是图片超分，一个是视频超分。我这里将代码已经全部注释了，自己可以看看很好理解。
 
-        默认模型是realesrgan-x4plus，需要超分的图片/视频放在项目文件夹的inputs中，输出在results中。
+        默认模型是 realesrgan-x4plus，需要超分的图片/视频放在项目文件夹的 inputs 中，输出在 results 中。
 
 ```plain
 cke_widget_element highlighter-  routeros
@@ -316,9 +316,9 @@ python inference_realesrgan.py -n RealESRGAN_x4plus_anime_6B -i inputs
 
 ## **3 桌面端轻应用**
 
-        作者提供了打包好的桌面端exe程序，无需配置PyTorch等依赖，[Windows下载地址](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip "Windows下载地址")。
+        作者提供了打包好的桌面端 exe 程序，无需配置 PyTorch 等依赖，[Windows 下载地址](https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-windows.zip "Windows下载地址")。
 
-        使用方法也很简单，图片放在realesrgan-ncnn-vulkan.exe同目录下，然后使用cmd命令行跳转至这个目录，输入下面的命令（自己修改）。
+        使用方法也很简单，图片放在 realesrgan-ncnn-vulkan.exe 同目录下，然后使用 cmd 命令行跳转至这个目录，输入下面的命令（自己修改）。
 
 ```plain
 cke_widget_element highlighter-  stylus
@@ -353,17 +353,17 @@ Usage: realesrgan-ncnn-vulkan.exe -i infile -o outfile [options]...
   -v                   verbose output
 ```
 
-        由于这些exe文件会把图像分成几个板块，然后来分别进行处理，再合成导出，输出的图像可能会有一点割裂感（而且可能跟PyTorch的输出不太一样）。
+        由于这些 exe 文件会把图像分成几个板块，然后来分别进行处理，再合成导出，输出的图像可能会有一点割裂感（而且可能跟 PyTorch 的输出不太一样）。
 
 ## **4 总结**
 
-        **这个开源项目总体来说精度是不错的，图像的分辨率确实有明显的提升，可以将模糊的图片还原出更多的细节，但有时候的效果比较抽象。作者在项目中说会持续更新（PS：作者的重心好像是放在动漫图片超分方面），希望会越来越好。最后分享一下腾讯ARC的[Web端使用demo](https://arc.tencent.com/zh/ai-demos/faceRestoration "Web端使用demo")。**
+        **这个开源项目总体来说精度是不错的，图像的分辨率确实有明显的提升，可以将模糊的图片还原出更多的细节，但有时候的效果比较抽象。作者在项目中说会持续更新（PS：作者的重心好像是放在动漫图片超分方面），希望会越来越好。最后分享一下腾讯 ARC 的[Web 端使用 demo](https://arc.tencent.com/zh/ai-demos/faceRestoration "Web端使用demo")。**
 
 ​
 
 -   [1 前言](#tid-k8YeW2)
 -       [1.1 项目效果展示](#tid-caYw5Z)
--   [2 Python代码使用教程](#tid-zkF38x)
+-   [2 Python 代码使用教程](#tid-zkF38x)
 -       [2.1 依赖库安装](#tid-EzZzEW)
 -           [2.1.1 项目安装](#tid-rnXXbx)
 -           [2.1.2 安装依赖](#tid-XzNFPY)
@@ -381,7 +381,7 @@ Usage: realesrgan-ncnn-vulkan.exe -i infile -o outfile [options]...
 
 [![](assets/1711556321-cc239921dc1d36ba1216fba2f0d767aa.jpg)](https://images.cnblogs.com/cnblogs_com/blogs/794656/galleries/2313898/o_230531010356_%E5%8F%AF%E8%BE%BE%E9%B8%AD.jpg)
 
--   **本文作者：** [RS迷途小书童](https://www.cnblogs.com/RSran)
+-   **本文作者：** [RS 迷途小书童](https://www.cnblogs.com/RSran)
 -   **本文链接：** [https://www.cnblogs.com/RSran/p/17832024.html](https://www.cnblogs.com/RSran/p/17832024.html)
 -   **关于博主：** 评论和私信会在第一时间回复。或者[直接私信](https://msg.cnblogs.com/msg/send/RSran)我。
 -   **版权声明：** 本博客所有文章除特别声明外，均采用 [BY-NC-SA](https://creativecommons.org/licenses/by-nc-nd/4.0/ "BY-NC-SA") 许可协议。转载请注明出处！

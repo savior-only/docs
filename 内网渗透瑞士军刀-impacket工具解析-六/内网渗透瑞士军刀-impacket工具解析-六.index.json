@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711470867",
   "format": "md",
-  "title": "内网渗透瑞士军刀-impacket工具解析（六）",
+  "title": "内网渗透瑞士军刀-impacket 工具解析（六）",
   "link": "https://mp.weixin.qq.com/s/Hu_AbjDryvUYek8choDOnA",
   "category": "default",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-27 00:34:27",
-  "mainPath": "内网渗透瑞士军刀-impacket工具解析-六.md",
+  "mainPath": "内网渗透瑞士军刀-impacket 工具解析 - 六.md",
   "paths": [
-    "内网渗透瑞士军刀-impacket工具解析-六.index.json",
+    "内网渗透瑞士军刀-impacket 工具解析 - 六.index.json",
     "assets/1711470867-3b00c9cb15bb4ad1a469ae45946c6bc9.webp",
     "assets/1711470867-003c9d87ef326b823e9ff7d7590d79b1.webp",
     "assets/1711470867-91a24a5d2d74666dfcb311a70e546265.webp",
@@ -33,6 +33,6 @@
     "assets/1711470867-10cb6b2093c7176c9332f7fdd97fb6eb.webp",
     "assets/1711470867-2485053e41286e4f2e51c731d62e5562.webp",
     "assets/1711470867-1adce35517e23db307d13be254f08507.webp",
-    "内网渗透瑞士军刀-impacket工具解析-六.md"
+    "内网渗透瑞士军刀-impacket 工具解析 - 六.md"
   ]
 }
