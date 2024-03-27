@@ -1,7 +1,7 @@
 ---
 title: 【翻译】Python信息窃取程序利用通讯程序传播诱饵 - 先知社区
-url: https://xz.aliyun.com/t/14188?u_atoken=43bb11d00ec51432a4ac70fd767bc432&u_asession=01oMNZxRI3JFaYyaj514JaoumNmY7rORP6J02k9h4-tiAyTh3qKoCfCJf43aj91pKZdlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05TcW0KWkn_n5hMS2LkQvmxTPcpG-w7-gqaBVG-SuxUGKZb_3pphUB4J1CYg_iLSxTb3-wqfSn9aD5a0Jt1uXYO2SWuRwH6yl0ApkcSC_h3BoOPoJ0Juyrk3aMEPSbJp3E1KRYZFfKdjSqoglFNp02Ln846H8bq_sOhDdof15VTzFg2QMxYs6lyXb1lFWKql56_UuLNezabitAH7XpnxrdpcRRTCJuP0LClWr3yHTneBi_PmrIX38NMiAKAYSbmqgLyMi0Wo2ZvkWa_ke-Z-1-kqUqQ7y_r8-yOgMuFWvnknJ6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=3uGuPgqka7atD7Eq%2FoAcsVe15LQ%3D
-clipped_at: 2024-03-26 23:08:26
+url: https://xz.aliyun.com/t/14188?time__1311=mqmx9DBQdWq4lxGgx%2BxCqpR9eRDiwxpD
+clipped_at: 2024-03-28 00:01:30
 category: default
 tags: 
  - xz.aliyun.com
@@ -39,7 +39,7 @@ Cybereason安全人员调查并分析各类威胁，发布威胁分析报告以�
 -   Python信息窃取程序的比较分析
 -   程序开发人员属性分析
 
-[![](assets/1711465706-5d76db6bb5653f3ff0a339e71c18c716.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325154643-d2f556a8-ea7b-1.png)
+[![](assets/1711555290-5d76db6bb5653f3ff0a339e71c18c716.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325154643-d2f556a8-ea7b-1.png)
 
 ### 感染链
 
@@ -51,23 +51,23 @@ Cybereason安全人员调查并分析各类威胁，发布威胁分析报告以�
 
 压缩文件中包含一个BAT脚本，该脚本是感染链的初始下载器。脚本将使用curl命令下载ZIP文件，并且将文件保存至**C:\\Users\\Public\\myFile.zip**路径下。BAT脚本还将继续使用PowerShell命令Expand-Archive从ZIP文件中提取 CMD 脚本**vn.cmd\\**以进一步感染受害主机。
 
-[![](assets/1711465706-c413de6fe3c6acc1c1b24140ba5100e1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325154854-214189e4-ea7c-1.png)
+[![](assets/1711555290-c413de6fe3c6acc1c1b24140ba5100e1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325154854-214189e4-ea7c-1.png)
 
 ### 阶段二
 
 CMD脚本**vn.cmd\\**是负责下载和执行Python信息窃取程序的主要脚本。
 
-[![](assets/1711465706-1f7d74987df325d166d7b6f9dc004c63.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155557-1cd69678-ea7d-1.png)
+[![](assets/1711555290-1f7d74987df325d166d7b6f9dc004c63.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155557-1cd69678-ea7d-1.png)
 
 脚本开头通过大量的set命令将特定字母设置为新的变量名，如下图，显然，脚本运行时将通过变量值的替换来进行反混淆。不过并非所有版本的变体都使用了该混淆技术，混淆技术的使用与版本相关。
 
-[![](assets/1711465706-f7f1b99d8c7d59c5cbbc7a2f4d616e60.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155627-2ee9c3a8-ea7d-1.png)
+[![](assets/1711555290-f7f1b99d8c7d59c5cbbc7a2f4d616e60.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155627-2ee9c3a8-ea7d-1.png)
 
 **vn.cmd\\**脚本运行后会打开Google Chrome浏览器，访问阿里巴巴网站主页，随后，脚本将从Git Lab下载并重命名三个文件。三个文件的详细信息如下：
 
 -   ***WindowsSecure.bat\\***：该文件是一个BAT脚本，被放置于开始目录下。每次用户登入时，脚本均将执行project.py文件在受害主机上建立持久性。
 
-[![](assets/1711465706-22092bdb65b3023e81b15f7b575b99c0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155708-4790cdb6-ea7d-1.png)
+[![](assets/1711555290-22092bdb65b3023e81b15f7b575b99c0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155708-4790cdb6-ea7d-1.png)
 
 -   ***Document.zip\\***：一个包含捆绑python包的压缩包文件。文件可保证project.py无需额外安装Python包即可顺利运行。
     
@@ -76,17 +76,17 @@ CMD脚本**vn.cmd\\**是负责下载和执行Python信息窃取程序的主要�
 
 一旦下载完成，vn.cmd脚本将执行利用Document.zip中的Python模块执行Project.py文件。
 
-[![](assets/1711465706-3f93256041b31ba3d9615606071171d9.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155745-5d852536-ea7d-1.png)
+[![](assets/1711555290-3f93256041b31ba3d9615606071171d9.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155745-5d852536-ea7d-1.png)
 
 ### 变种一
 
-[![](assets/1711465706-7ff6a065f435d1c1ad43ada39e3afe90.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155819-71f31a78-ea7d-1.png)
+[![](assets/1711555290-7ff6a065f435d1c1ad43ada39e3afe90.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155819-71f31a78-ea7d-1.png)
 
 变种一是此前提到的Project.py文件。该脚本包含嵌套混淆，其中使用各种压缩方法来压缩十六进制值。反混淆流程如下：
 
-[![](assets/1711465706-85207c93890b877fc5db68254ea3ff0b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155859-898bb49c-ea7d-1.png)
+[![](assets/1711555290-85207c93890b877fc5db68254ea3ff0b.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155859-898bb49c-ea7d-1.png)
 
-[![](assets/1711465706-05ad21e7415232e219b2409c816d56dd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155920-961f8698-ea7d-1.png)
+[![](assets/1711555290-05ad21e7415232e219b2409c816d56dd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325155920-961f8698-ea7d-1.png)
 
 反混淆的Python脚本首先会访问ipinfo\[.\]com获取当前受害主机的IP地址与地理位置。这两条信息有利于攻击者更好地了解受害者来自哪里，为攻击者提供更有效的社会工程学攻击所需的背景。此外，精心设计的社会工程学方法还可以使攻击者利用其他潜在目标，例如受害者的熟人。
 
@@ -118,17 +118,17 @@ main *()函数尝试通过 Telegram Bot API 的*sendDocument功能传输ZIP文�
 
 -   混淆字符串-Telegram Bot API由*Compressed()*函数调用，其中包含base64混淆的代码。
 
-[![](assets/1711465706-75ac57cf0d7a750b405552a07b225a9c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160001-ae6a3e8c-ea7d-1.png)
+[![](assets/1711555290-75ac57cf0d7a750b405552a07b225a9c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160001-ae6a3e8c-ea7d-1.png)
 
 -   明文字符串-Telegram Bot API由main()函数调用，函数无任何混淆。
 
-[![](assets/1711465706-5af491fb1d16207de9013668211fc4e3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160019-b947c310-ea7d-1.png)
+[![](assets/1711555290-5af491fb1d16207de9013668211fc4e3.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160019-b947c310-ea7d-1.png)
 
 从这部分可以看出，Telegram Bot API 仅用于凭证收集，与其他攻击者的行为有所不同，其他攻击者都是利用该API进行完整的C2通信。
 
 ### 变种二
 
-[![](assets/1711465706-1f7e16c6acc11e9caab1c74bdee68cb5.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160051-cc55b8b8-ea7d-1.png)
+[![](assets/1711555290-1f7e16c6acc11e9caab1c74bdee68cb5.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160051-cc55b8b8-ea7d-1.png)
 
 安全人员还观察到了另一种Python脚本变种，该变种同样试图收集受害主机浏览器上存储的信息。变种二的感染流程与变种一类似，直到下载Python信息窃取程序阶段，以及最终 BAT 脚本负载下载了以下**三个**文件。
 
@@ -142,11 +142,11 @@ main *()函数尝试通过 Telegram Bot API 的*sendDocument功能传输ZIP文�
 
 变种二的脚本内容是面向对象编程的，变种使用*RitCucki*类来准备和执行浏览器相关信息窃取操作。
 
-[![](assets/1711465706-a4e49e6725a777359459685847e1f360.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160114-da2fc122-ea7d-1.png)
+[![](assets/1711555290-a4e49e6725a777359459685847e1f360.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160114-da2fc122-ea7d-1.png)
 
 变种二的代码内容也比变种一更混乱，代码中的许多实例方法以及变量名称均不太直观。攻击者可能使用该种方式来进行代码混淆。
 
-[![](assets/1711465706-0398a96e92a9b91558d94b74ca57fdbc.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160150-ef7e0afc-ea7d-1.png)
+[![](assets/1711555290-0398a96e92a9b91558d94b74ca57fdbc.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160150-ef7e0afc-ea7d-1.png)
 
 #### 目标浏览器不同
 
@@ -160,11 +160,11 @@ main *()函数尝试通过 Telegram Bot API 的*sendDocument功能传输ZIP文�
 
 变种二的初始有效负载会持续从C2基础设施、GitHub或GitLab存储库获取经过Base64编码的最终有效负载。一旦获取有效负载成功后，变种将解码并执行有效负载，进而实现类*RitCucki*。
 
-[![](assets/1711465706-c137a3e586063775be98c08ca40cef6d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160243-0f074d2a-ea7e-1.png)
+[![](assets/1711555290-c137a3e586063775be98c08ca40cef6d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160243-0f074d2a-ea7e-1.png)
 
 Python类*RitCucki*还依赖于存储在文件*scriptcall*中的字符串集。该脚本从与上图相同的GitHub存储库中获取*scriptcall*。
 
-[![](assets/1711465706-87427fcaae76addcc2698c4efa7c4a07.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160448-599651f6-ea7e-1.png)
+[![](assets/1711555290-87427fcaae76addcc2698c4efa7c4a07.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160448-599651f6-ea7e-1.png)
 
 如果其中一个文件丢失，这一额外的混淆步骤可能会阻碍分析。即使有了最后阶段的有效负载，如果没有包含这组字符串的文件，分析人员也很难确定脚本的意图。
 
@@ -174,13 +174,13 @@ Python类*RitCucki*还依赖于存储在文件*scriptcall*中的字符串集。�
 
 变种三似乎是由PyInstaller组装的。 PyInstaller 组装的可执行文件的大小比普通可执行文件的大小要大，并且变种三的大小大于**13 MB**。
 
-[![](assets/1711465706-63f9e966f651f1878b0bf4f73340d9e1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160510-669c4342-ea7e-1.png)
+[![](assets/1711555290-63f9e966f651f1878b0bf4f73340d9e1.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160510-669c4342-ea7e-1.png)
 
 反编译的主脚本与变种二的阶段有效负载相同，它尝试下载包含*RitCucki*类的 Python 脚本。这表明变种三可能是变种二的exe可执行版本。
 
 这从*RitCucki*类中的*critduplicatetzz*实例方法中的代码也可以看出，该代码包含注释掉的代码，负责在环境中为此Python信息窃取器的可执行版本创建持久性。
 
-[![](assets/1711465706-818c3e4ebd40b62202c98d2930c729da.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160629-95e928d6-ea7e-1.png)
+[![](assets/1711555290-818c3e4ebd40b62202c98d2930c729da.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160629-95e928d6-ea7e-1.png)
 
 变种二的开发者似乎想让攻击者可以选择.py脚本或.exe可执行格式。
 
@@ -234,11 +234,11 @@ Python 信息窃取程序部署方法有多种。一些显着的流程差异包�
 
 分析中观察到的一些BAT脚本包含越南语注释。例如，“sau khi gi”翻译为“之后”。这可能是越南俚语中的“sau khi ghi”，意思是“写完之后”。重要的是，这些注释是在Powershell命令执行解压ZIP文件后写入的。
 
-[![](assets/1711465706-ab8dbfcb384a4f1e0e148aaa0aa7f2f2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160700-a87264ae-ea7e-1.png)
+[![](assets/1711555290-ab8dbfcb384a4f1e0e148aaa0aa7f2f2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160700-a87264ae-ea7e-1.png)
 
 此外，移除脚本*rmv.py*似乎还包含注释“Xoa”，意思是“擦除”或“删除”。
 
-[![](assets/1711465706-afd9ee54c49932f31ba8d2395da70a0c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160716-b18dff12-ea7e-1.png)
+[![](assets/1711555290-afd9ee54c49932f31ba8d2395da70a0c.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160716-b18dff12-ea7e-1.png)
 
 #### 命名约定
 
@@ -246,11 +246,11 @@ Python 信息窃取程序部署方法有多种。一些显着的流程差异包�
 
 -   **函数名称**：该脚本包含迹象表明这可能是由使用越南语的攻击者创建的。在脚本中，观察到函数名称使用越南语短语，如demso()函数负责计数器，函数名在越南语中也意味着*“计数”*。
 
-[![](assets/1711465706-6573308a06a686eb2c33ea0610b35d90.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160731-ba9468e4-ea7e-1.png)
+[![](assets/1711555290-6573308a06a686eb2c33ea0610b35d90.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160731-ba9468e4-ea7e-1.png)
 
 -   **帐户别名**：一些GitHub和GitLab存储库名称或帐户名称使用越南语命名约定。例如，GitLab帐户别名之一是*Khoi Nguyen*，这似乎是越南常见的名称，也是社区内常用的别名。
 
-[![](assets/1711465706-792693821a401abaa50d24d93408cf97.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160753-c7f2d0ac-ea7e-1.png)
+[![](assets/1711555290-792693821a401abaa50d24d93408cf97.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240325160753-c7f2d0ac-ea7e-1.png)
 
 **文件名**：一些Python信息窃取程序文件名使用通用越南语名称，示例包括*hoang.exe*或*hoangtuan.exe*。
 

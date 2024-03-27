@@ -1,7 +1,7 @@
 ---
 title: 第二届AliyunCTF官方writeup - 先知社区
-url: https://xz.aliyun.com/t/14190?u_atoken=783cbca210eabb8ae72893555b0414d3&u_asession=01yw5I9gTTMH8tDfb4zBGT8NIhhsYFgbVD-OQFIESObRe0kCfQfnu60rBXRCfHws43dlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05lxhOP5w9nKU5POCp-MNFyZwcY2WlX-xuKR7B3KGqpC9gqGEjil2in2r_q-Sz8fZMATNTTyOyB3UT8BmsiLZlDPb3mbti1rjyo7FU0Z8cxEAzgSZ7imgETQO3FMFbLiwfUnab5XT21GEtE_1nEv0OyjkD60patMMYs6Qzqf3nXjFg2QMxYs6lyXb1lFWKql56MYNAEfV05gfGyVb02B-UnXDRwwzTjxt7GjcQZbzwx746NG-yvD_j-NV2PD8Hv0zbTyshRhC-sAmNQKf6M536FJGgYN_3Chn25-y37bo9NyV6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=EY7qVbUqUWdu3Z8fcCW2tiHwbvw%3D
-clipped_at: 2024-03-26 23:07:39
+url: https://xz.aliyun.com/t/14190?time__1311=mqmx9QDQdCqqlpzG77uoAK%3Dhq0xQqD%3D4D
+clipped_at: 2024-03-28 00:01:45
 category: default
 tags: 
  - xz.aliyun.com
@@ -293,7 +293,7 @@ if __name__ == "__main__":
 
 去 `github` 下载源码：
 
-[![](assets/1711465659-6ad6496f8d7df39cc64cb9cfa1553ba2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184436-d723fc4c-eb5d-1.png)
+[![](assets/1711555305-6ad6496f8d7df39cc64cb9cfa1553ba2.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184436-d723fc4c-eb5d-1.png)
 
 `5.3.16` ：[https://github.com/apereo/cas-overlay-template/tree/5.3](https://github.com/apereo/cas-overlay-template/tree/5.3)
 
@@ -315,7 +315,7 @@ cas.authn.accept.users=casuser::Mellon
 
 登陆前点击 `Dashboard`
 
-[![](assets/1711465659-c0589763dff5eff1ebe963c52ad0b189.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184507-e995b3ca-eb5d-1.png)
+[![](assets/1711555305-c0589763dff5eff1ebe963c52ad0b189.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184507-e995b3ca-eb5d-1.png)
 
 点击以后会跳转到：
 
@@ -327,11 +327,11 @@ http://127.0.0.1:8080//login?service=http%3A%2F%2F题目地址%3A服题目端口
 
 再次访问会出来如下框框：
 
-[![](assets/1711465659-9eebed21d495be87870a95604dc4e521.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184533-f91bc2c6-eb5d-1.png)
+[![](assets/1711555305-9eebed21d495be87870a95604dc4e521.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184533-f91bc2c6-eb5d-1.png)
 
 然后登陆：
 
-[![](assets/1711465659-59dc37b9cf72205c0cc3018777858a17.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184558-078e180e-eb5e-1.png)
+[![](assets/1711555305-59dc37b9cf72205c0cc3018777858a17.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184558-078e180e-eb5e-1.png)
 
 跳转到此处，此时 `PATH` 为：`/status/dashboard` ，修改访问： `/status/heapdump`下载内存。
 
@@ -341,7 +341,7 @@ http://127.0.0.1:8080//login?service=http%3A%2F%2F题目地址%3A服题目端口
 
 首先定位到类： `org.apereo.cas.web.flow.actions.CasDefaultFlowUrlHandler`
 
-[![](assets/1711465659-dda9ad1999b7ea1347b9dc3848e0eeb9.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184617-135848ee-eb5e-1.png)
+[![](assets/1711555305-dda9ad1999b7ea1347b9dc3848e0eeb9.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184617-135848ee-eb5e-1.png)
 
 此处是获取 `exeuction` 的值，在此处下断点即可。
 
@@ -349,31 +349,31 @@ http://127.0.0.1:8080//login?service=http%3A%2F%2F题目地址%3A服题目端口
 
 `org.springframework.webflow.mvc.servlet.FlowHandlerAdapter`的`handle`：
 
-[![](assets/1711465659-447349fda136697993962629699f49eb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184637-1f420212-eb5e-1.png)
+[![](assets/1711555305-447349fda136697993962629699f49eb.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184637-1f420212-eb5e-1.png)
 
 获取 `execution` 以后跟进箭头指向的函数：
 
-[![](assets/1711465659-16bfc20def0b7b381838731a82a30807.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184700-2ce22ac8-eb5e-1.png)
+[![](assets/1711555305-16bfc20def0b7b381838731a82a30807.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184700-2ce22ac8-eb5e-1.png)
 
 该函数在：`org.springframework.webflow.executor.FlowExecutorImpl`
 
-[![](assets/1711465659-f40da11d672b8113a933962d5a2b8210.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184717-36924fd0-eb5e-1.png)
+[![](assets/1711555305-f40da11d672b8113a933962d5a2b8210.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184717-36924fd0-eb5e-1.png)
 
 跟如 `getFlowExecution` 函数：
 
-[![](assets/1711465659-ee42c84c06b5ff30a7c881b420245718.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184736-426d9c2e-eb5e-1.png)
+[![](assets/1711555305-ee42c84c06b5ff30a7c881b420245718.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184736-426d9c2e-eb5e-1.png)
 
 接着跟入：`decode`函数：
 
-[![](assets/1711465659-4158a32cf9d47866302c20e04b1dcb8a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184801-514c99d4-eb5e-1.png)
+[![](assets/1711555305-4158a32cf9d47866302c20e04b1dcb8a.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184801-514c99d4-eb5e-1.png)
 
 跟如 `decrypt` 函数，在 `org.apereo.cas.util.cipher.BaseBinaryCipherExecutor`:
 
-[![](assets/1711465659-387c40dc2631290bb4911824f03ee319.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184825-5f4481b4-eb5e-1.png)
+[![](assets/1711555305-387c40dc2631290bb4911824f03ee319.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184825-5f4481b4-eb5e-1.png)
 
 在这个函数就是解密的最后一段，看看这个类的初始化函数：
 
-[![](assets/1711465659-0ac25be39519738353f51ac1e8c87446.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184849-6d6bebe2-eb5e-1.png)
+[![](assets/1711555305-0ac25be39519738353f51ac1e8c87446.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184849-6d6bebe2-eb5e-1.png)
 
 这两个 `key` 是比较关键的，现在我们知道了类在：
 
@@ -385,21 +385,21 @@ select * from org.apereo.cas.util.cipher.WebConflowConversationStateCipherExecut
 
 保存 `encryptionSecretKey` 和 `signingKey` ：
 
-[![](assets/1711465659-0cb304bf72a4093fdd1b4f06597ca73d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184912-7b2e4568-eb5e-1.png)
+[![](assets/1711555305-0cb304bf72a4093fdd1b4f06597ca73d.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184912-7b2e4568-eb5e-1.png)
 
-[![](assets/1711465659-1ec057f5e8ed9cf74c737278835e7530.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184932-8765a7f4-eb5e-1.png)
+[![](assets/1711555305-1ec057f5e8ed9cf74c737278835e7530.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184932-8765a7f4-eb5e-1.png)
 
 用 `idea` 打开 `exp` 中的项目，修改 `src/test/java/exp5316.java` 里面的两个文件的绝对路径，运行都得到一段 `base64`，复制以后抓一下登陆包，修改一下 `execution` 参数 `uuid` 后面的即可：
 
-[![](assets/1711465659-116a11303fc89aa47b15a7520be554d4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184956-959ddf4e-eb5e-1.png)
+[![](assets/1711555305-116a11303fc89aa47b15a7520be554d4.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326184956-959ddf4e-eb5e-1.png)
 
 然后再`post`中加入一个 `cmd` 参数：
 
-[![](assets/1711465659-7e70fe2ceab1ff961599335c1f6662e0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326185015-a0c103ec-eb5e-1.png)
+[![](assets/1711555305-7e70fe2ceab1ff961599335c1f6662e0.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326185015-a0c103ec-eb5e-1.png)
 
 执行成功，获取 `flag` ：
 
-[![](assets/1711465659-baf198f9c1fdfbad2b6941b175ec44ae.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326185035-accfc088-eb5e-1.png)
+[![](assets/1711555305-baf198f9c1fdfbad2b6941b175ec44ae.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240326185035-accfc088-eb5e-1.png)
 
 # Pwn
 
