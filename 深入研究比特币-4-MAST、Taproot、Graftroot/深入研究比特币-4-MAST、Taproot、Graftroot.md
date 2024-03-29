@@ -162,7 +162,7 @@ Segwit 本可以修复这些问题，但为了兼容旧版本最终没有改动�
 
 ### Pay-to-Pubkey (P2PK)
 
-输出脚本:
+输出脚本：
 
 ```plain
 <pubkey> OP_CHECKSIG
@@ -170,7 +170,7 @@ Segwit 本可以修复这些问题，但为了兼容旧版本最终没有改动�
 
 -   输出脚本中直接包含公钥，占 34 字节 (公钥 33 字节 + OP\_CHECKSIG 1 字节)
 
-花费时输入脚本:
+花费时输入脚本：
 
 ```plain
 <signature>
@@ -182,7 +182,7 @@ P2PK 总体上可以节省 23 字节的空间。
 
 ### Pay-to-Pubkey-Hash (P2PKH)
 
-输出脚本:
+输出脚本：
 
 ```plain
 OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
@@ -190,7 +190,7 @@ OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
 
 -   输出中包含 20 字节公钥哈希，加上其他操作码共 25 字节，比 P2PK 输出小 9 字节
 
-花费时输入脚本:
+花费时输入脚本：
 
 ```plain
 <signature> <pubkey>
@@ -223,9 +223,9 @@ OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
 
 当需要处理非常大的脚本时，比如 2-of-50 多签脚本，直接在链上存储整个脚本是不可行的，因为脚本可能会非常庞大，占用大量的区块空间。
 
-这时可以使用承诺 (Commitment) 加上 Merkle 树的方式来解决这个问题。具体步骤如下:
+这时可以使用承诺 (Commitment) 加上 Merkle 树的方式来解决这个问题。具体步骤如下：
 
-1.  承诺阶段:
+1.  承诺阶段：
     
     -   将整个大脚本拆分成多个小块。
         
@@ -235,14 +235,14 @@ OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
         
     -   将 Merkle 树的根哈希值发布到链上，作为脚本的占位符。
         
-2.  揭示阶段:
+2.  揭示阶段：
     
     -   当需要执行脚本时，只需要提供 Merkle 树证明，即从叶子节点到根节点的路径。
         
     -   验证方可以通过 Merkle 树证明验证这些小块确实是原始脚本的一部分，而不需要下载整个庞大的脚本。
         
 
-这样做的好处是:
+这样做的好处是：
 
 1.  只需在链上存储 Merkle 树的根哈希值，而不是整个大脚本，大大节省了区块空间。
     
@@ -255,27 +255,27 @@ OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
 
 但脚本是一种编程语言，因此我们并不直接用原生 Merkle Tree，而是用 MAST。
 
-MAST 是一种基于 Merkle 树的技术，用于压缩和隐藏复杂的脚本逻辑。它的工作原理如下:
+MAST 是一种基于 Merkle 树的技术，用于压缩和隐藏复杂的脚本逻辑。它的工作原理如下：
 
-1.  脚本编译:
+1.  脚本编译：
     
     -   首先，将复杂的脚本逻辑编译成一棵抽象语法树 (Abstract Syntax Tree, AST)。
         
     -   AST 是一种树状数据结构，能够表示程序的语法结构。
         
-2.  Merkle 化:
+2.  Merkle 化：
     
     -   对 AST 中的每个节点计算哈希值，形成 Merkle 树。
         
     -   Merkle 树的根哈希值就成为对整个脚本的承诺。
         
-3.  部分揭示:
+3.  部分揭示：
     
     -   在执行交易时，只需要提供 Merkle 树证明，即从叶子节点到根节点的路径。
         
     -   验证方可以通过 Merkle 证明验证这些节点确实属于原始脚本，而不需要下载整个庞大的脚本。
         
-4.  隐藏逻辑:
+4.  隐藏逻辑：
     
     -   未被验证的节点，其具体的逻辑内容不需要被公开。
         
@@ -284,7 +284,7 @@ MAST 是一种基于 Merkle 树的技术，用于压缩和隐藏复杂的脚本�
 
 ### 基于多脚本的 Merkle Tree
 
-考虑到直接哈希 AST 太占空间，进一步想法是，将每个脚本作为 Merkle 树的叶子节点来构建 Merkle 树。这种方法的工作流程如下:
+考虑到直接哈希 AST 太占空间，进一步想法是，将每个脚本作为 Merkle 树的叶子节点来构建 Merkle 树。这种方法的工作流程如下：
 
 1.  将每个脚本作为 Merkle 树的叶子节点。
     
@@ -311,7 +311,7 @@ P2SMR (Pay-to-Spend-Merkle-Root) 的写法是：
     
 2.  Merkle 根是一个哈希值，它代表了一个 Merkle 树的根节点。这个 Merkle 树包含了某些相关的数据，比如之前的交易输入。
     
-3.  当一个新的交易想要花费这个 P2SMR 输出时，它需要提供:
+3.  当一个新的交易想要花费这个 P2SMR 输出时，它需要提供：
     
     -   证明该输入是有效的，即提供一个 Merkle 证明，证明该输入确实包含在之前的 Merkle 树中。
         

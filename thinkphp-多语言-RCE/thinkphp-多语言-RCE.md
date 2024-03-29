@@ -9,7 +9,7 @@ tags:
 
 # thinkphp 多语言 RCE
 
-本次复现不像传统漏洞复现以正向流程进行漏洞复现，而是以发现漏洞利用点后，如何调用漏洞利用点进行反向调用漏洞流程 ，让初学者学习如何挖掘漏洞。
+本次复现不像传统漏洞复现以正向流程进行漏洞复现，而是以发现漏洞利用点后，如何调用漏洞利用点进行反向调用漏洞流程，让初学者学习如何挖掘漏洞。
 
 ### 环境准备
 
@@ -45,7 +45,7 @@ composer create-project topthink/think tp 6.0.1
 
 ### 影响范围
 
-Thinkphp，v6.0.1~v6.0.13，v5.0.x，v5.1.x
+Thinkphp, v6.0.1~v6.0.13, v5.0.x, v5.1.x
 
 漏洞描述
 
@@ -191,10 +191,10 @@ public function detect(Request $request): string
 $langSet = '';
 ​
 if ($request->get($this->config['detect_var'])) {
-// url中设置了语言变量
+// url 中设置了语言变量
 $langSet = strtolower($request->get($this->config['detect_var']));
 } elseif ($request->cookie($this->config['cookie_var'])) {
-// Cookie中设置了语言变量
+// Cookie 中设置了语言变量
 $langSet = strtolower($request->cookie($this->config['cookie_var']));
 } elseif ($request->server('HTTP_ACCEPT_LANGUAGE')) {
 // 自动侦测浏览器语言

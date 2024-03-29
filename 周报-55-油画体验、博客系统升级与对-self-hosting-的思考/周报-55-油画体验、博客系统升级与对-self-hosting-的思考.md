@@ -32,7 +32,7 @@ tags:
 
 ![oil_painting_experience](assets/1711418215-02d0508eaa3c4fd7f70998e9ed189a9d.png)
 
-按理说初学者不太会从人像这样的复杂主题开始，只是想要换一个新头像，画室的老师也很 nice 地愿意辅导，选了一张以 “头” 为主的照片就开始了，画轮廓、调色、上色、根据光线和位置加细节，一切比想象得更加有趣，几种简单的颜色组合能够幻化出很多的层次，创造本身也如同魔术一样令人心驰神往。
+按理说初学者不太会从人像这样的复杂主题开始，只是想要换一个新头像，画室的老师也很 nice 地愿意辅导，选了一张以“头”为主的照片就开始了，画轮廓、调色、上色、根据光线和位置加细节，一切比想象得更加有趣，几种简单的颜色组合能够幻化出很多的层次，创造本身也如同魔术一样令人心驰神往。
 
 ![yu_painting](assets/1711418215-052be5bf892a0eeeceb7e47c9e2a85f2.jpg)
 
@@ -42,7 +42,7 @@ tags:
 
 ### Cusdis -> Remark42
 
-之前写过一篇「[轻量级开源免费博客评论系统解决方案 （Cusdis + Railway）](https://www.pseudoyu.com/en/2022/05/24/free_and_lightweight_blog_comment_system_using_cusdis_and_railway/)」，有讲过我博客使用的是自部署的 [Randy](https://lutaonan.com/) 开源的 [Cusdis](https://cusdis.com/) 评论系统，从 2021 年中就开始使用了，到现在整整三年了，除了最开始的时候因为 Heroku、Railway 相继收费而折腾了一下部署平台外，一直都稳稳地运行着。
+之前写过一篇「[轻量级开源免费博客评论系统解决方案（Cusdis + Railway）](https://www.pseudoyu.com/en/2022/05/24/free_and_lightweight_blog_comment_system_using_cusdis_and_railway/)」，有讲过我博客使用的是自部署的 [Randy](https://lutaonan.com/) 开源的 [Cusdis](https://cusdis.com/) 评论系统，从 2021 年中就开始使用了，到现在整整三年了，除了最开始的时候因为 Heroku、Railway 相继收费而折腾了一下部署平台外，一直都稳稳地运行着。
 
 不过我在使用中也有遇到一些问题：
 
@@ -126,7 +126,7 @@ docker pull pseudoyu/goatcounter
 
 ### 输入
 
-虽然大部分有意思的输入会在 「[Yu’s Life](https://t.me/pseudoyulife)」 Telegram 频道里自动同步，不过还是挑选一部分在这里列举一下，感觉更像一个 newsletter 了。
+虽然大部分有意思的输入会在「[Yu’s Life](https://t.me/pseudoyulife)」Telegram 频道里自动同步，不过还是挑选一部分在这里列举一下，感觉更像一个 newsletter 了。
 
 #### 书籍
 

