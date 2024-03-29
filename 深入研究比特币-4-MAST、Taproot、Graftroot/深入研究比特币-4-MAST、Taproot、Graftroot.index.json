@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1711418227",
+  "format": "md",
+  "title": "深入研究比特币：（4）MAST、Taproot、Graftroot",
+  "link": "https://www.less-bug.com/posts/bitcoin-in-depth-4-mast-taproot-graftroot/",
+  "category": "default",
+  "tags": [
+    "www.less-bug.com"
+  ],
+  "created_at": "2024-03-26 09:57:07",
+  "mainPath": "深入研究比特币-4-MAST、Taproot、Graftroot.md",
+  "paths": [
+    "深入研究比特币-4-MAST、Taproot、Graftroot.index.json",
+    "深入研究比特币-4-MAST、Taproot、Graftroot.md"
+  ]
+}

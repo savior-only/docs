@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "clipId": "1711677425",
+  "format": "md",
+  "title": "thinkphp 多语言 RCE",
+  "link": "https://www.freebuf.com/vuls/382680.html",
+  "category": "default",
+  "tags": [
+    "www.freebuf.com"
+  ],
+  "created_at": "2024-03-29 09:57:05",
+  "mainPath": "thinkphp-多语言-RCE.md",
+  "paths": [
+    "thinkphp-多语言-RCE.index.json",
+    "assets/1711677425-1633e3469306d768e3650d8476e87528.png",
+    "assets/1711677425-25bf14dad9ab1f2c0f61bde190209e25.png",
+    "assets/1711677425-af679289cad8e4d09740e5fb09e05271.png",
+    "thinkphp-多语言-RCE.md"
+  ]
+}

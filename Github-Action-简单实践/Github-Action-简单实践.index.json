@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1711444834",
+  "format": "md",
+  "title": "Github Action 简单实践",
+  "link": "https://blog.imkasen.com/github-action-practice/",
+  "category": "default",
+  "tags": [
+    "blog.imkasen.com"
+  ],
+  "created_at": "2024-03-26 17:20:34",
+  "mainPath": "Github-Action-简单实践.md",
+  "paths": [
+    "Github-Action-简单实践.index.json",
+    "Github-Action-简单实践.md"
+  ]
+}

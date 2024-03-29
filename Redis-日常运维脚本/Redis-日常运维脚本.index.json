@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "clipId": "1711615601",
+  "format": "md",
+  "title": "Redis 日常运维脚本",
+  "link": "https://jiangliheng.github.io/2020/04/27/ops-redis/",
+  "category": "default",
+  "tags": [
+    "jiangliheng.github.io"
+  ],
+  "created_at": "2024-03-28 16:46:41",
+  "mainPath": "Redis-日常运维脚本.md",
+  "paths": [
+    "Redis-日常运维脚本.index.json",
+    "Redis-日常运维脚本.md"
+  ]
+}
