@@ -1,0 +1,21 @@
+{
+  "version": "2.0",
+  "clipId": "1711884792",
+  "format": "md",
+  "title": "FFmpeg实时推流&MQTT实时控制推流启动关闭",
+  "link": "https://mp.weixin.qq.com/s?__biz=MzUyNTkyOTEzMg==&mid=2247484626&idx=1&sn=359fe0a0305b5b299a1d616dcabae42d&chksm=fa17db11cd60520743524d292f57db0a6f247357c860fd12210a36f0f4dea035e9a72b131a3a&mpshare=1&scene=1&srcid=02175MYlnw7THN7gCT9XO13y&sharer_shareinfo=a2fced432e17e13659ec39ed54655c87&sharer_shareinfo_first=a2fced432e17e13659ec39ed54655c87#rd",
+  "category": "temp",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-31 19:33:12",
+  "mainPath": "FFmpeg实时推流-MQTT实时控制推流启动关闭.md",
+  "paths": [
+    "FFmpeg实时推流-MQTT实时控制推流启动关闭.index.json",
+    "assets/1711884792-1df07092cd5b0febd22c1737e8822bcb.webp",
+    "assets/1711884792-90aa1a9e4685d12b891930bd7fe4152a.webp",
+    "assets/1711884792-e621f279d2d6baa1a48d8858d4bf813c.webp",
+    "assets/1711884792-f5a6767371608e6c0a1f34fa6dc2e904.webp",
+    "FFmpeg实时推流-MQTT实时控制推流启动关闭.md"
+  ]
+}

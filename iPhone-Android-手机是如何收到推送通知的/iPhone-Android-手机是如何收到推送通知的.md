@@ -1,8 +1,8 @@
 ---
 title: iPhone, Android 手机是如何收到推送通知的？
 url: https://mp.weixin.qq.com/s?__biz=MzkxMDE5NzE4Mg==&mid=2247484320&idx=1&sn=61746b47c9481df2a1ee6ba3ee5b944e&chksm=c12e6b71f659e2672344863406f71f5108388d41b42df73dd7211b19d2ea22f0ef43693723bc&mpshare=1&scene=1&srcid=03125eDPsEj1qqQJ7RRW3K3H&sharer_shareinfo=97ac4632851175726191fa19bd2b97e4&sharer_shareinfo_first=97ac4632851175726191fa19bd2b97e4#rd
-clipped_at: 2024-03-13 14:04:51
-category: default
+clipped_at: 2024-03-31 16:09:37
+category: temp
 tags: 
  - mp.weixin.qq.com
 ---
@@ -14,9 +14,7 @@ tags:
 
 通常我们可以使用消息解决方案 Firebase 来支持通知推送。下图显示了 Firebase Cloud Messaging（FCM）的工作原理。
 
-![图片](assets/1710309891-c3b26be973cfb86e822470c94a844f23.png)
-
-FCM 是一种跨平台消息解决方案，可以可靠地编写、发送、排队和路由推送通知。它在消息发送方（应用程序服务器，App Server）和接收方（客户端应用程序，Client Apps）之间提供了统一的 API。应用程序开发人员可以使用该解决方案来**提高用户留存率**。
+![图片](assets/1711872577-49485a7922dcf009d0c99b87f086fde3.webp)
 
 ## 第 1 - 2 步
 

@@ -1,0 +1,18 @@
+{
+  "version": "2.0",
+  "clipId": "1711885996",
+  "format": "md",
+  "title": "进程间如何进行通信？",
+  "link": "https://mp.weixin.qq.com/s?__biz=MzkxMDE5NzE4Mg==&mid=2247484236&idx=1&sn=3ce093204085ac0835dea61fd46e92d3&chksm=c12e6b9df659e28b5547c70ea85a01b4969ce9a9404afcef7800bfbc8780c3841e01b2f1b87e&mpshare=1&scene=1&srcid=0216TFS49r6aj63uNPSQ4y6Z&sharer_shareinfo=443e8479f73384798ee526bab35522bd&sharer_shareinfo_first=443e8479f73384798ee526bab35522bd#rd",
+  "category": "temp",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-03-31 19:53:16",
+  "mainPath": "进程间如何进行通信.md",
+  "paths": [
+    "进程间如何进行通信.index.json",
+    "assets/1711885996-13be2edc924c0a14c8055a7eb99ee7eb.webp",
+    "进程间如何进行通信.md"
+  ]
+}

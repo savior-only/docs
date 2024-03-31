@@ -1,3 +1,11 @@
+---
+title: Docker 是怎么工作的？
+url: https://mp.weixin.qq.com/s?__biz=MzkxMDE5NzE4Mg==&mid=2247484254&idx=1&sn=4c1cd0a0cd777ca34ce9ff8e0c19802b&chksm=c12e6b8ff659e2998b03c03a74a094675a4019f19edb044ce01e0a245b4bbe328380e8e2cb66&mpshare=1&scene=1&srcid=0216gHGpFLOV8VrGhOAbUsET&sharer_shareinfo=71a8f8de2c42388847275f306738ecab&sharer_shareinfo_first=71a8f8de2c42388847275f306738ecab#rd
+clipped_at: 2024-03-31 15:39:47
+category: temp
+tags: 
+ - mp.weixin.qq.com
+---
 
 
 # Docker 是怎么工作的？
@@ -6,8 +14,6 @@ Docker 是如何工作的？
 
 下图展示了 Docker 的架构，以及当我们运行 "docker build"、"docker pull "和 "docker run "时它是如何工作的。
 
-![图片](assets/1709197101-0557516a155cd8ab5bb4bc4b2d7a48e9.gif)
-
 Docker 架构由 3 个部分组成：
 
 ## Docker 客户端
@@ -15,8 +21,6 @@ Docker 架构由 3 个部分组成：
 Docker 客户端与 Docker 管理进程对话。
 
 ## Docker 主机
-
-Docker 管理进程监听 Docker API 请求，并管理 Docker 对象，如镜像、容器、网络和卷。
 
 ## Docker 注册表
 
@@ -35,7 +39,7 @@ Docker 注册表存储 Docker 镜像。Docker Hub 是任何人都可以使用的
 5.  Docker 启动容器。
     
 
-有了 Docker，我们可以快速开发、打包和运行应用程序。下图对比了**传统开发和基于 Docker 的开发部署流程**。![图片](assets/1709197101-86c21c61855d589704b458aec8f918f1.png)
+有了 Docker，我们可以快速开发、打包和运行应用程序。下图对比了**传统开发和基于 Docker 的开发部署流程**。![图片](assets/1711870787-8e30cc71c954e70317684206effe3d2a.webp)
 
 开发人员可以在本地编写代码，然后构建 Docker 镜像并将其推送到开发环境。这样，开发工作就可以在团队内部共享。测试会在开发环境中自动运行。
 
