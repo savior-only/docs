@@ -19,9 +19,9 @@ Masscan 是 Kali 下集成的高效扫描器，和 nmap 命令有很多相似之
 ```plain
 BASH
 
-masscan -sL 10.0.0.0/24 > c段.txt
-masscan -sL 10.0.0.0/16 > b段.txt
-masscan -sL 10.0.0.0/8  > a段.txt
+masscan -sL 10.0.0.0/24 > c 段.txt
+masscan -sL 10.0.0.0/16 > b 段.txt
+masscan -sL 10.0.0.0/8  > a 段.txt
 ```
 
   
@@ -31,8 +31,8 @@ masscan -sL 10.0.0.0/8  > a段.txt
 
 ```plain
 
-版权声明：本文内容来自个人博客：国光，遵循CC 4.0 BY-SA版权协议上原文出接及本声明。
-本作品采用知识共享署名-非商业性使用-禁止演绎 2.5 中国大陆许可协议进行可。
+版权声明：本文内容来自个人博客：国光，遵循 CC 4.0 BY-SA 版权协议上原文出接及本声明。
+本作品采用知识共享署名 - 非商业性使用 - 禁止演绎 2.5 中国大陆许可协议进行可。
 原文链接：https://www.sqlsec.com/2017/07/masscan.html
 如有涉及到侵权，请联系，将立即予以删除处理。
 在此特别鸣谢原作者：国光的创作，Powered by Butterfly/By 国光。

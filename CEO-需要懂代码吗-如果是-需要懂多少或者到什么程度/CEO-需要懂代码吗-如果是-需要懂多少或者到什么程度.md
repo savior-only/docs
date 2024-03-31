@@ -1,5 +1,5 @@
 ---
-title: CEO 需要懂代码吗?如果是，需要懂多少或者到什么程度?
+title: CEO 需要懂代码吗？如果是，需要懂多少或者到什么程度？
 url: https://mp.weixin.qq.com/s?__biz=MzkxMjI5MTAyNQ==&mid=2247484186&idx=1&sn=6b3a669667adb9fd28f9910370c5a135&chksm=c10e66a4f679efb272da83ed38ed042cfba58e04e9056c75b6c469648f88a899c55779996819&mpshare=1&scene=1&srcid=0227NTF9PWondcxPm2xmt5dr&sharer_shareinfo=3ffdabaa99f5c0aca770f4689c8d8985&sharer_shareinfo_first=3ffdabaa99f5c0aca770f4689c8d8985#rd
 clipped_at: 2024-03-31 19:28:35
 category: temp
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# CEO 需要懂代码吗?如果是，需要懂多少或者到什么程度?
+# CEO 需要懂代码吗？如果是，需要懂多少或者到什么程度？
 
   
 
@@ -26,7 +26,7 @@ Although it is not necessary that you code, you will get immense respect from yo
 
 At Microsoft, Bill Gates has 10X more prestige than Ballmer who has never coded.
 
-在微软，比尔.盖茨比从来没有编程过的鲍尔默声望高 10 倍。
+在微软，比尔。盖茨比从来没有编程过的鲍尔默声望高 10 倍。
 
 Instagram's Kevin Systrom learned coding although he was a marketer before.
 
@@ -42,7 +42,7 @@ Will his crew respect him?
 
 An ideal CEO is one who can do any task in the company (cold calling, accounting, coding, doing administrative stuff, etc even if less efficiently than a specialist), if necessary.
 
-一位理想的 CEO 是一个能在必要时完成公司任何事情(电话访问，会计，编程，行政管理上的东西，等等，即使并不比专家高效)的人。
+一位理想的 CEO 是一个能在必要时完成公司任何事情 (电话访问，会计，编程，行政管理上的东西，等等，即使并不比专家高效) 的人。
 
 People at the lowest levels always like their leaders to be connected to their reality instead of just talking "big stuff" in boardrooms.
 
@@ -62,7 +62,7 @@ It is not just business.
 
 Winston Churchill stood with his people and visited the bomb shelters. Gandhi always had his hands dirty.
 
-温斯顿.丘吉尔参观防空洞时，和他的人民站在一起。甘地的双手总是很脏。
+温斯顿。丘吉尔参观防空洞时，和他的人民站在一起。甘地的双手总是很脏。
 
 Apart from respect you have following benefits:
 

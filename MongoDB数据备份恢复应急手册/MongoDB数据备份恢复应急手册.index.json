@@ -2,20 +2,20 @@
   "version": "2.0",
   "clipId": "1711884013",
   "format": "md",
-  "title": "MongoDB数据备份恢复应急手册",
+  "title": "MongoDB 数据备份恢复应急手册",
   "link": "https://mp.weixin.qq.com/s?__biz=MzUxNTYzMjA5Mg==&mid=2247551343&idx=1&sn=70ba7b47e8e1169f0be86c4776a22a1a&chksm=f9b1f7dccec67ecacce18f4561a55f2742dcfb55f919032408789125bc82f0dcca753324b51a&mpshare=1&scene=1&srcid=01203l9kIYsFWjjIKsmLAufR&sharer_shareinfo=fd96860d8d2d7a1d23a60c6a68f8e828&sharer_shareinfo_first=fd96860d8d2d7a1d23a60c6a68f8e828#rd",
   "category": "temp",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-31 19:20:13",
-  "mainPath": "MongoDB数据备份恢复应急手册.md",
+  "mainPath": "MongoDB 数据备份恢复应急手册.md",
   "paths": [
-    "MongoDB数据备份恢复应急手册.index.json",
+    "MongoDB 数据备份恢复应急手册.index.json",
     "assets/1711884013-44c00ed6cd34c1c0496c58c0e2fe99ff.webp",
     "assets/1711884013-7e57398635462e4c40833de5b699f672.webp",
     "assets/1711884013-b5db09dd9b16b80912bbfa51ddb41512.webp",
     "assets/1711884013-4f18d89d415c23bde255455a7cb02c27.webp",
-    "MongoDB数据备份恢复应急手册.md"
+    "MongoDB 数据备份恢复应急手册.md"
   ]
 }

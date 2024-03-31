@@ -10,11 +10,11 @@ tags:
 
 # Burp-Montoya
 
-  Burp的新版本更新了新的API接口，刚好最近有写插件的想法，所以简单的了解了下。
+  Burp 的新版本更新了新的 API 接口，刚好最近有写插件的想法，所以简单的了解了下。
 
 # 简介
 
-  单从MontoyaApi文档\[1\]界面来看，结构清晰了不少
+  单从 MontoyaApi 文档\[1\]界面来看，结构清晰了不少
 
 ![图片](assets/1711886307-fbd9888e51c151995865a8a53c318254.png "null")
 
@@ -156,7 +156,7 @@ public class ExampleAudit implements AuditIssue {
 
 ## 实例
 
-  前段时间出了`Fastjson 1.2.80`的利用与检测方式，刚好我们拿来做一个`Fastjson`检测的插件,`payload`如下:
+  前段时间出了`Fastjson 1.2.80`的利用与检测方式，刚好我们拿来做一个`Fastjson`检测的插件，`payload`如下：
 
 ```plain
 [
@@ -191,7 +191,7 @@ List<ParsedHttpParameter> parameters = request.parameters();
     
 
 ```plain
-//utilities.urlUtils包含了对URL处理的函数，这里使用了decode，对URL进行解码
+//utilities.urlUtils 包含了对 URL 处理的函数，这里使用了 decode，对 URL 进行解码
 utilities.urlUtils().decode(p.value()).startsWith("{") ||utilities.urlUtils().decode(p.value()).startsWith("[") 
 ```
 
@@ -199,7 +199,7 @@ utilities.urlUtils().decode(p.value()).startsWith("{") ||utilities.urlUtils().d
     
 
 ```plain
-//生成collaborator链接
+//生成 collaborator 链接
 String payload = collaboratorClient.generatePayload().toString();
 
 // poc
@@ -217,7 +217,7 @@ private String Fastjson_Payload = "[\n" +
         "\t\t}\n" +
         "    }\n" +
         "]";
-//更新参数为我们的poc
+//更新参数为我们的 poc
 HttpRequest rq = request.withUpdatedParameters(HttpParameter.parameter(p.name(),utilities.urlUtils().encode(String.format(Fastjson_Payload, payload, payload)), p.type()));
 
 //发送请求
@@ -228,11 +228,11 @@ HttpRequestResponse httpRequestResponse1 = http.issueRequest(rq);
     
 
 ```plain
-// 获取Collaborator服务器中所有与payload有关的请求信息
+// 获取 Collaborator 服务器中所有与 payload 有关的请求信息
 List<Interaction> interactions = collaboratorClient.getInteractions(InteractionFilter.interactionPayloadFilter(payload));
 for (Interaction i :interactions) {
-// i.dnsDetails()获取一个DnsDetails的Optional对象，DnsDetails有两个方法，一个是获取dns查询的byte数组 d.query()
-// 利用byteUtils().indexOf查询是否包含fastjson83
+// i.dnsDetails() 获取一个 DnsDetails 的 Optional 对象，DnsDetails 有两个方法，一个是获取 dns 查询的 byte 数组 d.query()
+// 利用 byteUtils().indexOf 查询是否包含 fastjson83
     flag = i.dnsDetails().filter(d ->
             utilities.byteUtils().indexOf(d.query(), utilities.byteUtils().convertFromString("fastjson83")) > 0
     ).isPresent();
@@ -254,13 +254,13 @@ auditIssues.add(auditIssue);
 
 ### DNS
 
-  在检测`dns`记录的时候遇到了一个问题，DNS数据包中`.`并不是`ord('.')`的格式
+  在检测`dns`记录的时候遇到了一个问题，DNS 数据包中`.`并不是`ord('.')`的格式
 
 ![图片](assets/1711886307-7fd3749fcdebe065db7549bda7237e31.png "null")
 
   为了准确识别，采用了`fastjson83`而非`fastjson83.payload`
 
-### api问题
+### api 问题
 
   目前新接口还在不断更新中，不是特别稳定。比如说文档中的`DnsDetails`会返回`ByteArray`类型
 

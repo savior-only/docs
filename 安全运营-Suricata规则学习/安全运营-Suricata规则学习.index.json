@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711872165",
   "format": "md",
-  "title": "安全运营-Suricata规则学习",
+  "title": "安全运营-Suricata 规则学习",
   "link": "https://mp.weixin.qq.com/s?__biz=MzkzMTM3OTA0NQ==&mid=2247484475&idx=1&sn=c45e187e860630686a3a6e26f87eb189&chksm=c26aa631f51d2f27e1ce21ef83ecd96dcd1fae23b07f307705dc45823ceff5590254472fc893&mpshare=1&scene=1&srcid=0313v4YuxUV3eIG43MhgOnT3&sharer_shareinfo=5ec18e6541daf6f9f84871dd67578f5b&sharer_shareinfo_first=5ec18e6541daf6f9f84871dd67578f5b#rd",
   "category": "temp",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-31 16:02:45",
-  "mainPath": "安全运营-Suricata规则学习.md",
+  "mainPath": "安全运营-Suricata 规则学习.md",
   "paths": [
-    "安全运营-Suricata规则学习.index.json",
+    "安全运营-Suricata 规则学习.index.json",
     "assets/1711872165-f676b15d1dc306a1c0dccda25ff853a0.webp",
     "assets/1711872165-e7e08f6a178fb15a0ee028e7207151b8.webp",
     "assets/1711872165-185a3ed0aacc3998e0843a739acacd61.webp",
@@ -25,6 +25,6 @@
     "assets/1711872165-e01c63569be5aca068f8f3b261ffb02b.webp",
     "assets/1711872165-1e653e9bf6061a3b18ddc36fcdfb679b.webp",
     "assets/1711872165-7d8dfb8da2bfef8538d54d99f8dbf3d8.webp",
-    "安全运营-Suricata规则学习.md"
+    "安全运营-Suricata 规则学习.md"
   ]
 }

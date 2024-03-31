@@ -1,5 +1,5 @@
 ---
-title: SecWiki周刊（第518期）
+title: SecWiki 周刊（第 518 期）
 url: https://mp.weixin.qq.com/s?__biz=MjM5NDM1OTM0Mg==&mid=2651053135&idx=1&sn=a9f530d51663ccfaf83415cf3d1e2559&chksm=bd7f8d0e8a080418f47db07b60403fe207508da0786d665a8a35c8074dafd2182ffc5d9b51f0&mpshare=1&scene=1&srcid=0216II1YOidbdgtNHWJcG4KV&sharer_shareinfo=0bd2910ea3bc1256d890b3f75e3e28f1&sharer_shareinfo_first=0bd2910ea3bc1256d890b3f75e3e28f1#rd
 clipped_at: 2024-03-31 19:49:39
 category: temp
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# SecWiki周刊（第518期）
+# SecWiki 周刊（第 518 期）
 
 ### 安全资讯
 
@@ -20,7 +20,7 @@ tags:
 
 [https://mp.weixin.qq.com/s/7dZCe\_ahDBLmIskibGzmog](https://mp.weixin.qq.com/s?__biz=Mzg4Nzk3MTg3MA==&mid=2247484966&idx=1&sn=4eff84c0678b688f0b413e0fa56ca0ac&scene=21#wechat_redirect "https://mp.weixin.qq.com/s?__biz=Mzg4Nzk3MTg3MA==&mid=2247484966&idx=1&sn=4eff84c0678b688f0b413e0fa56ca0ac&scene=21#wechat_redirect")
 
-\[运维安全\] 中国全网DNS错误数据分析
+\[运维安全\] 中国全网 DNS 错误数据分析
 
 https://blog.xlab.qianxin.com/zhong-guo-quan-wang-cuo-wu-shu-ju-fen-xi/
 
@@ -28,15 +28,15 @@ https://blog.xlab.qianxin.com/zhong-guo-quan-wang-cuo-wu-shu-ju-fen-xi/
 
 [https://mp.weixin.qq.com/s/33PW\_fDMp\_HT4yKARsacQA](https://mp.weixin.qq.com/s?__biz=MzU2NjAxNDYwMg==&mid=2247504405&idx=1&sn=5fa7ec67e01275cc0253b21630b63107&scene=21#wechat_redirect "https://mp.weixin.qq.com/s?__biz=MzU2NjAxNDYwMg==&mid=2247504405&idx=1&sn=5fa7ec67e01275cc0253b21630b63107&scene=21#wechat_redirect")
 
-\[杂志\] SecWiki周刊（第517期)
+\[杂志\] SecWiki 周刊（第 517 期)
 
 https://www.sec-wiki.com/weekly/517
 
-\[Web安全\] ghtracker is a tool for tracking dependents repositories and sorting result by S
+\[Web 安全\] ghtracker is a tool for tracking dependents repositories and sorting result by S
 
 https://github.com/zer0yu/ghtracker
 
-\[恶意分析\] AsyncRAT加解密技术剖析
+\[恶意分析\] AsyncRAT 加解密技术剖析
 
 [https://mp.weixin.qq.com/s/AJUQ8Zd\_4Q3Ub9TarQx5Gg](https://mp.weixin.qq.com/s?__biz=MzAwNDUzNDExMQ==&mid=2247483885&idx=1&sn=c039bef591630be8bda43414d61621fc&scene=21#wechat_redirect "https://mp.weixin.qq.com/s?__biz=MzAwNDUzNDExMQ==&mid=2247483885&idx=1&sn=c039bef591630be8bda43414d61621fc&scene=21#wechat_redirect")
 
@@ -44,7 +44,7 @@ https://github.com/zer0yu/ghtracker
 
 [https://mp.weixin.qq.com/s/GC2zwT9SNs2PGLBvQhiN8w](https://mp.weixin.qq.com/s?__biz=MzAxNDY2MTQ2OQ==&mid=2650976416&idx=1&sn=0c79cd6b92640f5343db15187227aacc&scene=21#wechat_redirect "https://mp.weixin.qq.com/s?__biz=MzAxNDY2MTQ2OQ==&mid=2650976416&idx=1&sn=0c79cd6b92640f5343db15187227aacc&scene=21#wechat_redirect")
 
-\[运维安全\] 一种基于安全大模型的EDR告警研判机器人
+\[运维安全\] 一种基于安全大模型的 EDR 告警研判机器人
 
 https://xlab.tencent.com/cn/2024/01/26/edr-alert-analysis-robot/
 
@@ -56,7 +56,7 @@ https://xlab.tencent.com/cn/2024/01/26/edr-alert-analysis-robot/
 
 [https://mp.weixin.qq.com/s/ij\_4NtN\_IH4DHgzUThYVEQ](https://mp.weixin.qq.com/s?__biz=Mzg2NTczNDg1MQ==&mid=2247484305&idx=1&sn=ea564cf916e3856e01000242f028b1c4&scene=21#wechat_redirect "https://mp.weixin.qq.com/s?__biz=Mzg2NTczNDg1MQ==&mid=2247484305&idx=1&sn=ea564cf916e3856e01000242f028b1c4&scene=21#wechat_redirect")
 
-\[恶意分析\] AsyncRAT通信模型剖析及自动化解密脚本实现
+\[恶意分析\] AsyncRAT 通信模型剖析及自动化解密脚本实现
 
 [https://mp.weixin.qq.com/s/oWN3zaIx6KEpD3mBnscYmw](https://mp.weixin.qq.com/s?__biz=MzU2NDY2OTU4Nw==&mid=2247512217&idx=1&sn=25087857a019172ba67c19c45aead3ce&scene=21#wechat_redirect "https://mp.weixin.qq.com/s?__biz=MzU2NDY2OTU4Nw==&mid=2247512217&idx=1&sn=25087857a019172ba67c19c45aead3ce&scene=21#wechat_redirect")
 

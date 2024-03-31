@@ -12,9 +12,9 @@ tags:
 
 ## Burp Suite 介绍
 
-Burp Suite是一款用于攻击和测试Web应用程序的集成平台，它包含了多种工具，如代理、重发器、扫描器、爬虫、Intruder、Repeater等，可以协同工作，共享信息，支持各种攻击和检测方法。
+Burp Suite 是一款用于攻击和测试 Web 应用程序的集成平台，它包含了多种工具，如代理、重发器、扫描器、爬虫、Intruder、Repeater 等，可以协同工作，共享信息，支持各种攻击和检测方法。
 
-Burp Suite的插件是一种扩展Burp Suite功能的方式，可以通过Burp Extender模块来安装和管理。插件可以由社区用户创建和维护，也可以由自己编写。插件可以修改HTTP请求和响应，发送额外的HTTP请求，自定义Burp Suite的界面和功能，添加额外的扫描检查，访问Burp Suite的信息等。
+Burp Suite 的插件是一种扩展 Burp Suite 功能的方式，可以通过 Burp Extender 模块来安装和管理。插件可以由社区用户创建和维护，也可以由自己编写。插件可以修改 HTTP 请求和响应，发送额外的 HTTP 请求，自定义 Burp Suite 的界面和功能，添加额外的扫描检查，访问 Burp Suite 的信息等。
 
 ## 配置环境
 
@@ -34,19 +34,19 @@ Burp Suite 依赖 Jython 来支持 Python，需要下载 Jython 并配置 Burp S
 
 **Extender API**：
 
-Burp Suite 的 Extender API 是一套用于创建 Burp Suite 扩展的 Java 接口，它可以让攻击者使用自己或第三方的代码来扩展 Burp Suite 的功能，例如修改 HTTP 请求和响应、发送额外的 HTTP 请求、自定义Burp Suite 的界面和功能、添加额外的扫描检查，访问 Burp Suite 的信息等。
+Burp Suite 的 Extender API 是一套用于创建 Burp Suite 扩展的 Java 接口，它可以让攻击者使用自己或第三方的代码来扩展 Burp Suite 的功能，例如修改 HTTP 请求和响应、发送额外的 HTTP 请求、自定义 Burp Suite 的界面和功能、添加额外的扫描检查，访问 Burp Suite 的信息等。
 
 所有接口可以访问 Burp Suite 的官方文档查看:https://portswigger.net/burp/extender/api/index-all.html。
 
 **Montoya API**：
 
-Montoya AP I和 Extender API 都是用于创建 Burp Suite 扩展的 Java 接口，但是 Montoya API 是 Extender API 的升级版，它提供了更多的功能和优化，例如：
+Montoya AP I 和 Extender API 都是用于创建 Burp Suite 扩展的 Java 接口，但是 Montoya API 是 Extender API 的升级版，它提供了更多的功能和优化，例如：
 
--   Montoya API 将Extender API 中的一些接口进行了分类和重构，使得扩展的开发更加清晰和方便。
+-   Montoya API 将 Extender API 中的一些接口进行了分类和重构，使得扩展的开发更加清晰和方便。
     
--   Montoya API 增加了一些新的接口，如IBurpExtension、IExtensionStateListener、IExtensionHelpers等，可以让扩展更好地与 Burp Suite 的核心功能和状态进行交互。
+-   Montoya API 增加了一些新的接口，如 IBurpExtension、IExtensionStateListener、IExtensionHelpers 等，可以让扩展更好地与 Burp Suite 的核心功能和状态进行交互。
     
--   Montoya API 支持使用 Maven 或 Gradle 来创建和构建扩展项目，可以方便地管理依赖和版本。该 API 可以访问 Burp Suite 的官方文档查看:
+-   Montoya API 支持使用 Maven 或 Gradle 来创建和构建扩展项目，可以方便地管理依赖和版本。该 API 可以访问 Burp Suite 的官方文档查看：
     
 
 https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/montoya/MontoyaApi.html
@@ -55,7 +55,7 @@ https://portswigger.github.io/burp-extensions-montoya-api/javadoc/burp/api/monto
 
 BApp Store 包含由 Burp Suite 用户编写的 Burp 扩展，以扩展 Burp 的功能。
 
-攻击者可以通过 Burp Extender 工具中的 BApp Store 功能直接在 Burp Suite 中安装。也可以访问 Burp Suite 提供的在线网站(https://portswigger.net/bappstore)，以便离线安装到 Burp Suite 中。
+攻击者可以通过 Burp Extender 工具中的 BApp Store 功能直接在 Burp Suite 中安装。也可以访问 Burp Suite 提供的在线网站 (https://portswigger.net/bappstore)，以便离线安装到 Burp Suite 中。
 
 ![图片](assets/1711872501-37d80127b73f829661c0d17b431e0b18.svg)
 
@@ -71,7 +71,7 @@ BApp Store 包含由 Burp Suite 用户编写的 Burp 扩展，以扩展 Burp 的
 
 ![图片](assets/1711872501-37d80127b73f829661c0d17b431e0b18.svg)
 
-搜索 “net.portswigger.burp.extender:burp-extender-api:2.1” 并安装：
+搜索“net.portswigger.burp.extender:burp-extender-api:2.1”并安装：
 
 ![图片](assets/1711872501-37d80127b73f829661c0d17b431e0b18.svg)
 

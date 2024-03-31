@@ -1,5 +1,5 @@
 ---
-title: 使用PaddleGAN修复老电影
+title: 使用 PaddleGAN 修复老电影
 url: https://mp.weixin.qq.com/s?__biz=Mzg3NjU0NzE4OQ==&mid=2247484046&idx=1&sn=3fcf374a29df3986a61810b25d1de5c1&chksm=cf31df94f8465682e90d49dca0a02067d2f5a32bfbe6cd61f398efec86561c40ae9577beab7b&mpshare=1&scene=1&srcid=0314mcHyfY7yeBABECC4bUqd&sharer_shareinfo=4a38e45057920b58999a968c85930fe9&sharer_shareinfo_first=4a38e45057920b58999a968c85930fe9#rd
 clipped_at: 2024-03-31 15:52:35
 category: temp
@@ -8,13 +8,13 @@ tags:
 ---
 
 
-# 使用PaddleGAN修复老电影
+# 使用 PaddleGAN 修复老电影
 
   
 
   
 
-本文带大家使用基于百度PaddlePaddle框架的GAN套件PaddleGAN，实现老电影修复。
+本文带大家使用基于百度 PaddlePaddle 框架的 GAN 套件 PaddleGAN，实现老电影修复。
 
 首先我们先看看修复效果吧。
 
@@ -28,11 +28,11 @@ tags:
 
 1
 
-安装PaddleGAN套件
+安装 PaddleGAN 套件
 
   
 
-源码可以直接从github上下载。
+源码可以直接从 github 上下载。
 
 ```plain
 git clone https://github.com/PaddlePaddle/PaddleGAN.git
@@ -40,21 +40,21 @@ git clone https://github.com/PaddlePaddle/PaddleGAN.git
 
 也可以通过本文末尾的地址打包下载。
 
-然后确定一下本机的python版本以及CUDA版本，这里注意需要使用显卡运行PaddleGAN套件，否则速度会非常慢。
+然后确定一下本机的 python 版本以及 CUDA 版本，这里注意需要使用显卡运行 PaddleGAN 套件，否则速度会非常慢。
 
-进入以下页面，搜索2.0.0-rc0版本，然后根据系统环境实际情况选取合适版本的paddlepaddle框架下载。
+进入以下页面，搜索 2.0.0-rc0 版本，然后根据系统环境实际情况选取合适版本的 paddlepaddle 框架下载。
 
 ```plain
 https://paddlepaddle.org.cn/whl/stable.html
 ```
 
-下载对应版本的paddlepaddle框架后，使用以下命令安装。  
+下载对应版本的 paddlepaddle 框架后，使用以下命令安装。  
 
 ```plain
 pip install https://paddle-wheel.bj.bcebos.com/2.0.0-rc0-gpu-cuda10.1-cudnn7-mkl_gcc8.2%2Fpaddlepaddle_gpu-2.0.0rc0.post101-cp37-cp37m-linux_x86_64.whl
 ```
 
-然后安装PaddleGAN套件。
+然后安装 PaddleGAN 套件。
 
 ```plain
 cd PaddleGAN/
@@ -78,7 +78,7 @@ pip install -r requirments.txt -i https://pypi.douban.com/simple
   
 
 首先需要自己准备一段几分钟的黑白视频片段，如果没有也可以通过本文末尾的地址下载本程序中的例子。  
-进入applications目录执行脚本。
+进入 applications 目录执行脚本。
 
 ```plain
 cd applications
@@ -93,7 +93,7 @@ python tools/video-enhance.py --input xiaobing1.mp4 --process_order  DeOld
 
 目前修复工具支持以下算法：
 
--   DAIN:插帧算法，会对原始视频进行2倍帧率的插帧。
+-   DAIN:插帧算法，会对原始视频进行 2 倍帧率的插帧。
     
 -   DeepRemaster:视频修复，一般当原始视频存在模糊的情况下使用
     
@@ -116,9 +116,9 @@ W0108 18:59:55.304046  5019 device_context.cc:346] device: 0, cuDNN Vers
   1%|▍                                                                                  | 10/1806 [00:09<29:50,  1.00it/s]
 ```
 
-程序运行的时间可能会比较长。程序的运行时间受输入视频的长度、分辨率以及采用的算法组合影响。运行结束后会在--output指定的路径生成修复好的视频。
+程序运行的时间可能会比较长。程序的运行时间受输入视频的长度、分辨率以及采用的算法组合影响。运行结束后会在--output 指定的路径生成修复好的视频。
 
-源码及样例视频下载地址:  
+源码及样例视频下载地址： 
 
 链接: 
 

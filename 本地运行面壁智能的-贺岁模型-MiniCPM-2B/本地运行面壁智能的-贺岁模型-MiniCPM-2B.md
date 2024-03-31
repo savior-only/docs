@@ -77,7 +77,7 @@ hf
 .
 # 启用国内的软件镜像加速构建
 docker build
---
+
 build
 -
 arg
@@ -1490,7 +1490,7 @@ True
 
 ```plain
 docker run
---
+
 rm
 -
 it
@@ -1500,15 +1500,15 @@ p
 :
 7860
 
---
+
 gpus
 all
 
---
+
 ipc
 =
 host
---
+
 ulimit memlock
 =-
 1
@@ -1529,7 +1529,7 @@ minicpm
 hf python app
 .
 py
---
+
 model_path
 =./
 models
@@ -1539,7 +1539,7 @@ OpenBMB
 MiniCPM
 -「具体模型型号」/
 
---
+
 server_name
 =
 0.0
@@ -1551,7 +1551,7 @@ server_name
 
 ```plain
 docker run
---
+
 rm
 -
 it
@@ -1561,15 +1561,15 @@ p
 :
 7860
 
---
+
 gpus
 all
 
---
+
 ipc
 =
 host
---
+
 ulimit memlock
 =-
 1
@@ -1590,7 +1590,7 @@ minicpm
 hf python app
 .
 py
---
+
 model_path
 =./
 models
@@ -1606,7 +1606,7 @@ dpo
 fp32
 /
 
---
+
 server_name
 =
 0.0
@@ -1618,7 +1618,7 @@ server_name
 
 ```plain
 docker run
---
+
 rm
 -
 it
@@ -1628,15 +1628,15 @@ p
 :
 7860
 
---
+
 gpus
 all
 
---
+
 ipc
 =
 host
---
+
 ulimit memlock
 =-
 1
@@ -1657,7 +1657,7 @@ minicpm
 hf python app
 .
 py
---
+
 model_path
 =./
 models
@@ -1673,14 +1673,14 @@ dpo
 fp32
 /
 
---
+
 server_name
 =
 0.0
 .0
 .0
 
---
+
 torch_dtype
 =
 float32
@@ -2167,7 +2167,7 @@ launch
 
 ## 最后
 
-这篇文章先写到这里，关于本篇文章挖的一个坑，如何在安装了最新版本 CUDA 、Torch 等软件版本的容器环境中，使用 vllm 来高效运行模型，下一篇相关的文章再聊。
+这篇文章先写到这里，关于本篇文章挖的一个坑，如何在安装了最新版本 CUDA、Torch 等软件版本的容器环境中，使用 vllm 来高效运行模型，下一篇相关的文章再聊。
 
 \--EOF
 

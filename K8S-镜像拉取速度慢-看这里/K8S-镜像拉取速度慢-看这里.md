@@ -34,17 +34,17 @@ Spegel，瑞典语中的“镜子”，作为一个无状态的集群本地 OCI 
 
 ```plain
 helm upgrade
---
+
 create
 -
 namespace
 
---
+
 namespace
  spegel
---
+
 install
---
+
 version v0
 .
 0.16

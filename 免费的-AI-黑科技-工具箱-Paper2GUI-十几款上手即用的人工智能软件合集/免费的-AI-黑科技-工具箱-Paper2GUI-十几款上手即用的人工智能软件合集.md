@@ -1,5 +1,5 @@
 ---
-title: 免费的 “AI 黑科技” 工具箱！Paper2GUI 十几款上手即用的人工智能软件合集
+title: 免费的“AI 黑科技”工具箱！Paper2GUI 十几款上手即用的人工智能软件合集
 url: https://mp.weixin.qq.com/s?__biz=MjM5NjExODEyMA==&mid=2247494858&idx=1&sn=b43348d60868afd500ba60681d5b3ee9&chksm=a6ec87cd919b0edb5f2f00028de73e9e36dc707443c50a1a5b73179dddbabcbac46a581b9023&mpshare=1&scene=1&srcid=0314VVUaFqcSFEX7VbMopay2&sharer_shareinfo=b043e9727774ec45911e75e8458024c9&sharer_shareinfo_first=b043e9727774ec45911e75e8458024c9#rd
 clipped_at: 2024-03-31 15:52:13
 category: temp
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# 免费的 “AI 黑科技” 工具箱！Paper2GUI 十几款上手即用的人工智能软件合集
+# 免费的“AI 黑科技”工具箱！Paper2GUI 十几款上手即用的人工智能软件合集
 
 **Paper2GUI** 是一个免费的**多功能 AI 工具箱**开源项目，它收录了超过 19 个“黑科技”般的人工智能算法模型，并制作了直观的 GUI 图形界面，将原本“技术男专用”的代码，摇身一变成简单易用的「桌面应用」，让所有普通用户都能轻松无门槛地享受、使用这些高端的 AI 功能。
 
@@ -16,7 +16,7 @@ tags:
 
 由于这类开源 AI 模型算法的入门使用门槛较高，以至于不少投机者将它们“打包”成付费软件去赚钱，有些还卖得特别贵。而 **Paper2GUI** 则非常良心，它为这些 AI 算法打造了简单易上手的 GUI 图形界面，但依然保持开源发布，让你能轻松用上这些高大上的工具，还完全免费！！相当于帮你白白省下很多钱了。
 
-，时长00:50
+，时长 00:50
 
 本系列的软件主要支持 Windows 系统，不过 Mac、Linux 平台也会陆续跟进，作者表示未来还将会适配安卓 Android 和苹果 iOS 设备，另外还有小程序等等。那下面，我们一起来看看 Paper2GUI (**佰阅 AI 工具箱**) 里都包含有哪些厉害的工具吧。
 
@@ -28,7 +28,7 @@ tags:
 
   
 
-，时长01:27
+，时长 01:27
 
 视频超分辨率的算法目前百花齐放，不过目前主要在动漫领域表现较为出色，其中 RealESGAN、RealCugan 等算法已经明显优于之前比较流行的 Waifu2x。
 

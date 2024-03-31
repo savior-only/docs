@@ -1,5 +1,5 @@
 ---
-title: 实战案例 | 利用SpringBoot相关RCE漏洞拿下某数字化平台系统
+title: 实战案例 | 利用 SpringBoot 相关 RCE 漏洞拿下某数字化平台系统
 url: https://mp.weixin.qq.com/s?__biz=MzkxNDAyNTY2NA==&mid=2247514585&idx=1&sn=5e57d7c5164202441d8e96232b4fe59b&chksm=c1764476f601cd6050d93cd4a375cce40268a9c73d2807535b9c591d40739ced5e94dc769143&mpshare=1&scene=1&srcid=0216itWF4YMnXJyE674CeKC2&sharer_shareinfo=279f25f038d5ce3d6c6ee0769bb009f2&sharer_shareinfo_first=279f25f038d5ce3d6c6ee0769bb009f2#rd
 clipped_at: 2024-03-31 19:47:59
 category: temp
@@ -8,17 +8,17 @@ tags:
 ---
 
 
-# 实战案例 | 利用SpringBoot相关RCE漏洞拿下某数字化平台系统
+# 实战案例 | 利用 SpringBoot 相关 RCE 漏洞拿下某数字化平台系统
 
-在一次众测项目中，对某大型企业的某套数字化平台系统进行测试，前端功能简单，就一个登录页面，也没有测试账号，由于给的测试时间不多，倒腾了半天没有发现有价值的漏洞，在快要结束的时候，试了几个报错，发现是Spring Boot框架的，仿佛间看到曙光，后续也顺利拿下RCE。通过本文的分享，希望能给大家获取到一些思路和帮助~~
+在一次众测项目中，对某大型企业的某套数字化平台系统进行测试，前端功能简单，就一个登录页面，也没有测试账号，由于给的测试时间不多，倒腾了半天没有发现有价值的漏洞，在快要结束的时候，试了几个报错，发现是 Spring Boot 框架的，仿佛间看到曙光，后续也顺利拿下 RCE。通过本文的分享，希望能给大家获取到一些思路和帮助~~
 
 ## **开局**
 
-访问http://xx.xx.xx.xx/，打开就是一个某数字化平台登录页面，尝试了登录框可能存在的各类漏洞问题，如弱口令，用户名枚举，万能密码登录，登录验证绕过，任意密码重置等等，无果
+访问 http://xx.xx.xx.xx/，打开就是一个某数字化平台登录页面，尝试了登录框可能存在的各类漏洞问题，如弱口令，用户名枚举，万能密码登录，登录验证绕过，任意密码重置等等，无果
 
-## **Spring Boot框架**
+## **Spring Boot 框架**
 
-随后，随意构造了目录aaa看看会发生啥，结果发现是非常熟悉的404错误页面，该页面的特征确定了使用Spring Boot框架，于是看看Spring Boot是否有一些配置接口泄露，运气好还可以执行RCE
+随后，随意构造了目录 aaa 看看会发生啥，结果发现是非常熟悉的 404 错误页面，该页面的特征确定了使用 Spring Boot 框架，于是看看 Spring Boot 是否有一些配置接口泄露，运气好还可以执行 RCE
 
 ![图片](assets/1711885679-86350eeab1a85dada83077204879a42c.webp)
 
@@ -30,23 +30,23 @@ http://xx.xx.xx.xx/gateway/actuator/env![图片](assets/1711885679-46b79d544c1a4
 
 ![图片](assets/1711885679-c141702d3596690c198e6318451e29f3.webp)
 
-使用SpringBoot敏感目录扫描一下
+使用 SpringBoot 敏感目录扫描一下
 
 ![图片](assets/1711885679-3677f94ffa03c23b52bc9d678d4ade8c.webp)
 
-扫描后发现存在蛮多接口信息，我对Spring Boot的漏洞了解不是很深，第一时间能想到rce的漏洞有两个，一个是Spring Boot Actuator jolokia 配置不当导致的RCE漏洞和Spring Cloud Gateway的应用对外暴露了 Gateway Actuator，通过Spring Cloud Gateway 远程代码执行漏洞（CVE-2022-22947）执行SpEL表达式，可远程主机上进行远程执行RCE。
+扫描后发现存在蛮多接口信息，我对 Spring Boot 的漏洞了解不是很深，第一时间能想到 rce 的漏洞有两个，一个是 Spring Boot Actuator jolokia 配置不当导致的 RCE 漏洞和 Spring Cloud Gateway 的应用对外暴露了 Gateway Actuator，通过 Spring Cloud Gateway 远程代码执行漏洞（CVE-2022-22947）执行 SpEL 表达式，可远程主机上进行远程执行 RCE。
 
-思路有了，我们先来看看是否有/jolokia或/actuator/jolokia接口，扫描发现没有，那就看看有没有/actuator/gateway/routes/
+思路有了，我们先来看看是否有/jolokia 或/actuator/jolokia 接口，扫描发现没有，那就看看有没有/actuator/gateway/routes/
 
 ![图片](assets/1711885679-544b5363739c4408c9ecc87b58609b9f.webp)
 
 ## **Spring Cloud Gateway 远程代码执行漏洞（CVE-2022-22947）**
 
-运气还是挺好的，Spring Cloud Gateway的应用程序在Actuator端点在启用，并能获取到路由信息，http://xx.xx.xx.xx/gateway/actuator/gateway/routes/
+运气还是挺好的，Spring Cloud Gateway 的应用程序在 Actuator 端点在启用，并能获取到路由信息，http://xx.xx.xx.xx/gateway/actuator/gateway/routes/
 
 ![图片](assets/1711885679-d115430031cfabf7bb8579ce43bc80fb.webp)
 
-接下来构建POST请求包，在/gateway/actuator/gateway/routes/ceshiRCE 添加一个包含恶意的SpEL表达式的路由，这里我创建ceshiRCE路由,命令用的是ifconfig，这里可以也用其它的命令，注意的是Content-Type:application/json要修改为json，发包后返回201说明添加成功
+接下来构建 POST 请求包，在/gateway/actuator/gateway/routes/ceshiRCE 添加一个包含恶意的 SpEL 表达式的路由，这里我创建 ceshiRCE 路由，命令用的是 ifconfig，这里可以也用其它的命令，注意的是 Content-Type:application/json 要修改为 json，发包后返回 201 说明添加成功
 
 ![图片](assets/1711885679-5567a755bb1585f8085f47f36aee1fba.webp)
 

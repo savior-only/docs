@@ -45,7 +45,7 @@ db_path = "./data.ms"
 # 配置实例的环境 开发环境下会启动一个 web 界面 development | production
 env = "development"
 
-# 设置秘钥 ，最少 16 字节，开发模式也建议设置一个，生产模式下如果不指定会报错，无法启动
+# 设置秘钥，最少 16 字节，开发模式也建议设置一个，生产模式下如果不指定会报错，无法启动
 master_key = "YOUR_MASTER_KEY_VALUE"
 
 # 监听地址
@@ -60,13 +60,13 @@ http_payload_size_limit = "100 MB"
 # 日志级别  `OFF`, `ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`
 log_level = "INFO"
 
-# 设置Meilisearch在索引时可以使用的最大RAM大小。
+# 设置 Meilisearch 在索引时可以使用的最大 RAM 大小。
 # max_indexing_memory = "2 GiB"
 
-# 设置Meilisearch在索引期间可以使用的最大线程数。
+# 设置 Meilisearch 在索引期间可以使用的最大线程数。
 # max_indexing_threads = 4
 
-# 设置Meilisearch创建转储文件的目录
+# 设置 Meilisearch 创建转储文件的目录
 dump_dir = "dumps/"
 
 # Pevents Meilisearch from throwing an error when `import_dump` does not point to a valid dump file.
@@ -182,8 +182,8 @@ meilisearch: # meilisearch url 和 key
 sync:
   - table: MYSQL_TABLE_NAME_1  # 数据库表
     index: MEILISEARCH_INDEX_NAME_1 # Meilisearch 索引名，不设置则使用表名
-    full: true  # 是否全量同步，为 true 时会将数据库中已有数据进行同步到Meilisearch
-  - table: MYSQL_TABLE_NAME_2  # 数据库表2
+    full: true  # 是否全量同步，为 true 时会将数据库中已有数据进行同步到 Meilisearch
+  - table: MYSQL_TABLE_NAME_2  # 数据库表 2
     #index: MEILISEARCH_INDEX_NAME_2 # Meilisearch 索引名，不设置则使用表名
     full: true  # 是否全量同步
 ```
@@ -227,7 +227,7 @@ docker compose up -d
 
 **使用 web 时一定要设置 key 进行授权认证**
 
-感觉有了这个 Meilisearch web 页面，资产绘测的前端都不需要了，api 接口加任务，Meilisearch web 查看任务结果(⊙o⊙)…
+感觉有了这个 Meilisearch web 页面，资产绘测的前端都不需要了，api 接口加任务，Meilisearch web 查看任务结果 (⊙o⊙)…
 
 ![图片](assets/1711886318-3d7b2695d857637395dcadd638b171ed.webp)
 

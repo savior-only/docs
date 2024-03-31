@@ -2,16 +2,16 @@
   "version": "2.0",
   "clipId": "1711885679",
   "format": "md",
-  "title": "实战案例 | 利用SpringBoot相关RCE漏洞拿下某数字化平台系统",
+  "title": "实战案例 | 利用 SpringBoot 相关 RCE 漏洞拿下某数字化平台系统",
   "link": "https://mp.weixin.qq.com/s?__biz=MzkxNDAyNTY2NA==&mid=2247514585&idx=1&sn=5e57d7c5164202441d8e96232b4fe59b&chksm=c1764476f601cd6050d93cd4a375cce40268a9c73d2807535b9c591d40739ced5e94dc769143&mpshare=1&scene=1&srcid=0216itWF4YMnXJyE674CeKC2&sharer_shareinfo=279f25f038d5ce3d6c6ee0769bb009f2&sharer_shareinfo_first=279f25f038d5ce3d6c6ee0769bb009f2#rd",
   "category": "temp",
   "tags": [
     "mp.weixin.qq.com"
   ],
   "created_at": "2024-03-31 19:47:59",
-  "mainPath": "实战案例-利用SpringBoot相关RCE漏洞拿下某数字化平台系统.md",
+  "mainPath": "实战案例 - 利用 SpringBoot 相关 RCE 漏洞拿下某数字化平台系统.md",
   "paths": [
-    "实战案例-利用SpringBoot相关RCE漏洞拿下某数字化平台系统.index.json",
+    "实战案例 - 利用 SpringBoot 相关 RCE 漏洞拿下某数字化平台系统.index.json",
     "assets/1711885679-86350eeab1a85dada83077204879a42c.webp",
     "assets/1711885679-46b79d544c1a4aadd466d470ed5e3140.webp",
     "assets/1711885679-c141702d3596690c198e6318451e29f3.webp",
@@ -20,6 +20,6 @@
     "assets/1711885679-d115430031cfabf7bb8579ce43bc80fb.webp",
     "assets/1711885679-5567a755bb1585f8085f47f36aee1fba.webp",
     "assets/1711885679-ad6750534607132eb13c7269137d597a.webp",
-    "实战案例-利用SpringBoot相关RCE漏洞拿下某数字化平台系统.md"
+    "实战案例 - 利用 SpringBoot 相关 RCE 漏洞拿下某数字化平台系统.md"
   ]
 }

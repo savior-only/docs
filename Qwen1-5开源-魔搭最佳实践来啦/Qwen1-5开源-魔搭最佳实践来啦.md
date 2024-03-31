@@ -1,5 +1,5 @@
 ---
-title: Qwen1.5开源！魔搭最佳实践来啦！
+title: Qwen1.5 开源！魔搭最佳实践来啦！
 url: https://mp.weixin.qq.com/s?__biz=MzkxNTM5NTg2OA==&mid=2247489799&idx=1&sn=f4e089b0ad99bfc5a74eb4307cd26da6&chksm=c15e9d74f6291462b0f4a9ae0661e1557b52f846b8d5d73177d3aaabc5f91e4c684a138217a0&mpshare=1&scene=1&srcid=0216J1wSz0MpGmxxHL0nThsh&sharer_shareinfo=1e31f8d0c66fe79fa17d86765f6edeb3&sharer_shareinfo_first=1e31f8d0c66fe79fa17d86765f6edeb3#rd
 clipped_at: 2024-03-31 19:22:06
 category: temp
@@ -8,15 +8,15 @@ tags:
 ---
 
 
-# Qwen1.5开源！魔搭最佳实践来啦！
+# Qwen1.5 开源！魔搭最佳实践来啦！
 
-近几个月来，通义千问团队一直在努力探索如何构建一个“好”的模型，同时优化开发者体验。就在刚刚，中国新年前夕，通义千问团队分享了Qwen开源系列的下一个版本，**Qwen1.5**。  
+近几个月来，通义千问团队一直在努力探索如何构建一个“好”的模型，同时优化开发者体验。就在刚刚，中国新年前夕，通义千问团队分享了 Qwen 开源系列的下一个版本，**Qwen1.5**。  
 
   
 
-Qwen1.5本次开源了包括0.5B、1.8B、4B、7B、14B和72B在内的六种大小的基础和聊天模型，同时，也开源了量化模型。不仅提供了Int4和Int8的GPTQ模型，还有AWQ模型，以及GGUF量化模型。为了提升开发者体验，Qwen1.5的代码合并到Hugging Face Transformers中，开发者现在可以直接使用transformers>=4.37.0 而无需 trust\_remote\_code。此外，Qwen1.5支持了例如vLLM、SGLang、AutoGPTQ等框架对Qwen1.5的支持。
+Qwen1.5 本次开源了包括 0.5B、1.8B、4B、7B、14B 和 72B 在内的六种大小的基础和聊天模型，同时，也开源了量化模型。不仅提供了 Int4 和 Int8 的 GPTQ 模型，还有 AWQ 模型，以及 GGUF 量化模型。为了提升开发者体验，Qwen1.5 的代码合并到 Hugging Face Transformers 中，开发者现在可以直接使用 transformers>=4.37.0 而无需 trust\_remote\_code。此外，Qwen1.5 支持了例如 vLLM、SGLang、AutoGPTQ 等框架对 Qwen1.5 的支持。
 
-与之前的版本相比，Qwen1.5显著提升了聊天模型与人类偏好的一致性，并且改善了它们的多语言能力。所有模型提供了统一的上下文长度支持，支持32K上下文。还有，基础语言模型的质量也有所小幅改进。
+与之前的版本相比，Qwen1.5 显著提升了聊天模型与人类偏好的一致性，并且改善了它们的多语言能力。所有模型提供了统一的上下文长度支持，支持 32K 上下文。还有，基础语言模型的质量也有所小幅改进。
 
   
 
@@ -28,19 +28,19 @@ Qwen1.5本次开源了包括0.5B、1.8B、4B、7B、14B和72B在内的六种大�
 
   
 
-**1\. 更全的模型系列：**提供6个不同size模型，以及GPTQ/AWQ/GGUF量化版，总有一款适合你
+**1\. 更全的模型系列：**提供 6 个不同 size 模型，以及 GPTQ/AWQ/GGUF 量化版，总有一款适合你
 
   
 
-**2\. 更好的生态融入：**接入huggingface transformers，以及主流的第三方部署、量化、微调、服务等框架，方便你我他
+**2\. 更好的生态融入：**接入 huggingface transformers，以及主流的第三方部署、量化、微调、服务等框架，方便你我他
 
   
 
-**3.更强大的性能：**Chat模型性能大幅提升，即便在英文的MT-Bench上，Qwen1.5-Chat系列也取得了优秀的性能
+**3.更强大的性能：**Chat 模型性能大幅提升，即便在英文的 MT-Bench 上，Qwen1.5-Chat 系列也取得了优秀的性能
 
   
 
-**4.更全面统一的功能：**全系列均统一支持至少32k的最大长度，多语言能力全面提升并提供了更丰富的多语言评测，全系列统一支持system prompt，统一具备强大的链接外部系统能力（agent/RAG/Tool-use/Code-interpreter）
+**4.更全面统一的功能：**全系列均统一支持至少 32k 的最大长度，多语言能力全面提升并提供了更丰富的多语言评测，全系列统一支持 system prompt，统一具备强大的链接外部系统能力（agent/RAG/Tool-use/Code-interpreter）
 
   
 
@@ -148,9 +148,9 @@ response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
   
 
-魔搭社区的微调框架SWIFT(https://github.com/modelscope/swift)已经支持了Qwen1.5全系列模型的微调和推理。
+魔搭社区的微调框架 SWIFT(https://github.com/modelscope/swift) 已经支持了 Qwen1.5 全系列模型的微调和推理。
 
-下面我们以自我认知任务为例针对千问1.5-7b-chat模型为例给出训练参数配置：
+下面我们以自我认知任务为例针对千问 1.5-7b-chat 模型为例给出训练参数配置：
 
 ```plain
 # Experimental environment: A100
@@ -191,7 +191,7 @@ python llm_sft.py \
 
   
 
-其中的ms-bench数据集是魔搭提供的通用知识数据集，用来做数据混合防止知识遗忘。训练的Loss收敛情况：
+其中的 ms-bench 数据集是魔搭提供的通用知识数据集，用来做数据混合防止知识遗忘。训练的 Loss 收敛情况：
 
 ![图片](assets/1711884126-cffd47a06df75fd3f3a11fb5877cbd07.webp)
 
@@ -199,7 +199,7 @@ python llm_sft.py \
 
 ![图片](assets/1711884126-ce40ad22c028fa2c1b7032684032ba6e.webp)
 
-训练后推理可以使用如下脚本（注意将--ckpt\_dir替换为训练log输出的weights路径）：
+训练后推理可以使用如下脚本（注意将--ckpt\_dir 替换为训练 log 输出的 weights 路径）：
 
 ```plain
 # Experimental environment: A100
@@ -231,13 +231,13 @@ python llm_infer.py \
 
   
 
-### 使用vllm部署魔搭社区千问1.5开源版本
+### 使用 vllm 部署魔搭社区千问 1.5 开源版本
 
 设置环境变量：export VLLM\_USE\_MODELSCOPE=True
 
   
 
-vllm拉起openai server
+vllm 拉起 openai server
 
 ```plain
 python -m vllm.entrypoints.openai.api_server \
@@ -263,9 +263,9 @@ curl http://localhost:8000/v1/chat/completions \
 
   
 
-### 使用llama.cpp部署千问1.5开源的GGUF的版本
+### 使用 llama.cpp 部署千问 1.5 开源的 GGUF 的版本
 
-下载GGUF文件：
+下载 GGUF 文件：
 
 ```plain
 from modelscope.hub.file_download import model_file_download
@@ -275,7 +275,7 @@ model_dir = model_file_download(model_id='qwen/Qwen1.5-1.8B-Chat-GGUF',file_path
 
   
 
-git clone llama.cpp代码并推理：
+git clone llama.cpp 代码并推理：
 
 ```plain
 git clone https://github.com/ggerganov/llama.cpp.git
@@ -289,9 +289,9 @@ make -j && ./main -m /mnt/workspace/qwen/Qwen1.5-1.8B-Chat-GGUF/qwen1.5-1_8b-cha
 
 ###   
 
-### 使用ollama运行qwen1.5
+### 使用 ollama 运行 qwen1.5
 
-安装ollama，并运行
+安装 ollama，并运行
 
 ```plain
 curl https://ollama.ai/install.sh | sh
@@ -306,7 +306,7 @@ ollama serve
 ollama run qwen
 ```
 
-免安装使用llamafile版本推理（感谢社区网友bingal贡献）:  
+免安装使用 llamafile 版本推理（感谢社区网友 bingal 贡献）:  
 
 链接：https://modelscope.cn/models/bingal/Qwen1.5-7B-Chat-llamafile/summary
 
@@ -331,7 +331,7 @@ chmod +x qwen1.5-7b-chat-q5_k_m.llamafile
 
   
 
-支持openai格式api调用：
+支持 openai 格式 api 调用：
 
 ```plain
 from openai import OpenAI

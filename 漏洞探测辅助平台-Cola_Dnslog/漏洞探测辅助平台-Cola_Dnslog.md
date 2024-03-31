@@ -14,7 +14,7 @@ tags:
 
   
 
-Cola Dnslog v1.3.1 更加强大的dnslog平台/无回显漏洞探测辅助平台，可帮助检测漏洞有：
+Cola Dnslog v1.3.1 更加强大的 dnslog 平台/无回显漏洞探测辅助平台，可帮助检测漏洞有：
 
 ```plain
 log4j2 fastjson ruoyi Spring RCE Blind SQL Bland XXE
@@ -36,13 +36,13 @@ cd cola_dnslog
 pip install -r requirements.txt
 ```
 
-2、启动webserver
+2、启动 webserver
 
-修改根目录下的config.yaml
+修改根目录下的 config.yaml
 
-主要需要修改DNS\_DOMAIN NS1\_DOMAIN NS2\_DOMAIN SERVER\_IP
+主要需要修改 DNS\_DOMAIN NS1\_DOMAIN NS2\_DOMAIN SERVER\_IP
 
-可选: 修改HTTP\_RESPONSE\_SERVER\_VERSION伪造http返回中Server字段
+可选：修改 HTTP\_RESPONSE\_SERVER\_VERSION 伪造 http 返回中 Server 字段
 
 ```plain
 global:
@@ -79,7 +79,7 @@ chmod +x start_webserver
 
 ![图片](assets/1711885116-c8f75ce3a3f78902a6daac351a3c2431.webp)
 
-3、启动logserver
+3、启动 logserver
 
 ```plain
 chmod +x start_logserver
@@ -90,7 +90,7 @@ chmod +x start_logserver
 
 4、启动前端
 
-现在来到前端（不一定要和webserver放在一起，你甚至可以通过electron打包成本地客户端），先修改配置文件.env.production
+现在来到前端（不一定要和 webserver 放在一起，你甚至可以通过 electron 打包成本地客户端），先修改配置文件.env.production
 
 ```plain
 cd src/app/front
@@ -105,7 +105,7 @@ VUE_APP_BASE_API = 'http://1.1.1.1:28001'
 TARGET_API = 'http://1.1.1.1:28001'
 ```
 
-然后npm安装依赖、打包、启动http服务（这里可以随意选择http服务器，为了方便我直接用python启动）
+然后 npm 安装依赖、打包、启动 http 服务（这里可以随意选择 http 服务器，为了方便我直接用 python 启动）
 
 ```plain
 cd src/front
@@ -116,9 +116,9 @@ cd dist
 python3 -m http.server 18001
 ```
 
-至此，三端（webserver端、logserver端、webui前端）已经全部开启！
+至此，三端（webserver 端、logserver 端、webui 前端）已经全部开启！
 
-这时，访问http://1.1.1.1:18001应该可以看到登录页面！
+这时，访问 http://1.1.1.1:18001 应该可以看到登录页面！
 
   
 

