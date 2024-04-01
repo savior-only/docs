@@ -1,0 +1,26 @@
+{
+  "version": "2.0",
+  "clipId": "1711960601",
+  "format": "md",
+  "title": "利用 gateway-api 攻击 kubernetes",
+  "link": "https://blog.noah.360.net/abuse-gateway-api-attack-kubernetes/",
+  "category": "default",
+  "tags": [
+    "blog.noah.360.net"
+  ],
+  "created_at": "2024-04-01 16:36:41",
+  "mainPath": "利用-gateway-api-攻击-kubernetes.md",
+  "paths": [
+    "利用-gateway-api-攻击-kubernetes.index.json",
+    "assets/1711960601-e61ca33593cd8fa05a4aa99776b2958c.png",
+    "assets/1711960601-fc79e7cb3e49bf6dc4fd18890bf3258d.png",
+    "assets/1711960601-c47b8023ab3264cfb4ad34d99c54730f.png",
+    "assets/1711960601-9d4e0528e6789b09ec8553072e5e3d41.png",
+    "assets/1711960601-1a35f37dba6b012b946016a13a835845.png",
+    "assets/1711960601-508c98dd201add52c4d568e1c298b96f.png",
+    "assets/1711960601-82f2c083247d6d976727ab1cf72bb796.png",
+    "assets/1711960601-e9d13060be6a5b705e9d7affbb6e337b.png",
+    "assets/1711960601-b63b7d77a94e2b71bfdcd7b90089bccc.png",
+    "利用-gateway-api-攻击-kubernetes.md"
+  ]
+}

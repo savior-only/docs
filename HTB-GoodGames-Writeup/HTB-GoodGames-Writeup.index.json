@@ -1,0 +1,37 @@
+{
+  "version": "2.0",
+  "clipId": "1711962955",
+  "format": "md",
+  "title": "[HTB] GoodGames Writeup",
+  "link": "https://mp.weixin.qq.com/s/WPnNpY6Tl-U58vsDGWQvBw",
+  "category": "default",
+  "tags": [
+    "mp.weixin.qq.com"
+  ],
+  "created_at": "2024-04-01 17:15:55",
+  "mainPath": "HTB-GoodGames-Writeup.md",
+  "paths": [
+    "HTB-GoodGames-Writeup.index.json",
+    "assets/1711962955-49256035d5d297c414998ee4e9327760.png",
+    "assets/1711962955-dc7c7dca9eb7f97fd25b8c7f1cd673fb.png",
+    "assets/1711962955-da2eb40420e155104aafa79f33788b8a.png",
+    "assets/1711962955-74648e9bbe116476a083b91436eae110.png",
+    "assets/1711962955-72e936f91b19362c722bcdb004bc8a6e.png",
+    "assets/1711962955-973876aa2b0d402e21907ca414ebc98c.png",
+    "assets/1711962955-486e735a506dc792058a56350a50c103.png",
+    "assets/1711962955-359fed599546b3a36207095f0f094950.png",
+    "assets/1711962955-fb53ed3e370215ccbb61f146a2b8b0c1.png",
+    "assets/1711962955-59a3b572706e7c4d36923c1f25f03a26.png",
+    "assets/1711962955-eab68d3fe8d8664495c5b4c90142f0be.png",
+    "assets/1711962955-c068484d0e8540f6cd627a997140ecb1.png",
+    "assets/1711962955-85a513acf34ca6837764457739cf5a68.png",
+    "assets/1711962955-142ff626d365332d3493a43afb0c3cf5.png",
+    "assets/1711962955-47fed8a43172682ba608881b8bf43a0a.png",
+    "assets/1711962955-8c3256c998abdfe133ebd039720dd7c9.png",
+    "assets/1711962955-40d62de46504b1145cffc5cca7454089.png",
+    "assets/1711962955-d5008780935c35b056d7026a86362281.png",
+    "assets/1711962955-de0b31e38ac31cbb5c4c413906d93f3b.png",
+    "assets/1711962955-9fdd9dbb8fa752acad8bea72cd048b06.png",
+    "HTB-GoodGames-Writeup.md"
+  ]
+}
