@@ -1,5 +1,5 @@
 ---
-title: windows域环境下认证和攻击初识
+title: windows 域环境下认证和攻击初识
 url: https://mp.weixin.qq.com/s?__biz=MzAwMzYxNzc1OA==&mid=2247486939&idx=1&sn=5df5d91671322fa34e7db4e0b8374ff7&chksm=9b392b6aac4ea27c05ad3cbfeed07343bd622eeeec98a2d2eda914186a8284c905f95a5da3e5&mpshare=1&scene=1&srcid=0829WMA5BVu0cmt3E9V4zqiz&sharer_sharetime=1693306427937&sharer_shareid=0d85edf17b8a6f1974b95685bf30e025#rd
 clipped_at: 2024-04-01 17:13:27
 category: default
@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# windows域环境下认证和攻击初识
+# windows 域环境下认证和攻击初识
 
 **Kerberos 认证原理**
 

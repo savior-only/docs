@@ -10,7 +10,7 @@ tags:
 
 # [HTB] GoodGames Writeup
 
-## 概述 （Overview）
+## 概述（Overview）
 
 ![图片](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711962955-49256035d5d297c414998ee4e9327760.png)
 
@@ -18,19 +18,19 @@ tags:
 > 
 > **OS:** LINUX
 > 
-> **发布时间:** 2022-02-22
+> **发布时间：** 2022-02-22
 > 
-> **完成时间:** 2022-06-14
+> **完成时间：** 2022-06-14
 > 
-> **机器作者:** TheCyberGeek
+> **机器作者：** TheCyberGeek
 > 
-> **困难程度:** easy
+> **困难程度：** easy
 > 
-> **机器状态:** 退休
+> **机器状态：** 退休
 > 
 > **MACHINE TAGS:** #SQLi #Flask #SSTI #DockerAbuse
 
-## 攻击链 （Kiillchain）
+## 攻击链（Kiillchain）
 
 使用 **Nmap** 对目标服务器进行开放端口扫描，访问 Web 服务并使用 **SQLi** 实现管理员账号登录。利用 SQLi 注入漏洞获取新域名系统的登录账号，使用得到的明文密码进入系统。通过中间件服务 **Flask** 框架信息判断存在 **SSTI** 漏洞，最终利用该漏洞进行命令执行成功得到立足点。
 
@@ -65,7 +65,7 @@ Service Info: Host: goodgames.htb
 
 ### SQLi
 
-使用账号能够成功登录系统，但并没有多出什么不一样的内容。退出会话后尝试 SQLi ，发现存在 SQL 语句闭合进行 admin 账号登录。
+使用账号能够成功登录系统，但并没有多出什么不一样的内容。退出会话后尝试 SQLi，发现存在 SQL 语句闭合进行 admin 账号登录。
 
 ![图片](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711962955-74648e9bbe116476a083b91436eae110.png)
 

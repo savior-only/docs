@@ -12,7 +12,7 @@ tags:
 
 ## 前言
 
-前几天注意到了 istio 官方公告，有一个利用 kubernetes gateway api 仅有 `CREATE` 权限来完成特权提升的漏洞 (CVE-2022-21701)，看公告、diff patch 也没看出什么名堂来，跟着自己感觉猜测了一下利用方法，实际跟下来发现涉及到了 sidecar 注入原理及 depolyments 传递注解的特性，个人觉得还是比较有趣的所以记录一下，不过有个插曲，复现后发现这条利用链可以在已经修复的版本上利用，于是和 istio security 团队进行了 “友好” 的沟通，最终发现小丑竟是我自己，自己 yy 的利用只是官方文档一笔带过的一个 feature。
+前几天注意到了 istio 官方公告，有一个利用 kubernetes gateway api 仅有 `CREATE` 权限来完成特权提升的漏洞 (CVE-2022-21701)，看公告、diff patch 也没看出什么名堂来，跟着自己感觉猜测了一下利用方法，实际跟下来发现涉及到了 sidecar 注入原理及 depolyments 传递注解的特性，个人觉得还是比较有趣的所以记录一下，不过有个插曲，复现后发现这条利用链可以在已经修复的版本上利用，于是和 istio security 团队进行了“友好”的沟通，最终发现小丑竟是我自己，自己 yy 的利用只是官方文档一笔带过的一个 feature。
 
 ~所以通篇权当一个 controller 的攻击面，还有一些好玩的特性科普文看好了~
 
@@ -20,7 +20,7 @@ tags:
 
 istio 可以通过用 namespace 打 label 的方法，自动给对应的 namespace 中运行的 pod 注入 sidecar 容器，而另一种方法则是在 pod 的 annotations 中手动的增加 `sidecar.istio.io/inject: "true"` 注解，当然还可以借助 `istioctl kube-inject` 对 yaml 手动进行注入，前两个功能都要归功于 kubernetes 动态准入控制的设计，它允许用户在不同的阶段对提交上来的资源进行修改和审查。
 
-动态准入控制流程:
+动态准入控制流程：
 
 ![webhook](assets/1711960601-e61ca33593cd8fa05a4aa99776b2958c.png)
 
@@ -64,11 +64,11 @@ webhooks:
 
 ![inject_code](assets/1711960601-fc79e7cb3e49bf6dc4fd18890bf3258d.png)
 
-了解完上面的条件后，接着分析注入 sidecar 具体操作的代码，具体实现位于 `RunTemplate` (pkg/kube/inject/inject.go:283) 函数，前面的一些操作是合并 config 、做一些检查确保注解的规范及精简 pod struct，注意力放到位于 `templatePod` 后的代码，利用 `selectTemplates` 函数提取出需要渲染的 templateNames 再经过 `parseTemplate` 进行渲染，详细的函数代码请看下方
+了解完上面的条件后，接着分析注入 sidecar 具体操作的代码，具体实现位于 `RunTemplate` (pkg/kube/inject/inject.go:283) 函数，前面的一些操作是合并 config、做一些检查确保注解的规范及精简 pod struct，注意力放到位于 `templatePod` 后的代码，利用 `selectTemplates` 函数提取出需要渲染的 templateNames 再经过 `parseTemplate` 进行渲染，详细的函数代码请看下方
 
 ![template_render](assets/1711960601-c47b8023ab3264cfb4ad34d99c54730f.png)
 
-获取注解 `inject.istio.io/templates` 中的值作为 templateName ， `params.pod.Annotations` 数据类型是 `map[string]string` ，一般常见值为 sidecar 或者 gateway
+获取注解 `inject.istio.io/templates` 中的值作为 templateName， `params.pod.Annotations` 数据类型是 `map[string]string` ，一般常见值为 sidecar 或者 gateway
 
 ```go
 func selectTemplates(params InjectionParameters) []string {
@@ -121,7 +121,7 @@ sidecar.istio.io/userVolumeMount
 
 ## gateway deployment controller 注解传递
 
-分析官方公告里的缓解建议，其中有一条就是将 `PILOT_ENABLE_GATEWAY_API_DEPLOYMENT_CONTROLLER` 环境变量置为 false ，然后结合另一条建议删除 `gateways.gateway.networking.k8s.io` 的 crd，所以大概率漏洞和创建 gateways 资源有关，翻了翻官方手册注意到了这句话如下图所示，`Gateway` 资源的注解将会传递到 `Service` 及 `Deployment` 资源上。
+分析官方公告里的缓解建议，其中有一条就是将 `PILOT_ENABLE_GATEWAY_API_DEPLOYMENT_CONTROLLER` 环境变量置为 false，然后结合另一条建议删除 `gateways.gateway.networking.k8s.io` 的 crd，所以大概率漏洞和创建 gateways 资源有关，翻了翻官方手册注意到了这句话如下图所示，`Gateway` 资源的注解将会传递到 `Service` 及 `Deployment` 资源上。
 
 ![istio_docs](assets/1711960601-508c98dd201add52c4d568e1c298b96f.png)
 
@@ -165,9 +165,9 @@ spec:
 
 ## 漏洞利用
 
-掌握了漏洞利用链路上的细节，我们就可以理出整个思路，创建精心构造过注解的 Gateway 资源及恶意的 proxyv2 镜像，“迷惑” 控制器创建非预期的 pod 完成对 Host 主机上的敏感文件进行访问， 如 docker unix socket。
+掌握了漏洞利用链路上的细节，我们就可以理出整个思路，创建精心构造过注解的 Gateway 资源及恶意的 proxyv2 镜像，“迷惑”控制器创建非预期的 pod 完成对 Host 主机上的敏感文件进行访问，如 docker unix socket。
 
-**漏洞环境:**
+**漏洞环境：**
 
 istio v1.12.2  
 kubernetes v1.20.14  
@@ -229,7 +229,7 @@ docker tag 0e87xxxxcc5c xxxx/proxyv2:malicious
 
 commit 之前记得把 image 的 entrypoint 改为 `/usr/local/bin/pilot-agent`
 
-接着利用下列的命令完成攻击，注意我覆盖了注解中的 `inject.istio.io/templates` 为 sidecar 使能让 k8s controller 在创建 pod 任务的时候，让其注解中的 `inject.istio.io/templates` 也为 sidecar，这样 istiod 的 inject webhook 就会按照 sidecar 的模版进行渲染 pod 资源文件， `sidecar.istio.io/userVolume` 和 `sidecar.istio.io/userVolumeMount` 我这里挂载了 `/etc/kubernetes` 目录，为了和上面的恶意镜像相辅相成， POC 的效果就是直接打印出 Host 中 `/etc/kubernetes` 目录下的凭证及配置文件，利用 kubelet 的凭证或者 admin token 就可以提权完成接管整个集群，当然你也可以挂载 docker.sock 可以做到更完整的利用。
+接着利用下列的命令完成攻击，注意我覆盖了注解中的 `inject.istio.io/templates` 为 sidecar 使能让 k8s controller 在创建 pod 任务的时候，让其注解中的 `inject.istio.io/templates` 也为 sidecar，这样 istiod 的 inject webhook 就会按照 sidecar 的模版进行渲染 pod 资源文件， `sidecar.istio.io/userVolume` 和 `sidecar.istio.io/userVolumeMount` 我这里挂载了 `/etc/kubernetes` 目录，为了和上面的恶意镜像相辅相成，POC 的效果就是直接打印出 Host 中 `/etc/kubernetes` 目录下的凭证及配置文件，利用 kubelet 的凭证或者 admin token 就可以提权完成接管整个集群，当然你也可以挂载 docker.sock 可以做到更完整的利用。
 
 ```bash
 kubectl --as test create -f - << EOF
@@ -262,7 +262,7 @@ EOF
 
 ![docker_image](assets/1711960601-e9d13060be6a5b705e9d7affbb6e337b.png)
 
-deployments 最终被渲染如下:
+deployments 最终被渲染如下：
 
 ```yaml
 apiVersion: apps/v1
@@ -355,7 +355,7 @@ spec:
 
 实战这个案例有用吗？要说完全能复现这个漏洞的利用过程我觉得是微乎其微的，除非在 infra 中可能会遇到这种场景，k8s 声明式的 api 配合海量组件 watch 资源的变化引入了无限的可能，或许实战中限定资源的读或者写就可以转化成特权提升漏洞。
 
-## 参考:
+## 参考：
 
 1.  [https://gateway-api.sigs.k8s.io/](https://gateway-api.sigs.k8s.io/)
 2.  [https://istio.io/latest/docs/reference/config/annotations/](https://istio.io/latest/docs/reference/config/annotations/)

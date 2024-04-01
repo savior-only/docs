@@ -43,10 +43,10 @@ Headless Chrome 是谷歌 Chrome 浏览器的无界面模式，通过命令行�
 browsercore32.exe 进程运行参数如下：
 
 ```plain
-// Chromium主进程
+// Chromium 主进程
 C:\Users\user\AppData\Local\JxBrowser\browsercore-64.0.3282.24.unknown\browsercore32.exe --port=53070 --pid=13208 --dpi-awareness=system-aware --crash-dump-dir=C:\Users\user\AppData\Local\JxBrowser --lang=zh-CN --no-sandbox --disable-xss-auditor --headless --disable-gpu --log-level=2 --proxy-server="socks://127.0.0.1:0" --disable-bundled-ppapi-flash --disable-plugins-discovery --disable-default-apps --disable-extensions --disable-prerender-local-predictor --disable-save-password-bubble --disable-sync --disk-cache-size=0 --incognito --media-cache-size=0 --no-events --disable-settings-window
 
-// Renderer进程
+// Renderer 进程
 C:\Users\user\AppData\Local\JxBrowser\browsercore-64.0.3282.24.unknown\browsercore32.exe --type=renderer --log-level=2 --no-sandbox --disable-features=LoadingWithMojo,browser-side-navigation --disable-databases --disable-gpu-compositing --service-pipe-token=C06434E20AA8C9230D15FCDFE9C96993 --lang=zh-CN --crash-dump-dir="C:\Users\user\AppData\Local\JxBrowser" --enable-pinch --device-scale-factor=1 --num-raster-threads=1 --enable-gpu-async-worker-context --disable-accelerated-video-decode --service-request-channel-token=C06434E20AA8C9230D15FCDFE9C96993 --renderer-client-id=2 --mojo-platform-channel-handle=2564 /prefetch:1
 ```
 

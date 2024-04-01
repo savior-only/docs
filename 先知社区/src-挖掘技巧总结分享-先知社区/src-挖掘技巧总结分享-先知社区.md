@@ -13,9 +13,9 @@ tags:
 ### src 挖洞技术分享
 
 ```plain
-src推荐刚入门的新手首选公益src如漏洞盒子、补天src，因为漏洞盒子收录范围广，只要是国内的站点都收入，相比其它src平台挖掘难度非常适合新手。后续可以尝试先从一些小的src厂商入手。
-首先是熟能生巧，我一开始挖洞的时候，是先从教育edusrc,cnvd平台进行挖掘漏洞，但这种打法如果放到src，我打的很吃力，因为前者基本都是拿网上公开的nday打，而后者全是技巧和思路。
-在挖掘src的同时，必须读懂src平台的规则，千万不得越红线，同时也要熟悉src平台的收录规则，收录那些漏洞，不然挖到后发现被忽略，这样就前功尽弃了
+src 推荐刚入门的新手首选公益 src 如漏洞盒子、补天 src，因为漏洞盒子收录范围广，只要是国内的站点都收入，相比其它 src 平台挖掘难度非常适合新手。后续可以尝试先从一些小的 src 厂商入手。
+首先是熟能生巧，我一开始挖洞的时候，是先从教育 edusrc,cnvd 平台进行挖掘漏洞，但这种打法如果放到 src，我打的很吃力，因为前者基本都是拿网上公开的 nday 打，而后者全是技巧和思路。
+在挖掘 src 的同时，必须读懂 src 平台的规则，千万不得越红线，同时也要熟悉 src 平台的收录规则，收录那些漏洞，不然挖到后发现被忽略，这样就前功尽弃了
 ```
 
 ## 文件上传
@@ -54,7 +54,7 @@ alert(document.cookie);
 </svg>
 ```
 
-存在文件上传的地方， 嵌套 xss 语句
+存在文件上传的地方，嵌套 xss 语句
 
 将准备好了的图片 xss 上传，imge/png ,html.html.png
 
@@ -75,8 +75,8 @@ xmlns="http://www.w3.org/2000/svg">
 当上传的路径时候，如果不能上传解析路径，则可以尝试是否存路径可控
 
 ```plain
-则原来是user_apply_file
-修改后上传的路径为1/23/456/user_app_file
+则原来是 user_apply_file
+修改后上传的路径为 1/23/456/user_app_file
 ```
 
 #### 绕过
@@ -94,7 +94,7 @@ phtml、pht、php、php3、php4、php5
 ###### 后缀名空绕过
 
 ```plain
-那么php和php ，当然是不⼀样的
+那么 php 和 php，当然是不⼀样的
 # filename="shell.png "
 ```
 
@@ -112,7 +112,7 @@ Content-Type: image/png
 ###### ::$DATA
 
 ```plain
-#windows文件流绕过
+#windows 文件流绕过
 ------WebKitFormBoundary6iEJqkiHLxaG6mxM
 Content-Disposition: form-data; name="upload_file"; filename="shell.php:DATA"
 Content-Type: image/png
@@ -123,7 +123,7 @@ Content-Type: image/png
 ###### 构造文件后缀绕过
 
 ```plain
-#file_ext = strrchr($file_name, '.')； 是检测末尾最后是否是. (很明显是为了防御双写.)我们可以写⼀个空
+#file_ext = strrchr($file_name, '.')；是检测末尾最后是否是。(很明显是为了防御双写.) 我们可以写⼀个空
 ------WebKitFormBoundary3b4MZBZoOnzEpoeC
 Content-Disposition: form-data; name="upload_file"; filename="shell.php. ."
 Content-Type: image/png
@@ -190,7 +190,7 @@ test.asa;1.gif
 ##### 短信轰炸
 
 ```plain
-可以使用并发、url编码进行、重放
+可以使用并发、url 编码进行、重放
 手机号码前后加空格，86，086，0086，+86，0，00，/r,/n, ，以及特殊符号等
 ```
 
@@ -211,7 +211,7 @@ mobile=1xxxxxxxxxx&openid=
 ##### 绑定关系
 
 > ```plain
-> 如使用1的手机号的验证码，如输入2的手机的验证码，来修改密码或者登录
+> 如使用 1 的手机号的验证码，如输入 2 的手机的验证码，来修改密码或者登录
 > ```
 
 ```plain
@@ -229,14 +229,14 @@ mobile=1xxxxxxxxxx&openid=
 > ```
 > 
 > ```plain
-> 在删除用户信息的时候，如果用户的账号是通过uid来判断的，可以尝试是否能双写
+> 在删除用户信息的时候，如果用户的账号是通过 uid 来判断的，可以尝试是否能双写
 > ```
 
 ##### 奇葩绕过
 
 > ```plain
 > 输入需要找回的用户
-> 在下发手机验证码时候用burp将手机改为自己的手机号
+> 在下发手机验证码时候用 burp 将手机改为自己的手机号
 > 输入我们收到的验证码，提交时将手机修改为自己的手机号
 > 然后输入新的密码
 > ```
@@ -244,7 +244,7 @@ mobile=1xxxxxxxxxx&openid=
 重置链接
 
 ```plain
-重置密码，会将链接发送到邮箱中，可以通过邮箱base64解码，来判断账号
+重置密码，会将链接发送到邮箱中，可以通过邮箱 base64 解码，来判断账号
 ```
 
 js 验证
@@ -279,24 +279,24 @@ js 验证
 > 由于设计缺陷，会预设类似于 token 的效验票据，可能导致 admin 票据任意密码重置
 
 ```plain
-将access0-reset-ticket的票据设置到自己需要设置重置密码的票据
+将 access0-reset-ticket 的票据设置到自己需要设置重置密码的票据
 ```
 
 ###### api 接口重置密码
 
 > ```plain
-> 如果在登录框中没有可利用点，就尝试在js文档中，查看是否有接口路径
+> 如果在登录框中没有可利用点，就尝试在 js 文档中，查看是否有接口路径
 > #  /BaseInfo/SystemSet/AlterPassword.html?ID=1
-> 这里的id等于1，则是管理员账户的重置密码
+> 这里的 id 等于 1，则是管理员账户的重置密码
 > ```
 
 ###### 短信验证码
 
 > ```plain
-> 在任意密码重置的时候，输入的手机号码是B账户的，发送请求包
-> burp中拦截请求包，在请求包中修改手机号码为A的手机的账户
-> 在A的手机上接受到验证码后，将验证码输入到当时重置密码的时候B账户
-> 如此就可以成功进入到B账户的重置密码的界面了
+> 在任意密码重置的时候，输入的手机号码是 B 账户的，发送请求包
+> burp 中拦截请求包，在请求包中修改手机号码为 A 的手机的账户
+> 在 A 的手机上接受到验证码后，将验证码输入到当时重置密码的时候 B 账户
+> 如此就可以成功进入到 B 账户的重置密码的界面了
 > ```
 
 #### 业务
@@ -304,7 +304,7 @@ js 验证
 ###### **业务回退**
 
 ```plain
-这一步的时候，将填写密码的url复制到其它浏览器中，如果还是可以能修改密码，则存在业务回退‘、
+这一步的时候，将填写密码的 url 复制到其它浏览器中，如果还是可以能修改密码，则存在业务回退‘、
 ```
 
 ###### **业务查询**
@@ -346,7 +346,7 @@ js 验证
     > ```plain
     > 比如，先购买黄金会员，在购买铂金会员，查看是否是两个月的铂金会员
     > 不认识的参数，逐个去翻译，去了解，根据经验看这个点
-    > 一分钱不花东西拿走：实现方式：数量改成0、金额修改、支付类型修改
+    > 一分钱不花东西拿走：实现方式：数量改成 0、金额修改、支付类型修改
     > ```
     
 -   **付费简历**
@@ -388,7 +388,7 @@ path=/etc/passwd
 越权删除
 
 ```plain
-如果在请求包中删除的是id，如果单个id不能删除的话，可以进行尝试#{454,568}
+如果在请求包中删除的是 id，如果单个 id 不能删除的话，可以进行尝试#{454,568}
 ```
 
 #### url 跳转
@@ -400,7 +400,7 @@ path=/etc/passwd
 > url=http://example.com/evil.com
 > ```
 
-从参数入手:
+从参数入手：
 
 > ```plain
 > radirect
@@ -481,14 +481,14 @@ TRACE
 #### 绕过 403 和 401
 
 1.  ```plain
-    1. 通过添加请求头：X-Originating-IP，X-Remote-IP，X-client-IP，X-Forwarded等。
-         有些公司会为那些能够访问敏感数据的人将IP列入白名单。这些报头将IP地址作为一个值，如果提供的IP与它们的白名单中的IP相匹配，您就可以访问资源。
-    2. 使用unicode字符：尝试插入unicode字符以绕过防御。例如，尝试% = ca、% = sa和许多其他 (检查这里或这里)。因此，如果/cadmin被阻止，请尝试访问%dmin。
-    3. 如果GET /admin返回403 Forbidden，尝试GET /accessible (任何可访问端点)并添加以下任何HTTP头:
+    1. 通过添加请求头：X-Originating-IP，X-Remote-IP，X-client-IP，X-Forwarded 等。
+         有些公司会为那些能够访问敏感数据的人将 IP 列入白名单。这些报头将 IP 地址作为一个值，如果提供的 IP 与它们的白名单中的 IP 相匹配，您就可以访问资源。
+    2. 使用 unicode 字符：尝试插入 unicode 字符以绕过防御。例如，尝试% = ca、% = sa 和许多其他 (检查这里或这里)。因此，如果/cadmin 被阻止，请尝试访问%dmin。
+    3. 如果 GET /admin 返回 403 Forbidden，尝试 GET /accessible (任何可访问端点) 并添加以下任何 HTTP 头：
        X-Original-URL : /admin
        X-override-URL : /admin
        X-Rewrite-URL : /admin
-    4. 尝试不同的有效负载如果GET /admin返回403 Forbidden，尝试访问:
+    4. 尝试不同的有效负载如果 GET /admin 返回 403 Forbidden，尝试访问：
        /accessible/..;/admin
        /.;/admin
        /admin;/
@@ -497,8 +497,8 @@ TRACE
        /admin?param
        /%2e/admin
        /admin#
-    5. 转换请求方法：将方法从GET改为POST，看看是否得到了一些东西。
-    6. 访问真实IP：通过网站的IP访问该网站以获取被禁止的内容。
+    5. 转换请求方法：将方法从 GET 改为 POST，看看是否得到了一些东西。
+    6. 访问真实 IP：通过网站的 IP 访问该网站以获取被禁止的内容。
     7. Fuzzing：通过扫描被禁止内容的下一级目录或文件。
     ```
     
@@ -545,11 +545,11 @@ git diff   5341311234656321.321 #查看配置信息
 #### druid 未授权访问
 
 > ```plain
-> # druid未授权访问
+> # druid 未授权访问
 > ip/druid/index.html ##Druid Index
-> ip/druid/sql.html#Druid sql监控页面
-> ip/druid/weburi.html#Druid Web URI监控页面
-> ip/druid/websession.html#Druid Web Session监控页面
+> ip/druid/sql.html#Druid sql 监控页面
+> ip/druid/weburi.html#Druid Web URI 监控页面
+> ip/druid/websession.html#Druid Web Session 监控页面
 > json:ip/druid/weburi.json ##Druid Web URI json
 > ip/druid/websession.json ##Druid Web Session json
 > Druid登录接口：ipl/druid/login..html#Druid登录认证页面Druid:未授权访问路径
@@ -564,7 +564,7 @@ git diff   5341311234656321.321 #查看配置信息
 通过弹窗，注册 app 首次运行
 
 ```plain
-隐私政策中点不进去或者点进去404
+隐私政策中点不进去或者点进去 404
 注册同意默认就勾了
 隐私政策点进去是乱码
 ```
@@ -572,7 +572,7 @@ git diff   5341311234656321.321 #查看配置信息
 报告
 
 ```plain
-标题：xxapp1.1.1版本存在隐私合规用户自动同意隐私政策漏洞
+标题：xxapp1.1.1 版本存在隐私合规用户自动同意隐私政策漏洞
 内容
 修复建议：
 ```
@@ -588,22 +588,22 @@ git diff   5341311234656321.321 #查看配置信息
 #### 地图 key
 
 ```plain
-高德webapi：
+高德 webapi：
  https://restapi.amap.com/v3/direction/walking?origin=116.434307,39.90909&destination=116.434446,39.90816&key=这里写key
 
- 高德jsapi：
+ 高德 jsapi：
  https://restapi.amap.com/v3/geocode/regeo?key=这里写key&s=rsv3&location=116.434446,39.90816&callback=jsonp_258885_&platform=JS
 
  高德小程序定位：
  https://restapi.amap.com/v3/geocode/regeo?key=这里写key&location=117.19674%2C39.14784&extensions=all&s=rsx&platform=WXJS&appname=c589cf63f592ac13bcab35f8cd18f495&sdkversion=1.2.0&logversion=2.0
 
-　百度webapi：
+ 百度 webapi：
  https://api.map.baidu.com/place/v2/search?query=ATM机&tag=银行&region=北京&output=json&ak=这里写key
 
- 百度webapiIOS版：
+ 百度 webapiIOS 版：
  https://api.map.baidu.com/place/v2/search?query=ATM机&tag=银行&region=北京&output=json&ak=这里写key=iPhone7%2C2&mcode=com.didapinche.taxi&os=12.5.6
 
- 腾讯webapi：
+ 腾讯 webapi：
  https://apis.map.qq.com/ws/place/v1/search?keyword=酒店&boundary=nearby(39.908491,116.374328,1000)&key=这里写key
 ```
 
@@ -616,7 +616,7 @@ jsfind
 将跑出来的东西放到 burp 里面跑，尝试访问一下，看是否存在未授权访问
 
 ```plain
-在burp中添加以下字段
+在 burp 中添加以下字段
 ？pageNum=1&pageSize=10
 ```
 
@@ -624,11 +624,11 @@ jsfind
 
 ##### 资源生成大小可控
 
-此类场景存在：图片验证码、二维码 、找回密码
+此类场景存在：图片验证码、二维码、找回密码
 
 ```plain
 关注一下接口地址：https://attack/validcode?w=130&h=53
-参数值：w=130&h=53，我们可以理解为生成的验证码大小长为130，宽为53
+参数值：w=130&h=53，我们可以理解为生成的验证码大小长为 130，宽为 53
 #可以根据修改参数的大小来判断服务器返回的时间 
 height=1111
 h=1111
@@ -655,9 +655,9 @@ margin=1111
 如果检测了 referer 头，可以尝试一下方案
 
 ```plain
-删除refere头
-将http请求头的目录名字设置为网站检测的fefere头
-配合存储xss绕过严谨
+删除 refere 头
+将 http 请求头的目录名字设置为网站检测的 fefere 头
+配合存储 xss 绕过严谨
 ```
 
 ## XSS
@@ -667,16 +667,16 @@ margin=1111
 函数：alert (),confirm (),prompt ()
 
 ```plain
-可以在url后面：?url=javascript:alert'1' 
+可以在 url 后面：?url=javascript:alert'1' 
 <script>alert('X');</script>
 //<img src="image.jpg" alt="Description of the image">
-//<img src="valid-image.jpg" onerror="alert('Image failed to load')">(使用onfocus属性)
+//<img src="valid-image.jpg" onerror="alert('Image failed to load')">(使用 onfocus 属性)
 <img src="javascript:alert('XSS Attack');" />
 <img src="invalid-image" onerror="alert('XSS Attack');" />
 <img src="valid-image.jpg" onerror="alert('XSS Attack')" />
-<img src="javascript:eval('alert(\'XSS Attack\')')" /> 使用eval函数执行代码
+<img src="javascript:eval('alert(\'XSS Attack\')')" /> 使用 eval 函数执行代码
 //<a href="https://www.example.com">Visit Example Website</a>
-//<a onmouseover="console.log('Mouse over the link')">Hover me</a>(使用onmouseover属性)
+//<a onmouseover="console.log('Mouse over the link')">Hover me</a>(使用 onmouseover 属性)
 <a href="javascript:alert('XSS Attack');">Click me </a>
 <a style="color:red;" onmouseover="alert('XSS Attack')">Hover me</a>
 //<iframe src="https://www.example.com" width="600" height="400"></iframe>
@@ -703,18 +703,18 @@ margin=1111
 
 ```plain
 #搜索框
-用户在搜索框中输入的关键词，如果没有正确过滤和转义用户输入，可能导致反射性xss
-#url参数
-如果应用没有对这些参数进行适当的处理，可能导致反射性xss
+用户在搜索框中输入的关键词，如果没有正确过滤和转义用户输入，可能导致反射性 xss
+#url 参数
+如果应用没有对这些参数进行适当的处理，可能导致反射性 xss
 #表单提交
 #评论和留言板
-评论和留言板更容易导致存储型xss，但是在某些情况下，如果没有对功能点进行过滤和转义，可能导致反射性xss
+评论和留言板更容易导致存储型 xss，但是在某些情况下，如果没有对功能点进行过滤和转义，可能导致反射性 xss
 #分页和排序
-web应用可能使用rul参数进行分页和排序，如果没有对这些参数进行适当的过滤和转义，可能导致反射性xss
+web 应用可能使用 rul 参数进行分页和排序，如果没有对这些参数进行适当的过滤和转义，可能导致反射性 xss
 #数据可视化和报表
-web应用可能使用用户输入的参数进行适当的过滤和转义，可能导致反射性xss
+web 应用可能使用用户输入的参数进行适当的过滤和转义，可能导致反射性 xss
 #路径导航
-web应用可能在路径导航中包含用户输入的内容，如果没有正确处理这些输入，可能导致反射性xss
+web 应用可能在路径导航中包含用户输入的内容，如果没有正确处理这些输入，可能导致反射性 xss
 ```
 
 ##### url 参数
@@ -781,7 +781,7 @@ file://从文件系统中获取文件内容，如，file://etc/passwd
 dict://字典服务器协议，访问字典资源，如，dict:///ip:6739/info:
 sftp://SSH文件传输协议或安全文件传输协议
 ldap://轻量级目录访问协议
-t计tp://简单文件传输协议
+t 计 tp://简单文件传输协议
 gopher://分布式文档传递服务，可使用gopherus生成payload
 ```
 
@@ -806,15 +806,15 @@ url 解析与重定向、图片上传与处理、文件上传与处理、webhook
 #### 容易参生 ssrf 的参数
 
 ```plain
-url：表示外部资源的url
-redirect:用于重定向到外部资源的url
-callback：表示回调uro
-images：表示外部图片资源的url
-source：表示外部资源的来源url
+url：表示外部资源的 url
+redirect:用于重定向到外部资源的 url
+callback：表示回调 uro
+images：表示外部图片资源的 url
+source：表示外部资源的来源 url
 domain:表示要解析或访问的域名
-link：表示外部资源的链接url
-data：表示外部数据资源的url
-webhook:表示用于第三方通知的第三方服务的url
+link：表示外部资源的链接 url
+data：表示外部数据资源的 url
+webhook:表示用于第三方通知的第三方服务的 url
 ```
 
 #### 绕过的方法
@@ -834,29 +834,29 @@ webhook:表示用于第三方通知的第三方服务的url
 5.  利于用 http 重定向：利用 http 重定向（如 301,302 跳转）将请求从外部资源访问到内部资源
     
     > ```plain
-    > 攻击者在自己控制的服务器上设置一个HTTP302重定向。例如，当访问http://evi1.com/redirect'时，
-    > 服务器将返回一个HTTP302响应，告知客户端重定向到目标内部资源，
+    > 攻击者在自己控制的服务器上设置一个 HTTP302 重定向。例如，当访问 http://evi1.com/redirect'时，
+    > 服务器将返回一个 HTTP302 响应，告知客户端重定向到目标内部资源，
     > 如'http://target-internal-service.local`。
     > ```
     
 
 #### gppher 协议
 
-Gopher 协议是 HTTP 协议出现之前，在 Internet 上常⻅且常⽤的⼀个协议。当然现在 Gopher 协议已经慢慢淡出 历史。 Gopher 协议可以做很多事情，特别是在 SSRF 中可以发挥很多重要的作⽤。利⽤此协议可以攻击内⽹的 FTP、 Telnet、Redis、Memcache，也可以进⾏ GET、POST 请求。这⽆疑极⼤拓宽了 SSRF 的攻击⾯
+Gopher 协议是 HTTP 协议出现之前，在 Internet 上常⻅且常⽤的⼀个协议。当然现在 Gopher 协议已经慢慢淡出 历史。Gopher 协议可以做很多事情，特别是在 SSRF 中可以发挥很多重要的作⽤。利⽤此协议可以攻击内⽹的 FTP、Telnet、Redis、Memcache，也可以进⾏ GET、POST 请求。这⽆疑极⼤拓宽了 SSRF 的攻击⾯
 
 **协议格式**
 
 ```plain
 gopher url 格式为：
 gopher://<host>:<port>/<gopher-path>
-<port> 默认为70。
+<port> 默认为 70。
 <gopher-path> 其中格式可以是如下其中的⼀种
 <gophertype><selector>
 <gophertype><selector>%09<search> 
 <gophertype><selector>%09<search>%09<gopher+_string>
 ```
 
-整个 部分可以省略，这时候 \\ 也可以省略 为默认的 1。 是⼀个单字符⽤来表示 url 资源的类型，在常⽤的安全测试中发现不管这个字符是什么都不影响，只要有 就⾏了。
+整个 部分可以省略，这时候 \\ 也可以省略 为默认的 1。是⼀个单字符⽤来表示 url 资源的类型，在常⽤的安全测试中发现不管这个字符是什么都不影响，只要有 就⾏了。
 
 [![](assets/1711959009-4ff5fa24b0c832fe31414fef93658ddd.png)](https://xzfile.aliyuncs.com/media/upload/picture/20240401142328-5a6c8c72-eff0-1.png)
 
@@ -875,5 +875,5 @@ Origin:www.test.com
 ```plain
 Access-Control-Allow-origin www.test.com
 Access-Control-Allow-Credentials true
-#因此就存在cors
+#因此就存在 cors
 ```

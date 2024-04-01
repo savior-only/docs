@@ -246,7 +246,7 @@ CVE-2016-10134 SQL 注入漏洞已知有两个注入点：
 
 Zabbix Agent 的 10050 端口仅处理来自 Zabbix Server 或 Proxy 的请求，所以后续攻击都是依赖于 Zabbix Server 权限进行扩展，本章节主要讲解基于监控项 item 功能的后利用。
 
-> 在 zabbix 中，我们要监控的某一个指标，被称为 “监控项”，就像我们的磁盘使用率，在 zabbix 中就可以被认为是一个 “监控项”(item)，如果要获取到 “监控项” 的相关信息，我们则要执行一个命令，但是我们不能直接调用命令，而是通过一个 “别名” 去调用命令，这个 “命令别名” 在 zabbix 中被称为 “键”(key)，所以在 zabbix 中，如果我们想要获取到一个 “监控项” 的值，则需要有对应的 “键”，通过 “键” 能够调用相应的命令，获取到对应的监控信息。
+> 在 zabbix 中，我们要监控的某一个指标，被称为“监控项”，就像我们的磁盘使用率，在 zabbix 中就可以被认为是一个“监控项”(item)，如果要获取到“监控项”的相关信息，我们则要执行一个命令，但是我们不能直接调用命令，而是通过一个“别名”去调用命令，这个“命令别名”在 zabbix 中被称为“键”(key)，所以在 zabbix 中，如果我们想要获取到一个“监控项”的值，则需要有对应的“键”，通过“键”能够调用相应的命令，获取到对应的监控信息。
 
 以 Zabbix 4.0 版本为例，按照个人理解 item 监控项可分为**通用监控项、主动检查监控项、Windows 监控项、自定义用户参数 (UserParameter) 监控项**，Agent 监控项较多不一一例举，可参考以下链接：  
 [1\. Zabbix Agent 监控项](https://www.zabbix.com/documentation/4.0/zh/manual/config/items/itemtypes/zabbix_agent)  
@@ -266,14 +266,14 @@ zabbix_get -s 172.21.0.4 -p 10050 -k "system.uname"
 
 Zabbix 最为经典的命令执行利用姿势，许多人以为控制了 Zabbix Server 就肯定能在 Agent 上执行命令，其实不然，Agent 远程执行系统命令需要在 `zabbix_agentd.conf` 配置文件中开启 EnableRemoteCommands 参数。
 
-在 Zabbix Web 上添加脚本，“执行在” 选项可根据需求选择，**“执行在 Zabbix 服务器” 不需要开启 EnableRemoteCommands 参数，所以一般控制 Zabbix Web 后可通过该方式在 Zabbix Server 上执行命令拿到服务器权限。**  
+在 Zabbix Web 上添加脚本，“执行在”选项可根据需求选择，**“执行在 Zabbix 服务器”不需要开启 EnableRemoteCommands 参数，所以一般控制 Zabbix Web 后可通过该方式在 Zabbix Server 上执行命令拿到服务器权限。**  
 ![-w669](assets/1711961932-6a6457f61942b6104d64b187dca2e4c9.jpg)
 
-如果要指定某个主机执行该脚本，可从 Zabbix Web 的 “监测中 -> 最新数据” 功能中根据过滤条件找到想要执行脚本的主机，单击主机名即可在对应 Agent 上执行脚本。
+如果要指定某个主机执行该脚本，可从 Zabbix Web 的“监测中 -> 最新数据”功能中根据过滤条件找到想要执行脚本的主机，单击主机名即可在对应 Agent 上执行脚本。
 
-**这里有个常见误区，如果类型是 “执行在 Zabbix 服务器”，无论选择哪台主机执行脚本，最终都是执行在 Zabbix Server 上。**
+**这里有个常见误区，如果类型是“执行在 Zabbix 服务器”，无论选择哪台主机执行脚本，最终都是执行在 Zabbix Server 上。**
 
-如果类型是 “执行在 Zabbix 客户端”，Agent 配置文件在未开启 EnableRemoteCommands 参数的情况下会返回报错。  
+如果类型是“执行在 Zabbix 客户端”，Agent 配置文件在未开启 EnableRemoteCommands 参数的情况下会返回报错。  
 ![-w1143](assets/1711961932-276af2402f40fe461f2dc521c689e3c3.jpg)
 
 Agent 配置文件在开启 EnableRemoteCommands 参数的情况下可成功下发执行系统命令。  

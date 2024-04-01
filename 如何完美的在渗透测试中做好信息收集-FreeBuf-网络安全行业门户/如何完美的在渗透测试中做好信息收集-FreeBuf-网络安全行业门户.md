@@ -55,17 +55,17 @@ tags:
 常用 DNS 记录
 
 ```plain
-A记录         IP地址记录，记录一个域名对应的ip地址
-NS记录		域名服务器记录，记录该域名由哪台域名服务器解析
-PTR记录		反向记录，从ip地址到域名的一条记录
-MX记录		电子邮件交换记录，记录一个邮件域名对应的ip地址
+A 记录         IP 地址记录，记录一个域名对应的 ip 地址
+NS 记录		域名服务器记录，记录该域名由哪台域名服务器解析
+PTR 记录		反向记录，从 ip 地址到域名的一条记录
+MX 记录		电子邮件交换记录，记录一个邮件域名对应的 ip 地址
 ```
 
 2、域传送：DNS Zone Transfe
 
 DNS 服务器分为：主服务器、备份服务器和缓存服务器。  
 域传送是指后备服务器从主服务器拷贝数据，并用得到的数据更新自身数据库。  
-在主备服务器之间同步数据库，需要使用 “DNS 域传送”。
+在主备服务器之间同步数据库，需要使用“DNS 域传送”。
 
 **探测漏洞方法  
 **
@@ -194,19 +194,19 @@ site:xx.com filetype:asp
 **这里语法以 fofa 为例  
 **
 
-**1、搜索页面标题中含有 “后台管理” 关键词的网站和 IP  
+**1、搜索页面标题中含有“后台管理”关键词的网站和 IP  
 **
 
 title="后台管理"
 
 ![1599649260.png!small](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711964535-cedced23a0e0707966de5c0bd8f96e21.png)
 
-**2、搜索 HTTP 响应头中含有 “flask” 关键词的网站和 IP  
+**2、搜索 HTTP 响应头中含有“flask”关键词的网站和 IP  
 **
 
 ![1599649270.png!small](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711964535-f3bceafd6dfd8f74fffe95acd9c998b4.png)
 
-**3、搜索根域名中带有 “baidu.com” 的网站  
+**3、搜索根域名中带有“baidu.com”的网站  
 **
 
 ![1599649280.png!small](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711964535-71b733e0cf9660ec9ecfb339ab343108.png)
@@ -268,11 +268,11 @@ Linux/Unix64 (广域网中 TTL 为 1-64)
 
 云悉指纹：http://www.yunsee.cn/finger.html
 
-ThreatScan：https://scan.top15.cn/web/
+ThreatScan: https://scan.top15.cn/web/
 
-WhatWeb：https://whatweb.net/
+WhatWeb: https://whatweb.net/
 
-BugScaner：http://whatweb.bugscaner.com/look/![1600173613.png!small](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711964535-96aef4ad994cf21ff30f253ba4111762.png)
+BugScaner: http://whatweb.bugscaner.com/look/![1600173613.png!small](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711964535-96aef4ad994cf21ff30f253ba4111762.png)
 
 ### **三、网站容器、脚本类型**
 

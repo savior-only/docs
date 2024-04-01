@@ -44,7 +44,7 @@ Api 接口接收客户端请求，返回处理结果，可能会涉及到敏感�
    }
 ```
 
-### 1.2 、信息加密
+### 1.2、信息加密
 
 在无法将敏感数据脱敏的场景，需要将敏感信息进行加密，加密手段包括字段级加密、全报文加密及传输通道 SSL 加密等。
 
@@ -66,24 +66,24 @@ Api 接口接收客户端请求，返回处理结果，可能会涉及到敏感�
 
 API 权限问题分为功能级越权和对象级越权，功能级越权是非法访问 API 接口，包括未授权访问和垂直越权；对象级越权即水平越权是有权限访问 API 接口，但是篡改了请求参数访问了其他对象的数据资源。
 
-### 2.1 、防范未授权访问
+### 2.1、防范未授权访问
 
 防范 API 未授权访问需要做好客户端身份认证，身份认证机制包括 AK/SK、Token、Cookie、数字签名等方法，身份认证凭据需要有超时失效机制，一般情况下互联网系统身份认证凭据时间不能超过 15 分钟。服务端不能依据客户端发送的 userid、name、role 等简易身份标识判断用户身份。
 
 服务端可以针对 API 接口创建拦截器，对请求接口进行过滤拦截，对当前用户和当前请求做权限判断。访客用户只能访问不含敏感信息的公开接口，如涉及敏感信息功能接口需要跳转到登录页面。
 
-Spring Security 、Shiro 都可以提供 api 授权的管理功能，以使用范围较广的 Shiro 为例，要防止未授权访问需要用到 Shiro 的认证拦截器：anon、authcBasic、auchc、user、logout
+Spring Security、Shiro 都可以提供 api 授权的管理功能，以使用范围较广的 Shiro 为例，要防止未授权访问需要用到 Shiro 的认证拦截器：anon、authcBasic、auchc、user、logout
 
 示例如下：
 
 ```plain
-//拦截器.
+//拦截器。
          Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
          // 允许匿名访问静态资源
          filterChainDefinitionMap.put("/static/**", "anon");
          //配置退出 过滤器
          filterChainDefinitionMap.put("/logout", "logout");
-         //authc:所有url都必须认证通过才可以访问;
+         //authc:所有 url 都必须认证通过才可以访问;
          filterChainDefinitionMap.put("/**", "authc");
 
          //访问未授权界面跳转到统一的错误页面
@@ -91,7 +91,7 @@ Spring Security 、Shiro 都可以提供 api 授权的管理功能，以使用�
          shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 ```
 
-### 2.2 、防范垂直越权
+### 2.2、防范垂直越权
 
 防范垂直越权同样可以针对 API 接口创建拦截器，对请求接口进行过滤拦截，对当前用户和当前请求做权限判断。低权限用户不能访问高权限用户的功能接口，需要切换登录用户为高权限角色。
 
@@ -104,13 +104,13 @@ Spring Security 、Shiro 都可以提供 api 授权的管理功能，以使用�
 filterChainDefinitionMap.put(“/admin/**”, “roles[100001]”);
 ```
 
-### 2.3 、防范水平越权
+### 2.3、防范水平越权
 
 对于水平越权问题本质上还是要对访问数据做权限控制或者对访问资源做用户隔离（sql 语句带上 userId 进行操作），这样就可以保证操作不到其他人的数据了。
 
 缓解措施包括对请求参数使用随机且不可预测的值作为请求参数，可以阻止攻击者遍历请求参数，批量操作其他用户敏感数据。
 
-sql 操作示例如下:
+sql 操作示例如下：
 
 ```plain
 select * from orders where order_id = #{orderId} and user_id = #{userId}
@@ -133,7 +133,7 @@ for i in range(10000):
     requests.post(url=base_url+"/sendsms",data=post_data)
 ```
 
-### 3.2 、防范拒绝服务
+### 3.2、防范拒绝服务
 
 应用系统稳定运行依赖 CPU、内存、磁盘、JVM Buffer 等基础资源，涉及到消耗 CPU 性能的运算接口，占用内存、磁盘和 JVM Buffer 的文件上传接口，对于消耗 CPU 资源的接口需要限制请求频率，超过一定次数需要进行人机交互验证 (图形验证码等)。对于消耗内存、磁盘和 JVM Buffer 的接口，需要限制请求数据包大小和请求频率。
 
@@ -162,7 +162,7 @@ for i in range(10000):
 
 ### 5.1 增加时间戳校验
 
-一次正常的 http 请求， 响应时间般在 1s 内完成， 基本上不会超过 10s, 服务端根据 API 接口的响应时间设置阀值，拒绝超过设个时间阈值的客户端请求。
+一次正常的 http 请求，响应时间般在 1s 内完成，基本上不会超过 10s, 服务端根据 API 接口的响应时间设置阀值，拒绝超过设个时间阈值的客户端请求。
 
 ### 5.2 增加随机因子或交易流水号校验
 

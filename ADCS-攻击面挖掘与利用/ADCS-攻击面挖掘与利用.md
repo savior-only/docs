@@ -81,7 +81,7 @@ ADCS 的大部分利用面集中在证书模板中，存储为 `CN=Certificate T
 -   加密：要使用的加密服务提供程序 (CSP) 和最小密钥大小
 -   Extensions：要包含在证书中的 X509v3 扩展列表
 -   主题名称：来自请求中用户提供的值，或来自请求证书的域主体身份
--   发布要求：是否需要 “CA 证书管理员” 批准才能通过证书申请
+-   发布要求：是否需要“CA 证书管理员”批准才能通过证书申请
 -   安全描述符：证书模板的 ACL，包括拥有注册模板所需的扩展权限
 
 证书模板颁发首先需要在 CA 的 `certtmpl.msc` 进行模板配置，随后在 `certsrv.msc` 进行证书模板的发布。在 Extensions 中证书模板对象的 EKU (pKIExtendedKeyUsage) 属性包含一个数组，其内容为模板中已启用的 OID (Object Identifiers)
@@ -119,7 +119,7 @@ certutil –viewdelstore –enterprise NTAuth
 
 `HKLM\SOFTWARE\Microsoft\EnterpriseCertificates\NTAuth\Certificates`
 
-当组策略开启 “自动注册证书”，等组策略更新时才会更新本地缓存。
+当组策略开启“自动注册证书”，等组策略更新时才会更新本地缓存。
 
 **Certification Authorities & AIA**
 
@@ -204,10 +204,10 @@ Kerberos 是域环境中主要的认证协议，其认证流程大致如下：
 
 ![](assets/1711960542-0dc546cc13a3d35803704cc40d9f7eac.png)
 
-1.  AS\_REQ：client 用 client\_hash 、时间戳向 KDC 进行身份验证；
+1.  AS\_REQ：client 用 client\_hash、时间戳向 KDC 进行身份验证；
 2.  AS\_REP：KDC 检查 client\_hash 与时间戳，如果正确则返回 client 由 krbtgt 哈希加密的 TGT 票据和 PAC 等相关信息；
 3.  TGS\_REQ：client 向 KDC 请求 TGS 票据，出示其 TGT 票据和请求的 SPN；
-4.  TGS\_REP：KDC 如果识别出 SPN ，则将该服务账户的 NTLM 哈希加密生成的 ST 票据返回给 client；
+4.  TGS\_REP：KDC 如果识别出 SPN，则将该服务账户的 NTLM 哈希加密生成的 ST 票据返回给 client；
 5.  AP\_REQ：client 使用 ST 请求对应服务，将 PAC 传递给服务进行检查。服务通过 PAC 查看用户的 SID 和用户组等并与自身的 ACL 进行对比，如果不满足则作为适当的 RPC 状态代码返回；
 6.  AP\_REP：服务器验证 AP-REQ，如果验证成功则发送 AP-REP，客户端和服务端通过中途生成的 Session key 等信息通过加解密转换验证对方身份。
 
@@ -249,7 +249,7 @@ PKINIT 与 Kerberos 差别主要在 AS 阶段：
 
 ![](assets/1711960542-7cbd95189a714c0541965269869af971.png)
 
-当私钥设置为不允许导出的时候，利用 Mimikatz 的 `crypto::capi` 命令可以 patch 当前进程中的 capi ，从而利用 Crypto APIs 导出含有私钥的证书。
+当私钥设置为不允许导出的时候，利用 Mimikatz 的 `crypto::capi` 命令可以 patch 当前进程中的 capi，从而利用 Crypto APIs 导出含有私钥的证书。
 
 ![](assets/1711960542-276cb887e872fcfd8f43c811df3dea83.png)
 
@@ -361,7 +361,7 @@ certutil -v -dstemplate
 
 该利用方式并不是能直接通过 Kerberos 认证来伪造用户。Any Purpose (OID 2.5.29.37.0) 可以用于任何目的，包括客户端身份验证，如果没有指定 eku，即 **pkiextendedkeyusag** 为空那么该证书就相当于从属 CA 的证书，可以用于任何情况给其他用户来颁发证书。
 
-前面说过 CA 证书不在 **NtAuthCertificates** 内的话，是无法为身份认证作用来颁发证书的，所以该利用手段无法直接伪造用户，但可以用来签发用于其他应用，例如 ADFS ，它是 Microsoft 作为 Windows Server 的标准角色提供的一项服务，它使用现有的 Active Directory 凭据提供 Web 登录，感兴趣的可以自己搭环境试一试。
+前面说过 CA 证书不在 **NtAuthCertificates** 内的话，是无法为身份认证作用来颁发证书的，所以该利用手段无法直接伪造用户，但可以用来签发用于其他应用，例如 ADFS，它是 Microsoft 作为 Windows Server 的标准角色提供的一项服务，它使用现有的 Active Directory 凭据提供 Web 登录，感兴趣的可以自己搭环境试一试。
 
 #### *注册代理证书滥用*
 
@@ -371,10 +371,10 @@ CA 提供一些基本的证书模板，但是标准的 CA 模板不能直接使�
 
 实现该功能需要两个配置模板：
 
-1.  颁发 “注册代理” 的证书模板
+1.  颁发“注册代理”的证书模板
 2.  满足代表其他用户进行注册的证书模板
 
-**模板一为颁发 “注册代理” 证书**
+**模板一为颁发“注册代理”证书**
 
 -   颁发 CA 授予低权限用户请求权限 (默认)
 -   模板中 CA 管理员审批未启用 (默认)
@@ -384,7 +384,7 @@ CA 提供一些基本的证书模板，但是标准的 CA 模板不能直接使�
 
 ![](assets/1711960542-89caf73655c757c4c2e1f8fe0f866618.png)
 
-**模板二为允许使用 “注册代理” 证书去代表其他用户申请身份认证证书**
+**模板二为允许使用“注册代理”证书去代表其他用户申请身份认证证书**
 
 -   颁发 CA 授予低权限用户请求权限 (默认)
 -   模板中 CA 管理员审批未启用 (默认)
@@ -459,7 +459,7 @@ certreq -submit -config "CA01.corp.qihoo.cn\corp-CA01-CA" -attrib "SAN:upn=admin
 
 ![](assets/1711960542-037f1713b4d32c21e4d4c61d4e0841db.png)
 
-将 .cer 导入机器后连同私钥导出为 .pfx ，同样顺利通过 ptt 认证。
+将 .cer 导入机器后连同私钥导出为 .pfx，同样顺利通过 ptt 认证。
 
 ![](assets/1711960542-5f17b75738fa7fd79138103eba59206e.png)
 
@@ -495,7 +495,7 @@ certreq -submit -config "CA01.corp.qihoo.cn\corp-CA01-CA" -attrib "SAN:upn=admin
 
 ![](assets/1711960542-01270b0cd54c14b9f0cb0a70afd591f5.png)
 
-随后利用恶意模板进行 **CT\_FLAG\_ENROLLEE\_SUPPLIES\_SUBJECT** 提权利用，可拿到 administrator 的证书凭据即可 ptt ，相比 Certify ，certi 是可以在域外使用的。
+随后利用恶意模板进行 **CT\_FLAG\_ENROLLEE\_SUPPLIES\_SUBJECT** 提权利用，可拿到 administrator 的证书凭据即可 ptt，相比 Certify，certi 是可以在域外使用的。
 
 ![](assets/1711960542-4180412da79c65b66b40386f6cafb1ad.png)
 
@@ -576,7 +576,7 @@ CA 本身具有一组安全权限用于权限管理
 SharpDPAPI4.exe certificates /machine 
 ```
 
-使用 openssl 转化格式后，利用 [ForgeCert](https://github.com/GhostPack/ForgeCert) 或 [pyForgeCert](https://github.com/Ridter/pyForgeCert) 进行证书构造，故含私钥的 CA 为 “黄金证书”。
+使用 openssl 转化格式后，利用 [ForgeCert](https://github.com/GhostPack/ForgeCert) 或 [pyForgeCert](https://github.com/Ridter/pyForgeCert) 进行证书构造，故含私钥的 CA 为“黄金证书”。
 
 ![](assets/1711960542-d9b93388ebd51be12361fb711d13a986.png)
 
@@ -610,7 +610,7 @@ ADCS 相关利用手段在实战场景中权限提升，权限维持非常便捷
 
 ![](assets/1711960542-fa326fb1e23602d497a9a9e1e3d607dc.png)
 
-核心思想就是你是什么用户就访问怎样的资产，无法向下级访问且向上访问会告警。那么 CA 、ADCS 服务器的本地管理员组、PKI 和证书模板所拥有者都应该处于 0 层。
+核心思想就是你是什么用户就访问怎样的资产，无法向下级访问且向上访问会告警。那么 CA、ADCS 服务器的本地管理员组、PKI 和证书模板所拥有者都应该处于 0 层。
 
 最后灵腾实验室长期招聘高级攻防专家，高级安全研究员，感兴趣可发送简历至 g-linton-lab \[AT\] 360.cn
 

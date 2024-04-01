@@ -45,14 +45,14 @@ telnet smtp.qq.com 25
 3\. 配置建议：
 
 ```text
-centos7/8系统 64位，服务器需要干净环境，要求全新干净系统，不能安装在已有的nginx,mysql的环境中。
+centos7/8系统 64 位，服务器需要干净环境，要求全新干净系统，不能安装在已有的 nginx,mysql 的环境中。
 
 如需在已有配置数据环境安装，请自行参考安装代码修改和维护。
 
-安装前请仔细看文档，建议使用centos7安装
+安装前请仔细看文档，建议使用 centos7 安装
 
 最低配置要求（云服务器的最低建议配置）
-CPU：1核
+CPU：1 核
 内存：2G
 硬盘：40G
 带宽：1-3M
@@ -94,11 +94,11 @@ cat /ewomail/config.ini
 9\. 访问地址（将 `IP` 更换成你服务器 `IP` 即可）：
 
 ```text
-邮箱管理后台：http://IP:8010 （默认账号admin，密码ewomail123）
-ssl端口 https://IP:7010
+邮箱管理后台：http://IP:8010（默认账号 admin，密码 ewomail123）
+ssl 端口 https://IP:7010
 
-web邮件系统：http://IP:8000
-ssl端口 https://IP:7000
+web 邮件系统：http://IP:8000
+ssl 端口 https://IP:7000
 
 域名解析完成后，可以用子域名访问，例如下面
 http://mail.xxx.com:8000 (http)
@@ -155,7 +155,7 @@ docker logs gophish
 
 ![](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711963440-fda6a9450ba00ba6e31e7331ffde2e63.jpg)
 
-1\. 设置 `smtp` 等配置（`hr@abcd.com` 已经提前在 `EwoMail` 中添加域名并创建邮箱账户、`abcd.com` 创建对应 `hosts` 解析，需要确保你添加的域名未设置 `SPF`，否则会不可用，可用 “`nslookup -type=txt` 域名” 来检测）:  
+1\. 设置 `smtp` 等配置（`hr@abcd.com` 已经提前在 `EwoMail` 中添加域名并创建邮箱账户、`abcd.com` 创建对应 `hosts` 解析，需要确保你添加的域名未设置 `SPF`，否则会不可用，可用“`nslookup -type=txt` 域名”来检测）:  
 
 ![](https://kenyons.oss-cn-shenzhen.aliyuncs.com/img/1711963440-488b1eb37049280878102008b557bcb0.jpg)
 
